@@ -17,6 +17,9 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+// Cloudflare Web Analytics — token이 환경변수로 주입되면 prod에서 beacon 자동 로드
+const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
 ---
 
 <!doctype html>
@@ -60,5 +63,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
     </main>
 
     <Footer />
+
+    {
+      cfAnalyticsToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${cfAnalyticsToken}"}`}
+        />
+      )
+    }
   </body>
 </html>
