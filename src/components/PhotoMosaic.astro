@@ -1,0 +1,188 @@
+---
+// 1-6장 사진을 aspect-[3/2] 고정 컨테이너 안에 자동 모자이크 배치
+// 각 사진 클릭 시 native <dialog> 라이트박스로 확대 (ESC, X 버튼, 외부 영역 클릭으로 닫기)
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  slug: string;
+  count: number;        // 1~6 (그 이상이면 6으로 cap)
+  alt: string;          // 기본 alt — 인덱스 자동 추가
+  class?: string;
+}
+
+const { slug, count, alt, class: className } = Astro.props;
+
+const galleryImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/gallery/*.{jpg,jpeg,png,webp}',
+  { eager: true }
+);
+
+const findImage = (idx: number): ImageMetadata | null => {
+  for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
+    const mod = galleryImages[`/src/assets/gallery/${slug}-${idx}.${ext}`];
+    if (mod) return mod.default;
+  }
+  return null;
+};
+
+const safeCount = Math.max(1, Math.min(count, 6));
+
+const photos = Array.from({ length: safeCount }, (_, i) => {
+  const idx = i + 1;
+  return {
+    idx,
+    image: findImage(idx),
+    alt: `${alt} — photo ${idx}`,
+    dialogId: `lb-${slug}-${idx}`,
+  };
+});
+
+// container grid 분할 — Tailwind 컴파일러가 인식하도록 리터럴 문자열 사용
+const containerClass = (c: number): string => {
+  switch (c) {
+    case 1:
+      return 'grid-cols-1 grid-rows-1';
+    case 2:
+      return 'grid-cols-2 grid-rows-1';
+    case 3:
+      return 'grid-cols-3 grid-rows-2';
+    case 4:
+      return 'grid-cols-2 grid-rows-2';
+    case 5:
+      return 'grid-cols-4 grid-rows-2';
+    case 6:
+      return 'grid-cols-3 grid-rows-2';
+    default:
+      return 'grid-cols-3 grid-rows-2';
+  }
+};
+
+// p1 spans 2x2 in 3-photo (3-col) and 5-photo (4-col) layouts
+const itemClass = (c: number, idx: number): string => {
+  if ((c === 3 || c === 5) && idx === 1) {
+    return 'col-span-2 row-span-2';
+  }
+  return '';
+};
+---
+
+<div
+  class:list={[
+    'aspect-[3/2] grid gap-1.5 overflow-hidden',
+    containerClass(safeCount),
+    className,
+  ]}
+>
+  {
+    photos.map((p) =>
+      p.image ? (
+        <button
+          type="button"
+          data-lightbox-open={p.dialogId}
+          class:list={[
+            'relative overflow-hidden cursor-pointer group bg-cream-200',
+            itemClass(safeCount, p.idx),
+          ]}
+          aria-label={`Open photo: ${p.alt}`}
+        >
+          <Image
+            src={p.image}
+            alt={p.alt}
+            loading="lazy"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </button>
+      ) : (
+        <div
+          class:list={[
+            'bg-cream-200/60 border border-dashed border-ink/15 flex items-center justify-center',
+            itemClass(safeCount, p.idx),
+          ]}
+          role="img"
+          aria-label={`${p.alt} placeholder`}
+        >
+          <span class="font-mono text-[9px] uppercase tracking-[0.18em] text-ink/40 select-none">
+            {slug}-{p.idx}
+          </span>
+        </div>
+      )
+    )
+  }
+</div>
+
+{/* Lightbox dialogs — 사진이 실제 업로드된 경우에만 */}
+{
+  photos.filter((p) => p.image).map((p) => (
+    <dialog
+      id={p.dialogId}
+      class="bg-transparent backdrop:bg-ink/85 backdrop:backdrop-blur-sm p-0 max-w-none max-h-none m-auto"
+    >
+      <div class="relative">
+        <button
+          type="button"
+          data-lightbox-close
+          class="absolute top-3 right-3 inline-flex items-center justify-center w-10 h-10 bg-ink/80 text-cream rounded-full hover:bg-ink transition-colors"
+          aria-label="Close"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M6 6l12 12M6 18L18 6" />
+          </svg>
+        </button>
+        <Image
+          src={p.image!}
+          alt={p.alt}
+          loading="lazy"
+          widths={[640, 960, 1280, 1920]}
+          sizes="(max-width: 768px) 90vw, 90vw"
+          class="block max-h-[90vh] max-w-[90vw] object-contain"
+        />
+      </div>
+    </dialog>
+  ))
+}
+
+<script>
+  // 라이트박스 open / close 핸들러 — event delegation으로 페이지 단위 1회만 등록
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!(target instanceof Element)) return;
+
+    // 1) 사진 썸네일 클릭 → 해당 dialog 열기
+    const opener = target.closest('[data-lightbox-open]');
+    if (opener) {
+      const id = opener.getAttribute('data-lightbox-open');
+      if (id) {
+        const dialog = document.getElementById(id);
+        if (dialog instanceof HTMLDialogElement) dialog.showModal();
+      }
+      return;
+    }
+
+    // 2) X 버튼 클릭 → dialog 닫기
+    const closer = target.closest('[data-lightbox-close]');
+    if (closer) {
+      const dialog = closer.closest('dialog');
+      if (dialog instanceof HTMLDialogElement) dialog.close();
+      return;
+    }
+
+    // 3) 백드롭 클릭 (dialog 자체는 받았지만 좌표가 dialog 영역 밖) → 닫기
+    if (target instanceof HTMLDialogElement && target.open) {
+      const rect = target.getBoundingClientRect();
+      const inside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+      if (!inside) target.close();
+    }
+  });
+</script>

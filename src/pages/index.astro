@@ -1,0 +1,264 @@
+---
+// Home — split hero + research highlights + recruiting (KO)
+// TODO(content): hero 그룹 사진 placeholder는 진짜 사진 생기면 <Image>로 교체.
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { skkuPublications } from '@/data/publications-skku';
+import { formatChemistry } from '@/utils/chemistry';
+
+// 최근 lead authorship 논문 3건 자동 추출
+// publications-skku.ts가 역연대기 + number desc로 정렬되어 있으므로
+// lead만 필터링한 뒤 앞 3개를 그대로 사용하면 가장 최근 lead 논문이 됨.
+const highlights = skkuPublications
+  .filter((p) => p.lead)
+  .slice(0, 3);
+---
+
+<BaseLayout title="SKKU-STEM Lab">
+  <div class="section-stack pb-24 md:pb-32">
+    {/* ─────────────── Hero ─────────────── */}
+    <section class="container-page pt-12 md:pt-20">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-14 lg:gap-20 items-start">
+        {/* Left: text */}
+        <div>
+          <p
+            class="font-mono text-[11px] md:text-xs uppercase tracking-[0.16em] text-coral leading-loose"
+          >
+            <a
+              href="https://www.skku.edu/skku/index.do"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block origin-left transition-all duration-200 hover:text-coral-700 hover:scale-105"
+            >
+              Sungkyunkwan University
+            </a>
+            <br />
+            <a
+              href="https://does.skku.edu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block origin-left transition-all duration-200 hover:text-coral-700 hover:scale-105"
+            >
+              Department of Energy Science
+            </a>
+          </p>
+
+          <h1
+            class="mt-7 font-display font-normal tracking-tight text-[3.5rem] md:text-6xl lg:text-7xl leading-[1.05] text-balance"
+          >
+            Decoding matter,<br />
+            <em class="italic text-coral">atom by atom</em>
+          </h1>
+
+          <p
+            class="mt-8 max-w-xl text-base md:text-lg text-ink/80 leading-relaxed"
+          >
+            A laboratory at the intersection of scanning transmission electron
+            microscopy, electron spectroscopy, and machine learning &mdash;
+            building the physical bridge between structure, chemistry, and
+            properties of energy materials.
+          </p>
+
+          <div class="mt-10">
+            <a
+              href="/research"
+              class="inline-flex items-center justify-center px-5 py-3 bg-ink text-cream rounded-md text-sm font-medium hover:bg-ink-700 transition-colors animate-breathe"
+            >
+              Explore research
+            </a>
+          </div>
+        </div>
+
+        {/* Right: group photo placeholder */}
+        <figure>
+          <div
+            class="aspect-[4/3] bg-cream-300 flex items-center justify-center"
+            role="img"
+            aria-label="Group photo placeholder"
+          >
+            <span class="font-mono text-sm text-ink/40">Group photo</span>
+          </div>
+          <figcaption class="mt-3 text-xs italic text-ink/60">
+            &mdash; Cherry blossoms &middot; April 2026
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    {/* ─────────────── Latest research highlights ─────────────── */}
+    <section class="container-page">
+      <div class="flex items-baseline justify-between gap-6">
+        <div>
+          <p
+            class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60"
+          >
+            Latest research
+          </p>
+          <h2 class="mt-3 font-display text-3xl md:text-4xl tracking-tight">
+            Recent highlights
+          </h2>
+        </div>
+        <a
+          href="/publications"
+          class="hidden sm:inline-flex items-center gap-1 text-sm text-ink/70 hover:text-coral transition-colors whitespace-nowrap"
+        >
+          All publications <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <ul class="mt-10 grid gap-5 md:grid-cols-3">
+        {
+          highlights.map((paper) => (
+            <li>
+              <a
+                href={paper.doi ?? '#'}
+                target={paper.doi ? '_blank' : undefined}
+                rel={paper.doi ? 'noopener noreferrer' : undefined}
+                class="group block h-full p-6 border border-ink/15 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft"
+              >
+                <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral font-bold">
+                  {paper.journal}
+                  <span class="text-ink/50 normal-case font-normal ml-1.5">
+                    &middot; {paper.year}
+                  </span>
+                </p>
+                <h3
+                  class="mt-3 font-display text-lg md:text-xl leading-snug tracking-tight group-hover:text-coral transition-colors"
+                  set:html={formatChemistry(paper.title)}
+                />
+                <p class="mt-5 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-ink/60 group-hover:text-ink transition-colors">
+                  Read{' '}
+                  <span
+                    aria-hidden="true"
+                    class="transition-transform group-hover:translate-x-0.5"
+                  >
+                    &rarr;
+                  </span>
+                </p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    {/* ─────────────── Recruiting (한글) — 배경 그래픽 + Contact CTA ─────────────── */}
+    <section class="container-page" lang="ko">
+      <div
+        class="relative overflow-hidden bg-cream-300 rounded-lg px-6 sm:px-10 md:px-14 py-14 md:py-20"
+      >
+        {/* 배경 그래픽: 원자 격자 (에너지 소재) + CV 검출 링 + 스캔 라인 (전자현미경 분석 + 컴퓨터비전).
+            radial mask로 가장자리는 fade-out 처리해 텍스트 가독성 확보. */}
+        <div
+          class="absolute inset-0 pointer-events-none text-coral [mask-image:radial-gradient(ellipse_70%_85%_at_center,black_30%,transparent_88%)] [-webkit-mask-image:radial-gradient(ellipse_70%_85%_at_center,black_30%,transparent_88%)]"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 800 500"
+            preserveAspectRatio="xMidYMid slice"
+            class="absolute inset-0 w-full h-full"
+          >
+            <defs>
+              <pattern
+                id="hex-lattice"
+                x="0"
+                y="0"
+                width="48"
+                height="41.57"
+                patternUnits="userSpaceOnUse"
+              >
+                <circle cx="12" cy="13.86" r="1.6" fill="currentColor" />
+                <circle cx="36" cy="13.86" r="1.6" fill="currentColor" />
+                <circle cx="0" cy="27.71" r="1.6" fill="currentColor" />
+                <circle cx="24" cy="27.71" r="1.6" fill="currentColor" />
+                <circle cx="48" cy="27.71" r="1.6" fill="currentColor" />
+              </pattern>
+            </defs>
+
+            {/* 원자 격자 — 에너지 소재의 결정 구조 + STEM의 atomic-resolution 이미지 */}
+            <rect width="100%" height="100%" fill="url(#hex-lattice)" opacity="0.55" />
+
+            {/* CV 검출 링 — 머신러닝이 atomic column을 식별한 마커 */}
+            <g fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.55">
+              <circle cx="180" cy="120" r="22" />
+              <circle cx="180" cy="120" r="13" />
+              <circle cx="560" cy="190" r="18" />
+              <circle cx="560" cy="190" r="10" />
+              <circle cx="370" cy="380" r="20" />
+              <circle cx="370" cy="380" r="12" />
+              <circle cx="680" cy="80" r="16" />
+              <circle cx="120" cy="370" r="17" />
+              <circle cx="120" cy="370" r="9" />
+              <circle cx="700" cy="380" r="14" />
+            </g>
+
+            {/* 스캔 라인 — CV 처리 진행을 암시하는 가로선 */}
+            <g
+              fill="none"
+              stroke="currentColor"
+              stroke-width="0.6"
+              opacity="0.25"
+              stroke-dasharray="2 6"
+            >
+              <line x1="0" y1="125" x2="800" y2="125" />
+              <line x1="0" y1="375" x2="800" y2="375" />
+            </g>
+          </svg>
+        </div>
+
+        {/* Content */}
+        <div class="relative container-prose">
+          <p class="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.16em] text-ink">
+            <span class="relative inline-flex h-2 w-2">
+              <span
+                class="absolute inline-flex h-full w-full rounded-full bg-coral opacity-60 animate-ping"
+              ></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-coral"></span>
+            </span>
+            Now recruiting
+          </p>
+
+          <h2
+            class="mt-5 font-display font-normal text-3xl md:text-4xl tracking-tight leading-snug"
+          >
+            석박통합과정 및 학부연구생을 모집합니다
+          </h2>
+
+          <p class="mt-6 text-base md:text-lg text-ink/85 leading-relaxed">
+            주사투과전자현미경과 머신러닝 기술을 바탕으로, 차세대 에너지 소재의
+            원자 단위 구조와 작동 메커니즘을 함께 탐구할 동료를 찾고 있습니다.
+            물리·화학·재료·전산 어느 배경에서 오시든, 현미경과 데이터 사이의
+            새로운 길을 함께 만들어 갑시다.
+          </p>
+
+          <div class="mt-9">
+            <a
+              href="mailto:youngmk@skku.edu"
+              class="group inline-flex items-center gap-3 px-7 py-4 bg-ink text-cream font-medium rounded-md hover:bg-ink-700 transition-colors animate-breathe"
+            >
+              <svg
+                class="w-5 h-5 shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4 6h16c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2z" />
+                <path d="M22 8l-10 7L2 8" />
+              </svg>
+              <span>Contact</span>
+              <span
+                aria-hidden="true"
+                class="text-cream/60 group-hover:text-cream group-hover:translate-x-0.5 transition-all"
+              >
+                &rarr;
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

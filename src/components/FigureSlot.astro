@@ -1,0 +1,47 @@
+---
+// 가변 비율 figure 슬롯 — 이미지가 있으면 Astro <Image>, 없으면 점선 placeholder
+// 사용처: /research highlight, /publications, 기타 figure가 들어가는 카드
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  image?: ImageMetadata | null;
+  alt: string;
+  class?: string;
+  aspectClass?: string;   // 기본 aspect-[4/3]. caller가 aspect-video, aspect-square 등 자유 지정
+  label?: string;         // placeholder 안의 텍스트. 기본 'Figure'
+}
+
+const {
+  image,
+  alt,
+  class: className,
+  aspectClass = 'aspect-[4/3]',
+  label = 'Figure',
+} = Astro.props;
+---
+
+{
+  image ? (
+    <Image
+      src={image}
+      alt={alt}
+      loading="lazy"
+      class:list={[aspectClass, 'object-cover', className]}
+    />
+  ) : (
+    <div
+      class:list={[
+        aspectClass,
+        'bg-cream-200/60 border border-dashed border-ink/15 flex items-center justify-center',
+        className,
+      ]}
+      role="img"
+      aria-label={`${alt} placeholder`}
+    >
+      <span class="font-mono text-[9px] uppercase tracking-[0.18em] text-ink/40 select-none">
+        {label}
+      </span>
+    </div>
+  )
+}

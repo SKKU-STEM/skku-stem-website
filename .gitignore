@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# pagefind index 산출물 (build 단계에서 dist/pagefind 안에 생성)
+public/pagefind/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment / secrets
+.env
+.env.production
+.env.local
+.env.*.local
+
+# editor / tooling local state
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.claude/
+.DS_Store
+Thumbs.db
+
+# OS
+*.swp

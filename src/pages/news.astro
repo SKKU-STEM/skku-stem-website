@@ -1,0 +1,201 @@
+---
+// News — 연구실 게시판 (논문/수상/이벤트/멤버 소식 등)
+// 데이터: src/data/news.ts
+// 사진 업로드: src/assets/news/README.md 참고
+import BaseLayout from '@layouts/BaseLayout.astro';
+import NewsPhoto from '@components/NewsPhoto.astro';
+import { newsEntries } from '@/data/news';
+import type { NewsEntry, NewsCategory } from '@/data/news';
+
+const CATEGORY_LABELS: Record<NewsCategory, string> = {
+  paper: 'Paper',
+  award: 'Award',
+  media: 'Media',
+  member: 'Member',
+  event: 'Event',
+  grant: 'Grant',
+  lab: 'Lab',
+};
+
+const byYear = newsEntries.reduce<Record<number, NewsEntry[]>>((acc, e) => {
+  (acc[e.year] ??= []).push(e);
+  return acc;
+}, {});
+
+const years = Object.keys(byYear)
+  .map(Number)
+  .sort((a, b) => b - a);
+
+const totalEntries = newsEntries.length;
+---
+
+<BaseLayout
+  title="News · SKKU-STEM Lab"
+  description="Recent papers, awards, talks, member milestones, and lab events from the SKKU-STEM Laboratory."
+>
+  <div class="section-stack pb-24 md:pb-32">
+    {/* ─────────────── Page header ─────────────── */}
+    <section class="container-page pt-12 md:pt-20">
+      <div class="max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
+          News
+        </p>
+        <h1
+          class="mt-6 font-display font-normal tracking-tight text-5xl md:text-6xl leading-[1.05]"
+        >
+          Lab notes
+        </h1>
+        <p class="mt-7 text-base md:text-lg text-ink/75 leading-relaxed">
+          Recent papers, awards, talks, member milestones, and lab events.
+          <span class="font-mono tabular-nums text-ink/55">
+            {totalEntries}
+          </span>{' '}
+          posts &mdash; reverse chronological.
+        </p>
+      </div>
+    </section>
+
+    {/* ─────────────── Year jump nav ─────────────── */}
+    <section class="container-page">
+      <nav
+        aria-label="Jump to year"
+        class="flex flex-wrap items-baseline gap-x-3 gap-y-2 pb-6 border-b border-ink/15"
+      >
+        <span
+          class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/55 mr-2"
+        >
+          Jump
+        </span>
+        {
+          years.map((year) => (
+            <a
+              href={`#year-${year}`}
+              class="font-mono text-sm tabular-nums text-ink/70 hover:text-coral transition-colors"
+            >
+              {year}
+            </a>
+          ))
+        }
+      </nav>
+    </section>
+
+    {/* ─────────────── Year-grouped timeline ─────────────── */}
+    <section class="container-page">
+      <div class="space-y-12 md:space-y-16">
+        {
+          years.map((year) => (
+            <div class="grid md:grid-cols-[5rem_1fr] gap-x-8 lg:gap-x-12">
+              <h2
+                id={`year-${year}`}
+                class="md:sticky md:top-20 self-start scroll-mt-20 font-display font-normal text-3xl md:text-4xl tracking-tight tabular-nums text-coral"
+              >
+                {year}
+              </h2>
+
+              <div class="space-y-10 md:space-y-14">
+                {byYear[year].map((entry) => {
+                  const count = entry.photoCount ?? 0;
+                  return (
+                    <article
+                      id={`news-${entry.slug}`}
+                      class:list={[
+                        'scroll-mt-20',
+                        entry.featured &&
+                          'relative border-l-4 border-coral bg-cream-200/70 pl-6 md:pl-7 pr-5 md:pr-6 py-6 md:py-7 rounded-r-md -ml-1',
+                      ]}
+                    >
+                      {/* Date · Category meta */}
+                      <p class="font-mono text-[11px] uppercase tracking-[0.16em]">
+                        <time class="text-coral font-bold">{entry.date}</time>
+                        <span class="mx-1.5 text-ink/30" aria-hidden="true">
+                          &middot;
+                        </span>
+                        <span class="text-ink/55">
+                          {CATEGORY_LABELS[entry.category]}
+                        </span>
+                        {entry.featured && (
+                          <span class="ml-3 inline-flex items-center gap-1 text-coral">
+                            <span aria-hidden="true">&#9733;</span>
+                            <span>Featured</span>
+                          </span>
+                        )}
+                      </p>
+
+                      {/* Headline */}
+                      <h3
+                        class:list={[
+                          'mt-3 font-display font-normal tracking-tight leading-snug text-balance',
+                          entry.featured
+                            ? 'text-2xl md:text-3xl'
+                            : 'text-xl md:text-2xl',
+                        ]}
+                      >
+                        {entry.headline}
+                      </h3>
+
+                      {/* Body */}
+                      {entry.body && (
+                        <p
+                          class:list={[
+                            'mt-3 leading-relaxed text-ink/85',
+                            entry.featured
+                              ? 'text-base md:text-lg font-serif'
+                              : 'text-base',
+                          ]}
+                        >
+                          {entry.body}
+                        </p>
+                      )}
+
+                      {/* Photos */}
+                      {count > 0 && (
+                        <div
+                          class:list={[
+                            'mt-5 grid gap-3',
+                            count === 1
+                              ? 'grid-cols-1'
+                              : 'grid-cols-2',
+                          ]}
+                        >
+                          {Array.from({ length: count }, (_, i) => (
+                            <NewsPhoto
+                              slug={entry.slug}
+                              index={i + 1}
+                              alt={`${entry.headline} — photo ${i + 1}`}
+                              class={
+                                count === 3 && i === 0
+                                  ? 'col-span-2'
+                                  : undefined
+                              }
+                            />
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Links */}
+                      {entry.links && entry.links.length > 0 && (
+                        <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                          {entry.links.map((link) => (
+                            <a
+                              href={link.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="text-[11px] uppercase tracking-[0.14em] text-ink/65 hover:text-coral inline-flex items-center gap-1 transition-colors"
+                            >
+                              {link.label}{' '}
+                              <span aria-hidden="true">&rarr;</span>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,64 @@
+---
+// 갤러리 사진 슬롯 — slug + index로 src/assets/gallery/<slug>-<index>.{jpg,jpeg,png,webp} 자동 매칭
+// 파일이 없으면 점선 placeholder (slot 번호 표시)
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  slug: string;
+  index: number;
+  alt: string;
+  class?: string;
+  aspectClass?: string;
+}
+
+const {
+  slug,
+  index,
+  alt,
+  class: className,
+  aspectClass = 'aspect-[4/3]',
+} = Astro.props;
+
+// import.meta.glob을 caller에서 받지 않고 매 컴포넌트가 자체 glob 호출.
+// eager 모드라 build-time에 한 번 실행되며 ESM static analysis에 의해 모든 인스턴스가 같은 결과 공유.
+const galleryImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/gallery/*.{jpg,jpeg,png,webp}',
+  { eager: true }
+);
+
+const findImage = (): ImageMetadata | null => {
+  for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
+    const mod = galleryImages[`/src/assets/gallery/${slug}-${index}.${ext}`];
+    if (mod) return mod.default;
+  }
+  return null;
+};
+
+const image = findImage();
+---
+
+{
+  image ? (
+    <Image
+      src={image}
+      alt={alt}
+      loading="lazy"
+      class:list={[aspectClass, 'object-cover w-full', className]}
+    />
+  ) : (
+    <div
+      class:list={[
+        aspectClass,
+        'bg-cream-200/60 border border-dashed border-ink/15 flex items-center justify-center',
+        className,
+      ]}
+      role="img"
+      aria-label={`${alt} placeholder`}
+    >
+      <span class="font-mono text-[9px] uppercase tracking-[0.18em] text-ink/40 select-none">
+        {slug}-{index}
+      </span>
+    </div>
+  )
+}

@@ -1,0 +1,37 @@
+---
+// 멤버 카드용 portrait — 사진이 있으면 Astro <Image>, 없으면 점선 placeholder ("Photo")
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  portrait?: ImageMetadata | null;
+  alt: string;
+  class?: string;
+}
+
+const { portrait, alt, class: className } = Astro.props;
+---
+
+{
+  portrait ? (
+    <Image
+      src={portrait}
+      alt={alt}
+      loading="lazy"
+      class:list={['aspect-[3/4] object-cover', className]}
+    />
+  ) : (
+    <div
+      class:list={[
+        'aspect-[3/4] bg-cream-200/60 border border-dashed border-ink/15 flex items-center justify-center',
+        className,
+      ]}
+      role="img"
+      aria-label={`${alt} placeholder`}
+    >
+      <span class="font-mono text-[9px] uppercase tracking-[0.18em] text-ink/40 select-none">
+        Photo
+      </span>
+    </div>
+  )
+}

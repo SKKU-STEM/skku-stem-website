@@ -1,0 +1,170 @@
+---
+// Publications — SKKU 시기 SCI 논문 (메인 페이지)
+// 데이터: src/data/publications-skku.ts
+// 하위 페이지: /publications/before-skku, /publications/non-sci-patents
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { skkuPublications } from '@/data/publications-skku';
+import type { Publication } from '@/data/publications-skku';
+import { formatChemistry } from '@/utils/chemistry';
+
+// 연도별 그룹핑
+const byYear = skkuPublications.reduce<Record<number, Publication[]>>(
+  (acc, p) => {
+    (acc[p.year] ??= []).push(p);
+    return acc;
+  },
+  {}
+);
+
+const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+
+const total = skkuPublications.length;
+const leadCount = skkuPublications.filter((p) => p.lead).length;
+const coCount = total - leadCount;
+const minYear = Math.min(...years);
+const maxYear = Math.max(...years);
+---
+
+<BaseLayout
+  title="Publications · SKKU-STEM Lab"
+  description="Peer-reviewed publications from the SKKU-STEM Laboratory at Sungkyunkwan University."
+>
+  <div class="section-stack pb-24 md:pb-32">
+    {/* ─────────────── Page header ─────────────── */}
+    <section class="container-page pt-12 md:pt-20">
+      <div class="max-w-3xl">
+        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
+          Publications
+        </p>
+        <h1
+          class="mt-6 font-display font-normal tracking-tight text-5xl md:text-6xl leading-[1.05]"
+        >
+          Publications
+        </h1>
+        <p class="mt-7 text-base md:text-lg text-ink/75 leading-relaxed">
+          <span class="font-mono tabular-nums text-ink">{total}</span> SCI papers
+          since {minYear} at SKKU
+          &mdash;{' '}
+          <span class="text-coral font-medium tabular-nums">{leadCount}</span>{' '}
+          lead authorship,{' '}
+          <span class="text-ink/85 tabular-nums">{coCount}</span>{' '}
+          co-authorship. Below: papers {maxYear}&ndash;{minYear}, reverse
+          chronological.
+        </p>
+      </div>
+    </section>
+
+    {/* ─────────────── Sub-page nav ─────────────── */}
+    <section class="container-page">
+      <nav
+        aria-label="Publications sections"
+        class="flex flex-wrap items-baseline gap-x-3 gap-y-3 pb-8 border-b border-ink/20"
+      >
+        <span class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/55 mr-2">
+          Sections
+        </span>
+        <span
+          class="inline-flex items-center px-3 py-1.5 border border-ink/30 text-sm font-medium text-ink"
+          aria-current="page"
+        >
+          SCI ({minYear}&ndash;{maxYear})
+        </span>
+        <a
+          href="/publications/before-skku"
+          class="inline-flex items-center px-3 py-1.5 border border-ink/20 text-sm text-ink/75 hover:border-ink/40 hover:text-ink transition-colors"
+        >
+          Before SKKU (2000&ndash;2015)
+        </a>
+        <a
+          href="/publications/non-sci-patents"
+          class="inline-flex items-center px-3 py-1.5 border border-ink/20 text-sm text-ink/75 hover:border-ink/40 hover:text-ink transition-colors"
+        >
+          Non-SCI &amp; Patents
+        </a>
+      </nav>
+    </section>
+
+    {/* ─────────────── Year jump nav ─────────────── */}
+    <section class="container-page">
+      <nav
+        aria-label="Jump to year"
+        class="flex flex-wrap items-baseline gap-x-3 gap-y-2 pb-6 border-b border-ink/15"
+      >
+        <span
+          class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/55 mr-2"
+        >
+          Jump
+        </span>
+        {
+          years.map((year) => (
+            <a
+              href={`#year-${year}`}
+              class="font-mono text-sm tabular-nums text-ink/70 hover:text-coral transition-colors"
+            >
+              {year}
+            </a>
+          ))
+        }
+      </nav>
+    </section>
+
+    {/* ─────────────── Year-grouped list ─────────────── */}
+    <section class="container-page">
+      <div class="space-y-10">
+        {
+          years.map((year) => (
+            <div class="grid md:grid-cols-[5rem_1fr] gap-x-6 lg:gap-x-10">
+              <h2
+                id={`year-${year}`}
+                class="md:sticky md:top-20 self-start scroll-mt-20 font-display font-normal text-3xl md:text-4xl tracking-tight tabular-nums text-coral"
+              >
+                {year}
+              </h2>
+
+              <ol class="divide-y divide-ink/15">
+                {byYear[year].map((p) => (
+                  <li class="py-3 grid grid-cols-[2.5rem_1fr] gap-x-4">
+                    <span
+                      class:list={[
+                        'font-mono text-sm tabular-nums text-right pt-0.5',
+                        p.lead ? 'text-coral font-medium' : 'text-ink/40',
+                      ]}
+                    >
+                      {p.number}
+                    </span>
+                    <div>
+                      <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral font-bold">
+                        {p.journal}
+                        {p.volumePages && (
+                          <span class="text-ink/50 normal-case font-normal ml-1.5">
+                            &middot; {p.volumePages}
+                          </span>
+                        )}
+                      </p>
+                      <p class="mt-1.5 text-sm md:text-base leading-snug font-serif text-ink/95">
+                        {p.doi ? (
+                          <a
+                            href={p.doi}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:text-coral transition-colors"
+                            set:html={formatChemistry(p.title)}
+                          />
+                        ) : (
+                          <Fragment set:html={formatChemistry(p.title)} />
+                        )}
+                      </p>
+                      <p class="mt-1.5 text-xs text-ink/60 leading-relaxed">
+                        {p.authors}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>

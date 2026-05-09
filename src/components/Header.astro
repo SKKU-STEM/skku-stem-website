@@ -1,0 +1,138 @@
+---
+// 사이트 전체 헤더 — 좌측 로고, 우측 데스크톱 nav, 모바일 햄버거 메뉴
+import Logo from '@components/Logo.astro';
+
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/research', label: 'Research' },
+  { href: '/people', label: 'People' },
+  { href: '/publications', label: 'Publications' },
+  { href: '/news', label: 'News' },
+  { href: '/gallery', label: 'Gallery' },
+  { href: '/facilities', label: 'Facilities' },
+];
+
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string): boolean => {
+  if (href === '/') return currentPath === '/';
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+};
+---
+
+<header class="sticky top-0 z-40 bg-cream/95 backdrop-blur-sm border-b border-ink/15">
+  <div class="container-page h-16 flex items-center justify-between">
+    <a
+      href="/"
+      class="text-ink inline-flex items-center hover:text-coral transition-colors"
+      aria-label="SKKU-STEM Lab — 홈으로"
+    >
+      <Logo class="h-7 w-auto" />
+    </a>
+
+    <nav class="hidden md:block" aria-label="Primary navigation">
+      <ul class="flex items-center gap-7 text-sm">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'transition-colors hover:text-coral',
+                isCurrent(item.href) ? 'text-coral' : 'text-ink/80',
+              ]}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <button
+      id="mobile-menu-button"
+      type="button"
+      class="md:hidden inline-flex items-center justify-center h-10 w-10 -mr-2 text-ink rounded-md hover:bg-cream-200 transition-colors"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="메뉴 열기"
+    >
+      <svg
+        data-icon="open"
+        class="block h-5 w-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+      <svg
+        data-icon="close"
+        class="hidden h-5 w-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M6 6l12 12M18 6 6 18" />
+      </svg>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden border-t border-ink/15 bg-cream"
+  >
+    <ul class="container-page py-2">
+      {navItems.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              'block py-3 text-base transition-colors hover:text-coral',
+              isCurrent(item.href) ? 'text-coral' : 'text-ink/80',
+            ]}
+            aria-current={isCurrent(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  // 햄버거 메뉴 토글 + ESC로 닫기
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = button?.querySelector<SVGElement>('[data-icon="open"]');
+  const closeIcon = button?.querySelector<SVGElement>('[data-icon="close"]');
+
+  const setOpen = (open: boolean) => {
+    if (!button || !menu) return;
+    button.setAttribute('aria-expanded', String(open));
+    button.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    menu.classList.toggle('hidden', !open);
+    openIcon?.classList.toggle('hidden', open);
+    openIcon?.classList.toggle('block', !open);
+    closeIcon?.classList.toggle('hidden', !open);
+    closeIcon?.classList.toggle('block', open);
+  };
+
+  button?.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    setOpen(!expanded);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      button.focus();
+    }
+  });
+</script>

@@ -1,0 +1,360 @@
+---
+// Prof. Young-Min Kim — full CV / bio
+// 출처: 이전 SKKU-STEM 사이트의 PI 페이지 (https://sites.google.com/site/skkustem/contact-us, 2026-05-09 fetch)
+// Selected publications는 src/data/pi-publications.ts에 분리 — 신규 논문 추가 시 데이터 파일만 수정.
+import BaseLayout from '@layouts/BaseLayout.astro';
+import {
+  microscopyMaterialsScience,
+  aiMicroscopy,
+  type Publication,
+} from '@/data/pi-publications';
+import { formatChemistry } from '@/utils/chemistry';
+
+const pubGroups: Array<{ id: string; title: string; entries: Publication[] }> = [
+  {
+    id: 'pub-microscopy',
+    title: 'Microscopy-based Materials Science',
+    entries: microscopyMaterialsScience,
+  },
+  { id: 'pub-ai', title: 'AI Microscopy', entries: aiMicroscopy },
+];
+
+interface CVEntry {
+  years: string;
+  title: string;
+  institution: string;
+}
+
+const education: CVEntry[] = [
+  {
+    years: 'Mar. 2005 – Feb. 2010',
+    title: 'Ph.D. in Materials Science',
+    institution:
+      'Korea Advanced Institute of Science and Technology (KAIST), Daejeon, Korea',
+  },
+  {
+    years: 'Mar. 1999 – Feb. 2001',
+    title: 'M.S. in Materials Science',
+    institution: 'Seoul National University, Seoul, Korea',
+  },
+  {
+    years: 'Mar. 1991 – Feb. 1999',
+    title: 'B.S. in Materials Science',
+    institution: 'Kangwon National University, Chuncheon, Korea',
+  },
+];
+
+// 역순 (가장 최근이 위)
+const experience: CVEntry[] = [
+  {
+    years: 'Feb. 2025 – present',
+    title: 'Professor',
+    institution: 'Department of Energy Science, Sungkyunkwan University, Korea',
+  },
+  {
+    years: 'Mar. 2020 – Feb. 2025',
+    title: 'Associate Professor',
+    institution: 'Department of Energy Science, Sungkyunkwan University, Korea',
+  },
+  {
+    years: 'Jan. 2016 – Feb. 2020',
+    title: 'Assistant Professor',
+    institution: 'Department of Energy Science, Sungkyunkwan University, Korea',
+  },
+  {
+    years: 'Mar. 2014 – Dec. 2015',
+    title: 'Principal Researcher',
+    institution: 'Korea Basic Science Institute (KBSI), Korea',
+  },
+  {
+    years: 'Dec. 2012 – Nov. 2013',
+    title: 'Visiting Scientist',
+    institution: 'Oak Ridge National Laboratory (ORNL), USA',
+  },
+  {
+    years: 'Nov. 2010 – Nov. 2012',
+    title: 'Postdoctoral Fellow',
+    institution:
+      'Materials Science & Technology Division, Oak Ridge National Laboratory (ORNL), USA',
+  },
+];
+
+const honors: Array<{ year: string; title: string }> = [
+  { year: 'Feb. 2025', title: '2024 SKKU Fellowship' },
+];
+---
+
+<BaseLayout
+  title="Prof. Young-Min Kim · SKKU-STEM Lab"
+  description="Curriculum vitae of Prof. Young-Min Kim, principal investigator of the SKKU-STEM Laboratory at Sungkyunkwan University."
+>
+  <div class="section-stack pb-24 md:pb-32">
+    {/* ─────────────── Page header ─────────────── */}
+    <section class="container-page pt-12 md:pt-20">
+      <div class="container-prose">
+        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
+          <a
+            href="/people"
+            class="text-ink/60 hover:text-coral transition-colors"
+          >
+            People
+          </a>
+          <span aria-hidden="true" class="mx-1.5 text-ink/30">/</span>
+          Principal Investigator
+        </p>
+
+        <h1
+          class="mt-6 font-display font-normal tracking-tight text-5xl md:text-6xl leading-[1.05]"
+        >
+          김영민
+        </h1>
+        <p
+          class="mt-3 font-display text-2xl md:text-3xl text-ink/65 italic font-normal"
+        >
+          Young-Min Kim
+        </p>
+
+        <p class="mt-7 text-base md:text-lg text-ink/80 leading-relaxed">
+          Professor &middot; Department of Energy Science<br />
+          Sungkyunkwan University &middot; Suwon 16419, Republic of Korea
+        </p>
+
+        <p
+          class="mt-8 font-serif text-lg md:text-xl text-ink/90 leading-relaxed"
+        >
+          Young-Min Kim leads the SKKU-STEM Laboratory at Sungkyunkwan
+          University. His research integrates aberration-corrected scanning
+          transmission electron microscopy and electron spectroscopy with
+          machine learning, applied to atomic-scale problems in energy
+          materials &mdash; from layered battery cathodes to single-atom
+          electrocatalysts. He received his Ph.D. from KAIST in 2010, held a
+          postdoctoral fellowship at Oak Ridge National Laboratory, and joined
+          SKKU as a faculty member in 2016.
+        </p>
+      </div>
+    </section>
+
+    {/* ─────────────── Education ─────────────── */}
+    <section
+      id="education"
+      class="container-page scroll-mt-12 md:scroll-mt-20"
+    >
+      <div class="container-prose">
+        <h2
+          class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60 pb-4 border-b border-ink/15"
+        >
+          Education
+        </h2>
+        <ul class="mt-6 divide-y divide-ink/15">
+          {
+            education.map((item) => (
+              <li class="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
+                <time class="font-mono text-sm text-ink/55 tabular-nums whitespace-nowrap">
+                  {item.years}
+                </time>
+                <div>
+                  <p class="text-base md:text-lg leading-snug">{item.title}</p>
+                  <p class="mt-1 text-sm text-ink/65">{item.institution}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    {/* ─────────────── Research Experience ─────────────── */}
+    <section
+      id="experience"
+      class="container-page scroll-mt-12 md:scroll-mt-20"
+    >
+      <div class="container-prose">
+        <h2
+          class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60 pb-4 border-b border-ink/15"
+        >
+          Research Experience
+        </h2>
+        <ul class="mt-6 divide-y divide-ink/15">
+          {
+            experience.map((item) => (
+              <li class="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
+                <time class="font-mono text-sm text-ink/55 tabular-nums whitespace-nowrap">
+                  {item.years}
+                </time>
+                <div>
+                  <p class="text-base md:text-lg leading-snug">{item.title}</p>
+                  <p class="mt-1 text-sm text-ink/65">{item.institution}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    {/* ─────────────── Honors ─────────────── */}
+    <section
+      id="honors"
+      class="container-page scroll-mt-12 md:scroll-mt-20"
+    >
+      <div class="container-prose">
+        <h2
+          class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60 pb-4 border-b border-ink/15"
+        >
+          Honors &amp; Awards
+        </h2>
+        <ul class="mt-6 divide-y divide-ink/15">
+          {
+            honors.map((item) => (
+              <li class="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
+                <time class="font-mono text-sm text-ink/55 tabular-nums whitespace-nowrap">
+                  {item.year}
+                </time>
+                <p class="text-base md:text-lg leading-snug">{item.title}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    {/* ─────────────── Selected Publications ─────────────── */}
+    <section
+      id="publications"
+      class="container-page scroll-mt-12 md:scroll-mt-20"
+    >
+      <div class="container-prose">
+        <h2
+          class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60 pb-4 border-b border-ink/15"
+        >
+          Selected Publications
+        </h2>
+
+        {
+          pubGroups.map((group) => (
+            <div id={group.id} class="mt-12 first:mt-10 scroll-mt-12 md:scroll-mt-20">
+              <h3 class="font-display text-2xl md:text-3xl font-normal tracking-tight">
+                {group.title}
+              </h3>
+
+              <ol class="mt-7 divide-y divide-ink/15">
+                {group.entries.map((pub) => (
+                  <li class="py-5 grid grid-cols-1 md:grid-cols-[4rem_1fr] gap-2 md:gap-6 items-baseline">
+                    <time
+                      class="font-mono text-sm text-ink/55 tabular-nums whitespace-nowrap"
+                      datetime={String(pub.year)}
+                    >
+                      {pub.year}
+                    </time>
+                    <div>
+                      <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral">
+                        {pub.journal}
+                        {pub.volumePages && (
+                          <span class="text-ink/50 normal-case ml-1.5">
+                            &middot; {pub.volumePages}
+                          </span>
+                        )}
+                      </p>
+                      <p class="mt-1.5 text-base md:text-lg leading-snug font-serif text-ink/95">
+                        {pub.doi ? (
+                          <a
+                            href={pub.doi}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:text-coral transition-colors"
+                            set:html={formatChemistry(pub.title)}
+                          />
+                        ) : (
+                          <Fragment set:html={formatChemistry(pub.title)} />
+                        )}
+                      </p>
+                      <p class="mt-2 text-xs text-ink/65 leading-relaxed">
+                        {pub.authors}
+                      </p>
+                      {pub.doi && (
+                        <a
+                          href={pub.doi}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="mt-2 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.14em] text-ink/55 hover:text-coral transition-colors"
+                        >
+                          DOI <span aria-hidden="true">&rarr;</span>
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))
+        }
+
+        <p class="mt-10 pt-6 border-t border-ink/15 text-xs text-ink/55 italic leading-relaxed">
+          &dagger; equal contribution &middot; * indicates corresponding author(s)
+        </p>
+      </div>
+    </section>
+
+    {/* ─────────────── Contact ─────────────── */}
+    <section id="contact" class="container-page scroll-mt-12 md:scroll-mt-20">
+      <div class="container-prose">
+        <h2
+          class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60 pb-4 border-b border-ink/15"
+        >
+          Contact
+        </h2>
+        <dl
+          class="mt-6 grid grid-cols-1 md:grid-cols-[8rem_1fr] gap-y-4 md:gap-y-3 text-base"
+        >
+          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/55">
+            Email
+          </dt>
+          <dd>
+            <a
+              href="mailto:youngmk@skku.edu"
+              class="hover:text-coral transition-colors"
+            >
+              youngmk[at]skku.edu
+            </a>
+          </dd>
+
+          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/55">
+            Phone
+          </dt>
+          <dd>
+            <a
+              href="tel:+82312994059"
+              class="hover:text-coral transition-colors"
+            >
+              +82-(0)31-299-4059
+            </a>
+          </dd>
+
+          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/55">
+            ORCID
+          </dt>
+          <dd>
+            <a
+              href="https://orcid.org/0000-0003-3220-9004"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:text-coral transition-colors font-mono text-sm"
+            >
+              0000-0003-3220-9004
+            </a>
+          </dd>
+
+          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/55">
+            Office
+          </dt>
+          <dd class="text-ink/85 leading-relaxed">
+            Department of Energy Science<br />
+            Sungkyunkwan University<br />
+            2066 Seobu-ro, Jangan-gu<br />
+            Suwon 16419, Republic of Korea
+          </dd>
+        </dl>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
