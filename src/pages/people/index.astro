@@ -339,13 +339,12 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
       <div
         class="grid md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-8 md:gap-12 items-start border border-ink/15 p-6 md:p-10 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft"
       >
-        <div
-          class="aspect-[3/4] bg-cream-300 flex items-center justify-center max-w-[240px]"
-          role="img"
-          aria-label="Photo placeholder for Prof. Young-Min Kim"
-        >
-          <span class="font-mono text-sm text-ink/40">Photo</span>
-        </div>
+        <img
+          src="/members/YMK.jpg"
+          alt="Prof. Young-Min Kim"
+          class="aspect-[3/4] object-cover w-full max-w-[240px]"
+          loading="lazy"
+        />
 
         <div>
           <p
