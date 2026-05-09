@@ -82,6 +82,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'peb0331@g.skku.edu',
     orcid: '0000-0002-1230-2570',
     kri: '12556811',
+    photoPath: '/members/EBP.jpg',
   },
   {
     nameKo: '전예린',
@@ -91,6 +92,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'rb4738@g.skku.edu',
     orcid: '0000-0001-9736-6460',
     kri: '12929522',
+    photoPath: '/members/YRJ.jpg',
   },
   {
     nameKo: '최다혜',
@@ -100,6 +102,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'chlekgp0424@skku.edu',
     orcid: '0009-0007-8582-3768',
     kri: '12422800',
+    photoPath: '/members/DHC.jpg',
   },
   {
     nameKo: '김항식',
@@ -110,6 +113,7 @@ const phdCandidates: CurrentMember[] = [
     orcid: '0000-0002-6659-3043',
     kri: '13012245',
     coAdvisor: 'Prof. Ki Kang Kim (SKKU)',
+    photoPath: '/members/HSK.jpg',
   },
   {
     nameKo: '이하승',
@@ -119,6 +123,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'hasgav9802@g.skku.edu',
     orcid: '0009-0009-4758-2080',
     kri: '13156595',
+    photoPath: '/members/HSL.jpg',
   },
   {
     nameKo: '이왕빈',
@@ -128,6 +133,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'lwb0908@g.skku.edu',
     orcid: '0009-0002-9934-4550',
     kri: '13169535',
+    photoPath: '/members/WBL.jpg',
   },
   {
     nameKo: '김태준',
@@ -137,6 +143,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'todoltj@g.skku.edu',
     orcid: '0009-0001-5615-7563',
     kri: '13256416',
+    photoPath: '/members/TJK.jpg',
   },
   {
     nameKo: '노서정',
@@ -146,6 +153,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'ssojoya0630@g.skku.edu',
     orcid: '0009-0005-9326-2206',
     kri: '13282282',
+    photoPath: '/members/SJR.jpg',
   },
   {
     nameKo: '박진우',
@@ -155,6 +163,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'astin2001@g.skku.edu',
     orcid: '0009-0009-5456-4171',
     kri: '13354374',
+    photoPath: '/members/JWP.jpg',
   },
   {
     nameKo: '윤주성',
@@ -164,6 +173,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'joosungyun@skku.edu',
     orcid: '0009-0002-7476-2625',
     kri: '13367526',
+    photoPath: '/members/JSY.jpg',
   },
   {
     nameKo: '박준상',
@@ -173,6 +183,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'wnstkd1347@g.skku.edu',
     orcid: '0009-0007-7805-135X',
     kri: '13232671',
+    photoPath: '/members/JSP.jpg',
   },
   {
     nameKo: '정호현',
@@ -182,6 +193,7 @@ const phdCandidates: CurrentMember[] = [
     email: 'police0830@naver.com',
     orcid: '0009-0004-9116-7021',
     kri: '13488154',
+    photoPath: '/members/HHJ.jpg',
   },
 ];
 
@@ -194,6 +206,7 @@ const undergrads: CurrentMember[] = [
     email: 'dhdbsrk@gmail.com',
     orcid: '0009-0009-9912-644X',
     kri: '13188125',
+    photoPath: '/members/YKO.jpg',
   },
 ];
 
@@ -419,7 +432,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
     {/* ─────────────── Postdoctoral Researchers ─────────────── */}
     <section class="container-page">
       <h2
-        class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60 pb-4 border-b border-ink/15"
+        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Postdoctoral Researchers
         <span class="ml-2 text-ink/35 tabular-nums">{postdocs.length}</span>
@@ -483,7 +496,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
     {/* ─────────────── Ph.D. Candidates ─────────────── */}
     <section class="container-page">
       <h2
-        class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60 pb-4 border-b border-ink/15"
+        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Ph.D. Candidates
         <span class="ml-2 text-ink/35 tabular-nums">{phdCandidates.length}</span>
@@ -552,7 +565,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
     {/* ─────────────── Undergraduate Students ─────────────── */}
     <section class="container-page">
       <h2
-        class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60 pb-4 border-b border-ink/15"
+        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Undergraduate Students
         <span class="ml-2 text-ink/35 tabular-nums">{undergrads.length}</span>
@@ -616,7 +629,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
     {/* ─────────────── Alumni ─────────────── */}
     <section class="container-page">
       <h2
-        class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60 pb-4 border-b border-ink/15"
+        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Alumni
         <span class="ml-2 text-ink/35 tabular-nums">{alumni.length}</span>
