@@ -79,8 +79,72 @@ const experience: CVEntry[] = [
   },
 ];
 
-const honors: Array<{ year: string; title: string }> = [
-  { year: 'Feb. 2025', title: '2024 SKKU Fellowship' },
+const honors: Array<{
+  year: string;
+  title: string;
+  cert?: string;
+  url?: string;
+}> = [
+  {
+    year: '2024',
+    title: '2024 SKKU Fellowship',
+    url: 'https://www.skku.edu/skku/campus/skk_comm/news.do?mode=view&articleNo=125511',
+  },
+  {
+    year: '2022',
+    title: 'Minister’s award by the Ministry of Science and Technology',
+    cert: '22-03458',
+  },
+  {
+    year: '2014',
+    title: 'President’s award for research excellence in KBSI',
+    cert: '2014-596',
+  },
+  {
+    year: '2014',
+    title: 'Scientist of the month in Daejeon City',
+    cert: '30666',
+  },
+  {
+    year: '2012',
+    title: 'President’s grand award for research excellence in KBSI',
+    cert: '2012-125',
+  },
+  {
+    year: '2009',
+    title: 'President’s award for research excellence in KBSI',
+    cert: '2009-106',
+  },
+  {
+    year: '2008',
+    title: 'President’s award for research excellence in KBSI',
+    cert: '2008-187',
+  },
+  {
+    year: '2007',
+    title: 'President’s award for research excellence in KBSI',
+    cert: '2007-9',
+  },
+  {
+    year: '2006',
+    title: 'President’s award for the best staff of the year in KBSI',
+  },
+  {
+    year: '2006',
+    title: 'President’s award for research excellence in KBSI',
+    cert: '2006-33',
+  },
+  {
+    year: '2004',
+    title:
+      'President’s award by KRCF (Korea Research Council of Fundamental Science & Technology)',
+    cert: '04-02-01',
+  },
+  {
+    year: '2004',
+    title: 'Minister’s award by the Ministry of Science and Technology',
+    cert: '9599',
+  },
 ];
 ---
 
@@ -122,14 +186,24 @@ const honors: Array<{ year: string; title: string }> = [
         <p
           class="mt-8 font-serif text-lg md:text-xl text-ink/90 leading-relaxed"
         >
-          Young-Min Kim leads the SKKU-STEM Laboratory at Sungkyunkwan
-          University. His research integrates aberration-corrected scanning
-          transmission electron microscopy and electron spectroscopy with
-          machine learning, applied to atomic-scale problems in energy
-          materials &mdash; from layered battery cathodes to single-atom
-          electrocatalysts. He received his Ph.D. from KAIST in 2010, held a
-          postdoctoral fellowship at Oak Ridge National Laboratory, and joined
-          SKKU as a faculty member in 2016.
+          Young-Min Kim is a Professor in the Department of Energy Science at
+          Sungkyunkwan University, Korea. He received his Ph.D. (2010) in
+          Materials Science and Engineering from KAIST, Korea, and worked as a
+          researcher at the Korea Basic Science Institute (KBSI) for 14 years,
+          including during his Ph.D. studies. From 2010 to 2013, he was a
+          postdoctoral fellow and visiting scientist in the STEM group at Oak
+          Ridge National Laboratory, where he developed expertise in
+          aberration-corrected scanning transmission electron microscopy (STEM)
+          and transition metal oxide thin films. His research group focuses on
+          the atomic-scale structural and chemical characterization of
+          functional nanomaterials and thin films using advanced STEM
+          techniques, including electron energy-loss spectroscopy (EELS),
+          energy-dispersive X-ray spectroscopy (EDX), four-dimensional STEM
+          (4D-STEM), and electron tomography. A central theme of his recent
+          work is the integration of these multimodal microscopy capabilities
+          with machine learning and deep learning frameworks, enabling
+          quantitative and high-throughput analysis of complex material
+          systems.
         </p>
       </div>
     </section>
@@ -210,7 +284,25 @@ const honors: Array<{ year: string; title: string }> = [
                 <time class="font-mono text-sm text-ink/55 tabular-nums whitespace-nowrap">
                   {item.year}
                 </time>
-                <p class="text-base md:text-lg leading-snug">{item.title}</p>
+                <p class="text-base md:text-lg leading-snug">
+                  {item.url ? (
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="underline decoration-ink/20 underline-offset-4 hover:text-coral hover:decoration-coral transition-colors"
+                    >
+                      {item.title}
+                    </a>
+                  ) : (
+                    item.title
+                  )}
+                  {item.cert && (
+                    <span class="ml-2 font-mono text-xs text-ink/50 whitespace-nowrap">
+                      No. {item.cert}
+                    </span>
+                  )}
+                </p>
               </li>
             ))
           }
