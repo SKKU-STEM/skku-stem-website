@@ -19,6 +19,7 @@ interface CurrentMember {
   kri?: string;
   coAdvisor?: string;
   portrait?: string;        // src/assets/people/<filename>
+  photoPath?: string;       // public/ 직접 경로 (예: /members/MHJ.png)
 }
 
 interface AlumniMember {
@@ -29,6 +30,7 @@ interface AlumniMember {
   email?: string;
   orcid?: string;
   portrait?: string;        // src/assets/people/<filename>
+  photoPath?: string;       // public/ 직접 경로
 }
 
 // src/assets/people/* 의 모든 portrait 파일을 build-time에 eager-load.
@@ -54,6 +56,7 @@ const postdocs: CurrentMember[] = [
     email: 'jmh78989@g.skku.edu',
     orcid: '0000-0001-5227-8571',
     kri: '11907132',
+    photoPath: '/members/MHJ.png',
   },
   {
     nameKo: '양대희',
@@ -64,6 +67,7 @@ const postdocs: CurrentMember[] = [
     email: 'daeheeyang@skku.edu',
     orcid: '0000-0002-0289-2458',
     kri: '11674426',
+    photoPath: '/members/DY.jpg',
   },
 ];
 
@@ -441,6 +445,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                 </div>
                 <PortraitBox
                   portrait={getPortrait(m.portrait)}
+                  srcPath={m.photoPath}
                   alt={`Portrait of ${m.nameEn}`}
                   class="w-24 shrink-0"
                 />
@@ -509,6 +514,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                 </div>
                 <PortraitBox
                   portrait={getPortrait(m.portrait)}
+                  srcPath={m.photoPath}
                   alt={`Portrait of ${m.nameEn}`}
                   class="w-24 shrink-0"
                 />
@@ -572,6 +578,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                 </div>
                 <PortraitBox
                   portrait={getPortrait(m.portrait)}
+                  srcPath={m.photoPath}
                   alt={`Portrait of ${m.nameEn}`}
                   class="w-24 shrink-0"
                 />
@@ -640,6 +647,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                 </div>
                 <PortraitBox
                   portrait={getPortrait(a.portrait)}
+                  srcPath={a.photoPath}
                   alt={`Portrait of ${a.nameEn}`}
                   class="w-24 shrink-0"
                 />
