@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /oauth/
 
 Sitemap: https://skkustem.org/sitemap-index.xml

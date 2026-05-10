@@ -1,0 +1,302 @@
+# Sveltia/Decap CMS 컬렉션 매핑 — src/content.config.ts의 9개 zod 스키마와 1:1 정렬.
+# enum 값·required·필드명을 어기면 Astro 빌드가 실패하므로 변경 시 양쪽을 함께 수정.
+
+backend:
+  name: github
+  repo: SKKU-STEM/skku-stem-website
+  branch: main
+  base_url: https://skkustem.org
+  auth_endpoint: oauth/auth
+
+publish_mode: simple
+
+site_url: https://skkustem.org
+display_url: https://skkustem.org
+logo_url: https://skkustem.org/logo.png
+
+media_folder: public/uploads
+public_folder: /uploads
+
+# ─────────────────────────────────────────────────────────────
+# 공통 부분 정의 — 4개 publications 항목 위젯에서 재사용.
+# YAML anchor를 사용해 enum/한정어를 한 곳에서 관리.
+# ─────────────────────────────────────────────────────────────
+
+collections:
+  # ===== Publications: SKKU 시기 SCI 논문 (file: items 배열) =====
+  - name: publications-skku
+    label: 'Publications · SKKU SCI'
+    files:
+      - file: src/content/publications/skku.json
+        name: data
+        label: 'SKKU SCI papers'
+        fields:
+          - name: items
+            label: Entries
+            label_singular: Entry
+            widget: list
+            summary: '#{{fields.number}} ({{fields.year}}) — {{fields.title}}'
+            fields:
+              - { name: id, label: ID (number 동일하게), widget: string }
+              - { name: number, label: Number, widget: number, value_type: int }
+              - { name: year, label: Year, widget: number, value_type: int }
+              - { name: lead, label: Lead author group?, widget: boolean, default: false }
+              - { name: authors, label: Authors, widget: text }
+              - { name: title, label: Title, widget: text }
+              - { name: journal, label: Journal, widget: string }
+              - { name: volumePages, label: Volume / pages, widget: string, required: false }
+              - { name: doi, label: DOI URL, widget: string, required: false, hint: 'https://doi.org/...' }
+
+  # ===== Publications: Pre-SKKU 시기 SCI 논문 =====
+  - name: publications-before-skku
+    label: 'Publications · Pre-SKKU SCI'
+    files:
+      - file: src/content/publications/before-skku.json
+        name: data
+        label: 'Pre-SKKU SCI papers'
+        fields:
+          - name: items
+            label: Entries
+            label_singular: Entry
+            widget: list
+            summary: '#{{fields.number}} ({{fields.year}}) — {{fields.title}}'
+            fields:
+              - { name: id, label: ID (number 동일하게), widget: string }
+              - { name: number, label: Number, widget: number, value_type: int }
+              - { name: year, label: Year, widget: number, value_type: int }
+              - { name: lead, label: Lead author group?, widget: boolean, default: false }
+              - { name: authors, label: Authors, widget: text }
+              - { name: title, label: Title, widget: text }
+              - { name: journal, label: Journal, widget: string }
+              - { name: volumePages, label: Volume / pages, widget: string, required: false }
+              - { name: doi, label: DOI URL, widget: string, required: false }
+
+  # ===== Publications: Non-SCI / 특허 / 단행본 =====
+  - name: publications-non-sci-patents
+    label: 'Publications · Non-SCI / Patents / Books'
+    files:
+      - file: src/content/publications/non-sci-patents.json
+        name: data
+        label: 'Non-SCI / Patents / Books'
+        fields:
+          - name: items
+            label: Entries
+            label_singular: Entry
+            widget: list
+            summary: '#{{fields.number}} [{{fields.kind}}] {{fields.title}}'
+            fields:
+              - { name: id, label: ID (number 동일하게), widget: string }
+              - { name: number, label: Number, widget: number, value_type: int }
+              - { name: year, label: Year, widget: number, value_type: int }
+              - name: kind
+                label: Kind
+                widget: select
+                options: [non-sci, patent, book]
+              - { name: title, label: Title (KR or EN), widget: text }
+              - { name: titleEn, label: Title (EN, optional duplicate), widget: text, required: false }
+              - { name: link, label: Link URL, widget: string, required: false }
+              # patent 전용
+              - name: region
+                label: Patent region
+                widget: select
+                options: [Korea, USA]
+                required: false
+              - { name: inventors, label: Inventors (patent), widget: text, required: false }
+              - { name: patentNo, label: Patent No.,         widget: string, required: false }
+              - { name: applicationNo, label: Application No.,   widget: string, required: false }
+              - { name: applicationDate, label: Application date, widget: string, required: false }
+              - { name: registrationNo, label: Registration No.,  widget: string, required: false }
+              - { name: registrationDate, label: Registration date, widget: string, required: false }
+              - name: status
+                label: Patent status
+                widget: select
+                options: [Granted, Applied]
+                required: false
+              # non-sci / book 전용
+              - { name: authors, label: Authors (non-sci/book), widget: text, required: false }
+              - { name: journal, label: Journal (non-sci),  widget: string, required: false }
+              - { name: volumePages, label: Volume / pages (non-sci), widget: string, required: false }
+              - { name: publisher, label: Publisher (book), widget: string, required: false }
+              - { name: isbn, label: ISBN (book), widget: string, required: false }
+              - { name: publicationDate, label: Publication date (book), widget: string, required: false }
+
+  # ===== Publications: PI Selected (CV 페이지 노출용) =====
+  - name: publications-pi-selected
+    label: 'Publications · PI Selected'
+    files:
+      - file: src/content/publications/pi-selected.json
+        name: data
+        label: 'PI selected publications'
+        fields:
+          - name: items
+            label: Entries
+            label_singular: Entry
+            widget: list
+            summary: '[{{fields.category}} #{{fields.order}}] {{fields.year}} — {{fields.title}}'
+            fields:
+              - { name: id, label: ID (kebab-case, unique), widget: string }
+              - name: category
+                label: Category
+                widget: select
+                options: [microscopy, ai]
+              - { name: order, label: Order (작을수록 위), widget: number, value_type: int }
+              - { name: year, label: Year, widget: number, value_type: int }
+              - { name: authors, label: Authors, widget: text }
+              - { name: title, label: Title, widget: text }
+              - { name: journal, label: Journal, widget: string }
+              - { name: volumePages, label: Volume / pages, widget: string, required: false }
+              - { name: doi, label: DOI URL, widget: string, required: false }
+
+  # ===== News (folder, .md frontmatter-only) =====
+  - name: news
+    label: News
+    label_singular: News post
+    folder: src/content/news
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    delete: true
+    slug: '{{fields.slug}}'
+    identifier_field: headline
+    summary: '[{{year}}] {{headline}}'
+    fields:
+      - { name: order, label: Order (낮을수록 위), widget: number, value_type: int }
+      - { name: slug, label: Slug (파일명, kebab-case 권장), widget: string }
+      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: date, label: Date (자유 텍스트), widget: string }
+      - name: category
+        label: Category
+        widget: select
+        options: [paper, award, media, member, event, grant, lab]
+      - { name: headline, label: Headline, widget: string }
+      - { name: summary, label: Summary (본문 단락), widget: text, required: false }
+      - name: links
+        label: External links
+        widget: list
+        required: false
+        fields:
+          - { name: href, label: URL, widget: string }
+          - { name: label, label: Label, widget: string }
+      - { name: photoCount, label: Photo count, widget: number, value_type: int, required: false, default: 0 }
+      - { name: featured, label: Featured (Home/News 카드형), widget: boolean, default: false, required: false }
+
+  # ===== Members (folder, .md frontmatter-only, 현 멤버 + Alumni 통합) =====
+  - name: members
+    label: Members
+    label_singular: Member
+    folder: src/content/members
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    delete: true
+    slug: '{{nameEn}}'
+    identifier_field: nameEn
+    summary: '[{{section}}] {{nameKo}} ({{nameEn}})'
+    fields:
+      - name: section
+        label: Section
+        widget: select
+        options: [postdoc, phd, undergrad, alumni]
+      - { name: order, label: Order (낮을수록 위), widget: number, value_type: int }
+      - { name: nameKo, label: Name (KO), widget: string }
+      - { name: nameEn, label: Name (EN), widget: string }
+      - { name: position, label: Position (현 멤버), widget: string, required: false }
+      - { name: program, label: Program (현 멤버), widget: string, required: false, hint: '예: Integrated course / Ph.D. course' }
+      - { name: yearRange, label: Year range, widget: string, required: false, hint: '예: 2021–present' }
+      - { name: email, label: Email, widget: string, required: false }
+      - { name: orcid, label: ORCID, widget: string, required: false }
+      - { name: kri, label: KRI ID, widget: string, required: false }
+      - { name: coAdvisor, label: Co-advisor, widget: string, required: false }
+      - name: photoPath
+        label: Photo
+        widget: image
+        required: false
+        hint: 'public/members/<INIT>.jpg에 업로드되며 path는 /members/<INIT>.jpg로 들어간다.'
+        media_folder: '/public/members'
+        public_folder: '/members'
+        choose_url: false
+      # Alumni 전용
+      - { name: role, label: 'Role (alumni)', widget: string, required: false, hint: '예: Ph.D. (2018–2024)' }
+      - { name: currentAffiliation, label: Current affiliation (alumni), widget: string, required: false }
+
+  # ===== Research Highlights (folder, .md frontmatter-only) =====
+  - name: research-highlights
+    label: Research Highlights
+    label_singular: Highlight
+    folder: src/content/research-highlights
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    delete: true
+    slug: '{{year}}-{{title}}'
+    identifier_field: title
+    summary: '[{{year}}] {{title}}'
+    fields:
+      - { name: order, label: Order (낮을수록 위 / 보통 최신=0), widget: number, value_type: int }
+      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: title, label: Title, widget: string }
+      - { name: summary, label: Summary, widget: text }
+      - { name: journal, label: Journal, widget: string }
+      - { name: volumePages, label: Volume / pages, widget: string }
+      - { name: doi, label: DOI URL, widget: string, hint: 'https://doi.org/... 또는 출판사 URL' }
+      - { name: codeUrl, label: Code URL, widget: string, required: false }
+      - { name: mention, label: Press mention text, widget: string, required: false }
+      - { name: mentionUrl, label: Press mention URL, widget: string, required: false }
+      - name: image
+        label: Figure
+        widget: image
+        required: false
+        media_folder: '/public/research'
+        public_folder: '/research'
+        choose_url: false
+      - { name: imageAlt, label: Figure alt text, widget: string, required: false }
+
+  # ===== Facilities (folder, .md frontmatter-only) =====
+  - name: facilities
+    label: Facilities
+    label_singular: Facility
+    folder: src/content/facilities
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    delete: true
+    slug: '{{fields.slug}}'
+    identifier_field: title
+    summary: '[#{{order}}] {{title}}'
+    fields:
+      - { name: order, label: Order, widget: number, value_type: int }
+      - { name: slug, label: Slug (파일명), widget: string }
+      - { name: title, label: Title, widget: string }
+      - { name: model, label: Model, widget: string }
+      - { name: description, label: Description, widget: text }
+      - name: highlights
+        label: Highlights (불릿)
+        widget: list
+        required: false
+        field: { name: bullet, widget: string, label: Bullet }
+      - { name: location, label: Location, widget: string, required: false }
+      - { name: photoCount, label: Photo count, widget: number, value_type: int }
+
+  # ===== Gallery Events (folder, .md frontmatter-only) =====
+  - name: gallery-events
+    label: Gallery Events
+    label_singular: Gallery event
+    folder: src/content/gallery-events
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    delete: true
+    slug: '{{fields.slug}}'
+    identifier_field: title
+    summary: '[{{year}}] {{title}}'
+    fields:
+      - { name: order, label: Order, widget: number, value_type: int }
+      - { name: slug, label: Slug (파일명), widget: string }
+      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: date, label: Date (자유 텍스트), widget: string }
+      - { name: title, label: Title, widget: string }
+      - { name: titleEn, label: Title (EN, optional), widget: string, required: false }
+      - { name: location, label: Location, widget: string, required: false }
+      - { name: participants, label: Participants, widget: string, required: false }
+      - { name: awards, label: Awards, widget: string, required: false }
+      - { name: photoCount, label: Photo count, widget: number, value_type: int }
