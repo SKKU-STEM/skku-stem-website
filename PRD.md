@@ -240,7 +240,7 @@ Sitemap: https://skkustem.org/sitemap-index.xml
 
 ---
 
-## 10. 향후 작업 — CMS 도입 (내일 작업)
+## 10. CMS 도입 (Stage 5.2 완료)
 
 ### 10.1 동기
 - 현재 콘텐츠가 `src/data/*.ts`에 하드코딩 — TypeScript 문법 익숙해야 편집 가능
@@ -293,10 +293,16 @@ src/content/
 2. ✅ `src/content.config.ts` 작성 (zod 스키마 9개)
 3. ✅ TS 데이터 → 컨텐츠 컬렉션 변환 (Stage 5.1, 일회성 스크립트로 404 entries 이전)
 4. ✅ 각 페이지를 Content Collections API로 재연결 (`getCollection(...)`, 페이지 10개)
-5. ⬜ GitHub OAuth App 생성 (`https://github.com/settings/applications/new`) — 사용자 직접
+5. ✅ GitHub OAuth App 생성 (`https://github.com/settings/applications/new`) — 사용자 직접
 6. ✅ Cloudflare Pages Functions OAuth 프록시 (`functions/oauth/auth.js` + `callback.js`) 작성
 7. ✅ `public/admin/index.html` + `public/admin/config.yml` 작성 (Sveltia, 9 컬렉션 매핑)
-8. ⬜ Cloudflare Pages env (`GITHUB_CLIENT_ID`/`GITHUB_CLIENT_SECRET`) 등록 + push → `/admin` 접속 → GitHub 인증 → 편집 테스트
+8. ✅ Cloudflare Pages env (`GITHUB_CLIENT_ID`/`GITHUB_CLIENT_SECRET`) 등록 + push → `/admin` 접속 → GitHub 인증 → news entry 편집·라이브 반영 검증 (2026-05-10)
+
+### 10.6 관리자 UI 미리보기
+
+`/admin` 첫 진입 시 좌측 사이드바에 9 컬렉션이 노출되며, 각 컬렉션을 클릭하면 file collection은 단일 파일(예: "SKKU SCI papers"), folder collection은 entry 목록으로 분기된다.
+
+![Sveltia CMS at /admin — 9 컬렉션 사이드바](docs/admin-sveltia-collections.jpg)
 
 ---
 
