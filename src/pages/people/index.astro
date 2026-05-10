@@ -42,74 +42,70 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
   <div class="section-stack pb-24 md:pb-32">
     {/* ─────────────── Page header ─────────────── */}
     <section class="container-page pt-12 md:pt-20 relative">
-      {/* 배경 그래픽 — 3-layer feedforward network. 노드=멤버, 엣지=협업/데이터 흐름.
-          우측 비대칭 배치로 좌측 타이틀 가독성 확보. 활성 경로 3 노드는 코랄 강조. */}
+      {/* 배경 그래픽 — 5-layer × 4-node feedforward network. 헤더 전폭에 펼쳐 은은하게 장식.
+          노드=멤버, 엣지=협업/데이터 흐름. 활성 경로(코랄 polyline)는 5개 featured 노드를 가로지른다. */}
       <svg
         viewBox="0 0 800 200"
-        preserveAspectRatio="xMaxYMid slice"
+        preserveAspectRatio="xMidYMid slice"
         class="absolute inset-0 w-full h-full pointer-events-none"
         aria-hidden="true"
       >
         <defs>
           <radialGradient id="people-node-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.32" />
+            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.30" />
             <stop offset="60%" stop-color="#CC785C" stop-opacity="0.06" />
             <stop offset="100%" stop-color="#CC785C" stop-opacity="0" />
           </radialGradient>
         </defs>
 
-        {/* Regular edges — L1↔L2, L2↔L3 (활성 경로 2개는 제외) */}
+        {/* Regular edges — 4쌍 layer 사이 fully-connected (활성 경로 4 edge 제외, 총 60개) */}
         <path
           fill="none"
           class="stroke-ink"
-          stroke-width="0.55"
-          opacity="0.16"
-          d="
-            M 400 45 L 400 100 M 400 45 L 490 100 M 400 45 L 580 100 M 400 45 L 670 100 M 400 45 L 760 100
-            M 490 45 L 400 100 M 490 45 L 490 100 M 490 45 L 580 100 M 490 45 L 670 100 M 490 45 L 760 100
-            M 580 45 L 400 100 M 580 45 L 580 100 M 580 45 L 670 100 M 580 45 L 760 100
-            M 670 45 L 400 100 M 670 45 L 490 100 M 670 45 L 580 100 M 670 45 L 670 100 M 670 45 L 760 100
-            M 760 45 L 400 100 M 760 45 L 490 100 M 760 45 L 580 100 M 760 45 L 670 100 M 760 45 L 760 100
-            M 400 100 L 400 155 M 400 100 L 490 155 M 400 100 L 580 155 M 400 100 L 670 155 M 400 100 L 760 155
-            M 490 100 L 400 155 M 490 100 L 490 155 M 490 100 L 580 155 M 490 100 L 760 155
-            M 580 100 L 400 155 M 580 100 L 490 155 M 580 100 L 580 155 M 580 100 L 670 155 M 580 100 L 760 155
-            M 670 100 L 400 155 M 670 100 L 490 155 M 670 100 L 580 155 M 670 100 L 670 155 M 670 100 L 760 155
-            M 760 100 L 400 155 M 760 100 L 490 155 M 760 100 L 580 155 M 760 100 L 670 155 M 760 100 L 760 155
-          "
+          stroke-width="0.5"
+          opacity="0.10"
+          d="M 60 35 L 235 35 M 60 35 L 235 80 M 60 35 L 235 125 M 60 35 L 235 170 M 60 80 L 235 35 M 60 80 L 235 80 M 60 80 L 235 170 M 60 125 L 235 35 M 60 125 L 235 80 M 60 125 L 235 125 M 60 125 L 235 170 M 60 170 L 235 35 M 60 170 L 235 80 M 60 170 L 235 125 M 60 170 L 235 170 M 235 35 L 410 35 M 235 35 L 410 80 M 235 35 L 410 125 M 235 35 L 410 170 M 235 80 L 410 35 M 235 80 L 410 80 M 235 80 L 410 125 M 235 80 L 410 170 M 235 125 L 410 80 M 235 125 L 410 125 M 235 125 L 410 170 M 235 170 L 410 35 M 235 170 L 410 80 M 235 170 L 410 125 M 235 170 L 410 170 M 410 35 L 585 35 M 410 35 L 585 80 M 410 35 L 585 125 M 410 80 L 585 35 M 410 80 L 585 80 M 410 80 L 585 125 M 410 80 L 585 170 M 410 125 L 585 35 M 410 125 L 585 80 M 410 125 L 585 125 M 410 125 L 585 170 M 410 170 L 585 35 M 410 170 L 585 80 M 410 170 L 585 125 M 410 170 L 585 170 M 585 35 L 760 35 M 585 35 L 760 80 M 585 35 L 760 125 M 585 35 L 760 170 M 585 80 L 760 35 M 585 80 L 760 80 M 585 80 L 760 125 M 585 80 L 760 170 M 585 125 L 760 35 M 585 125 L 760 80 M 585 125 L 760 125 M 585 125 L 760 170 M 585 170 L 760 35 M 585 170 L 760 125 M 585 170 L 760 170"
         />
 
-        {/* Active path — 활성화된 코랄 엣지 (featured 노드 3개를 잇는 경로) */}
+        {/* Active path — 헤더 전체를 가로지르는 활성 신호 (5 featured 노드를 polyline으로 연결) */}
         <path
           fill="none"
           class="stroke-coral"
-          stroke-width="1.0"
-          opacity="0.55"
-          d="M 580 45 L 490 100 L 670 155"
+          stroke-width="0.95"
+          opacity="0.42"
+          d="M 60 80 L 235 125 L 410 35 L 585 170 L 760 80"
         />
 
-        {/* Regular 노드 (12개) */}
-        <g class="fill-ink" opacity="0.45">
-          <circle cx="400" cy="45" r="2.4" />
-          <circle cx="490" cy="45" r="2.4" />
-          <circle cx="670" cy="45" r="2.4" />
-          <circle cx="760" cy="45" r="2.4" />
-          <circle cx="400" cy="100" r="2.4" />
-          <circle cx="580" cy="100" r="2.4" />
-          <circle cx="670" cy="100" r="2.4" />
-          <circle cx="760" cy="100" r="2.4" />
-          <circle cx="400" cy="155" r="2.4" />
-          <circle cx="490" cy="155" r="2.4" />
-          <circle cx="580" cy="155" r="2.4" />
-          <circle cx="760" cy="155" r="2.4" />
+        {/* Regular 노드 (15개) */}
+        <g class="fill-ink" opacity="0.36">
+          <circle cx="60" cy="35" r="2.2" />
+          <circle cx="60" cy="125" r="2.2" />
+          <circle cx="60" cy="170" r="2.2" />
+          <circle cx="235" cy="35" r="2.2" />
+          <circle cx="235" cy="80" r="2.2" />
+          <circle cx="235" cy="170" r="2.2" />
+          <circle cx="410" cy="80" r="2.2" />
+          <circle cx="410" cy="125" r="2.2" />
+          <circle cx="410" cy="170" r="2.2" />
+          <circle cx="585" cy="35" r="2.2" />
+          <circle cx="585" cy="80" r="2.2" />
+          <circle cx="585" cy="125" r="2.2" />
+          <circle cx="760" cy="35" r="2.2" />
+          <circle cx="760" cy="125" r="2.2" />
+          <circle cx="760" cy="170" r="2.2" />
         </g>
 
-        {/* Featured 노드 (3개) — coral glow + dot */}
-        <circle cx="580" cy="45" r="14" fill="url(#people-node-glow)" />
-        <circle cx="580" cy="45" r="3.5" fill="#CC785C" />
-        <circle cx="490" cy="100" r="14" fill="url(#people-node-glow)" />
-        <circle cx="490" cy="100" r="3.5" fill="#CC785C" />
-        <circle cx="670" cy="155" r="14" fill="url(#people-node-glow)" />
-        <circle cx="670" cy="155" r="3.5" fill="#CC785C" />
+        {/* Featured 노드 (5개, layer 당 1개) — coral glow + dot */}
+        <circle cx="60" cy="80" r="13" fill="url(#people-node-glow)" />
+        <circle cx="60" cy="80" r="3.3" fill="#CC785C" />
+        <circle cx="235" cy="125" r="13" fill="url(#people-node-glow)" />
+        <circle cx="235" cy="125" r="3.3" fill="#CC785C" />
+        <circle cx="410" cy="35" r="13" fill="url(#people-node-glow)" />
+        <circle cx="410" cy="35" r="3.3" fill="#CC785C" />
+        <circle cx="585" cy="170" r="13" fill="url(#people-node-glow)" />
+        <circle cx="585" cy="170" r="3.3" fill="#CC785C" />
+        <circle cx="760" cy="80" r="13" fill="url(#people-node-glow)" />
+        <circle cx="760" cy="80" r="3.3" fill="#CC785C" />
       </svg>
 
       <div class="relative">
