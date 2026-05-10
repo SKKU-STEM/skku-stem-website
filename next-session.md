@@ -1,37 +1,54 @@
-# Next session — Stage 5.2 (Decap CMS UI)
+# Next session — Pagefind 검색 UI 구현
 
 다음 세션 시작 시 아래 코드블록 안 텍스트를 그대로 붙여넣어 사용.
 
 ---
 
 ```
-SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)의 Stage 5.2를 진행하자.
+SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)에 Pagefind 검색 UI를 추가하자.
 
-## 현재까지 (HEAD: 5f43513)
+## 현재까지 (HEAD: 80aa1de, 2026-05-10)
 
-- Stage 5.1(Astro Content Collections 마이그레이션) 완료, 이미 라이브(skkustem.org) 반영. src/data/*.ts → src/content/* (publications x4 JSON + news/members/research-highlights/facilities/gallery-events x5 .md 폴더, 총 9 컬렉션 / 404 entries). 페이지 10개는 모두 getCollection() 사용. npm run check 0/0/0, npm run build 통과. 라이브 검증 시 모든 페이지 200 + 데이터 카운트 일치(179/52/29/28/30/8/52/2 entries) 확인.
-- 5.1 정리 후속: scripts/migrate-to-content.ts는 삭제(commit 503085e). src/data/* 사라진 후로 import가 깨져서 더 이상 실행 불가능했고, 변환 로직은 git f6fe020에 보존. Gallery 페이지의 "Google CDN 점선 슬롯 안내" 한 단락 제거(commit 5f43513).
-- PRD.md §10.5의 steps 1~4 done. 남은 건 steps 5~8 = Decap CMS UI 도입.
+- Stage 5.2 (Sveltia CMS at /admin) 완료, 라이브 반영 + 끝-to-끝 검증까지 끝남. 9 컬렉션 모두 폼 편집 가능, 저장 시 SKKU-STEM author로 main에 직접 commit → 1~3분 내 자동 빌드 → 라이브.
+- PRD §10.5의 8 steps 모두 ✅. 새 next-session 단계는 Pagefind 검색 UI.
 
-## 이번 세션 범위 (PRD §10.5 steps 5~8)
+## 기존 Pagefind 자산
 
-1. GitHub OAuth App 생성 (사용자가 직접 https://github.com/settings/applications/new 에서 클릭, 결과 client_id / client_secret 받기)
-2. Cloudflare Workers OAuth 프록시 배포 — Decap 공식 템플릿 활용. Workers 무료 티어로 호스팅. wrangler 설치 + 배포는 사용자가 직접 실행해야 할 수 있음
-3. public/admin/index.html + public/admin/config.yml 작성 — config.yml은 9 컬렉션 모두 매핑 (publications 4개는 file collection, 나머지 5개는 folder collection)
-4. astro.config.mjs / Cloudflare Pages 환경 변수 정리 (admin OAuth URL 등)
-5. 빌드 + 배포 → /admin 접속 → GitHub 인증 → 한 entry 편집 테스트
+- `package.json` devDep `pagefind: ^1.2.0`, build 스크립트 `astro build && pagefind --site dist` 이미 체이닝됨.
+- 빌드 시 `dist/pagefind/` 생성 (인덱스 + 공식 UI 자산 `pagefind-ui.js` + `pagefind-ui.css` 포함). 5.2 빌드 로그에서 "Indexed 10 pages, 4573 words" 확인됨.
+- 실 사이트(`https://skkustem.org/pagefind/`)에서 fetch 가능 — UI에서 동적 로드.
+
+## 이번 세션 범위
+
+1. **사용자와 결정** (코딩 전 합의 필요):
+   - **UI 형태**: (a) Header 우측 search 아이콘 → 모달/팔레트 (Cmd+K 같이) (b) `/search` 별도 페이지 (c) Header에 인라인 input
+   - **컴포넌트 선택**: 공식 PagefindUI (`<script>` + `new PagefindUI({...})`) vs 자체 컴포넌트 + Pagefind low-level API
+   - **테마 매칭 정도**: PagefindUI 기본 스타일 그대로 vs cream/coral/Newsreader 토큰에 맞춰 CSS override
+   - **트리거 단축키**: `/`만, Cmd+K도, 둘 다, 없음
+   - **인덱싱 범위 조정**: 현재 모든 페이지 + 모든 <body> 인덱싱. data-pagefind-body로 본문만 한정할지 결정
+
+2. **구현** (결정 후):
+   - 새 컴포넌트 `src/components/SearchTrigger.astro` + `SearchModal.astro` (또는 단일) 추가
+   - `Header.astro`에 트리거 슬롯 삽입
+   - PagefindUI 채택 시: `<script>` 태그로 `/pagefind/pagefind-ui.js` 로드 + 모달 mount 시 인스턴스화. 첫 인터랙션 시 lazy load 권장 (initial bundle에 영향 없게).
+   - CSS 토큰 매칭 (PagefindUI는 `--pagefind-ui-*` CSS 변수 노출 — `:root`에서 override 가능)
+   - 키보드 단축키 핸들러 (필요 시)
+
+3. **검증**:
+   - dev 모드에서는 `dist/pagefind/`가 없어 검색 동작 안 함. `npm run build && npm run preview`로 로컬 검증.
+   - 검색어 예: "MgO" / "EELS" / "김영민" — 각각 의미 있는 결과 나오는지
+   - 모바일 viewport에서 모달이 잘 작동하는지
 
 ## 알아둘 것
 
-- 단위 결정: Publications 4개는 단일 JSON 파일에 array (Decap의 file collection으로 매핑), 나머지는 entry당 .md (folder collection). 결정 근거는 context-notes.md §11에.
-- 9 컬렉션 스키마는 src/content.config.ts에 zod로 정의됨. Decap config.yml의 fields는 이 스키마와 1:1로 맞춰야 함 (특히 enum 값 — section: postdoc/phd/undergrad/alumni, news.category: paper/award/media/member/event/grant/lab, non-sci-patents.kind: non-sci/patent/book 등).
-- Members 스키마는 통합 (현 멤버 + alumni). section 필드로 그룹 분리. order 필드로 표시 순서.
-- 기존 사이트는 https://skkustem.org (Cloudflare Pages, GitHub SKKU-STEM/skku-stem-website 자동 배포). 변경 push하면 1~3분 내 반영.
-- 멤버 사진은 현재 public/members/<INIT>.jpg를 photoPath 필드로 참조. CMS에서 새 멤버 추가 시 사진 업로드 경로를 어떻게 할지 결정 필요 (예: Decap의 media_folder를 public/members/로 두고 photoPath에 자동 채움).
+- Pagefind는 클라이언트 사이드 검색이라 빌드 시 인덱싱된 정적 페이지에서만 동작. 새 콘텐츠는 빌드 후에 검색됨 (CMS 저장 → 자동 빌드 → 1~3분 후 인덱스 갱신).
+- PagefindUI 한국어 — 한국어 entry는 거의 없지만(News는 영어) members 페이지의 한국어 이름은 검색 가능해야 함. PagefindUI는 다국어 자동 감지하지만 한국어 토크나이저는 영어보다 정확도 떨어질 수 있음. 결과 품질 확인 필요.
+- 화학식 (`V_O` → `V<sub>O</sub>`): 검색 결과 표시 시 set:html 처리 안 되면 `V_O`처럼 raw로 보일 수 있음. 결과 카드 customization 필요할 수도.
+- BaseLayout/Header에 PagefindUI script를 글로벌로 로드하면 모든 페이지에서 ~50KB JS 추가됨. Lazy load 권장 (첫 클릭 시 `import()` 등).
 
 ## 우선 확인할 것
 
-- 작업 시작 전 PRD.md §10, checklist.md Stage 5.2, context-notes.md §11 (특히 "11.7 다음 세션이 결정할 것" — pi-publications 통합 여부, photoPath/portrait 이중 경로 정리 등)을 읽어 사용자와 결정 사항을 합의한 뒤 진행.
-- OAuth App / Workers 배포처럼 사용자 직접 실행이 필요한 단계는 미리 분리해서 명확히 안내.
-- 첫 push까지 가기 전 npm run check + npm run build 둘 다 통과 확인 (5.1 때 한쪽만 돌려서 깨진 사례 있음).
+- 작업 시작 전 PRD.md §11 (시행착오 기록), checklist.md "- [ ] Pagefind UI 컴포넌트" 라인 주변, context-notes.md를 훑어 기존 디자인 토큰/Header 구조와의 정합성 합의.
+- 위 5개 결정 사항을 사용자에게 단답형으로 묻고 합의된 후 코딩.
+- 첫 push 전 `npm run check` + `npm run build` + `npm run preview`로 실 검색 동작 확인.
 ```
