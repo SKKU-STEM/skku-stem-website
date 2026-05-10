@@ -17,8 +17,75 @@ const facilityEquipment = (await getCollection('facilities'))
 >
   <div class="section-stack pb-24 md:pb-32">
     {/* ─────────────── Page header ─────────────── */}
-    <section class="container-page pt-12 md:pt-20">
-      <div class="max-w-2xl">
+    <section class="container-page pt-12 md:pt-20 relative">
+      {/* 배경 그래픽 — STEM 전자광학 컬럼의 세로 schematic.
+          전자총 → C1/C2 condenser → aperture → objective → sample(probe atom) → projector → HAADF detector.
+          beam ray diagram + 코랄 광학축. source와 sample probe는 coral featured. */}
+      <svg
+        viewBox="0 0 800 240"
+        preserveAspectRatio="xMaxYMid slice"
+        class="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
+        <defs>
+          <radialGradient id="facilities-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.32" />
+            <stop offset="60%" stop-color="#CC785C" stop-opacity="0.06" />
+            <stop offset="100%" stop-color="#CC785C" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* Beam ray paths — 전자선 ray diagram (양쪽 outer rays + crossover) */}
+        <path
+          fill="none"
+          class="stroke-ink"
+          stroke-width="0.5"
+          opacity="0.18"
+          d="M 700 22 L 660 50 M 700 22 L 740 50 M 660 50 L 700 70 M 740 50 L 700 70 M 700 70 L 660 90 M 700 70 L 740 90 M 660 90 L 660 140 M 740 90 L 740 140 M 660 140 L 700 158 M 740 140 L 700 158 M 700 158 L 660 185 M 700 158 L 740 185 M 660 185 L 682 215 M 740 185 L 718 215"
+        />
+
+        {/* Central optical axis — coral highlighted (source → probe → detector) */}
+        <line x1="700" y1="22" x2="700" y2="215" class="stroke-coral" stroke-width="0.8" opacity="0.32" />
+
+        {/* Condenser lens 1 + 2 */}
+        <ellipse cx="700" cy="50" rx="38" ry="8" fill="none" class="stroke-ink" stroke-width="0.85" opacity="0.42" />
+        <ellipse cx="700" cy="90" rx="38" ry="8" fill="none" class="stroke-ink" stroke-width="0.85" opacity="0.42" />
+
+        {/* Aperture — 양쪽 짧은 horizontal lines (beam trim) */}
+        <g class="stroke-ink" stroke-width="1.4" opacity="0.42">
+          <line x1="648" y1="110" x2="668" y2="110" />
+          <line x1="732" y1="110" x2="752" y2="110" />
+        </g>
+
+        {/* Objective lens — 가장 큰 (probe-forming) */}
+        <ellipse cx="700" cy="140" rx="46" ry="10" fill="none" class="stroke-ink" stroke-width="0.95" opacity="0.48" />
+
+        {/* Sample plane — 가로 line + 원자 dots (중앙 probe 위치 제외) */}
+        <line x1="660" y1="158" x2="740" y2="158" class="stroke-ink" stroke-width="0.7" opacity="0.40" />
+        <g class="fill-ink" opacity="0.50">
+          <circle cx="676" cy="158" r="1.3" />
+          <circle cx="688" cy="158" r="1.3" />
+          <circle cx="712" cy="158" r="1.3" />
+          <circle cx="724" cy="158" r="1.3" />
+        </g>
+
+        {/* Central probe atom — featured coral (현재 imaging 중인 atom) */}
+        <circle cx="700" cy="158" r="10" fill="url(#facilities-glow)" />
+        <circle cx="700" cy="158" r="2.6" fill="#CC785C" />
+
+        {/* Projector lens */}
+        <ellipse cx="700" cy="185" rx="38" ry="8" fill="none" class="stroke-ink" stroke-width="0.85" opacity="0.42" />
+
+        {/* HAADF detector — annular ring (도넛 형태) */}
+        <circle cx="700" cy="215" r="14" fill="none" class="stroke-ink" stroke-width="0.85" opacity="0.42" />
+        <circle cx="700" cy="215" r="6" fill="none" class="stroke-ink" stroke-width="0.85" opacity="0.42" />
+
+        {/* Electron source — 최상단 coral dot + glow (FEATURED) */}
+        <circle cx="700" cy="22" r="14" fill="url(#facilities-glow)" />
+        <circle cx="700" cy="22" r="3.5" fill="#CC785C" />
+      </svg>
+
+      <div class="relative max-w-2xl">
         <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
           Facilities
         </p>
