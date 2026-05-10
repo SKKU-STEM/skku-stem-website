@@ -44,6 +44,8 @@ const highlights = skkuEntries
           </p>
 
           <h1
+            id="hero-motto"
+            aria-label="Decoding matter, atom by atom"
             class="mt-7 font-display font-normal tracking-tight text-[3.5rem] md:text-6xl lg:text-7xl leading-[1.05] text-balance"
           >
             Decoding matter,<br />
@@ -262,3 +264,79 @@ const highlights = skkuEntries
     </section>
   </div>
 </BaseLayout>
+
+<style is:global>
+  /* Hero 모토 디코딩 스크램블 — 글자 폭 안정화 (jitter 최소화) */
+  .scramble-char {
+    display: inline-block;
+    min-width: 0.55em;
+    text-align: center;
+  }
+</style>
+
+<script>
+  // Hero 모토 "Decoding matter, atom by atom" 디코딩 스크램블 효과 — 페이지 로드 1회 실행
+  (() => {
+    const h1 = document.getElementById('hero-motto');
+    if (!h1) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const POOL_LOWER = 'abcdefghijklmnopqrstuvwxyz';
+    const POOL_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const DURATION = 1200; // ms — 전체 해독 완료 시간
+    const SWAP_PROB = 0.4; // 매 프레임 글자가 새 랜덤 문자로 바뀔 확률
+
+    const spans: HTMLSpanElement[] = [];
+
+    // 텍스트 노드를 글자 단위 span으로 분해 (em·br 등 element 구조는 보존)
+    function wrap(node: Node): void {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const parent = node.parentNode;
+        if (!parent) return;
+        const text = node.textContent || '';
+        const frag = document.createDocumentFragment();
+        for (const ch of text) {
+          if (/[A-Za-z]/.test(ch)) {
+            const span = document.createElement('span');
+            span.dataset.char = ch;
+            span.dataset.resolve = String(Math.random() * DURATION * 0.65 + DURATION * 0.2);
+            span.className = 'scramble-char';
+            span.textContent = ch;
+            frag.appendChild(span);
+            spans.push(span);
+          } else {
+            frag.appendChild(document.createTextNode(ch));
+          }
+        }
+        parent.replaceChild(frag, node);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        Array.from(node.childNodes).forEach(wrap);
+      }
+    }
+
+    wrap(h1);
+
+    const start = performance.now();
+
+    function tick(now: number): void {
+      const elapsed = now - start;
+      let pending = false;
+      for (const span of spans) {
+        const resolveAt = parseFloat(span.dataset.resolve || '0');
+        const real = span.dataset.char || '';
+        if (elapsed >= resolveAt) {
+          if (span.textContent !== real) span.textContent = real;
+        } else {
+          pending = true;
+          if (Math.random() < SWAP_PROB) {
+            const isUpper = real === real.toUpperCase() && real !== real.toLowerCase();
+            const pool = isUpper ? POOL_UPPER : POOL_LOWER;
+            span.textContent = pool[Math.floor(Math.random() * pool.length)];
+          }
+        }
+      }
+      if (pending) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+</script>
