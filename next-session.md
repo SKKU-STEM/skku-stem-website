@@ -1,54 +1,64 @@
-# Next session — Pagefind 검색 UI 구현
+# Next session — Research themes (연구 주제) 섹션 추가
 
 다음 세션 시작 시 아래 코드블록 안 텍스트를 그대로 붙여넣어 사용.
 
 ---
 
 ```
-SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)에 Pagefind 검색 UI를 추가하자.
+SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)에 /research 페이지의 "연구 주제 (group themes / projects)" 섹션을 추가하자.
 
-## 현재까지 (HEAD: 80aa1de, 2026-05-10)
+## 현재까지 (HEAD: 8336017, 2026-05-11)
 
-- Stage 5.2 (Sveltia CMS at /admin) 완료, 라이브 반영 + 끝-to-끝 검증까지 끝남. 9 컬렉션 모두 폼 편집 가능, 저장 시 SKKU-STEM author로 main에 직접 commit → 1~3분 내 자동 빌드 → 라이브.
-- PRD §10.5의 8 steps 모두 ✅. 새 next-session 단계는 Pagefind 검색 UI.
+- Stage 5.2 (Sveltia CMS) + Pagefind 검색 UI까지 라이브 반영 완료. 9 컬렉션 CMS 편집, Header 돋보기/Ctrl+K/'/' 검색.
+- /research는 현재 highlight 타임라인만 렌더 (역연대기 28 entries, src/content/research-highlights/*.md). 그 위에 얹을 "연구 그룹의 thrust 영역" 소개가 비어 있음.
 
-## 기존 Pagefind 자산
+## 무엇을 만드는가
 
-- `package.json` devDep `pagefind: ^1.2.0`, build 스크립트 `astro build && pagefind --site dist` 이미 체이닝됨.
-- 빌드 시 `dist/pagefind/` 생성 (인덱스 + 공식 UI 자산 `pagefind-ui.js` + `pagefind-ui.css` 포함). 5.2 빌드 로그에서 "Indexed 10 pages, 4573 words" 확인됨.
-- 실 사이트(`https://skkustem.org/pagefind/`)에서 fetch 가능 — UI에서 동적 로드.
+PRD §1 Project 개요 한 줄("Aberration-corrected STEM + 전자분광(EELS/EDX) + 4D-STEM + electron tomography + ML/DL 융합으로 에너지 소재의 원자 단위 구조·화학 분석")을 풀어낸 **4~6개 연구 주제 카드**. 각 카드는 제목 + 2~4문장 설명 + 대표 figure(선택) + 관련 highlight/publication 링크(선택).
 
-## 이번 세션 범위
+기존 28 highlights에서 추출되는 자연스러운 클러스터 후보:
+1. **STEM-EELS chemical / valence / oxygen-vacancy mapping** — 배터리·연료전지·고체전해질 (≈10건)
+2. **4D-STEM domain & strain mapping** — perovskite solar cell, HfO2 ferroelectric (≈4건)
+3. **Electron tomography (3D)** — Li-ion battery, PEM fuel cell, sparse-section DL (≈4건)
+4. **ML/DL for electron microscopy** — defect quantification, attention U-Net, hybrid crystallography (≈4건)
+5. **Cu thin-film growth & oxidation resistance** — single-crystal Cu, atomic-scale mechanism (≈4건)
+6. (선택) **Ferroelectric oxides & polarization** — HfO2 doping, ion-enhanced polarization (≈2건)
 
-1. **사용자와 결정** (코딩 전 합의 필요):
-   - **UI 형태**: (a) Header 우측 search 아이콘 → 모달/팔레트 (Cmd+K 같이) (b) `/search` 별도 페이지 (c) Header에 인라인 input
-   - **컴포넌트 선택**: 공식 PagefindUI (`<script>` + `new PagefindUI({...})`) vs 자체 컴포넌트 + Pagefind low-level API
-   - **테마 매칭 정도**: PagefindUI 기본 스타일 그대로 vs cream/coral/Newsreader 토큰에 맞춰 CSS override
-   - **트리거 단축키**: `/`만, Cmd+K도, 둘 다, 없음
-   - **인덱싱 범위 조정**: 현재 모든 페이지 + 모든 <body> 인덱싱. data-pagefind-body로 본문만 한정할지 결정
+위 클러스터는 어디까지나 archive 분류 — 실제 사이트에서 보여줄 thrust는 PI가 미래지향적으로 재정의해야 함 (예: "ML-driven atomic-scale chemistry" 같은 묶음). **사용자와 합의 먼저.**
 
-2. **구현** (결정 후):
-   - 새 컴포넌트 `src/components/SearchTrigger.astro` + `SearchModal.astro` (또는 단일) 추가
-   - `Header.astro`에 트리거 슬롯 삽입
-   - PagefindUI 채택 시: `<script>` 태그로 `/pagefind/pagefind-ui.js` 로드 + 모달 mount 시 인스턴스화. 첫 인터랙션 시 lazy load 권장 (initial bundle에 영향 없게).
-   - CSS 토큰 매칭 (PagefindUI는 `--pagefind-ui-*` CSS 변수 노출 — `:root`에서 override 가능)
-   - 키보드 단축키 핸들러 (필요 시)
+## 사용자와 결정할 것 (코딩 전)
 
-3. **검증**:
-   - dev 모드에서는 `dist/pagefind/`가 없어 검색 동작 안 함. `npm run build && npm run preview`로 로컬 검증.
-   - 검색어 예: "MgO" / "EELS" / "김영민" — 각각 의미 있는 결과 나오는지
-   - 모바일 viewport에서 모달이 잘 작동하는지
+1. **배치**: (a) /research 페이지 상단에 themes 섹션, 아래에 timeline 유지 (b) /research/themes 별도 sub-page, /research는 timeline 그대로 (c) /research에서 themes로 메인 교체, timeline은 /research/highlights로 이동
+2. **데이터 소스**:
+   - (a) `src/data/research-themes.ts` 하드코딩 (5개 내외라 CMS 오버킬, PI가 직접 수정 거의 안 함)
+   - (b) Content collection `research-themes/` (.md per theme) + content.config.ts 스키마 + Sveltia CMS folder collection 추가 → 일관성·CMS 편집 가능, 단 컬렉션 1개·CMS 설정·index 페이지 모두 손봐야 함
+3. **테마 정의 작성 방식**: (a) 사용자가 직접 4~6개 제목+설명을 줌 (b) 위 archive 클러스터 후보를 사용자가 골라/병합/재명명 (c) Claude가 PI 페이지 bio·publications·highlights를 읽어 초안 5개를 제시 → 사용자가 가위질
+4. **카드 시각**: (a) 텍스트 카드만 (제목 + 설명 + 태그) (b) 텍스트 + 대표 figure (research highlights에서 재사용 vs 신규 업로드) (c) 텍스트 + 작은 아이콘
+5. **highlights와의 연결**: (a) 카드에 "관련 highlights →" 링크/태그로 연결 (b) 단순히 본문에 inline 언급만 (c) 연결 없음
+
+## 구현 (결정 후)
+
+- 배치 (a) 또는 (c) → `src/pages/research.astro` 수정 + 새 `<ResearchThemeCard>` 컴포넌트 (또는 인라인)
+- 데이터 (b) 채택 시 `src/content.config.ts`에 `researchThemes` collection 추가 + `src/content/research-themes/<slug>.md` 생성 + `public/admin/config.yml`에 folder collection 등록
+- 카드 figure는 기존 `src/assets/research/*` 재사용 가능 (`getCollection('research-highlights')`에서 image 매핑 lookup), 신규 figure는 `src/assets/research/themes/`에 분리하는 것도 옵션
+- 색/타이포는 기존 토큰 (cream/coral/Inter/Newsreader)만 사용 — PRD §3.5 디자인 원칙 준수
+
+## 검증
+
+- `npm run check` (타입) → `npm run build` (빌드 + Pagefind 인덱스에 새 텍스트 자동 편입) → `npm run preview`
+- Pagefind 검색에서 새 theme 키워드 (예: "tomography", "4D-STEM") 결과에 themes 섹션 페이지가 떠야 함
+- /admin (Sveltia CMS) — 컬렉션 추가했다면 폼 편집·저장 round-trip 확인
+- 모바일 viewport 카드 그리드 reflow 확인
 
 ## 알아둘 것
 
-- Pagefind는 클라이언트 사이드 검색이라 빌드 시 인덱싱된 정적 페이지에서만 동작. 새 콘텐츠는 빌드 후에 검색됨 (CMS 저장 → 자동 빌드 → 1~3분 후 인덱스 갱신).
-- PagefindUI 한국어 — 한국어 entry는 거의 없지만(News는 영어) members 페이지의 한국어 이름은 검색 가능해야 함. PagefindUI는 다국어 자동 감지하지만 한국어 토크나이저는 영어보다 정확도 떨어질 수 있음. 결과 품질 확인 필요.
-- 화학식 (`V_O` → `V<sub>O</sub>`): 검색 결과 표시 시 set:html 처리 안 되면 `V_O`처럼 raw로 보일 수 있음. 결과 카드 customization 필요할 수도.
-- BaseLayout/Header에 PagefindUI script를 글로벌로 로드하면 모든 페이지에서 ~50KB JS 추가됨. Lazy load 권장 (첫 클릭 시 `import()` 등).
+- /research의 highlight timeline은 그대로 두는 것이 안전 (28 entries, 연도별 sticky grid가 잘 동작 중)
+- "Research themes" 섹션은 PRD §5.2에 명시되어 있지 않음 — 새 섹션 추가하면 PRD §5.2 한 줄 갱신 권장
+- CMS 컬렉션 추가 시 v1 collection 번호가 9 → 10. 기존 컬렉션 형식과 맞추려면 ymlfile 끝 collections 배열에 항목 추가 + glob loader 등록 + 스키마 정의가 모두 짝을 맞춰야 함 (context-notes.md §의 CMS 설계 절 참고)
 
 ## 우선 확인할 것
 
-- 작업 시작 전 PRD.md §11 (시행착오 기록), checklist.md "- [ ] Pagefind UI 컴포넌트" 라인 주변, context-notes.md를 훑어 기존 디자인 토큰/Header 구조와의 정합성 합의.
-- 위 5개 결정 사항을 사용자에게 단답형으로 묻고 합의된 후 코딩.
-- 첫 push 전 `npm run check` + `npm run build` + `npm run preview`로 실 검색 동작 확인.
+- 작업 시작 전 PRD.md §5.2, checklist.md "- [ ] Research — 연구 주제" 라인 주변, src/pages/research.astro 현재 구조 훑기
+- 위 5개 결정 사항을 사용자에게 단답형으로 묻고 합의된 후 코딩
+- 첫 push 전 `npm run check` + `npm run build` + `npm run preview`로 실 렌더 확인
 ```
