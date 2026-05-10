@@ -36,8 +36,67 @@ const maxYear = Math.max(...years);
 >
   <div class="section-stack pb-24 md:pb-32">
     {/* ─────────────── Page header ─────────────── */}
-    <section class="container-page pt-12 md:pt-20">
-      <div class="max-w-3xl">
+    <section class="container-page pt-12 md:pt-20 relative">
+      {/* 배경 그래픽 — 5장 부채꼴로 겹친 논문 스택. 페이지 안에 title bar + 본문 라인.
+          1장은 coral featured (lead authorship 상징). 우측 비대칭 배치로 좌측 텍스트 가독성 확보. */}
+      <svg
+        viewBox="0 0 800 280"
+        preserveAspectRatio="xMaxYMid slice"
+        class="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
+        <defs>
+          {/* Body text lines — 페이지 1장 안의 본문 텍스트 라인 패턴 (재사용) */}
+          <path
+            id="paper-lines"
+            d="M -40 -25 L 40 -25 M -40 -17 L 35 -17 M -40 -9 L 40 -9 M -40 -1 L 28 -1 M -40 11 L 40 11 M -40 19 L 38 19 M -40 27 L 40 27 M -40 35 L 26 35 M -40 47 L 40 47 M -40 55 L 34 55"
+            fill="none"
+            stroke-width="0.5"
+          />
+        </defs>
+
+        {/* Paper 5 — 가장 뒤, 우측에 살짝 삐져나온 페이지 */}
+        <g transform="translate(760 188) rotate(20)">
+          <rect x="-50" y="-67.5" width="100" height="135" fill="#F1EFE7" fill-opacity="0.55" stroke="#141413" stroke-width="0.7" stroke-opacity="0.22" />
+          <rect x="-40" y="-55" width="62" height="3" fill="#141413" opacity="0.28" />
+          <line x1="-40" y1="-44" x2="-8" y2="-44" stroke="#141413" stroke-width="0.6" opacity="0.22" />
+          <use href="#paper-lines" stroke="#141413" opacity="0.20" />
+        </g>
+
+        {/* Paper 1 — 좌측 깊은 페이지 */}
+        <g transform="translate(528 178) rotate(-12)">
+          <rect x="-50" y="-67.5" width="100" height="135" fill="#F1EFE7" fill-opacity="0.55" stroke="#141413" stroke-width="0.7" stroke-opacity="0.22" />
+          <rect x="-40" y="-55" width="62" height="3" fill="#141413" opacity="0.28" />
+          <line x1="-40" y1="-44" x2="-8" y2="-44" stroke="#141413" stroke-width="0.6" opacity="0.22" />
+          <use href="#paper-lines" stroke="#141413" opacity="0.20" />
+        </g>
+
+        {/* Paper 2 — 중간-좌측 */}
+        <g transform="translate(595 162) rotate(5)">
+          <rect x="-50" y="-67.5" width="100" height="135" fill="#F1EFE7" fill-opacity="0.55" stroke="#141413" stroke-width="0.7" stroke-opacity="0.22" />
+          <rect x="-40" y="-55" width="62" height="3" fill="#141413" opacity="0.28" />
+          <line x1="-40" y1="-44" x2="-8" y2="-44" stroke="#141413" stroke-width="0.6" opacity="0.22" />
+          <use href="#paper-lines" stroke="#141413" opacity="0.20" />
+        </g>
+
+        {/* Paper 3 — 중간-우측 */}
+        <g transform="translate(660 148) rotate(-4)">
+          <rect x="-50" y="-67.5" width="100" height="135" fill="#F1EFE7" fill-opacity="0.55" stroke="#141413" stroke-width="0.7" stroke-opacity="0.22" />
+          <rect x="-40" y="-55" width="62" height="3" fill="#141413" opacity="0.28" />
+          <line x1="-40" y1="-44" x2="-8" y2="-44" stroke="#141413" stroke-width="0.6" opacity="0.22" />
+          <use href="#paper-lines" stroke="#141413" opacity="0.20" />
+        </g>
+
+        {/* Paper 4 — FEATURED top (lead authorship 강조, coral) */}
+        <g transform="translate(712 132) rotate(9)">
+          <rect x="-50" y="-67.5" width="100" height="135" fill="#CC785C" fill-opacity="0.10" stroke="#CC785C" stroke-width="0.85" stroke-opacity="0.50" />
+          <rect x="-40" y="-55" width="62" height="3" fill="#CC785C" opacity="0.55" />
+          <line x1="-40" y1="-44" x2="-8" y2="-44" stroke="#CC785C" stroke-width="0.6" opacity="0.45" />
+          <use href="#paper-lines" stroke="#CC785C" opacity="0.42" />
+        </g>
+      </svg>
+
+      <div class="relative max-w-3xl">
         <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
           Publications
         </p>
