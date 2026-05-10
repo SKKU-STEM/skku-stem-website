@@ -47,7 +47,7 @@ const highlights = skkuEntries
             class="mt-7 font-display font-normal tracking-tight text-[3.5rem] md:text-6xl lg:text-7xl leading-[1.05] text-balance"
           >
             Decoding matter,<br />
-            <em class="italic text-coral motto-shimmer">atom by atom</em>
+            <em class="italic text-coral">atom by atom</em>
           </h1>
 
           <p
@@ -262,37 +262,3 @@ const highlights = skkuEntries
     </section>
   </div>
 </BaseLayout>
-
-<style>
-  /* Hero 모토 "atom by atom" 코랄 italic — 은은한 shimmer로 살아있는 느낌 */
-  .motto-shimmer {
-    background-image: linear-gradient(
-      100deg,
-      var(--color-coral) 0%,
-      var(--color-coral) 38%,
-      var(--color-coral-400) 50%,
-      var(--color-coral) 62%,
-      var(--color-coral) 100%
-    );
-    background-size: 250% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    animation: motto-shimmer 7s linear infinite;
-  }
-
-  @keyframes motto-shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -100% 0; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .motto-shimmer {
-      animation: none;
-      background: none;
-      -webkit-text-fill-color: var(--color-coral);
-      color: var(--color-coral);
-    }
-  }
-</style>
