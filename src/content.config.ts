@@ -3,9 +3,13 @@
 import { defineCollection, z } from 'astro:content';
 import { glob, file } from 'astro/loaders';
 
+// JSON 파일은 { "items": [...] } 래퍼 형식 (Sveltia/Decap file collection이 객체 루트를 요구).
+// Astro에 array를 돌려주기 위해 parser로 items를 풀어준다.
+const itemsParser = (text: string) => JSON.parse(text).items;
+
 // ─────────── Publications: SKKU 시기 SCI 논문 ───────────
 const publicationsSkku = defineCollection({
-  loader: file('src/content/publications/skku.json'),
+  loader: file('src/content/publications/skku.json', { parser: itemsParser }),
   schema: z.object({
     number: z.number(),
     year: z.number(),
@@ -20,7 +24,7 @@ const publicationsSkku = defineCollection({
 
 // ─────────── Publications: Pre-SKKU SCI 논문 ───────────
 const publicationsBeforeSkku = defineCollection({
-  loader: file('src/content/publications/before-skku.json'),
+  loader: file('src/content/publications/before-skku.json', { parser: itemsParser }),
   schema: z.object({
     number: z.number(),
     year: z.number(),
@@ -35,7 +39,7 @@ const publicationsBeforeSkku = defineCollection({
 
 // ─────────── Publications: Non-SCI / 특허 / 단행본 ───────────
 const publicationsNonSciPatents = defineCollection({
-  loader: file('src/content/publications/non-sci-patents.json'),
+  loader: file('src/content/publications/non-sci-patents.json', { parser: itemsParser }),
   schema: z.object({
     number: z.number(),
     year: z.number(),
@@ -64,7 +68,7 @@ const publicationsNonSciPatents = defineCollection({
 
 // ─────────── Publications: PI Selected (CV 페이지 노출) ───────────
 const publicationsPiSelected = defineCollection({
-  loader: file('src/content/publications/pi-selected.json'),
+  loader: file('src/content/publications/pi-selected.json', { parser: itemsParser }),
   schema: z.object({
     category: z.enum(['microscopy', 'ai']),
     order: z.number(), // 표시 순서 (작은 값이 위)
@@ -87,7 +91,8 @@ const news = defineCollection({
     date: z.string(),
     category: z.enum(['paper', 'award', 'media', 'member', 'event', 'grant', 'lab']),
     headline: z.string(),
-    body: z.string().optional(),
+    // 'body'는 Sveltia/Decap이 markdown body로 예약한 이름이라 'summary'로 둔다.
+    summary: z.string().optional(),
     links: z
       .array(
         z.object({
@@ -117,7 +122,6 @@ const members = defineCollection({
     orcid: z.string().optional(),
     kri: z.string().optional(),
     coAdvisor: z.string().optional(),
-    portrait: z.string().optional(),
     photoPath: z.string().optional(),
     // Alumni 전용
     role: z.string().optional(),

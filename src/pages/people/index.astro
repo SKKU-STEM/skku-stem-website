@@ -3,25 +3,12 @@
 // 출처: https://sites.google.com/site/skkustem/our-company (2026-05-09 fetch)
 // PI 상세 CV는 /people/pi에 분리. 본 페이지는 멤버 카드 그리드 + alumni.
 //
-// Portrait: 카드 우측 상단 슬롯 (3:4). 사진 추가 방법은 src/assets/people/README.md 참고.
+// Portrait: 카드 우측 상단 슬롯 (3:4). 사진은 public/members/<INIT>.jpg에 두고
+// frontmatter의 photoPath 필드로 참조 (예: /members/EBP.jpg).
 // 멤버 데이터는 src/content/members/*.md 컬렉션에 저장 (section 필드로 그룹).
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PortraitBox from '@components/PortraitBox.astro';
 import { getCollection } from 'astro:content';
-import type { ImageMetadata } from 'astro';
-
-// src/assets/people/* 의 모든 portrait 파일을 build-time에 eager-load.
-// 등록된 파일명만 매칭됨 — 미등록 파일명을 portrait 필드에 적으면 placeholder 표시.
-const portraitModules = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/people/*.{jpg,jpeg,png,webp}',
-  { eager: true }
-);
-
-const getPortrait = (filename?: string): ImageMetadata | null => {
-  if (!filename) return null;
-  const mod = portraitModules[`/src/assets/people/${filename}`];
-  return mod?.default ?? null;
-};
 
 const allMembers = (await getCollection('members'))
   .map((e) => e.data)
@@ -226,7 +213,6 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   </p>
                 </div>
                 <PortraitBox
-                  portrait={getPortrait(m.portrait)}
                   srcPath={m.photoPath}
                   alt={`Portrait of ${m.nameEn}`}
                   class="w-24 shrink-0"
@@ -295,7 +281,6 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   )}
                 </div>
                 <PortraitBox
-                  portrait={getPortrait(m.portrait)}
                   srcPath={m.photoPath}
                   alt={`Portrait of ${m.nameEn}`}
                   class="w-24 shrink-0"
@@ -359,7 +344,6 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   </p>
                 </div>
                 <PortraitBox
-                  portrait={getPortrait(m.portrait)}
                   srcPath={m.photoPath}
                   alt={`Portrait of ${m.nameEn}`}
                   class="w-24 shrink-0"
@@ -428,7 +412,6 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   )}
                 </div>
                 <PortraitBox
-                  portrait={getPortrait(a.portrait)}
                   srcPath={a.photoPath}
                   alt={`Portrait of ${a.nameEn}`}
                   class="w-24 shrink-0"

@@ -215,7 +215,7 @@ const years = Object.keys(byYear)
                       </h3>
 
                       {/* Body */}
-                      {entry.body && (
+                      {entry.summary && (
                         <p
                           class:list={[
                             'mt-3 leading-relaxed text-ink/85',
@@ -224,7 +224,7 @@ const years = Object.keys(byYear)
                               : 'text-base',
                           ]}
                         >
-                          {entry.body}
+                          {entry.summary}
                         </p>
                       )}
 
