@@ -133,4 +133,4 @@
 - [x] GitHub OAuth App 생성 — Homepage `https://skkustem.org`, Callback `https://skkustem.org/oauth/callback`
 - [x] Cloudflare Pages env 변수 등록: `GITHUB_CLIENT_ID` (Text), `GITHUB_CLIENT_SECRET` (Secret)
 - [x] git push → Pages 빌드 → `https://skkustem.org/admin` 접속 → GitHub 인증 → 9 컬렉션 노출 확인 (2026-05-10)
-- [ ] **TODO(검증)**: news 한 entry 실제 편집·저장·라이브 반영 끝-to-끝 확인
+- [x] news entry 편집·저장·라이브 반영 끝-to-끝 확인 (2026-05-10, commit bed627f) — CMS는 SKKU-STEM author로 main에 직접 commit, 메시지 패턴은 `Update News post "{slug}"`
