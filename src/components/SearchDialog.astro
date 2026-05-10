@@ -1,0 +1,162 @@
+---
+// 사이트 전역 검색 — 헤더 아이콘 / Cmd·Ctrl+K / '/' 로 모달 오픈, Pagefind UI lazy load
+---
+
+<button
+  type="button"
+  id="search-open"
+  class="inline-flex items-center justify-center h-10 w-10 text-ink/80 rounded-md hover:text-coral hover:bg-cream-200 transition-colors"
+  aria-label="검색 열기 (Ctrl+K)"
+  title="검색 (Ctrl+K)"
+>
+  <svg
+    class="h-5 w-5"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" />
+  </svg>
+</button>
+
+<dialog
+  id="search-dialog"
+  class="search-dialog bg-cream text-ink rounded-lg shadow-lift w-full max-w-2xl p-0"
+  aria-label="사이트 검색"
+>
+  <div class="p-4">
+    <div id="pagefind-search"></div>
+  </div>
+</dialog>
+
+<style>
+  .search-dialog {
+    border: 1px solid #e4e1d5;
+    margin: 6vh auto auto;
+  }
+
+  .search-dialog::backdrop {
+    background: rgba(20, 20, 19, 0.4);
+    backdrop-filter: blur(2px);
+  }
+
+  /* PagefindUI 테마 토큰 — cream/coral/Inter 매칭 */
+  #pagefind-search {
+    --pagefind-ui-primary: #cc785c;
+    --pagefind-ui-text: #141413;
+    --pagefind-ui-background: #faf9f5;
+    --pagefind-ui-border: #e4e1d5;
+    --pagefind-ui-tag: #f1efe7;
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 0.5rem;
+    --pagefind-ui-image-border-radius: 0.25rem;
+    --pagefind-ui-font:
+      "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+
+  /* 모바일: 풀스크린 시트 */
+  @media (max-width: 640px) {
+    .search-dialog {
+      margin: 0;
+      max-width: 100vw;
+      width: 100vw;
+      max-height: 100dvh;
+      height: 100dvh;
+      border-radius: 0;
+      border: 0;
+    }
+  }
+</style>
+
+<script>
+  // 헤더 검색 아이콘 / 단축키 → <dialog> 오픈 + PagefindUI lazy mount
+  const openBtn = document.getElementById(
+    'search-open',
+  ) as HTMLButtonElement | null;
+  const dialog = document.getElementById(
+    'search-dialog',
+  ) as HTMLDialogElement | null;
+
+  let pagefindMounted = false;
+
+  const ensurePagefindUI = async (): Promise<void> => {
+    if (pagefindMounted) return;
+    pagefindMounted = true;
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/pagefind/pagefind-ui.css';
+    document.head.appendChild(link);
+
+    await new Promise<void>((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = '/pagefind/pagefind-ui.js';
+      script.onload = () => resolve();
+      script.onerror = () =>
+        reject(new Error('Pagefind UI 자산을 불러오지 못했습니다 (dev 모드?)'));
+      document.head.appendChild(script);
+    });
+
+    // PagefindUI는 window 전역으로 노출됨
+    // @ts-expect-error - PagefindUI is provided by /pagefind/pagefind-ui.js
+    new window.PagefindUI({
+      element: '#pagefind-search',
+      showImages: false,
+      showSubResults: true,
+      pageSize: 5,
+      resetStyles: false,
+    });
+  };
+
+  const openDialog = async (): Promise<void> => {
+    if (!dialog) return;
+    try {
+      await ensurePagefindUI();
+    } catch (err) {
+      console.error(err);
+    }
+    if (!dialog.open) {
+      dialog.showModal();
+      requestAnimationFrame(() => {
+        const input = dialog.querySelector<HTMLInputElement>(
+          '.pagefind-ui__search-input',
+        );
+        input?.focus();
+      });
+    }
+  };
+
+  openBtn?.addEventListener('click', () => {
+    void openDialog();
+  });
+
+  // 백드롭 클릭으로 닫기 (다이얼로그 자체가 target일 때만)
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  // 단축키 — Cmd/Ctrl+K, '/' (편집 가능 요소 focus 시 비활성)
+  const isEditable = (el: EventTarget | null): boolean => {
+    if (!(el instanceof HTMLElement)) return false;
+    const tag = el.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
+    return el.isContentEditable;
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      void openDialog();
+      return;
+    }
+    if (e.key === '/' && !isEditable(e.target) && !dialog?.open) {
+      e.preventDefault();
+      void openDialog();
+    }
+  });
+</script>

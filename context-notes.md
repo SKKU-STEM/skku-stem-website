@@ -47,7 +47,10 @@
 
 - Pagefind는 빌드 후 정적 인덱싱 도구. `build` 스크립트를 `astro build && pagefind --site dist`로 체이닝.
 - `dist/pagefind/`가 결과물이며, 배포 시 그대로 서빙된다.
-- 검색 UI 컴포넌트(`/pagefind/pagefind-ui.js` 클라이언트 로드)는 다음 단계 작업.
+- 검색 UI: `src/components/SearchDialog.astro` — Header에 돋보기 아이콘 + `<dialog>` 모달. PagefindUI(`/pagefind/pagefind-ui.js` + `pagefind-ui.css`)를 첫 인터랙션 때 lazy-load 하므로 initial bundle에 포함되지 않음. 단축키: `Cmd/Ctrl+K`(어디서든) 또는 `/`(input/textarea/contenteditable focus 아닐 때만).
+- 테마는 PagefindUI가 노출하는 `--pagefind-ui-*` CSS 변수만 override(coral primary, cream background, Inter font). resetStyles 끄고 base CSS는 그대로 사용.
+- 인덱싱 범위는 전체 `<body>`(현 사이트 규모 10 페이지 / 4573 단어로 작아 노이즈 영향 미미). 향후 Header/Footer 노출이 신경 쓰이면 BaseLayout `<main>`에 `data-pagefind-body` 추가.
+- dev 모드에선 `dist/pagefind/`가 없어 검색 동작 안 됨. 검증은 `npm run build && npm run preview`로.
 
 ## 6. Content Collections
 

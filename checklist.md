@@ -70,7 +70,7 @@
 - [ ] News — Content Collection (date sort, RSS)
 - [ ] Join — 모집 공고 + apply flow
 - [ ] Contact — 위치/지도/이메일
-- [ ] Pagefind UI 컴포넌트 (`/pagefind/pagefind-ui.js` 동적 로드)
+- [x] Pagefind UI 컴포넌트 (`/pagefind/pagefind-ui.js` 동적 로드) — `SearchDialog.astro` (Header 아이콘 + `<dialog>` 모달, Cmd/Ctrl+K · `/` 단축키, cream/coral 토큰 override)
 - [ ] 404 페이지
 - [ ] `robots.txt` + `sitemap.xml` 검증
 

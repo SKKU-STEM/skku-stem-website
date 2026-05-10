@@ -1,6 +1,7 @@
 ---
-// 사이트 전체 헤더 — 좌측 로고, 우측 데스크톱 nav, 모바일 햄버거 메뉴
+// 사이트 전체 헤더 — 좌측 로고, 우측 데스크톱 nav, 모바일 햄버거 메뉴, 검색 트리거
 import Logo from '@components/Logo.astro';
+import SearchDialog from '@components/SearchDialog.astro';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -29,33 +30,36 @@ const isCurrent = (href: string): boolean => {
       <Logo class="h-7 w-auto" />
     </a>
 
-    <nav class="hidden md:block" aria-label="Primary navigation">
-      <ul class="flex items-center gap-7 text-sm">
-        {navItems.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={[
-                'transition-colors hover:text-coral',
-                isCurrent(item.href) ? 'text-coral' : 'text-ink/80',
-              ]}
-              aria-current={isCurrent(item.href) ? 'page' : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <div class="flex items-center gap-1 -mr-2">
+      <nav class="hidden md:block mr-3" aria-label="Primary navigation">
+        <ul class="flex items-center gap-7 text-sm">
+          {navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  'transition-colors hover:text-coral',
+                  isCurrent(item.href) ? 'text-coral' : 'text-ink/80',
+                ]}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-    <button
-      id="mobile-menu-button"
-      type="button"
-      class="md:hidden inline-flex items-center justify-center h-10 w-10 -mr-2 text-ink rounded-md hover:bg-cream-200 transition-colors"
-      aria-controls="mobile-menu"
-      aria-expanded="false"
-      aria-label="메뉴 열기"
-    >
+      <SearchDialog />
+
+      <button
+        id="mobile-menu-button"
+        type="button"
+        class="md:hidden inline-flex items-center justify-center h-10 w-10 text-ink rounded-md hover:bg-cream-200 transition-colors"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="메뉴 열기"
+      >
       <svg
         data-icon="open"
         class="block h-5 w-5"
@@ -81,6 +85,7 @@ const isCurrent = (href: string): boolean => {
         <path d="M6 6l12 12M18 6 6 18" />
       </svg>
     </button>
+    </div>
   </div>
 
   <div
