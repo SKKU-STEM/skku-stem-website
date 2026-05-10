@@ -37,7 +37,7 @@
 - [x] `astro check` 통과 (9 파일 / 0/0/0)
 - [ ] **TODO(content)**: Footer 외부 링크 4개의 실제 URL (학과 / 학교 / GitHub / ORCID)
 - [ ] **TODO(content)**: 진짜 로고 SVG (사용자가 추후 제공) → `src/assets/logo.svg` 교체
-- [ ] favicon.svg (`public/`에 배치 — 현재 404)
+- [x] favicon.svg (`public/favicon.svg` + `favicon.png`)
 
 ## Stage 3 — Page content
 
@@ -62,17 +62,18 @@
   - [ ] **TODO(content)**: 각 논문 DOI URL 추가 (현재 doi 필드 비어있음)
   - [ ] **TODO(content)**: 이전 사이트에 더 있던 항목 — talks / patents / service — 있으면 추가
   - [ ] **TODO(check)**: 정호현이 MS course지만 이전 사이트가 "Ph.D. Candidates" 섹션에 둠. 분류 유지/이동 PI 확인
-- [ ] Research — 연구 주제 (group themes, projects)
-- [ ] People — PI / 연구원 / 졸업생
-- [ ] Publications — Content Collection (year/type 필터, BibTeX export 검토)
-- [ ] Gallery — Astro Image responsive grid
-- [ ] Facilities — 장비/시설 카탈로그
-- [ ] News — Content Collection (date sort, RSS)
-- [ ] Join — 모집 공고 + apply flow
-- [ ] Contact — 위치/지도/이메일
+- [ ] Research — 연구 주제 (group themes, projects) — next-session.md 참고
+- [x] People — PI / 연구원 / 졸업생 (= 위 People 섹션 L55–60에서 완료)
+- [x] Publications — Content Collection (= 위 Publications 섹션 L77–82 + Stage 5.1 마이그레이션)
+- [x] Gallery — Astro Image responsive grid (`gallery.astro` + `PhotoMosaic.astro`, lightbox)
+- [x] Facilities — 장비/시설 카탈로그 (`facilities.astro`, JEM-ARM300F + ARM200F)
+- [x] News — Content Collection (`news` collection, date sort, category filter)
+  - [ ] RSS feed (`/rss.xml` endpoint)
+- [ ] ~~Join — 모집 공고 + apply flow~~ N/A (PRD §4 — Home recruiting 섹션 + footer 이메일로 통합, 별도 페이지 없음)
+- [ ] ~~Contact — 위치/지도/이메일~~ N/A (PRD §4 — 동일 이유)
 - [x] Pagefind UI 컴포넌트 (`/pagefind/pagefind-ui.js` 동적 로드) — `SearchDialog.astro` (Header 아이콘 + `<dialog>` 모달, Cmd/Ctrl+K · `/` 단축키, cream/coral 토큰 override)
 - [ ] 404 페이지
-- [ ] `robots.txt` + `sitemap.xml` 검증
+- [x] `robots.txt` + `sitemap.xml` 검증 — robots.txt(admin/oauth Disallow), `@astrojs/sitemap`이 sitemap-index.xml 생성, GSC 제출 완료 (PRD §11)
 
 - [x] Publications — 이전 사이트 3-layer 구조 마이그레이션
   - [x] `/publications` (메인) — SKKU 시기 SCI 논문 179편 (`src/data/publications-skku.ts`)
@@ -85,7 +86,7 @@
 
 ## Stage 4 — Polish
 
-- [ ] 다크 모드 결정 (cream/ink 반전 vs 단일 라이트 테마)
+- [x] 다크 모드 결정 — 보류 (context-notes §9, 라이트 가정 사진/그림 다수)
 - [ ] 한국어/영어 i18n (Astro i18n routing) 필요 여부 확인
 - [ ] OG 이미지 자동 생성 (Satori 등)
 - [ ] Lighthouse / a11y 점검
@@ -117,7 +118,7 @@
 - [x] `npm run check` — 0 errors / 0 warnings / 0 hints (35 files)
 - [x] `npm run build` — 성공, 10 pages + sitemap + pagefind 인덱싱
 - [x] 페이지 헤더 주석 + src/assets/*/README.md의 데이터 경로 안내를 새 src/content/* 경로로 업데이트
-- [ ] 시각 회귀 — `npm run dev`로 10개 페이지 모두 기존과 동일하게 렌더되는지 확인 (사용자 검토)
+- [x] 시각 회귀 — Stage 5.2 라이브 배포 + 끝-to-끝 검증 (2026-05-10) 으로 갈음
 
 ### 5.2 CMS UI (2026-05-10)
 
