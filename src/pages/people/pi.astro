@@ -1,14 +1,21 @@
 ---
 // Prof. Young-Min Kim — full CV / bio
 // 출처: 이전 SKKU-STEM 사이트의 PI 페이지 (https://sites.google.com/site/skkustem/contact-us, 2026-05-09 fetch)
-// Selected publications는 src/data/pi-publications.ts에 분리 — 신규 논문 추가 시 데이터 파일만 수정.
+// Selected publications는 publications-pi-selected 컬렉션에 분리 — 신규 논문 추가 시 컬렉션만 수정.
 import BaseLayout from '@layouts/BaseLayout.astro';
-import {
-  microscopyMaterialsScience,
-  aiMicroscopy,
-  type Publication,
-} from '@/data/pi-publications';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
+
+type Publication = CollectionEntry<'publications-pi-selected'>['data'];
+
+const piSelectedAll = (await getCollection('publications-pi-selected'))
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
+
+const microscopyMaterialsScience = piSelectedAll.filter(
+  (p) => p.category === 'microscopy'
+);
+const aiMicroscopy = piSelectedAll.filter((p) => p.category === 'ai');
 
 const pubGroups: Array<{ id: string; title: string; entries: Publication[] }> = [
   {

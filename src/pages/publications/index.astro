@@ -1,11 +1,16 @@
 ---
 // Publications — SKKU 시기 SCI 논문 (메인 페이지)
-// 데이터: src/data/publications-skku.ts
+// 데이터: src/content/publications/skku.json (Astro Content Collection)
 // 하위 페이지: /publications/before-skku, /publications/non-sci-patents
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { skkuPublications } from '@/data/publications-skku';
-import type { Publication } from '@/data/publications-skku';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
+
+type Publication = CollectionEntry<'publications-skku'>['data'];
+
+const skkuPublications = (await getCollection('publications-skku'))
+  .map((e) => e.data)
+  .sort((a, b) => b.number - a.number);
 
 // 연도별 그룹핑
 const byYear = skkuPublications.reduce<Record<number, Publication[]>>(

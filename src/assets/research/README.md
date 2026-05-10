@@ -12,15 +12,15 @@
 ## 등록 방법
 
 1. 이미지 파일을 본 디렉토리(`src/assets/research/`)에 저장
-2. `src/data/research-highlights.ts`에서 해당 entry에 `image` 필드 추가
-   ```ts
-   {
-     year: 2026,
-     title: 'A growth mechanism for grain-boundary-free ultraflat silver thin films',
-     // ...
-     image: 'silver-thin-films-2026.jpg',
-     imageAlt: 'STEM micrograph of grain-boundary-free silver film',  // 옵션 — 미설정 시 title 사용
-   }
+2. `src/content/research-highlights/<slug>.md`의 frontmatter에 `image` 필드 추가
+   ```yaml
+   ---
+   year: 2026
+   title: "A growth mechanism for grain-boundary-free ultraflat silver thin films"
+   # ...
+   image: "silver-thin-films-2026.jpg"
+   imageAlt: "STEM micrograph of grain-boundary-free silver film"  # 옵션 — 미설정 시 title 사용
+   ---
    ```
 3. 저장하면 dev 서버 HMR로, 빌드 시에는 자동으로 WebP/AVIF + 다중 해상도 srcset 생성됨
 

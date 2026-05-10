@@ -77,6 +77,80 @@ CLAUDE.md Rule 8에 따라 다음을 확인한다.
 - **배포 타겟**: Vercel/Netlify/GitHub Pages/SKKU 내부 호스팅 중 미정. 현재 `astro.config.mjs`의 `site`는 placeholder(`https://skku-stem.example.com`).
 - **Publications 데이터 소스**: BibTeX import 방식인지 수동 MDX인지 미정.
 
+## 11. CMS 마이그레이션 (Stage 5, 2026-05-10 시작)
+
+PRD §10에 따라 Decap CMS 도입 준비. 오늘 세션은 §10.5의 **steps 2~4** (Astro Content Collections로 데이터 이전 + 페이지 재연결)까지. OAuth App / Cloudflare Workers / `/admin` UI는 다음 세션.
+
+### 11.1 단위(granularity) 결정
+
+사용자 확정 (2026-05-10):
+
+- **Publications**: JSON 파일 컬렉션 (entry당 1 파일이 아닌, 카테고리당 1 JSON 파일에 array). 이유: 260건을 .md로 분할하면 git diff가 노이즈가 되고 Decap의 array 편집 위젯으로 충분.
+- **나머지**: per-entry Markdown (folder collection). News/Research highlights/Facilities는 본문(body) 필드가 있고, Members/Gallery는 frontmatter-only이지만 일관성을 위해 .md.
+
+이 결정은 향후 Decap config의 `files:` vs `folder:` 컬렉션 매핑을 직결한다.
+
+### 11.2 ID 전략
+
+Astro 5의 `file()` loader는 JSON 배열의 각 엔트리에 `id` 필드를 요구한다. 매핑:
+
+| 컬렉션 | id |
+|---|---|
+| publications/skku.json | `<number>` (그대로 유지, 231~) |
+| publications/before-skku.json | `<number>` |
+| publications/non-sci-patents.json | `<number>` |
+| publications/pi-selected.json | `<year>-<slugified-title>` |
+| news | `<slug>` (기존 `slug` 필드 그대로 파일명) |
+| research-highlights | `<year>-<slug-from-title>` |
+| facilities | `<slug>` |
+| gallery-events | `<slug>` |
+| members | `<photoPath의 베이스명>` 예: MHJ, EBP. 사진 없으면 nameEn 이니셜에서 생성 |
+
+### 11.3 Members 분류 필드
+
+기존 people/index.astro는 `postdocs`/`phdCandidates`/`undergrads`/`alumni` 4개 배열로 분리. Markdown으로 옮기면서 frontmatter에 `section: 'postdoc' | 'phd' | 'undergrad' | 'alumni'`를 추가. `position`, `program`, `yearRange`, `email`, `orcid`, `kri?`, `coAdvisor?`, `photoPath?`, `portrait?`는 그대로. Alumni는 `role`, `currentAffiliation?`도 보존.
+
+### 11.4 마이그레이션 스크립트 전략
+
+Node가 .ts를 native 실행하지 못하므로 **`tsx`를 devDep로 추가**해서 `npx tsx scripts/migrate-to-content.ts`로 실행. 한 번 실행하고 더 이상 필요 없는 도구지만 dep 추가 비용은 적음.
+
+대안(검토 후 폐기): TS 파일을 텍스트로 읽고 regex/eval 파싱 — 데이터에 백틱/중괄호가 섞여 있어 brace-balancing이 복잡해지고 디버깅 비용이 더 큼.
+
+스크립트는:
+1. `src/data/*.ts` 9개 모듈을 dynamic import
+2. People 데이터는 `src/pages/people/index.astro`의 frontmatter 영역에서 인라인 배열 4개를 추출하기 어려우므로, 스크립트 내부에 직접 동일 데이터 배열 4개를 인라인으로 두고(소스 진실은 .astro 파일이지만 일회성 마이그레이션이므로 OK), 마이그레이션 후엔 .astro에서 inline 데이터를 제거.
+3. publications: JSON.stringify(array, null, 2)로 출력
+4. news/research-highlights/facilities: `---\n<yaml>\n---\n\n<body>\n` Markdown 출력
+5. members/gallery-events: frontmatter-only Markdown 출력
+
+### 11.5 `field()` vs `glob()` 로더
+
+Astro 5 content layer의 두 loader 사용:
+- `file('src/content/publications/skku.json')` — JSON 배열을 entry 컬렉션으로
+- `glob({ pattern: '**/*.md', base: './src/content/news' })` — 폴더의 .md 파일들을 entry로
+
+### 11.6 페이지 재연결 패턴
+
+각 페이지의 import 변경:
+
+```ts
+// before
+import { skkuPublications } from '@/data/publications-skku';
+
+// after
+import { getCollection } from 'astro:content';
+const entries = await getCollection('publications-skku');
+const skkuPublications = entries.map(e => e.data);
+```
+
+화학식 렌더링(`formatChemistry`)과 정렬은 그대로 페이지 내부 로직 유지. 데이터 형태는 동일하므로 이후 변환 코드는 거의 변경 없음.
+
+### 11.7 다음 세션이 결정할 것
+
+- Decap config의 `files:` 컬렉션 한 개 안에 4개 publications JSON을 묶을지, `folder:` collection으로 폼-기반 array editor를 노출할지.
+- Members의 `photoPath`(public/) vs `portrait`(src/assets/) 이중 경로를 통합할지 — CMS UI에서 업로드하면 `public/uploads/`로 떨어지므로 `photoPath`만 남기는 게 단순함.
+- pi-publications와 publications/skku 사이 중복 — selected pubs는 보통 main 컬렉션에서 PI가 toggle하는 식이 자연스러움. 별도 컬렉션 유지 vs `featured: true` 필드로 통합 검토.
+
 ## 10. 디렉토리 트리(현재)
 
 ```

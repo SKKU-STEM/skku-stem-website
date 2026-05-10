@@ -2,13 +2,14 @@
 // Home — split hero + research highlights + recruiting (KO)
 // TODO(content): hero 그룹 사진 placeholder는 진짜 사진 생기면 <Image>로 교체.
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { skkuPublications } from '@/data/publications-skku';
+import { getCollection } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
 
-// 최근 lead authorship 논문 3건 자동 추출
-// publications-skku.ts가 역연대기 + number desc로 정렬되어 있으므로
-// lead만 필터링한 뒤 앞 3개를 그대로 사용하면 가장 최근 lead 논문이 됨.
-const highlights = skkuPublications
+// 최근 lead authorship 논문 3건 자동 추출 — number desc 정렬 후 lead 필터링.
+const skkuEntries = await getCollection('publications-skku');
+const highlights = skkuEntries
+  .map((e) => e.data)
+  .sort((a, b) => b.number - a.number)
   .filter((p) => p.lead)
   .slice(0, 3);
 ---

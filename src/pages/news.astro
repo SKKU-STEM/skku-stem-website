@@ -1,11 +1,13 @@
 ---
 // News — 연구실 게시판 (논문/수상/이벤트/멤버 소식 등)
-// 데이터: src/data/news.ts
+// 데이터: src/content/news/*.md (Astro Content Collection)
 // 사진 업로드: src/assets/news/README.md 참고
 import BaseLayout from '@layouts/BaseLayout.astro';
 import NewsPhoto from '@components/NewsPhoto.astro';
-import { newsEntries } from '@/data/news';
-import type { NewsEntry, NewsCategory } from '@/data/news';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+type NewsEntry = CollectionEntry<'news'>['data'];
+type NewsCategory = NewsEntry['category'];
 
 const CATEGORY_LABELS: Record<NewsCategory, string> = {
   paper: 'Paper',
@@ -16,6 +18,10 @@ const CATEGORY_LABELS: Record<NewsCategory, string> = {
   grant: 'Grant',
   lab: 'Lab',
 };
+
+const newsEntries = (await getCollection('news'))
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
 
 const byYear = newsEntries.reduce<Record<number, NewsEntry[]>>((acc, e) => {
   (acc[e.year] ??= []).push(e);

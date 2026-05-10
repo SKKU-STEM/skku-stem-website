@@ -4,7 +4,7 @@
 
 ## 파일 명명 규칙
 
-`src/data/gallery-events.ts`에서 각 이벤트는 `slug`(예: `2026-eels-school`)와 `photoCount`를 가집니다. 파일은 다음 패턴으로 저장:
+`src/content/gallery-events/<slug>.md`의 frontmatter에 각 이벤트의 `slug`(예: `2026-eels-school`)와 `photoCount`가 들어 있습니다. 사진 파일은 다음 패턴으로 저장:
 
 ```
 <slug>-<index>.<ext>
@@ -21,7 +21,7 @@
 
 1. 옛 페이지를 브라우저에서 열기: https://sites.google.com/site/skkustem/upcoming-seminars
 2. 각 이벤트 사진을 우클릭 → "이미지 저장"
-3. `data/gallery-events.ts`에서 해당 이벤트의 slug 확인 (예: `2026-eels-school`)
+3. `src/content/gallery-events/<slug>.md`에서 해당 이벤트의 slug 확인 (예: `2026-eels-school`)
 4. 저장 시 파일명을 `<slug>-1.jpg`, `<slug>-2.jpg`, ... 식으로
 5. 본 디렉토리(`src/assets/gallery/`)에 드롭
 6. dev 서버 자동 반영 — placeholder가 사진으로 교체됨
@@ -34,4 +34,4 @@
 
 ## 새 이벤트 추가
 
-`src/data/gallery-events.ts` 배열 맨 위(가장 최근이 위)에 새 entry 추가. `slug`는 충돌 안 되게 unique하게 짓고, `photoCount`는 업로드할 사진 수만큼.
+`src/content/gallery-events/<slug>.md`로 새 .md 파일 추가. frontmatter는 기존 파일들 참고. `slug`는 충돌 안 되게 unique하게 짓고, `photoCount`는 업로드할 사진 수만큼. `order`는 가장 큰 값보다 작게 (낮은 값이 먼저 표시 — 역연대기 유지하려면 0, 1, 2…식으로).

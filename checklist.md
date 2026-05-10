@@ -89,4 +89,39 @@
 - [ ] 한국어/영어 i18n (Astro i18n routing) 필요 여부 확인
 - [ ] OG 이미지 자동 생성 (Satori 등)
 - [ ] Lighthouse / a11y 점검
-- [ ] 배포 타겟 확정 (Vercel / Netlify / GitHub Pages / SKKU 내부 호스팅)
+- [x] 배포 타겟 확정 — Cloudflare Pages (skkustem.org)
+
+## Stage 5 — CMS 도입 (PRD §10)
+
+진행 단위는 PRD §10.5의 8단계. 오늘은 **steps 2~4** (마이그레이션)만, OAuth/admin은 다음 세션.
+
+### 5.1 마이그레이션 (2026-05-10 완료)
+
+- [x] `tsx` devDep 추가 (마이그레이션 스크립트 실행용)
+- [x] `src/content.config.ts` — zod 스키마 9개 정의
+  - [x] publications-skku / before-skku / non-sci-patents / pi-selected (file collection, JSON array)
+  - [x] news (folder, .md, frontmatter-only — body 필드도 frontmatter에)
+  - [x] members (folder, .md, section enum 필드로 분류)
+  - [x] research-highlights / facilities (folder, .md, summary/description도 frontmatter)
+  - [x] gallery-events (folder, .md)
+- [x] `scripts/migrate-to-content.ts` — TS data → src/content/* 변환 (npx tsx 실행, 일회성)
+- [x] 스크립트 실행 + 산출물 spot-check
+  - 결과: publications 4 JSON (179+52+29+24=284 entries) + news 8 + members 30 + research-highlights 28 + facilities 2 + gallery-events 52 = 총 7개 컬렉션, 404 entries
+- [x] 페이지 10개 재연결 (`getCollection`)
+  - [x] index.astro / research.astro
+  - [x] people/index.astro (인라인 members 데이터 285줄 제거)
+  - [x] people/pi.astro
+  - [x] publications/{index, before-skku, non-sci-patents}.astro
+  - [x] news.astro / gallery.astro / facilities.astro
+- [x] `src/data/*.ts` 9개 파일 + 디렉토리 제거
+- [x] `npm run check` — 0 errors / 0 warnings / 0 hints (35 files)
+- [x] `npm run build` — 성공, 10 pages + sitemap + pagefind 인덱싱
+- [x] 페이지 헤더 주석 + src/assets/*/README.md의 데이터 경로 안내를 새 src/content/* 경로로 업데이트
+- [ ] 시각 회귀 — `npm run dev`로 10개 페이지 모두 기존과 동일하게 렌더되는지 확인 (사용자 검토)
+
+### 5.2 CMS UI (다음 세션)
+
+- [ ] GitHub OAuth App 생성 (사용자 직접)
+- [ ] Cloudflare Workers OAuth 프록시 배포
+- [ ] `public/admin/index.html` + `public/admin/config.yml`
+- [ ] /admin 접속 → GitHub 인증 → 편집 테스트

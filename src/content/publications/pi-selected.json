@@ -1,0 +1,242 @@
+[
+  {
+    "id": "microscopy-001-homoepitaxy-like-heteroepitaxy-via-monol",
+    "category": "microscopy",
+    "order": 0,
+    "authors": "Su Jae Kim†, Seon Je Kim†, Young-Hoon Kim†, Tae-In Jeong†, Min-Hyoung Jung, Hee-Beom Lee, Jongkyoon Park, Sehyeon Kim, Ganbat Duvjir, Yousil Lee, Jegon Lee, Woo Seok Choi, Jungdae Kim, Hu Young Jeong, Seungchul Kim*, Se-Young Jeong*, Young-Min Kim*",
+    "title": "Homoepitaxy-like heteroepitaxy via monolayer interface achieves grain-boundary-free ultraflat silver thin films",
+    "journal": "Reports on Progress in Physics",
+    "year": 2026,
+    "volumePages": "89(2), 028002"
+  },
+  {
+    "id": "microscopy-002-an-impermeable-copper-surface-monolayer-",
+    "category": "microscopy",
+    "order": 1,
+    "authors": "Su Jae Kim†, Young-Hoon Kim†, Bipin Lamichhane†, Binod Regmi, Yousil Lee, Sang-Hyeok Yang, Seon Je Kim, Min-Hyoung Jung, Jae Hyuck Jang, Hu Young Jeong, Miaofang Chi, Maeng-Je Seong, Hak Soo Choi, Seong-Gon Kim*, Young-Min Kim*, Se-Young Jeong*",
+    "title": "An impermeable copper surface monolayer with high-temperature oxidation resistance",
+    "journal": "Nature Communications",
+    "year": 2025,
+    "volumePages": "16, 1462"
+  },
+  {
+    "id": "microscopy-003-oxygen-vacancy-induced-directional-order",
+    "category": "microscopy",
+    "order": 2,
+    "authors": "Hyeon-Ah Ju†, Eun-Byeol Park†, Jaejin Hwang†, Young-Hoon Kim†, Min-Hyoung Jung, Min-Ji Yang, Seon Je Kim, Jaehan Lee, In Kim, Yoo-Shin Kim, Songhun Yoon, Jae Hyuck Jang, Hu Young Jeong, Jaekwang Lee*, Jae-Hyun Shim*, Young-Min Kim*",
+    "title": "Oxygen vacancy-induced directional ordering of Li-ion pathways for enhanced ion-conducting solid electrolytes",
+    "journal": "ACS Energy Letters",
+    "year": 2024,
+    "volumePages": "9(11), 5606-5615"
+  },
+  {
+    "id": "microscopy-004-uneven-strain-relaxation-in-formamidiniu",
+    "category": "microscopy",
+    "order": 3,
+    "authors": "Sooeun Shin, Sang-Hyeok Yang, Seongrok Seo, Hyoungmin Park, Urasawadee Amornkitbamrung, Yongjae In, Canjie Wang, Tomoya Nakamura, Atsushi Wakamiya, Young-Min Kim*, Hyunjung Shin*",
+    "title": "Uneven strain relaxation in formamidinium lead triiodide (FAPbI3) films upon aging",
+    "journal": "ACS Energy Letters",
+    "year": 2024,
+    "volumePages": "9(7), 3618-3627"
+  },
+  {
+    "id": "microscopy-005-an-aqueous-route-to-oxygen-deficient-wak",
+    "category": "microscopy",
+    "order": 4,
+    "authors": "Pavan Pujar†, Haewon Cho†, Young-Hoon Kim†, Nicolò Zagni†, Eunha Lee, Srinivas Gandla, Pavan Nukala*, Young-Min Kim*, Muhammad Ashraful Alam*, Sunkook Kim*",
+    "title": "An aqueous route to oxygen-deficient wake-up-free La-doped HfO2 ferroelectrics for negative capacitance field effect transistors",
+    "journal": "ACS Nano",
+    "year": 2023,
+    "volumePages": "17(19), 19076-19086"
+  },
+  {
+    "id": "microscopy-006-self-oxidation-resistance-of-the-curved-",
+    "category": "microscopy",
+    "order": 5,
+    "authors": "Young-Hoon Kim†, Seong-Gon Kim†, Seunghun Lee†, Miyeon Cheon, Su Jae Kim, Kideuk Nam, Bipin Lamichhane, Sung Heum Park, Min-Hyoung Jung, Ji-Soo Kim, Yu-Seong Seo, Taewoo Ha, Jungseek Hwang, Hu Young Jeong, Yusil Lee, Young Hee Lee, Young-Min Kim*, Se-Young Jeong*",
+    "title": "Self-oxidation resistance of the curved surface of achromatic copper",
+    "journal": "Advanced Materials",
+    "year": 2023,
+    "volumePages": "35(42), 2210564"
+  },
+  {
+    "id": "microscopy-007-coherent-consolidation-of-trillions-of-n",
+    "category": "microscopy",
+    "order": 6,
+    "authors": "Taewoo Ha†, Yu-Seong Seo†, Teun-Teun Kim†, Bipin Lamichhane, Young-Hoon Kim, Su Jae Kim, Yousil Lee, Jong Chan Kim, Sang Eon Park, Kyung Ik Sim, Jae Hoon Kim, Yong In Kim, Seon Je Kim, Hu Young Jeong, Young Hee Lee, Seong-Gon Kim*, Young-Min Kim*, Jungseek Hwang*, Se-Young Jeong*",
+    "title": "Coherent consolidation of trillions of nucleations for mono-atom step-level flat surfaces",
+    "journal": "Nature Communications",
+    "year": 2023,
+    "volumePages": "14, 685"
+  },
+  {
+    "id": "microscopy-008-enhanced-selective-photocatalytic-oxidat",
+    "category": "microscopy",
+    "order": 7,
+    "authors": "Woo-Sung Jang†, Vy Ngoc Pham†, Sang-Hyeok Yang, Jaeyoon Baik, Hangil Lee*, Young-Min Kim*",
+    "title": "Enhanced selective photocatalytic oxidation of a bio-derived platform chemical with vacancy-induced core-shell anatase TiO2 nanoparticles",
+    "journal": "Applied Catalysis B-Environmental",
+    "year": 2023,
+    "volumePages": "322, 122140"
+  },
+  {
+    "id": "microscopy-009-highly-enhanced-ferroelectricity-in-hfo2",
+    "category": "microscopy",
+    "order": 8,
+    "authors": "Seunghun Kang†, Woo-Sung Jang†, Anna N. Morozovska†, Owoong Kwon, Yeongrok Jin, Young-Hoon Kim, Hagyoul Bae, Chenxi Wang, Sang-Hyeok Yang, Alex Belianinov, Steven Randolph, Eugene A. Eliseev, Liam Collins, Yeehyun Park, Sanghyun Jo, Min-Hyoung Jung, Kyoung-June Go, Hae Won Cho, Si-Young Choi, Jae Hyuck Jang, Sunkook Kim, Hu Young Jeong, Jaekwang Lee, Olga S. Ovchinnikova, Jinseong Heo*, Sergei V. Kalinin*, Young-Min Kim*, Yunseok Kim*",
+    "title": "Highly enhanced ferroelectricity in HfO2-based ferroelectric thin film by light ion bombardment",
+    "journal": "Science",
+    "year": 2022,
+    "volumePages": "376(6594), 731-738"
+  },
+  {
+    "id": "microscopy-010-flat-surface-assisted-and-self-regulated",
+    "category": "microscopy",
+    "order": 9,
+    "authors": "Su Jae Kim†, Yong In Kim†, Bipin Lamichhane†, Young-Hoon Kim, Yousil Lee, Chae Ryong Cho, Miyeon Cheon, Jong Chan Kim, Hu Young Jeong, Taewoo Ha, Young Hee Lee, Seong-Gon Kim*, Young-Min Kim*, Se-Young Jeong*",
+    "title": "Flat-surface-assisted and self-regulated oxidation resistance of Cu(111)",
+    "journal": "Nature",
+    "year": 2022,
+    "volumePages": "603(7901), 434-438"
+  },
+  {
+    "id": "microscopy-011-site-selective-doping-mechanisms-for-the",
+    "category": "microscopy",
+    "order": 10,
+    "authors": "Woo-Sung Jang†, Yeongrok Jin†, Young-Hoon Kim†, Sang-Hyeok Yang, Seon Je Kim, Jung A. Hong, Jaeyoon Baik, Jaekwang Lee*, Hangil Lee*, Young-Min Kim*",
+    "title": "Site-selective doping mechanisms for the enhanced photocatalytic activity of tin oxide nanoparticles",
+    "journal": "Applied Catalysis B-Environmental",
+    "year": 2022,
+    "volumePages": "305, 121083"
+  },
+  {
+    "id": "microscopy-012-cooperative-evolution-of-polar-distortio",
+    "category": "microscopy",
+    "order": 11,
+    "authors": "Taewon Min†, Wooseon Choi†, Jinsol Seo†, Gyeongtak Han, Kyung Song, Sangwoo Ryu, Hyungwoo Lee, Jungwoo Lee, Kitae Eom, Chang-Beom Eom, Hu Young Jeong, Young-Min Kim*, Jaekwang Lee*, Sang Ho Oh*",
+    "title": "Cooperative evolution of polar distortion and nonpolar rotation of oxygen octahedra in oxide heterostructures",
+    "journal": "Science Advances",
+    "year": 2021,
+    "volumePages": "7(17), eabe9053"
+  },
+  {
+    "id": "microscopy-013-atomic-scale-chemical-mapping-of-copper-",
+    "category": "microscopy",
+    "order": 12,
+    "authors": "Young-Min Kim*,†, Kyu Hyoung Lee†, Liangwei Fu†, Min-Wook Oh, Sang-Hyeok Yang, Shoucong Ning, Gyeongtak Han, Min Young Kim, Ji-Soo Kim, Myoungho Jeong, Jaeduck Jang, Eunha Lee, Okunishi Eiji, Sawada Hidetaka, Sang-il Kim, Stephen J. Pennycook, Young Hee Lee, Sung Wng Kim*",
+    "title": "Atomic-scale chemical mapping of copper dopants in Bi2Te2.7Se0.3 thermoelectric alloy",
+    "journal": "Materials Today Physics",
+    "year": 2021,
+    "volumePages": "17, 100347"
+  },
+  {
+    "id": "microscopy-014-doping-mediated-lattice-engineering-of-m",
+    "category": "microscopy",
+    "order": 13,
+    "authors": "Ganesh Ghimire†, Krishna P. Dhakal†, Wooseon Choi†, Yonas Assefa Esthete†, Seon Je Kim, Tran Thu Trang, Hyoyoung Lee, Heejun Yang, Dinh Loc Duong, Young-Min Kim*, Jeongyong Kim*",
+    "title": "Doping-mediated lattice-engineering of monolayer ReS2 for modulating in-plane anisotropy of optical and transport properties",
+    "journal": "ACS Nano",
+    "year": 2021,
+    "volumePages": "15(8), 13770-13780"
+  },
+  {
+    "id": "microscopy-015-direct-observation-of-inherent-atomic-sc",
+    "category": "microscopy",
+    "order": 14,
+    "authors": "Ki Sung Kim†, Young-Min Kim†, Hyeona Mun†, Jisoo Kim, Jucheol Park, Albina Y. Borisevich, Kyu Hyoung Lee, Sung Wng Kim*",
+    "title": "Direct observation of inherent atomic-scale defect disorders responsible for high thermoelectric performance of Ti1-xHfxNiSn1-ySby half-Heusler alloys",
+    "journal": "Advanced Materials",
+    "year": 2017,
+    "volumePages": "29, 1702091"
+  },
+  {
+    "id": "microscopy-016-direct-observation-of-ferroelectric-fiel",
+    "category": "microscopy",
+    "order": 15,
+    "authors": "Young-Min Kim, Anna N. Morozovska, Eugene A. Eliseev, Mark P. Oxley, Rohan Mishra, Sverre M. Selbach, Tor Grande, Sokrates T. Pantelides, Sergei V. Kalinin, Albina Y. Borisevich",
+    "title": "Direct observation of ferroelectric field effect and vacancy-controlled screening at the BiFeO3-LaxSr1-xMnO3 interface",
+    "journal": "Nature Materials",
+    "year": 2014,
+    "volumePages": "13, 1019-1025"
+  },
+  {
+    "id": "microscopy-017-interplay-of-octahedral-tilts-and-polar-",
+    "category": "microscopy",
+    "order": 16,
+    "authors": "Young-Min Kim, Amit Kumar, Alison Hatt, Anna N. Morozovska, Alexander Tselev, Michael D. Biegalski, Ilya Ivanov, Eugene A. Eliseev, Stephen J. Pennycook, James M. Rondinelli, Sergei V. Kalinin, Albina Y. Borisevich",
+    "title": "Interplay of octahedral tilts and polar order in BiFeO3 films",
+    "journal": "Advanced Materials",
+    "year": 2013,
+    "volumePages": "25(17), 2497-2504"
+  },
+  {
+    "id": "microscopy-018-probing-oxygen-vacancy-concentration-and",
+    "category": "microscopy",
+    "order": 17,
+    "authors": "Young-Min Kim, Jun He, Michael D. Biegalski, Hailemariam Ambaye, Valeria Lauter, Hans M. Christen, Sokrates T. Pantelides, Stephen J. Pennycook, Sergei V. Kalinin, Albina Y. Borisevich",
+    "title": "Probing oxygen vacancy concentration and homogeneity in solid-oxide-fuel-cell cathode materials on the subunit-cell level",
+    "journal": "Nature Materials",
+    "year": 2012,
+    "volumePages": "11, 888-894"
+  },
+  {
+    "id": "ai-001-integrated-probing-of-cycling-induced-de",
+    "category": "ai",
+    "order": 0,
+    "authors": "Daehee Yang†, Young-Hoon Kim†, Hyo June Lee†, Sang-Hyeok Yang, Min Hyoung Jung, Eun-Byeol Park, Hangsik Kim, Yerin Jeon, Yuseong Heo, Ka Hyun Kim, Sungyong Cho, Yun Sik Kang, Ki Kang Kim, Hangil Lee, Sung-Dae Yim, Jae Hyuck Jang*, Sungchul Lee*, Young-Min Kim*",
+    "title": "Integrated probing of cycling-induced degradation of multi-component electrode in hydrogen fuel cells via machine learning-empowered spectroscopic imaging",
+    "journal": "Applied Catalysis B: Environment and Energy",
+    "year": 2026,
+    "volumePages": "382, 125911"
+  },
+  {
+    "id": "ai-002-sparse-section-imaging-based-deep-learni",
+    "category": "ai",
+    "order": 1,
+    "authors": "Sang-Hyeok Yang†, Yerin Jeon†, Min-Hyoung Jung†, Sungyong Cho†, Eun-Byeol Park, Daehee Yang, Hyo June Lee, Yun Sik Kang, Chang Hyun Lee, Sung-Dae Yim*, Hu Young Jeong*, Sungchul Lee*, Young-Min Kim*",
+    "title": "Sparse section imaging-based deep learning electron tomography of porous carbon supports in proton exchange membrane fuel cells",
+    "journal": "Journal of Energy Chemistry",
+    "year": 2025,
+    "volumePages": "104, 795-806"
+  },
+  {
+    "id": "ai-003-deep-learning-image-segmentation-for-the",
+    "category": "ai",
+    "order": 2,
+    "authors": "Hee-Beom Lee†, Min-Hyoung Jung†, Young-Hoon Kim, Eun-Byeol Park, Woo-Sung Jang, Seon-Je Kim, Ki-ju Choi, Ji-young Park, Kee-bum Hwang, Jae-Hyun Shim, Songhun Yoon*, Young-Min Kim*",
+    "title": "Deep learning image segmentation for the reliable porosity measurement of high-capacity Ni-based oxide cathode secondary particles",
+    "journal": "Journal of Analytical Science and Technology",
+    "year": 2023,
+    "volumePages": "14, 47"
+  },
+  {
+    "id": "ai-004-deep-learning-morphological-distribution",
+    "category": "ai",
+    "order": 3,
+    "authors": "Sang-Hyeok Yang†, Eun-Byeol Park†, Sung Yong Cho†, Yun Sik Kang, Hyeon-Ah Ju, Yerin Jeon, Daehee Yang, Sung-Dae Yim*, Sungchul Lee*, Young-Min Kim*",
+    "title": "Deep learning morphological distribution analysis of metal alloy catalysts in proton exchange membrane fuel cells",
+    "journal": "Materials Today Energy",
+    "year": 2023,
+    "volumePages": "36, 101348"
+  },
+  {
+    "id": "ai-005-hybrid-deep-learning-crystallographic-ma",
+    "category": "ai",
+    "order": 4,
+    "authors": "Young-Hoon Kim†, Sang-Hyeok Yang†, Myoungho Jeong†, Min-Hyoung Jung, Daehee Yang, Hyangsook Lee, Taehwan Moon, Jinseong Heo, Hu Young Jeong, Eunha Lee*, Young-Min Kim*",
+    "title": "Hybrid deep learning crystallographic mapping of polymorphic phases in polycrystalline Hf0.5Zr0.5O2 thin films",
+    "journal": "Small",
+    "year": 2022,
+    "volumePages": "18(18), 2107620"
+  },
+  {
+    "id": "ai-006-deep-learning-assisted-quantification-of",
+    "category": "ai",
+    "order": 5,
+    "authors": "Sang-Hyeok Yang, Wooseon Choi, Byeong Wook Cho, Frederick Osei-Tutu Agyapong-Fordjour, Sehwan Park, Seok Joon Yun, Hyung-Jin Kim, Young-Kyu Han, Young Hee Lee, Ki Kang Kim, Young-Min Kim*",
+    "title": "Deep learning-assisted quantification of atomic dopants and defects in 2D materials",
+    "journal": "Advanced Science",
+    "year": 2021,
+    "volumePages": "8(16), 2101099"
+  }
+]

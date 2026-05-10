@@ -4,7 +4,7 @@
 
 ## 파일 명명 규칙
 
-`src/data/news.ts`의 entry는 `slug`(예: `2026-bk-thesis-awards`)와 `photoCount`를 가집니다. 파일명은 다음 패턴:
+`src/content/news/<slug>.md`의 entry는 frontmatter에 `slug`(파일명과 동일, 예: `2026-bk-thesis-awards`)와 `photoCount`를 가집니다. 파일명은 다음 패턴:
 
 ```
 <slug>-<index>.<ext>

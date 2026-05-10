@@ -1,10 +1,14 @@
 ---
 // Facilities — lab 주요 장비 (TEM 등) 소개
-// 데이터: src/data/facilities.ts
+// 데이터: src/content/facilities/*.md (Astro Content Collection)
 // 사진 업로드 규칙: src/assets/facilities/README.md 참고
 import BaseLayout from '@layouts/BaseLayout.astro';
 import FacilityPhoto from '@components/FacilityPhoto.astro';
-import { facilityEquipment } from '@/data/facilities';
+import { getCollection } from 'astro:content';
+
+const facilityEquipment = (await getCollection('facilities'))
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
 ---
 
 <BaseLayout

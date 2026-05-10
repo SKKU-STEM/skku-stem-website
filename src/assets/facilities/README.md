@@ -6,7 +6,7 @@
 
 ## 파일 명명 규칙
 
-`src/data/facilities.ts`의 각 장비는 `slug`(예: `jeol-arm300f`)와 `photoCount`를 가집니다. 파일은 다음 패턴으로 저장:
+`src/content/facilities/<slug>.md`의 frontmatter에 각 장비의 `slug`(예: `jeol-arm300f`)와 `photoCount`가 들어 있습니다. 사진 파일은 다음 패턴으로 저장:
 
 ```
 <slug>-<index>.<ext>

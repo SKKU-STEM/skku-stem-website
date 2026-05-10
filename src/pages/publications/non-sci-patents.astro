@@ -1,10 +1,15 @@
 ---
 // Publications · Non-SCI & Patents
-// 데이터: src/data/publications-non-sci-patents.ts (kind 필드로 종류 구분)
+// 데이터: src/content/publications/non-sci-patents.json (kind 필드로 종류 구분)
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { nonSciAndPatents } from '@/data/publications-non-sci-patents';
-import type { NonSciOrPatent } from '@/data/publications-non-sci-patents';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
+
+type NonSciOrPatent = CollectionEntry<'publications-non-sci-patents'>['data'];
+
+const nonSciAndPatents = (await getCollection('publications-non-sci-patents'))
+  .map((e) => e.data)
+  .sort((a, b) => b.number - a.number);
 
 const byYear = nonSciAndPatents.reduce<Record<number, NonSciOrPatent[]>>(
   (acc, item) => {

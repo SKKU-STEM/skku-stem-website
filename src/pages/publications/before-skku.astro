@@ -1,10 +1,15 @@
 ---
 // Publications · Before SKKU (2000–2015)
-// 데이터: src/data/publications-pre-skku.ts
+// 데이터: src/content/publications/before-skku.json (Astro Content Collection)
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { preSkkuPublications } from '@/data/publications-pre-skku';
-import type { Publication } from '@/data/publications-skku';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
+
+type Publication = CollectionEntry<'publications-before-skku'>['data'];
+
+const preSkkuPublications = (await getCollection('publications-before-skku'))
+  .map((e) => e.data)
+  .sort((a, b) => b.number - a.number);
 
 const byYear = preSkkuPublications.reduce<Record<number, Publication[]>>(
   (acc, p) => {

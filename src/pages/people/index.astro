@@ -4,34 +4,11 @@
 // PI 상세 CV는 /people/pi에 분리. 본 페이지는 멤버 카드 그리드 + alumni.
 //
 // Portrait: 카드 우측 상단 슬롯 (3:4). 사진 추가 방법은 src/assets/people/README.md 참고.
+// 멤버 데이터는 src/content/members/*.md 컬렉션에 저장 (section 필드로 그룹).
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PortraitBox from '@components/PortraitBox.astro';
+import { getCollection } from 'astro:content';
 import type { ImageMetadata } from 'astro';
-
-interface CurrentMember {
-  nameKo: string;
-  nameEn: string;
-  position?: string;        // 명시적 직위 (postdoc만)
-  program: string;          // Integrated / Ph.D. / MS / Undergrad
-  yearRange: string;        // 2021–present 등
-  email: string;
-  orcid: string;
-  kri?: string;
-  coAdvisor?: string;
-  portrait?: string;        // src/assets/people/<filename>
-  photoPath?: string;       // public/ 직접 경로 (예: /members/MHJ.png)
-}
-
-interface AlumniMember {
-  nameKo: string;
-  nameEn: string;
-  role: string;             // "Integrated course · 2020–2026" 형식
-  currentAffiliation?: string;
-  email?: string;
-  orcid?: string;
-  portrait?: string;        // src/assets/people/<filename>
-  photoPath?: string;       // public/ 직접 경로
-}
 
 // src/assets/people/* 의 모든 portrait 파일을 build-time에 eager-load.
 // 등록된 파일명만 매칭됨 — 미등록 파일명을 portrait 필드에 적으면 placeholder 표시.
@@ -46,290 +23,14 @@ const getPortrait = (filename?: string): ImageMetadata | null => {
   return mod?.default ?? null;
 };
 
-const postdocs: CurrentMember[] = [
-  {
-    nameKo: '정민형',
-    nameEn: 'Min-Hyoung Jung, Ph.D.',
-    position: 'Postdoctoral researcher',
-    program: 'Integrated course',
-    yearRange: '2019–2025',
-    email: 'jmh78989@g.skku.edu',
-    orcid: '0000-0001-5227-8571',
-    kri: '11907132',
-    photoPath: '/members/MHJ.png',
-  },
-  {
-    nameKo: '양대희',
-    nameEn: 'Daehee Yang, Ph.D.',
-    position: 'Postdoctoral researcher',
-    program: 'Ph.D. course',
-    yearRange: '2020–2026',
-    email: 'daeheeyang@skku.edu',
-    orcid: '0000-0002-0289-2458',
-    kri: '11674426',
-    photoPath: '/members/DY.jpg',
-  },
-];
+const allMembers = (await getCollection('members'))
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
 
-// NOTE: 정호현은 "MS course"이지만 이전 사이트가 Ph.D. Candidates 섹션 안에 두었음.
-// 그대로 마이그레이션 (분류 변경 필요 시 PI 확인 후 별도 MS 그룹으로 분리).
-const phdCandidates: CurrentMember[] = [
-  {
-    nameKo: '박은별',
-    nameEn: 'Eun-Byeol Park',
-    program: 'Integrated course',
-    yearRange: '2021–present',
-    email: 'peb0331@g.skku.edu',
-    orcid: '0000-0002-1230-2570',
-    kri: '12556811',
-    photoPath: '/members/EBP.jpg',
-  },
-  {
-    nameKo: '전예린',
-    nameEn: 'Yerin Jeon',
-    program: 'Integrated course',
-    yearRange: '2023–present',
-    email: 'rb4738@g.skku.edu',
-    orcid: '0000-0001-9736-6460',
-    kri: '12929522',
-    photoPath: '/members/YRJ.jpg',
-  },
-  {
-    nameKo: '최다혜',
-    nameEn: 'Dahye Choi',
-    program: 'Ph.D. course',
-    yearRange: '2025–present',
-    email: 'chlekgp0424@skku.edu',
-    orcid: '0009-0007-8582-3768',
-    kri: '12422800',
-    photoPath: '/members/DHC.jpg',
-  },
-  {
-    nameKo: '김항식',
-    nameEn: 'Hang Sik Kim',
-    program: 'Integrated course',
-    yearRange: '2023–present',
-    email: 'khs2565@skku.edu',
-    orcid: '0000-0002-6659-3043',
-    kri: '13012245',
-    coAdvisor: 'Prof. Ki Kang Kim (SKKU)',
-    photoPath: '/members/HSK.jpg',
-  },
-  {
-    nameKo: '이하승',
-    nameEn: 'Ha-Seung Lee',
-    program: 'Integrated course',
-    yearRange: '2025–present',
-    email: 'hasgav9802@g.skku.edu',
-    orcid: '0009-0009-4758-2080',
-    kri: '13156595',
-    photoPath: '/members/HSL.jpg',
-  },
-  {
-    nameKo: '이왕빈',
-    nameEn: 'Wang Been Lee',
-    program: 'Integrated course',
-    yearRange: '2025–present',
-    email: 'lwb0908@g.skku.edu',
-    orcid: '0009-0002-9934-4550',
-    kri: '13169535',
-    photoPath: '/members/WBL.jpg',
-  },
-  {
-    nameKo: '김태준',
-    nameEn: 'Taejoon Kim',
-    program: 'Integrated course',
-    yearRange: '2025–present',
-    email: 'todoltj@g.skku.edu',
-    orcid: '0009-0001-5615-7563',
-    kri: '13256416',
-    photoPath: '/members/TJK.jpg',
-  },
-  {
-    nameKo: '노서정',
-    nameEn: 'Seo jeong Ro',
-    program: 'Integrated course',
-    yearRange: '2026–present',
-    email: 'ssojoya0630@g.skku.edu',
-    orcid: '0009-0005-9326-2206',
-    kri: '13282282',
-    photoPath: '/members/SJR.jpg',
-  },
-  {
-    nameKo: '박진우',
-    nameEn: 'Jinwoo Park',
-    program: 'Integrated course',
-    yearRange: '2026–present',
-    email: 'astin2001@g.skku.edu',
-    orcid: '0009-0009-5456-4171',
-    kri: '13354374',
-    photoPath: '/members/JWP.jpg',
-  },
-  {
-    nameKo: '윤주성',
-    nameEn: 'Jooseong Yoon',
-    program: 'Integrated course',
-    yearRange: '2026–present',
-    email: 'joosungyun@skku.edu',
-    orcid: '0009-0002-7476-2625',
-    kri: '13367526',
-    photoPath: '/members/JSY.jpg',
-  },
-  {
-    nameKo: '박준상',
-    nameEn: 'Junsang Park',
-    program: 'Integrated course',
-    yearRange: '2026–present',
-    email: 'wnstkd1347@g.skku.edu',
-    orcid: '0009-0007-7805-135X',
-    kri: '13232671',
-    photoPath: '/members/JSP.jpg',
-  },
-  {
-    nameKo: '정호현',
-    nameEn: 'Hohyeon Jung',
-    program: 'MS course',
-    yearRange: '2026–present',
-    email: 'police0830@naver.com',
-    orcid: '0009-0004-9116-7021',
-    kri: '13488154',
-    photoPath: '/members/HHJ.jpg',
-  },
-];
-
-const undergrads: CurrentMember[] = [
-  {
-    nameKo: '오윤기',
-    nameEn: 'Yoonki Oh',
-    program: 'Undergraduate researcher',
-    yearRange: '2026–present',
-    email: 'dhdbsrk@gmail.com',
-    orcid: '0009-0009-9912-644X',
-    kri: '13188125',
-    photoPath: '/members/YKO.jpg',
-  },
-];
-
-const alumni: AlumniMember[] = [
-  {
-    nameKo: '김선제 박사',
-    nameEn: 'Seon Je Kim, Ph.D.',
-    role: 'Integrated course · 2020–2026',
-    currentAffiliation: 'Lam Research (2026–present)',
-    email: 'muytjswp@skku.edu',
-    orcid: '0000-0002-7756-5312',
-  },
-  {
-    nameKo: '양상혁 박사',
-    nameEn: 'Sang-Hyeok Yang, Ph.D.',
-    role: 'Integrated course · 2019–2025',
-    currentAffiliation:
-      'Korea Research Institute of Standards and Science (KRISS, 2026–present)',
-    email: '0412ysh@skku.edu',
-    orcid: '0000-0002-6287-7612',
-  },
-  {
-    nameKo: '이희범 박사',
-    nameEn: 'Heebeom Lee, Ph.D.',
-    role: 'Ph.D. course · 2020–2025',
-    currentAffiliation: 'Lam Research (2025–present)',
-    email: 'heebeom.lee@skku.edu',
-    orcid: '0000-0002-5922-2076',
-  },
-  {
-    nameKo: '주현아 박사',
-    nameEn: 'Hyeon-Ah Ju, Ph.D.',
-    role: 'Integrated course · 2019–2025',
-    currentAffiliation: 'KAIST (2025–present)',
-    email: 'hyeonah.ju@g.skku.edu',
-    orcid: '0000-0002-5887-1162',
-  },
-  {
-    nameKo: '이양진 박사',
-    nameEn: 'Yangjin Lee, Ph.D.',
-    role: 'Research Professor · 2024',
-    currentAffiliation:
-      'Korea Institute of Science and Technology (KIST, 2025–present)',
-    email: 'moyh1331@gmail.com',
-    orcid: '0000-0001-7336-1198',
-  },
-  {
-    nameKo: '허유성',
-    nameEn: 'Yuseong Heo',
-    role: "Master's degree · 2023–2026",
-    email: 'ysh7742@g.skku.edu',
-    orcid: '0000-0003-2825-315X',
-  },
-  {
-    nameKo: '최민영',
-    nameEn: 'Min-Yeong Choi',
-    role: "Master's degree · 2023–2025",
-    currentAffiliation: 'National Nanofab Center (NNFC, 2026–present)',
-    email: 'minzero@g.skku.edu',
-    orcid: '0000-0002-3044-3860',
-  },
-  {
-    nameKo: '최우선 박사',
-    nameEn: 'Wooseon Choi, Ph.D.',
-    role: 'MS-PhD Integrated course · 2017–2024',
-    currentAffiliation: 'Samsung Electronics (2024–present)',
-    email: 'wooseon@skku.edu',
-    orcid: '0000-0001-8115-1596',
-  },
-  {
-    nameKo: '김용인',
-    nameEn: 'Yong In Kim',
-    role: 'Researcher · 2018–2024',
-    currentAffiliation: 'ENF Technology (2024–present)',
-    email: 'panzeri@skku.edu',
-  },
-  {
-    nameKo: '김영훈 박사',
-    nameEn: 'Young-Hoon Kim, Ph.D.',
-    role: 'MS-PhD Integrated course · 2018–2024',
-    currentAffiliation: 'Oak Ridge National Laboratory, USA (2024–present)',
-    email: 'di1147@skku.edu',
-    orcid: '0000-0001-7343-1512',
-  },
-  {
-    nameKo: '장우성 박사',
-    nameEn: 'Woo-Sung Jang, Ph.D.',
-    role: 'MS-PhD Integrated course · 2017–2023',
-    currentAffiliation: 'Samsung Electronics (2023–present)',
-    email: 'wsjang@skku.edu',
-    orcid: '0000-0002-4209-6819',
-  },
-  {
-    nameKo: '민태원 박사',
-    nameEn: 'Taewon Min, Ph.D.',
-    role: 'Postdoctoral researcher · 2021–2022',
-    currentAffiliation: 'SK Hynix (2022–present)',
-    email: 'teawon_min@pusan.ac.kr',
-  },
-  {
-    nameKo: '홍정아',
-    nameEn: 'Jung A. Hong',
-    role: "Master's degree · 2020–2022",
-    currentAffiliation: 'LG Energy Solution (2022–present)',
-    email: 'junga4540@naver.com',
-  },
-  {
-    nameKo: '한경탁',
-    nameEn: 'Gyeongtak Han',
-    role: "Master's degree · 2018–2020",
-    currentAffiliation:
-      'LG Energy Solution (2024–present); Samsung Electronics (2020–2023)',
-    email: 'hantak666@gmail.com',
-  },
-  {
-    nameKo: '심재현 교수',
-    nameEn: 'Jae-Hyun Shim, Ph.D.',
-    role: 'Research Professor · 2017',
-    currentAffiliation:
-      'Dong-shin University, Assistant Professor (2018–present)',
-    email: 'jayonn.shim@gmail.com',
-  },
-];
+const postdocs = allMembers.filter((m) => m.section === 'postdoc');
+const phdCandidates = allMembers.filter((m) => m.section === 'phd');
+const undergrads = allMembers.filter((m) => m.section === 'undergrad');
+const alumni = allMembers.filter((m) => m.section === 'alumni');
 
 const obfuscate = (email: string): string => email.replace('@', '[at]');
 ---
@@ -470,7 +171,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                     href={`mailto:${m.email}`}
                     class="hover:text-coral transition-colors break-all"
                   >
-                    {obfuscate(m.email)}
+                    {obfuscate(m.email ?? '')}
                   </a>
                 </p>
                 <p>
@@ -539,7 +240,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                     href={`mailto:${m.email}`}
                     class="hover:text-coral transition-colors break-all"
                   >
-                    {obfuscate(m.email)}
+                    {obfuscate(m.email ?? '')}
                   </a>
                 </p>
                 <p>
@@ -603,7 +304,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                     href={`mailto:${m.email}`}
                     class="hover:text-coral transition-colors break-all"
                   >
-                    {obfuscate(m.email)}
+                    {obfuscate(m.email ?? '')}
                   </a>
                 </p>
                 <p>

@@ -1,11 +1,16 @@
 ---
 // Gallery — 그룹 사진 + 학회/시상 등 행사 사진
-// 데이터: src/data/gallery-events.ts
+// 데이터: src/content/gallery-events/*.md (Astro Content Collection)
 // 사진 업로드 규칙: src/assets/gallery/README.md 참고
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PhotoMosaic from '@components/PhotoMosaic.astro';
-import { galleryEvents } from '@/data/gallery-events';
-import type { GalleryEvent } from '@/data/gallery-events';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+type GalleryEvent = CollectionEntry<'gallery-events'>['data'];
+
+const galleryEvents = (await getCollection('gallery-events'))
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
 
 const byYear = galleryEvents.reduce<Record<number, GalleryEvent[]>>(
   (acc, ev) => {

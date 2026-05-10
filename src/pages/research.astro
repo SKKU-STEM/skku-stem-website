@@ -1,13 +1,14 @@
 ---
 // Research — 역연대기 highlight 타임라인 (text + 대표 figure 2열)
-// 데이터 출처: src/data/research-highlights.ts (이전 사이트 /clients 마이그레이션)
+// 데이터: src/content/research-highlights/*.md (Astro Content Collection)
 // 이미지 등록 규칙: src/assets/research/README.md 참고
 import BaseLayout from '@layouts/BaseLayout.astro';
 import FigureSlot from '@components/FigureSlot.astro';
-import { highlights } from '@/data/research-highlights';
-import type { ResearchHighlight } from '@/data/research-highlights';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { formatChemistry } from '@/utils/chemistry';
+
+type ResearchHighlight = CollectionEntry<'research-highlights'>['data'];
 
 // src/assets/research/* 의 모든 figure 파일을 build-time에 eager-load
 const figureModules = import.meta.glob<{ default: ImageMetadata }>(
@@ -20,6 +21,12 @@ const getFigure = (filename?: string): ImageMetadata | null => {
   const mod = figureModules[`/src/assets/research/${filename}`];
   return mod?.default ?? null;
 };
+
+// 데이터 로드 — order 필드는 마이그레이션 시 원본 배열 인덱스(reverse-chrono) 보존.
+const highlightEntries = await getCollection('research-highlights');
+const highlights = highlightEntries
+  .map((e) => e.data)
+  .sort((a, b) => a.order - b.order);
 
 // 연도별 그룹핑 (역연대기). 데이터가 reverse-chrono로 정렬되어 있어 그대로 받음.
 const byYear = highlights.reduce<Record<number, ResearchHighlight[]>>(
