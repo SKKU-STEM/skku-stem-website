@@ -41,8 +41,89 @@ const totalEntries = newsEntries.length;
 >
   <div class="section-stack pb-24 md:pb-32">
     {/* ─────────────── Page header ─────────────── */}
-    <section class="container-page pt-12 md:pt-20">
-      <div class="max-w-2xl">
+    <section class="container-page pt-12 md:pt-20 relative">
+      {/* 배경 그래픽 — 가로 timeline + event ticks/dots. 6개 year marker + 다양한 높이의 event tick,
+          axis 위/아래에 분산된 dot, 4개 coral featured milestone. News의 chronological 특성을 시각화. */}
+      <svg
+        viewBox="0 0 800 200"
+        preserveAspectRatio="xMidYMid slice"
+        class="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
+        <defs>
+          <radialGradient id="news-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.30" />
+            <stop offset="60%" stop-color="#CC785C" stop-opacity="0.06" />
+            <stop offset="100%" stop-color="#CC785C" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* Timeline axis — 가로 main line */}
+        <line x1="40" y1="130" x2="760" y2="130" class="stroke-ink" stroke-width="0.7" opacity="0.30" />
+
+        {/* Year markers — 6개 tall vertical ticks (axis 위로 솟음) */}
+        <path
+          fill="none"
+          class="stroke-ink"
+          stroke-width="1.0"
+          opacity="0.35"
+          d="M 80 70 L 80 130 M 220 70 L 220 130 M 360 70 L 360 130 M 500 70 L 500 130 M 640 70 L 640 130 M 760 70 L 760 130"
+        />
+
+        {/* Event short ticks — axis에서 dot까지 연결 (event 발생 줄기) */}
+        <path
+          fill="none"
+          class="stroke-ink"
+          stroke-width="0.5"
+          opacity="0.35"
+          d="M 110 130 L 110 105 M 145 130 L 145 92 M 175 130 L 175 110 M 250 130 L 250 100 M 285 130 L 285 80 M 315 130 L 315 112 M 395 130 L 395 95 M 425 130 L 425 78 M 540 130 L 540 105 M 575 130 L 575 88 M 670 130 L 670 100 M 700 130 L 700 82"
+        />
+
+        {/* Featured event ticks — axis에서 coral milestone까지 연결선 */}
+        <path
+          fill="none"
+          class="stroke-coral"
+          stroke-width="0.85"
+          opacity="0.40"
+          d="M 190 130 L 190 73 M 345 130 L 345 117 M 475 130 L 475 81 M 650 130 L 650 95"
+        />
+
+        {/* Event dots — axis 위/아래 분산된 일반 event 표시 */}
+        <g class="fill-ink" opacity="0.45">
+          <circle cx="110" cy="105" r="2" />
+          <circle cx="145" cy="92" r="2" />
+          <circle cx="175" cy="110" r="2" />
+          <circle cx="250" cy="100" r="2" />
+          <circle cx="285" cy="80" r="2" />
+          <circle cx="315" cy="112" r="2" />
+          <circle cx="395" cy="95" r="2" />
+          <circle cx="425" cy="78" r="2" />
+          <circle cx="540" cy="105" r="2" />
+          <circle cx="575" cy="88" r="2" />
+          <circle cx="670" cy="100" r="2" />
+          <circle cx="700" cy="82" r="2" />
+          <circle cx="130" cy="148" r="1.7" />
+          <circle cx="200" cy="155" r="1.7" />
+          <circle cx="270" cy="148" r="1.7" />
+          <circle cx="370" cy="152" r="1.7" />
+          <circle cx="450" cy="148" r="1.7" />
+          <circle cx="520" cy="155" r="1.7" />
+          <circle cx="600" cy="148" r="1.7" />
+          <circle cx="710" cy="152" r="1.7" />
+        </g>
+
+        {/* Featured milestones — coral with glow (4개 주요 event) */}
+        <circle cx="190" cy="70" r="13" fill="url(#news-glow)" />
+        <circle cx="190" cy="70" r="3.3" fill="#CC785C" />
+        <circle cx="345" cy="115" r="13" fill="url(#news-glow)" />
+        <circle cx="345" cy="115" r="3.3" fill="#CC785C" />
+        <circle cx="475" cy="78" r="13" fill="url(#news-glow)" />
+        <circle cx="475" cy="78" r="3.3" fill="#CC785C" />
+        <circle cx="650" cy="92" r="13" fill="url(#news-glow)" />
+        <circle cx="650" cy="92" r="3.3" fill="#CC785C" />
+      </svg>
+
+      <div class="relative max-w-2xl">
         <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
           News
         </p>
