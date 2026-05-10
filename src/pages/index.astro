@@ -47,7 +47,7 @@ const highlights = skkuEntries
             class="mt-7 font-display font-normal tracking-tight text-[3.5rem] md:text-6xl lg:text-7xl leading-[1.05] text-balance"
           >
             Decoding matter,<br />
-            <em class="italic text-coral">atom by atom</em>
+            <em class="italic text-coral motto-cursor">atom by atom</em>
           </h1>
 
           <p
@@ -262,3 +262,30 @@ const highlights = skkuEntries
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  /* Hero 모토 끝에 코랄 dot — 타이핑 직후 멈춘 듯한 cursor 메타포로 살아있는 느낌 */
+  .motto-cursor::after {
+    content: '';
+    display: inline-block;
+    width: 0.16em;
+    height: 0.16em;
+    margin-left: 0.22em;
+    border-radius: 50%;
+    background-color: currentColor;
+    vertical-align: 0.4em;
+    animation: motto-cursor-blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes motto-cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motto-cursor::after {
+      animation: none;
+      opacity: 0.85;
+    }
+  }
+</style>
