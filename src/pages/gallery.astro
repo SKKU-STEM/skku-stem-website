@@ -34,8 +34,68 @@ const totalPhotos = galleryEvents.reduce((sum, ev) => sum + ev.photoCount, 0);
 >
   <div class="section-stack pb-24 md:pb-32">
     {/* ─────────────── Page header ─────────────── */}
-    <section class="container-page pt-12 md:pt-20">
-      <div class="max-w-2xl">
+    <section class="container-page pt-12 md:pt-20 relative">
+      {/* 배경 그래픽 — Bokeh 빛망울. 다양한 크기의 부드러운 coral glow가 헤더 전 영역에
+          흩어져 사진 배경의 out-of-focus 빛처럼 따뜻한 추억감을 표현. 작은 ink dot은 sparkle. */}
+      <svg
+        viewBox="0 0 800 220"
+        preserveAspectRatio="xMidYMid slice"
+        class="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
+        <defs>
+          {/* 큰 orb용 — peak가 낮고 더 dispersive (out-of-focus 큰 광원) */}
+          <radialGradient id="gallery-bokeh-soft" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.22" />
+            <stop offset="60%" stop-color="#CC785C" stop-opacity="0.08" />
+            <stop offset="100%" stop-color="#CC785C" stop-opacity="0" />
+          </radialGradient>
+          {/* 작은~중간 orb용 — peak가 더 밝고 sharper center (in-focus에 가까운 빛점) */}
+          <radialGradient id="gallery-bokeh-warm" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.45" />
+            <stop offset="50%" stop-color="#CC785C" stop-opacity="0.15" />
+            <stop offset="100%" stop-color="#CC785C" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* 큰 bokeh — out-of-focus 큰 빛망울 */}
+        <circle cx="180" cy="75" r="48" fill="url(#gallery-bokeh-soft)" />
+        <circle cx="450" cy="150" r="52" fill="url(#gallery-bokeh-soft)" />
+        <circle cx="680" cy="80" r="45" fill="url(#gallery-bokeh-soft)" />
+        <circle cx="320" cy="180" r="42" fill="url(#gallery-bokeh-soft)" />
+
+        {/* 중간 bokeh */}
+        <circle cx="90" cy="140" r="26" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="260" cy="110" r="28" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="390" cy="55" r="24" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="560" cy="175" r="27" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="620" cy="65" r="22" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="730" cy="160" r="27" fill="url(#gallery-bokeh-warm)" />
+
+        {/* 작은 bokeh — in-focus에 가까운 작은 빛점 */}
+        <circle cx="45" cy="75" r="12" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="140" cy="175" r="14" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="240" cy="35" r="10" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="490" cy="65" r="13" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="570" cy="110" r="12" fill="url(#gallery-bokeh-warm)" />
+        <circle cx="760" cy="50" r="11" fill="url(#gallery-bokeh-warm)" />
+
+        {/* Sparkle dots — ink subtle 작은 점 (멀리 있는 광점/먼지 광택) */}
+        <g class="fill-ink" opacity="0.40">
+          <circle cx="110" cy="30" r="2" />
+          <circle cx="175" cy="105" r="1.7" />
+          <circle cx="300" cy="65" r="2" />
+          <circle cx="380" cy="165" r="1.7" />
+          <circle cx="430" cy="100" r="2" />
+          <circle cx="520" cy="135" r="1.7" />
+          <circle cx="590" cy="35" r="2" />
+          <circle cx="650" cy="195" r="1.7" />
+          <circle cx="700" cy="110" r="2" />
+          <circle cx="75" cy="195" r="1.7" />
+        </g>
+      </svg>
+
+      <div class="relative max-w-2xl">
         <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
           Gallery
         </p>
