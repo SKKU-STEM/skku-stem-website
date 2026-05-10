@@ -34,7 +34,7 @@ const image = findImage();
       src={image}
       alt={alt}
       loading="lazy"
-      class:list={['aspect-[4/3] object-cover w-full', className]}
+      class:list={['aspect-[4/3] object-contain w-full bg-cream-200/60 mix-blend-darken', className]}
     />
   ) : (
     <div

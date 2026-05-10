@@ -19,14 +19,14 @@ const { portrait, srcPath, alt, class: className } = Astro.props;
       src={srcPath}
       alt={alt}
       loading="lazy"
-      class:list={['aspect-[3/4] object-cover', className]}
+      class:list={['aspect-[3/4] object-contain bg-cream-200/60 mix-blend-darken', className]}
     />
   ) : portrait ? (
     <Image
       src={portrait}
       alt={alt}
       loading="lazy"
-      class:list={['aspect-[3/4] object-cover', className]}
+      class:list={['aspect-[3/4] object-contain bg-cream-200/60 mix-blend-darken', className]}
     />
   ) : (
     <div
