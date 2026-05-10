@@ -41,15 +41,87 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
 >
   <div class="section-stack pb-24 md:pb-32">
     {/* ─────────────── Page header ─────────────── */}
-    <section class="container-page pt-12 md:pt-20">
-      <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
-        People
-      </p>
-      <h1
-        class="mt-6 font-display font-normal tracking-tight text-5xl md:text-6xl leading-[1.05]"
+    <section class="container-page pt-12 md:pt-20 relative">
+      {/* 배경 그래픽 — 3-layer feedforward network. 노드=멤버, 엣지=협업/데이터 흐름.
+          우측 비대칭 배치로 좌측 타이틀 가독성 확보. 활성 경로 3 노드는 코랄 강조. */}
+      <svg
+        viewBox="0 0 800 200"
+        preserveAspectRatio="xMaxYMid slice"
+        class="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
       >
-        The SKKU-STEM lab
-      </h1>
+        <defs>
+          <radialGradient id="people-node-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.32" />
+            <stop offset="60%" stop-color="#CC785C" stop-opacity="0.06" />
+            <stop offset="100%" stop-color="#CC785C" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* Regular edges — L1↔L2, L2↔L3 (활성 경로 2개는 제외) */}
+        <path
+          fill="none"
+          class="stroke-ink"
+          stroke-width="0.55"
+          opacity="0.16"
+          d="
+            M 400 45 L 400 100 M 400 45 L 490 100 M 400 45 L 580 100 M 400 45 L 670 100 M 400 45 L 760 100
+            M 490 45 L 400 100 M 490 45 L 490 100 M 490 45 L 580 100 M 490 45 L 670 100 M 490 45 L 760 100
+            M 580 45 L 400 100 M 580 45 L 580 100 M 580 45 L 670 100 M 580 45 L 760 100
+            M 670 45 L 400 100 M 670 45 L 490 100 M 670 45 L 580 100 M 670 45 L 670 100 M 670 45 L 760 100
+            M 760 45 L 400 100 M 760 45 L 490 100 M 760 45 L 580 100 M 760 45 L 670 100 M 760 45 L 760 100
+            M 400 100 L 400 155 M 400 100 L 490 155 M 400 100 L 580 155 M 400 100 L 670 155 M 400 100 L 760 155
+            M 490 100 L 400 155 M 490 100 L 490 155 M 490 100 L 580 155 M 490 100 L 760 155
+            M 580 100 L 400 155 M 580 100 L 490 155 M 580 100 L 580 155 M 580 100 L 670 155 M 580 100 L 760 155
+            M 670 100 L 400 155 M 670 100 L 490 155 M 670 100 L 580 155 M 670 100 L 670 155 M 670 100 L 760 155
+            M 760 100 L 400 155 M 760 100 L 490 155 M 760 100 L 580 155 M 760 100 L 670 155 M 760 100 L 760 155
+          "
+        />
+
+        {/* Active path — 활성화된 코랄 엣지 (featured 노드 3개를 잇는 경로) */}
+        <path
+          fill="none"
+          class="stroke-coral"
+          stroke-width="1.0"
+          opacity="0.55"
+          d="M 580 45 L 490 100 L 670 155"
+        />
+
+        {/* Regular 노드 (12개) */}
+        <g class="fill-ink" opacity="0.45">
+          <circle cx="400" cy="45" r="2.4" />
+          <circle cx="490" cy="45" r="2.4" />
+          <circle cx="670" cy="45" r="2.4" />
+          <circle cx="760" cy="45" r="2.4" />
+          <circle cx="400" cy="100" r="2.4" />
+          <circle cx="580" cy="100" r="2.4" />
+          <circle cx="670" cy="100" r="2.4" />
+          <circle cx="760" cy="100" r="2.4" />
+          <circle cx="400" cy="155" r="2.4" />
+          <circle cx="490" cy="155" r="2.4" />
+          <circle cx="580" cy="155" r="2.4" />
+          <circle cx="760" cy="155" r="2.4" />
+        </g>
+
+        {/* Featured 노드 (3개) — coral glow + dot */}
+        <circle cx="580" cy="45" r="14" fill="url(#people-node-glow)" />
+        <circle cx="580" cy="45" r="3.5" fill="#CC785C" />
+        <circle cx="490" cy="100" r="14" fill="url(#people-node-glow)" />
+        <circle cx="490" cy="100" r="3.5" fill="#CC785C" />
+        <circle cx="670" cy="155" r="14" fill="url(#people-node-glow)" />
+        <circle cx="670" cy="155" r="3.5" fill="#CC785C" />
+      </svg>
+
+      <div class="relative">
+        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
+          People
+        </p>
+        <h1
+          class="mt-6 font-display font-normal tracking-tight text-5xl md:text-6xl leading-[1.05]"
+        >
+          The SKKU-STEM lab
+        </h1>
+      </div>
     </section>
 
     {/* ─────────────── PI feature card ─────────────── */}
