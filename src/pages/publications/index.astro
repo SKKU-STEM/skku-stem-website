@@ -12,7 +12,11 @@ const skkuPublications = (await getCollection('publications-skku'))
   .map((e) => e.data)
   .sort((a, b) => b.number - a.number);
 
-// 연도별 그룹핑
+// before-SKKU 컬렉션은 본 페이지에 리스트로 표시하지 않고 전체 경력 통계용으로만 합산
+const preSkkuPublications = (await getCollection('publications-before-skku'))
+  .map((e) => e.data);
+
+// 연도별 그룹핑 (SKKU 기간만 본 페이지에 표시)
 const byYear = skkuPublications.reduce<Record<number, Publication[]>>(
   (acc, p) => {
     (acc[p.year] ??= []).push(p);
@@ -28,6 +32,13 @@ const leadCount = skkuPublications.filter((p) => p.lead).length;
 const coCount = total - leadCount;
 const minYear = Math.min(...years);
 const maxYear = Math.max(...years);
+
+// 전체 경력 (pre-SKKU + SKKU) — 컬렉션 길이/연도로 build-time에 자동 산출
+const grandTotal = skkuPublications.length + preSkkuPublications.length;
+const grandMinYear = Math.min(
+  ...years,
+  ...preSkkuPublications.map((p) => p.year),
+);
 ---
 
 <BaseLayout
@@ -106,14 +117,17 @@ const maxYear = Math.max(...years);
           Publications
         </h1>
         <p class="mt-7 text-base md:text-lg text-ink/75 leading-relaxed">
+          <span class="font-mono tabular-nums text-ink">{grandTotal}</span> SCI
+          papers across the full career ({grandMinYear}&ndash;{maxYear}).
+        </p>
+        <p class="mt-3 text-base md:text-lg text-ink/75 leading-relaxed">
           <span class="font-mono tabular-nums text-ink">{total}</span> SCI papers
           since {minYear} at SKKU
           &mdash;{' '}
           <span class="text-coral font-medium tabular-nums">{leadCount}</span>{' '}
           lead authorship,{' '}
           <span class="text-ink/85 tabular-nums">{coCount}</span>{' '}
-          co-authorship. Below: papers {maxYear}&ndash;{minYear}, reverse
-          chronological.
+          co-authorship.
         </p>
       </div>
     </section>
