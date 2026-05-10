@@ -41,11 +41,6 @@ const years = Object.keys(byYear)
   .map(Number)
   .sort((a, b) => b - a);
 
-// 헤더 우측 GIF 슬롯 — public/research/<filename> 안의 파일을 가리킴.
-// GIF 준비되면 아래 null을 경로 문자열로 교체. 비워두면 점선 placeholder("GIF") 표시.
-// 예시: const headerGif = '/research/intro.gif';
-const headerGif = null as string | null;
-const headerGifAlt = 'Research header animation';
 ---
 
 <BaseLayout
@@ -54,51 +49,100 @@ const headerGifAlt = 'Research header animation';
 >
   <div class="section-stack pb-24 md:pb-32">
     {/* ─────────────── Page header ─────────────── */}
-    <section class="container-page pt-12 md:pt-20">
-      <div class="grid md:grid-cols-[1fr_auto] gap-10 lg:gap-14 items-start">
-        <div class="max-w-2xl">
-          <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
-            Research
-          </p>
-          <h1
-            class="mt-6 font-display font-normal tracking-tight text-5xl md:text-6xl leading-[1.05]"
-          >
-            Selected work
-          </h1>
-          <p class="mt-8 text-lg md:text-xl text-ink/80 leading-relaxed">
-            Research from the SKKU-STEM Lab &mdash; methods at the intersection
-            of scanning transmission electron microscopy, electron spectroscopy,
-            and machine learning, applied to energy materials.
-          </p>
-          <p
-            class="mt-7 font-display italic text-xl md:text-2xl text-coral/85 leading-snug"
-          >
-            &ldquo;A shuttle guiding us to atomic world.&rdquo;
-          </p>
-        </div>
+    <section class="container-page pt-12 md:pt-20 relative">
+      {/* 배경 그래픽 — 에너지 지형(등고선) + 원자 위치. 우측 깊은 우물에 코랄 원자가 안착하는 구도. */}
+      <svg
+        viewBox="0 0 800 380"
+        preserveAspectRatio="xMidYMid slice"
+        class="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      >
+        <defs>
+          <radialGradient id="research-atom-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.35" />
+            <stop offset="60%" stop-color="#CC785C" stop-opacity="0.08" />
+            <stop offset="100%" stop-color="#CC785C" stop-opacity="0" />
+          </radialGradient>
+        </defs>
 
-        {/* GIF 슬롯 — 우측 상단. 자세한 등록 방법은 frontmatter의 headerGif 주석 참고. */}
-        <div class="w-full md:w-64 lg:w-80 shrink-0">
-          {
-            headerGif ? (
-              <img
-                src={headerGif}
-                alt={headerGifAlt}
-                class="aspect-square object-cover w-full"
-              />
-            ) : (
-              <div
-                class="aspect-square bg-cream-200/60 border border-dashed border-ink/15 flex items-center justify-center"
-                role="img"
-                aria-label="Header GIF placeholder"
-              >
-                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink/40 select-none">
-                  GIF
-                </span>
-              </div>
-            )
-          }
-        </div>
+        {/* 주 우물 — 우측 deep minimum (코랄 등고선) */}
+        <g
+          fill="none"
+          class="stroke-coral"
+          stroke-width="0.9"
+          opacity="0.22"
+        >
+          <ellipse cx="610" cy="195" rx="240" ry="170" />
+          <ellipse cx="610" cy="195" rx="195" ry="135" />
+          <ellipse cx="610" cy="195" rx="150" ry="103" />
+          <ellipse cx="610" cy="195" rx="108" ry="74" />
+          <ellipse cx="610" cy="195" rx="70" ry="48" />
+          <ellipse cx="610" cy="195" rx="36" ry="25" />
+          <ellipse cx="610" cy="195" rx="14" ry="10" />
+        </g>
+
+        {/* 부 우물 — 좌측 saddle (잉크 등고선, 살짝 회전) */}
+        <g
+          fill="none"
+          class="stroke-ink"
+          stroke-width="0.7"
+          opacity="0.10"
+          transform="rotate(-12 380 290)"
+        >
+          <ellipse cx="380" cy="290" rx="115" ry="60" />
+          <ellipse cx="380" cy="290" rx="78" ry="40" />
+          <ellipse cx="380" cy="290" rx="42" ry="22" />
+        </g>
+
+        {/* Shuttle trajectory — 좌상단에서 우측 우물 중심으로 가는 dashed path */}
+        <path
+          d="M 60 70 Q 280 130 420 180 T 605 192"
+          fill="none"
+          class="stroke-coral"
+          stroke-width="0.9"
+          stroke-dasharray="2 5"
+          opacity="0.35"
+        />
+
+        {/* 분산된 원자 위치 */}
+        <g class="fill-ink" opacity="0.38">
+          <circle cx="120" cy="130" r="1.6" />
+          <circle cx="200" cy="220" r="1.6" />
+          <circle cx="305" cy="105" r="1.6" />
+          <circle cx="380" cy="290" r="2" />
+          <circle cx="455" cy="335" r="1.6" />
+          <circle cx="500" cy="65" r="1.6" />
+          <circle cx="545" cy="265" r="1.6" />
+          <circle cx="685" cy="95" r="1.6" />
+          <circle cx="745" cy="240" r="1.6" />
+          <circle cx="715" cy="320" r="1.6" />
+          <circle cx="80" cy="300" r="1.6" />
+        </g>
+
+        {/* 깊은 우물 중앙의 featured atom — coral glow + dot */}
+        <circle cx="610" cy="195" r="32" fill="url(#research-atom-glow)" />
+        <circle cx="610" cy="195" r="4.5" fill="#CC785C" />
+      </svg>
+
+      <div class="relative max-w-2xl">
+        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
+          Research
+        </p>
+        <h1
+          class="mt-6 font-display font-normal tracking-tight text-5xl md:text-6xl leading-[1.05]"
+        >
+          Selected work
+        </h1>
+        <p class="mt-8 text-lg md:text-xl text-ink/80 leading-relaxed">
+          Research from the SKKU-STEM Lab &mdash; methods at the intersection
+          of scanning transmission electron microscopy, electron spectroscopy,
+          and machine learning, applied to energy materials.
+        </p>
+        <p
+          class="mt-7 font-display italic text-xl md:text-2xl text-coral/85 leading-snug"
+        >
+          &ldquo;A shuttle guiding us to atomic world.&rdquo;
+        </p>
       </div>
     </section>
 
