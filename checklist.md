@@ -129,7 +129,8 @@
 - [x] 컬렉션 매핑 — `public/admin/config.yml` (9 컬렉션, zod 스키마와 1:1)
 - [x] `public/robots.txt` — `/admin/`, `/oauth/` Disallow 추가
 - [x] `npm run check` — 0/0/0
-- [ ] `npm run build` — 통과 확인 (Pages Functions는 빌드에 영향 없음)
-- [ ] GitHub OAuth App 생성 (사용자 직접) — Homepage `https://skkustem.org`, Callback `https://skkustem.org/oauth/callback`
-- [ ] Cloudflare Pages env 변수 등록: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (Encrypt) — 사용자 직접
-- [ ] git push → Pages 빌드 1~3분 대기 → `https://skkustem.org/admin` 접속 → GitHub 인증 → 한 entry(예: news) 편집 → 라이브 반영 확인
+- [x] `npm run build` — 통과 확인 (Pages Functions는 빌드에 영향 없음)
+- [x] GitHub OAuth App 생성 — Homepage `https://skkustem.org`, Callback `https://skkustem.org/oauth/callback`
+- [x] Cloudflare Pages env 변수 등록: `GITHUB_CLIENT_ID` (Text), `GITHUB_CLIENT_SECRET` (Secret)
+- [x] git push → Pages 빌드 → `https://skkustem.org/admin` 접속 → GitHub 인증 → 9 컬렉션 노출 확인 (2026-05-10)
+- [ ] **TODO(검증)**: news 한 entry 실제 편집·저장·라이브 반영 끝-to-끝 확인
