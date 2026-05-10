@@ -151,6 +151,63 @@ const skkuPublications = entries.map(e => e.data);
 - Members의 `photoPath`(public/) vs `portrait`(src/assets/) 이중 경로를 통합할지 — CMS UI에서 업로드하면 `public/uploads/`로 떨어지므로 `photoPath`만 남기는 게 단순함.
 - pi-publications와 publications/skku 사이 중복 — selected pubs는 보통 main 컬렉션에서 PI가 toggle하는 식이 자연스러움. 별도 컬렉션 유지 vs `featured: true` 필드로 통합 검토.
 
+## 12. CMS UI (Stage 5.2, 2026-05-10)
+
+PRD §10.5의 steps 5–8. 사용자 결정 4건:
+
+- **CMS**: Sveltia CMS (Decap config.yml 호환, 더 활발히 유지보수). `public/admin/index.html`이 unpkg에서 `@sveltia/cms` 번들 로드. 문제 시 버전 고정.
+- **Workflow**: `publish_mode: simple` — main에 즉시 commit. PI 단독 운영이라 PR 검토 단계 불필요.
+- **pi-publications**: 별도 컬렉션 유지 (Pre-SKKU 항목이 publications-skku에 없어 통합하면 데이터 이동 필요). 페이지 코드 무변경.
+- **portrait 필드**: 스키마에서 제거. `photoPath` 단일화. PortraitBox에서 Astro Image fallback 분기와 people/index.astro의 `portraitModules`/`getPortrait`도 함께 제거.
+
+### 12.1 OAuth 호스팅: Cloudflare Pages Functions로 일원화
+
+PRD 원문은 "Cloudflare Workers OAuth 프록시"였으나 같은 Pages 프로젝트의 `functions/oauth/auth.js` + `callback.js`로 대체. 같은 도메인(`skkustem.org/oauth/*`)이라 CORS 무관, `wrangler`/별도 Worker 도메인 불필요. 런타임은 동일한 Cloudflare Workers.
+
+핸드셰이크 프로토콜 (Decap/Sveltia 공통):
+1. 팝업 로드 → opener에 `'authorizing:github'` 송신
+2. opener (CMS) → 팝업에 같은 메시지로 ack
+3. 팝업 → opener에 `'authorization:github:success:{"token":"...","provider":"github"}'`
+
+`callback.js`는 위 3단계를 모두 구현. opener의 ack가 늦더라도 `message` 리스너가 잡는다.
+
+### 12.2 Publications JSON 래퍼 변환
+
+Sveltia/Decap의 file collection은 객체 루트를 요구하므로, `[ {...}, {...} ]` 형태였던 4개 publications JSON을 `{ "items": [ {...}, {...} ] }`로 감쌌다. (`scripts/wrap-publications-json.mjs` 일회성 실행, 이후 삭제 가능하지만 향후 reset에 쓸 수 있어 보관.)
+
+각 entry의 `id` 필드는 그대로 유지. Astro file() loader에 `parser: (text) => JSON.parse(text).items`를 붙여 array를 돌려준다.
+
+CMS 폼에서 `id`는 일반 string 위젯으로 노출. 새 entry 시 사용자가 직접 입력 (skku/before-skku/non-sci-patents는 `String(number)`, pi-selected는 `<category>-<order>-<slug>` 패턴).
+
+### 12.3 News `body` → `summary` 리네임
+
+Sveltia/Decap의 markdown 컬렉션에서 `body` 필드명은 markdown body 영역으로 예약됨. 우리 news 스키마의 `body`는 frontmatter-only 단락이라 충돌 위험. 8개 .md 파일 + content.config.ts + news.astro를 일괄 `summary`로 리네임.
+
+### 12.4 미디어 폴더 전략
+
+- 글로벌: `media_folder: public/uploads`, `public_folder: /uploads`
+- members.photoPath: 위젯 단위 override (`media_folder: /public/members`, `public_folder: /members`) — 기존 `/members/<INIT>.jpg` 경로 유지
+- research-highlights.image: 위젯 단위 override (`media_folder: /public/research`, `public_folder: /research`) — 현재 어떤 entry도 image 미설정이므로 향후 업로드 대비
+
+### 12.5 사용자 인계 항목
+
+푸시 전 사용자가 직접 해야 할 것:
+
+1. **GitHub OAuth App 생성** (`https://github.com/settings/applications/new`)
+   - Application name: `SKKU-STEM CMS` (자유)
+   - Homepage URL: `https://skkustem.org`
+   - Authorization callback URL: `https://skkustem.org/oauth/callback`
+   - 결과 `Client ID` + `Generate a new client secret`로 secret 받기
+
+2. **Cloudflare Pages env 변수 등록**
+   - 대시보드 > skku-stem-website > Settings > Environment variables (Production)
+   - `GITHUB_CLIENT_ID` (Plaintext)
+   - `GITHUB_CLIENT_SECRET` (Encrypt 옵션 ON)
+
+3. **Push** — main에 commit/push → Pages 자동 빌드 → 1~3분 후 `https://skkustem.org/admin` 접속
+
+4. **첫 인증 + 편집 테스트** — GitHub Authorize → CMS 진입 → news 한 entry 수정 후 저장 → 1~3분 내 라이브 반영 확인.
+
 ## 10. 디렉토리 트리(현재)
 
 ```

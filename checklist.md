@@ -119,9 +119,17 @@
 - [x] 페이지 헤더 주석 + src/assets/*/README.md의 데이터 경로 안내를 새 src/content/* 경로로 업데이트
 - [ ] 시각 회귀 — `npm run dev`로 10개 페이지 모두 기존과 동일하게 렌더되는지 확인 (사용자 검토)
 
-### 5.2 CMS UI (다음 세션)
+### 5.2 CMS UI (2026-05-10)
 
-- [ ] GitHub OAuth App 생성 (사용자 직접)
-- [ ] Cloudflare Workers OAuth 프록시 배포
-- [ ] `public/admin/index.html` + `public/admin/config.yml`
-- [ ] /admin 접속 → GitHub 인증 → 편집 테스트
+- [x] 사전 정리 — Members 스키마에서 unused `portrait` 필드 제거 + PortraitBox/people 페이지 정리
+- [x] 사전 정리 — News 스키마 `body` → `summary` 리네임 (Sveltia/Decap이 `body`를 markdown body로 예약)
+- [x] 사전 정리 — Publications JSON 4개를 `[...]` → `{ "items": [...] }` 래퍼로 감싸고 file() loader에 `parser` 추가 (Sveltia/Decap의 file collection은 객체 루트 요구)
+- [x] OAuth 프록시 — `functions/oauth/auth.js` + `callback.js` (Cloudflare Pages Functions, `wrangler` 불필요)
+- [x] 관리자 셸 — `public/admin/index.html` (Sveltia CMS 번들 외부 CDN 로드)
+- [x] 컬렉션 매핑 — `public/admin/config.yml` (9 컬렉션, zod 스키마와 1:1)
+- [x] `public/robots.txt` — `/admin/`, `/oauth/` Disallow 추가
+- [x] `npm run check` — 0/0/0
+- [ ] `npm run build` — 통과 확인 (Pages Functions는 빌드에 영향 없음)
+- [ ] GitHub OAuth App 생성 (사용자 직접) — Homepage `https://skkustem.org`, Callback `https://skkustem.org/oauth/callback`
+- [ ] Cloudflare Pages env 변수 등록: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (Encrypt) — 사용자 직접
+- [ ] git push → Pages 빌드 1~3분 대기 → `https://skkustem.org/admin` 접속 → GitHub 인증 → 한 entry(예: news) 편집 → 라이브 반영 확인
