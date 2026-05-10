@@ -31,8 +31,6 @@ const byYear = newsEntries.reduce<Record<number, NewsEntry[]>>((acc, e) => {
 const years = Object.keys(byYear)
   .map(Number)
   .sort((a, b) => b - a);
-
-const totalEntries = newsEntries.length;
 ---
 
 <BaseLayout
@@ -134,10 +132,6 @@ const totalEntries = newsEntries.length;
         </h1>
         <p class="mt-7 text-base md:text-lg text-ink/75 leading-relaxed">
           Recent papers, awards, talks, member milestones, and lab events.
-          <span class="font-mono tabular-nums text-ink/55">
-            {totalEntries}
-          </span>{' '}
-          posts &mdash; reverse chronological.
         </p>
       </div>
     </section>
