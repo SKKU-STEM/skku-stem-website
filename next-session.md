@@ -1,95 +1,76 @@
-# Next session — OG 이미지 자동 생성 (Satori)
+# Next session — Home CLS 0.224 수정 (폰트 preload + size-adjust)
 
 다음 세션 시작 시 아래 코드블록 안 텍스트를 그대로 붙여넣어 사용.
 
 ---
 
 ```
-SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)에 페이지별 동적 OG 이미지(1200×630)를 Satori로 생성하자. Twitter / Slack / LinkedIn / Discord 공유 미리보기를 코랄/cream 디자인 토큰과 일치하는 카드로 통일.
+SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)에서 Home 페이지 CLS 0.224 (web-vitals "needs improvement" 경계)를 정리하자. Inter Variable / Newsreader Variable 폰트 swap 시 본문 paragraph가 reflow되는 게 원인.
 
-## 현재까지 (HEAD: 51c1128, 2026-05-11)
+## 현재까지 (HEAD: 872b8a3, 2026-05-11)
 
-- Lighthouse a11y 100 / best-practices 100 / SEO 100 (전 10 페이지). 이미지 최적화로 people LCP 5.08s → 2.53s 달성.
-- BaseLayout이 `<meta property="og:image">`를 props로 받지만 현재 사이트는 ogImage 한 번도 지정 안 함 — 공유 미리보기는 빈 이미지 또는 Cloudflare/플랫폼 자동 캡처.
-- 자산: src/assets/logo.svg (워드마크), public/logo-mark.png (로고 심볼), 디자인 토큰 cream/coral/ink + Newsreader/Inter 폰트.
+- Lighthouse a11y / best-practices / SEO 100 (전 페이지). 이미지 최적화로 perf 대폭 상승. OG 카드 자동 생성·라이브 적용.
+- 라이브 마지막 측정 (mobile, simulated 4G):
+  - **home CLS 0.224** ← 이번 세션 타겟
+  - home LCP 2308ms (양호, eager hero 적용)
+  - 다른 페이지 CLS는 모두 ≤ 0.05 (gallery/non-sci-patents 등은 0.000~0.048)
+- 폰트는 Fontsource self-hosted woff2 변형 — global.css에서 `@import "@fontsource-variable/inter/index.css"` 등으로 로드.
 
 ## 무엇을 만드는가
 
-페이지(또는 페이지 카테고리)별 1200×630 PNG/JPG OG 이미지. 빌드 시 사전 생성되어 dist/og/<slug>.png 으로 서빙. BaseLayout의 ogImage prop을 자동 채움.
-
-타입:
-1. **Site-wide default** — 로고 + 슬로건 ("Decoding matter, atom by atom")
-2. **Page-specific** — 페이지 제목 + (옵션) 부제 + 로고 마크. 동적 텍스트 fit 처리 필요.
-3. **News article** — News 제목 + 카테고리 배지 + 날짜 (가장 공유될 가능성 높음)
-4. **Publication** — 저널명 + 논문 제목 (DOI 클릭 시 OG 카드)
-
-스코프 결정 필요 — 일단 (1)+(2)부터.
+Home 페이지 (특히 본문 paragraph "A laboratory at the intersection of...")의 폰트 swap reflow를 제거. 결과: CLS < 0.1 목표.
 
 ## 사용자와 결정할 것 (코딩 전)
 
-1. **렌더 엔진**:
-   - (a) Satori + sharp (Vercel OG 패턴, JSX → SVG → PNG, build-time) (Recommended)
-   - (b) `@vercel/og` (런타임 edge function, Cloudflare Pages Functions로도 가능 — 빌드 시간 0이지만 매 요청 마다 렌더)
-   - (c) Astro Image 외 직접 SVG → PNG (가장 단순, Astro 표준 패턴 없음)
-2. **디자인 템플릿**:
-   - (a) 텍스트만 (제목 + 부제 + 로고 우하단)
-   - (b) 텍스트 + 코랄 액센트 그래픽 (예: 우측에 stylized 원자 격자 + 제목 좌측)
-   - (c) 페이지마다 다른 시각 (Research = 에너지 지형 SVG 변형, People = 노드 네트워크 등 — hero SVG 재사용)
-3. **적용 범위**:
-   - (a) 9 정적 페이지 (home, research, people, people-pi, publications×3, news, gallery, facilities)
-   - (b) (a) + News 8 entries 각자 OG (per-entry)
-   - (c) (a) + News + Publication entries (~270편 — 매우 많음)
-4. **폰트**:
-   - (a) Inter Variable (현재 sans, 가독성 ↑)
-   - (b) Newsreader (현재 display, 학술적 느낌 ↑)
-   - (c) Inter (헤더) + Newsreader (본문) 혼용
+1. **수정 접근**:
+   - (a) 핵심 폰트 preload + size-adjust descriptors (fallback 폰트 metric을 실제 폰트와 일치) (Recommended) — 표준 web 패턴
+   - (b) `font-display: optional` (시스템 폰트로만 첫 렌더, 폰트 다운로드 후 변경 안 함) — CLS 0이지만 첫 방문은 시스템 폰트로 노출
+   - (c) Inline critical fonts as base64 in CSS (가장 즉시이지만 HTML/CSS 용량 ↑)
+2. **preload 폰트 범위**:
+   - (a) Inter (sans, 본문) 만 (Recommended) — 본문 reflow가 큰 원인
+   - (b) Inter + Newsreader (display, 제목)
+   - (c) 셋 다 (+ JetBrains Mono)
+3. **fallback metric override**:
+   - (a) `Adjusted Inter Fallback` / `Adjusted Newsreader Fallback` @font-face 정의 + size-adjust/ascent-override 등 metric override (사용자 측에서 npm `fontaine` 또는 수동 계산 필요)
+   - (b) 무시 — preload만으로 충분하면 패스
 
 ## 빠르게 점검할 것
 
-- BaseLayout.astro의 `<meta property="og:image">` 가 어떻게 props로 받는지 (현재 옵셔널)
-- Satori는 React-like JSX를 받는데 Astro 외부에서 호출. 통상 `astro:build:setup` 훅이나 별도 스크립트로 dist/og/* 생성.
-- 한국어 글리프 (예: 김영민) 렌더링은 한글 폰트 fallback 필요 — Noto Sans KR variable 또는 Pretendard subset.
-- Cloudflare Pages 정적 호스팅이라 .png는 그냥 dist/에 두면 OK.
+- Home `<p class="mt-8 max-w-xl text-base md:text-lg text-ink/80 leading-relaxed">` (본문 paragraph)이 LCP 후보 일 가능성 — 폰트 swap이 layout 영향
+- `src/styles/global.css` 의 `@import "@fontsource-variable/inter/index.css"` 등 (font-display 기본값은 swap)
+- BaseLayout `<head>` 에 폰트 `<link rel="preload">` 가 없는 상태 (Astro가 자동 inline 안 함)
+- Lighthouse `font-display` 감사 통과 여부 (현재 통과)
 
 ## 구현 (결정 후)
 
-### 패키지
-```
-npm install satori sharp @resvg/resvg-js  # satori는 SVG, resvg/sharp가 PNG 변환
-# 또는 Vercel OG: npm install @vercel/og
-```
+### 옵션 (a) — preload + size-adjust 패턴
+1. **폰트 preload**: BaseLayout `<head>`에 핵심 weight (Inter 400 latin) `<link rel="preload" as="font" type="font/woff2" crossorigin>` 추가. 파일 경로는 Vite가 dist/_astro/* 에 hash 처리하니 동적 import 또는 정적 경로 명시.
+2. **fallback metric override**: `@font-face Inter Fallback` 정의 + `size-adjust: <value>` + `ascent-override` 등으로 시스템 폰트 metric을 Inter 와 거의 동일하게 만든다. 사용자 측 폰트 — Inter 의 metric은 이미 공개됨. 또는 `npm install fontaine` (auto-generation).
+3. **CSS chain**: `font-family: "Inter Variable", "Inter Fallback", system-ui, ...`
 
-### 디렉토리
-- `scripts/generate-og.mjs` — 페이지 메타 → SVG → PNG 생성
-- `dist/og/<slug>.png` 결과물 (sitemap에서 제외)
-- `public/og/_template.svg` (옵션 — 정적 베이스 템플릿)
-
-### Astro 통합
-- `astro.config.mjs`의 `integrations`에 커스텀 integration 추가, `astro:build:done` 훅에서 generate-og.mjs 실행
-- BaseLayout: ogImage 기본값을 페이지 slug로 자동 매핑 (`og/${slug}.png`)
-
-### News per-entry (선택 시)
-- `getCollection('news')` 순회 → 각 entry slug로 PNG 생성
-- News page entry에 absolute URL 메타 삽입 — Astro endpoint나 정적 page route가 없으니 OG는 /news#news-<slug> URL 직접 매핑은 안 되고, 전체 News에 site-wide OG 사용 권장.
+### 옵션 (b) — font-display: optional
+1. global.css 에서 `@import` 후 `@font-face { ... font-display: optional; }` override. 모든 변형에 적용.
+2. 첫 방문은 시스템 폰트, 이후 캐시되면 Inter Variable 노출. CLS 0 보장.
 
 ## 검증
 
-- `npm run build` → dist/og/* 생성 확인
-- `dist/og/home.png` 등을 직접 열어 시각 확인
-- https://www.opengraph.xyz/ 또는 https://socialsharepreview.com/ 에 배포 후 URL 입력 → 카드 미리보기
-- Twitter card validator (https://cards-dev.twitter.com/validator) 도 가능
-- 한국어 글리프 깨짐 여부 (PI 페이지에 "김영민" 포함)
+- `npm run build && npm run preview`
+- `node scripts/lighthouse-audit.mjs --base=http://localhost:4321` 측정. CLS 0.224 → < 0.1 목표.
+- 라이브 배포 후 동일 스크립트로 재측정.
+- 시각 회귀 — Home, Research, People, Publications 가 의도한 폰트로 보이는지 직접 확인.
+- font-display: optional 채택 시 강제 캐시 클리어로 첫 방문 시 시스템 폰트 노출 확인 (의도 동작인지 PI에게 보여줌).
 
 ## 알아둘 것
 
-- Satori는 CSS subset만 지원 — Tailwind 그대로는 못 씀. 인라인 style만.
-- Cloudflare Pages는 PNG 정적 자산 캐싱 — 빌드마다 새 파일 OK.
-- 절대 URL 필요 (ogImage는 https://skkustem.org/og/<slug>.png 형식). astro.config.mjs의 site 사용.
-- 1200×630이 표준 (Twitter / FB / LinkedIn / Discord 모두). 정사각 1080×1080은 Mastodon에 더 잘 맞지만 표준 16:8.4 우선.
+- Variable font 는 단일 파일(.woff2 ~50KB)이라 preload 비용 작음.
+- size-adjust 는 Safari 14+, Chrome 92+, Firefox 89+ 모두 지원 (모던).
+- Cloudflare Edge가 폰트 자산을 캐싱하므로 재방문 CLS 는 거의 0 (첫 방문이 문제).
+- Pagefind / Sveltia CMS / OG 생성 모두 폰트 변경에 영향 없음.
+- 다른 페이지 (people, research) 의 CLS도 자연스럽게 함께 낮아질 수 있음.
 
 ## 우선 확인할 것
 
-- 작업 시작 전 BaseLayout.astro의 OG 메타 부분, src/assets/logo.svg, 디자인 토큰 (global.css의 @theme 색상) 훑기.
-- 위 4개 결정 사항을 사용자에게 단답형으로 묻고 합의 후 코딩.
-- 첫 push 전 `npm run check` + `npm run build` + 라이브 외부 OG validator로 시각 확인.
+- 작업 시작 전 src/styles/global.css 의 @import 부분, BaseLayout `<head>`, 라이브 lighthouse-reports/home.json 의 cls-culprits-insight 자세한 내용 확인.
+- 위 3개 결정 사항을 사용자에게 단답형으로 묻고 합의 후 구현.
+- 첫 push 전 lighthouse-audit.mjs 로 home CLS delta 확실히 측정 + 다른 페이지 회귀 없음 확인.
 ```
