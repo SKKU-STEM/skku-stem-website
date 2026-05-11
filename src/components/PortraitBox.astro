@@ -1,21 +1,47 @@
 ---
-// 멤버 카드용 portrait — public/members/<INIT>.jpg 경로(srcPath)가 있으면 표시, 없으면 점선 placeholder
+// 멤버 카드용 portrait — frontmatter의 photoPath ('/members/EBP.jpg' 패턴)에서 basename을 뽑아
+// src/assets/members/<basename>를 import.meta.glob으로 찾고 Astro <Image>로 webp/responsive 변환.
+// 사진이 없으면 점선 placeholder.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-  srcPath?: string;        // public/ 직접 경로 (예: /members/YMK.jpg)
+  srcPath?: string; // CMS가 쓰는 frontmatter 값 (예: /members/EBP.jpg)
   alt: string;
   class?: string;
 }
 
 const { srcPath, alt, class: className } = Astro.props;
+
+const memberImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/members/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+
+const findImage = (): ImageMetadata | null => {
+  if (!srcPath) return null;
+  const base = srcPath.split('/').pop();
+  if (!base) return null;
+  const mod = memberImages[`/src/assets/members/${base}`];
+  return mod?.default ?? null;
+};
+
+const image = findImage();
 ---
 
 {
-  srcPath ? (
-    <img
-      src={srcPath}
+  image ? (
+    <Image
+      src={image}
       alt={alt}
+      widths={[240, 480]}
+      sizes="(max-width: 768px) 30vw, 240px"
+      format="webp"
       loading="lazy"
-      class:list={['aspect-[3/4] object-contain bg-cream-200/60 mix-blend-darken', className]}
+      class:list={[
+        'aspect-[3/4] object-contain bg-cream-200/60 mix-blend-darken',
+        className,
+      ]}
     />
   ) : (
     <div

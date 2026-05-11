@@ -211,8 +211,8 @@ collections:
         label: Photo
         widget: image
         required: false
-        hint: 'public/members/<INIT>.jpg에 업로드되며 path는 /members/<INIT>.jpg로 들어간다.'
-        media_folder: '/public/members'
+        hint: 'src/assets/members/<INIT>.jpg에 업로드되며 frontmatter path는 /members/<INIT>.jpg로 들어간다 (PortraitBox가 basename으로 lookup해 Astro Image로 webp 변환).'
+        media_folder: '/src/assets/members'
         public_folder: '/members'
         choose_url: false
       # Alumni 전용

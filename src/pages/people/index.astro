@@ -3,12 +3,14 @@
 // 출처: https://sites.google.com/site/skkustem/our-company (2026-05-09 fetch)
 // PI 상세 CV는 /people/pi에 분리. 본 페이지는 멤버 카드 그리드 + alumni.
 //
-// Portrait: 카드 우측 상단 슬롯 (3:4). 사진은 public/members/<INIT>.jpg에 두고
-// frontmatter의 photoPath 필드로 참조 (예: /members/EBP.jpg).
+// Portrait: 카드 우측 상단 슬롯 (3:4). 사진은 src/assets/members/<INIT>.jpg에 두고
+// frontmatter의 photoPath 필드로 참조 (예: /members/EBP.jpg) — basename만 사용해 glob lookup.
 // 멤버 데이터는 src/content/members/*.md 컬렉션에 저장 (section 필드로 그룹).
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PortraitBox from '@components/PortraitBox.astro';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import piPortrait from '@/assets/members/YMK.jpg';
 
 const allMembers = (await getCollection('members'))
   .map((e) => e.data)
@@ -112,14 +114,15 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
       <div
         class="grid md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-8 md:gap-12 items-start border border-ink/15 p-6 md:p-10 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft"
       >
-        <img
-          src="/members/YMK.jpg"
+        <Image
+          src={piPortrait}
           alt="Prof. Young-Min Kim"
-          class="aspect-[3/4] object-cover w-full max-w-[240px]"
-          width="240"
-          height="320"
+          widths={[240, 480]}
+          sizes="(max-width: 768px) 200px, 240px"
+          format="webp"
           loading="eager"
           fetchpriority="high"
+          class="aspect-[3/4] object-cover w-full max-w-[240px]"
         />
 
         <div>
