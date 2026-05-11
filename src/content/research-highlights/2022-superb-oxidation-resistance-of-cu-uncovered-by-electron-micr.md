@@ -9,6 +9,6 @@ doi: https://www.nature.com/articles/s41586-021-04375-5
 codeUrl: ''
 mention: 2022 Top 10 Nanotechnology Research Excellence (Nanotechnology Research Council)
 mentionUrl: ''
-image: /research/2022_Superb oxidation resistance of Cu uncovered by electron microscopy.png
+image: ''
 imageAlt: ''
 ---
