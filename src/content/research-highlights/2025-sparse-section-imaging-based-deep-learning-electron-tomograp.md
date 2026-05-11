@@ -9,6 +9,6 @@ doi: https://doi.org/10.1016/j.jechem.2025.01.018
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2025_Sparse section imaging-based deep learning electron tomography.png
+image: ''
 imageAlt: ''
 ---
