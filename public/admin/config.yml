@@ -219,6 +219,37 @@ collections:
       - { name: role, label: 'Role (alumni)', widget: string, required: false, hint: '예: Ph.D. (2018–2024)' }
       - { name: currentAffiliation, label: Current affiliation (alumni), widget: string, required: false }
 
+  # ===== Research Themes (folder, .md frontmatter-only) =====
+  - name: research-themes
+    label: Research Themes
+    label_singular: Theme
+    folder: src/content/research-themes
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    delete: true
+    slug: '{{fields.order}}-{{fields.slug}}'
+    identifier_field: title
+    summary: '[#{{order}}] {{title}}'
+    fields:
+      - { name: order, label: Order (1..N, 위에서 아래 순), widget: number, value_type: int }
+      - { name: slug, label: Slug (URL/파일명용 영문 ID), widget: string }
+      - { name: title, label: Title, widget: string }
+      - { name: subtitle, label: Subtitle (한 줄 부제), widget: string }
+      - { name: summary, label: Summary (2~4 문장), widget: text }
+      - name: relatedHighlights
+        label: Related highlights (slug 목록)
+        widget: list
+        hint: 'src/content/research-highlights/ 의 파일명에서 .md 빼고 입력. 새 paper 자동 분류는 src/utils/themeClassifier.ts 키워드/override 기반.'
+      - name: image
+        label: Figure
+        widget: image
+        required: false
+        media_folder: '/public/research'
+        public_folder: '/research'
+        choose_url: false
+      - { name: imageAlt, label: Figure alt text, widget: string, required: false }
+
   # ===== Research Highlights (folder, .md frontmatter-only) =====
   - name: research-highlights
     label: Research Highlights

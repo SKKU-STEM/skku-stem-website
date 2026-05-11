@@ -129,6 +129,22 @@ const members = defineCollection({
   }),
 });
 
+// ─────────── Research Themes (그룹 thrust 5개) ───────────
+const researchThemes = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/research-themes' }),
+  schema: z.object({
+    order: z.number(),
+    slug: z.string(),
+    title: z.string(),
+    subtitle: z.string(),
+    summary: z.string(),
+    // 관련 highlights 슬러그 배열 — 페이지 렌더 시 timeline의 가장 최신 연도를 anchor로 사용
+    relatedHighlights: z.array(z.string()),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
+  }),
+});
+
 // ─────────── Research Highlights ───────────
 const researchHighlights = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/research-highlights' }),
@@ -187,6 +203,7 @@ export const collections = {
   'publications-pi-selected': publicationsPiSelected,
   news,
   members,
+  'research-themes': researchThemes,
   'research-highlights': researchHighlights,
   facilities,
   'gallery-events': galleryEvents,

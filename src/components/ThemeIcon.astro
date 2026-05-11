@@ -1,0 +1,92 @@
+---
+// Research theme 카드 우측 상단의 stroke 아이콘 — slug별로 6가지 (spectrum / lattice / 3D cube / NN / steps / 2D sheets)
+interface Props {
+  slug: string;
+  class?: string;
+}
+const { slug, class: className = '' } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.5"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class:list={[className]}
+  aria-hidden="true"
+>
+  {
+    slug === 'spectroscopic-imaging' && (
+      <g>
+        {/* 스펙트럼 라인 — 좌→우 피크 강도 */}
+        <path d="M3 18 L5 18 L6 14 L7.5 17 L9 9 L10.5 16 L12 12 L13.5 18 L15.5 13 L17 18 L21 18" />
+      </g>
+    )
+  }
+
+  {
+    slug === '4d-stem-crystallography' && (
+      <g>
+        {/* 6-fold Bragg spots */}
+        <circle cx="12" cy="12" r="1.6" fill="currentColor" />
+        <circle cx="12" cy="5" r="1" fill="currentColor" />
+        <circle cx="12" cy="19" r="1" fill="currentColor" />
+        <circle cx="6" cy="8.5" r="1" fill="currentColor" />
+        <circle cx="18" cy="8.5" r="1" fill="currentColor" />
+        <circle cx="6" cy="15.5" r="1" fill="currentColor" />
+        <circle cx="18" cy="15.5" r="1" fill="currentColor" />
+      </g>
+    )
+  }
+
+  {
+    slug === 'electron-tomography' && (
+      <g>
+        {/* 3D 큐브 + 슬라이스 라인 */}
+        <path d="M6 8 L12 5 L18 8 L18 16 L12 19 L6 16 Z" />
+        <path d="M6 8 L12 11 L18 8" />
+        <path d="M12 11 L12 19" />
+        <path d="M9 9.5 L15 12.5" stroke-dasharray="1.5 1.5" opacity="0.6" />
+      </g>
+    )
+  }
+
+  {
+    slug === 'machine-learning-em' && (
+      <g>
+        {/* 단순 신경망 — 3 노드 입력 / 3 노드 출력 + 연결선 */}
+        <circle cx="5" cy="6" r="1.4" fill="currentColor" />
+        <circle cx="5" cy="12" r="1.4" fill="currentColor" />
+        <circle cx="5" cy="18" r="1.4" fill="currentColor" />
+        <circle cx="19" cy="8" r="1.4" fill="currentColor" />
+        <circle cx="19" cy="16" r="1.4" fill="currentColor" />
+        <path d="M5 6 L19 8 M5 6 L19 16 M5 12 L19 8 M5 12 L19 16 M5 18 L19 8 M5 18 L19 16" opacity="0.5" stroke-width="1" />
+      </g>
+    )
+  }
+
+  {
+    slug === 'thin-film-growth' && (
+      <g>
+        {/* 단원자 스텝 — 우상향 계단 */}
+        <path d="M3 19 L9 19 L9 15 L14 15 L14 11 L19 11 L19 7 L21 7" />
+        <path d="M3 21 L21 21" opacity="0.5" />
+      </g>
+    )
+  }
+
+  {
+    slug === '2d-materials-vdw' && (
+      <g>
+        {/* vdW 적층 — 3장의 얇은 시트 + 사이 점선 (interlayer gap) */}
+        <path d="M4 7 L20 7 L20 8.5 L4 8.5 Z" fill="currentColor" opacity="0.85" />
+        <path d="M4 11.5 L20 11.5 L20 13 L4 13 Z" fill="currentColor" opacity="0.85" />
+        <path d="M4 16 L20 16 L20 17.5 L4 17.5 Z" fill="currentColor" opacity="0.85" />
+        <path d="M6 9.8 L18 9.8" stroke-dasharray="1 1.5" opacity="0.5" stroke-width="1" />
+        <path d="M6 14.3 L18 14.3" stroke-dasharray="1 1.5" opacity="0.5" stroke-width="1" />
+      </g>
+    )
+  }
+</svg>
