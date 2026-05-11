@@ -9,6 +9,6 @@ doi: https://www.sciencedirect.com/science/article/abs/pii/S0926337322010815
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2023_Single particle-level spectroscopic mapping for defect distributions.jpg
+image: ''
 imageAlt: ''
 ---
