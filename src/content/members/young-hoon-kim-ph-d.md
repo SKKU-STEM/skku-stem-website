@@ -1,7 +1,7 @@
 ---
 section: alumni
 order: 24
-nameKo: 김영훈 박사
+nameKo: 김영훈
 nameEn: Young-Hoon Kim, Ph.D.
 position: ''
 program: ''
