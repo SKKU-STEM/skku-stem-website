@@ -9,6 +9,6 @@ doi: https://www.science.org/doi/10.1126/science.abk3195
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2022_Mechanism for ion enhanced polarization in doped HfO2.png
+image: ''
 imageAlt: ''
 ---
