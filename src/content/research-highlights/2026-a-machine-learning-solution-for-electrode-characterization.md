@@ -9,6 +9,6 @@ doi: https://www.sciencedirect.com/science/article/abs/pii/S092633732500894X
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2026_A machine learning solution for electrode characterization.jpg
+image: ''
 imageAlt: ''
 ---
