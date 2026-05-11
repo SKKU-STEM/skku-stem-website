@@ -18,6 +18,16 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
+// OG 이미지: 명시 안 하면 URL slug → /og/<slug>.png 자동 매핑
+// (scripts/generate-og.mjs 가 빌드 종료 후 dist/og/ 에 생성)
+const pathToSlug = (p: string): string => {
+  const trimmed = p.replace(/^\/|\/$/g, '');
+  if (!trimmed) return 'home';
+  return trimmed.replace(/\//g, '-');
+};
+const resolvedOgImage =
+  ogImage ?? new URL(`/og/${pathToSlug(Astro.url.pathname)}.png`, Astro.site).toString();
+
 // Cloudflare Web Analytics — token이 환경변수로 주입되면 prod에서 beacon 자동 로드
 const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
 ---
@@ -47,11 +57,12 @@ const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={resolvedOgImage} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedOgImage} />
   </head>
 
   <body class="bg-cream text-ink font-sans antialiased min-h-dvh flex flex-col">
