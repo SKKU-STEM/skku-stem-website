@@ -163,14 +163,14 @@ const honors: Array<{
     {/* ─────────────── Page header ─────────────── */}
     <section class="container-page pt-12 md:pt-20">
       <div class="container-prose">
-        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
+        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral-700">
           <a
             href="/people"
-            class="text-ink/60 hover:text-coral transition-colors"
+            class="text-ink/70 hover:text-coral underline underline-offset-2 transition-colors"
           >
             People
           </a>
-          <span aria-hidden="true" class="mx-1.5 text-ink/30">/</span>
+          <span aria-hidden="true" class="mx-1.5 text-ink/55">/</span>
           Principal Investigator
         </p>
 
@@ -230,7 +230,7 @@ const honors: Array<{
           {
             education.map((item) => (
               <li class="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
-                <time class="font-mono text-sm text-ink/55 tabular-nums whitespace-nowrap">
+                <time class="font-mono text-sm text-ink/70 tabular-nums whitespace-nowrap">
                   {item.years}
                 </time>
                 <div>
@@ -259,7 +259,7 @@ const honors: Array<{
           {
             experience.map((item) => (
               <li class="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
-                <time class="font-mono text-sm text-ink/55 tabular-nums whitespace-nowrap">
+                <time class="font-mono text-sm text-ink/70 tabular-nums whitespace-nowrap">
                   {item.years}
                 </time>
                 <div>
@@ -288,7 +288,7 @@ const honors: Array<{
           {
             honors.map((item) => (
               <li class="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
-                <time class="font-mono text-sm text-ink/55 tabular-nums whitespace-nowrap">
+                <time class="font-mono text-sm text-ink/70 tabular-nums whitespace-nowrap">
                   {item.year}
                 </time>
                 <p class="text-base md:text-lg leading-snug">
@@ -305,7 +305,7 @@ const honors: Array<{
                     item.title
                   )}
                   {item.cert && (
-                    <span class="ml-2 font-mono text-xs text-ink/50 whitespace-nowrap">
+                    <span class="ml-2 font-mono text-xs text-ink/65 whitespace-nowrap">
                       No. {item.cert}
                     </span>
                   )}
@@ -340,16 +340,16 @@ const honors: Array<{
                 {group.entries.map((pub) => (
                   <li class="py-5 grid grid-cols-1 md:grid-cols-[4rem_1fr] gap-2 md:gap-6 items-baseline">
                     <time
-                      class="font-mono text-sm text-ink/55 tabular-nums whitespace-nowrap"
+                      class="font-mono text-sm text-ink/70 tabular-nums whitespace-nowrap"
                       datetime={String(pub.year)}
                     >
                       {pub.year}
                     </time>
                     <div>
-                      <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral">
+                      <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700">
                         {pub.journal}
                         {pub.volumePages && (
-                          <span class="text-ink/50 normal-case ml-1.5">
+                          <span class="text-ink/65 normal-case ml-1.5">
                             &middot; {pub.volumePages}
                           </span>
                         )}
@@ -375,7 +375,7 @@ const honors: Array<{
                           href={pub.doi}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="mt-2 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.14em] text-ink/55 hover:text-coral transition-colors"
+                          class="mt-2 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.14em] text-ink/70 hover:text-coral transition-colors"
                         >
                           DOI <span aria-hidden="true">&rarr;</span>
                         </a>
@@ -388,7 +388,7 @@ const honors: Array<{
           ))
         }
 
-        <p class="mt-10 pt-6 border-t border-ink/15 text-xs text-ink/55 italic leading-relaxed">
+        <p class="mt-10 pt-6 border-t border-ink/15 text-xs text-ink/70 italic leading-relaxed">
           &dagger; equal contribution &middot; * indicates corresponding author(s)
         </p>
       </div>
@@ -405,7 +405,7 @@ const honors: Array<{
         <dl
           class="mt-6 grid grid-cols-1 md:grid-cols-[8rem_1fr] gap-y-4 md:gap-y-3 text-base"
         >
-          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/55">
+          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
             Email
           </dt>
           <dd>
@@ -417,7 +417,7 @@ const honors: Array<{
             </a>
           </dd>
 
-          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/55">
+          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
             Phone
           </dt>
           <dd>
@@ -429,7 +429,7 @@ const honors: Array<{
             </a>
           </dd>
 
-          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/55">
+          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
             ORCID
           </dt>
           <dd>
@@ -443,7 +443,7 @@ const honors: Array<{
             </a>
           </dd>
 
-          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/55">
+          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
             Office
           </dt>
           <dd class="text-ink/85 leading-relaxed">

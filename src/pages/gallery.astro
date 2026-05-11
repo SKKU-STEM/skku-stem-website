@@ -96,7 +96,7 @@ const totalPhotos = galleryEvents.reduce((sum, ev) => sum + ev.photoCount, 0);
       </svg>
 
       <div class="relative max-w-2xl">
-        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
+        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral-700">
           Gallery
         </p>
         <h1
@@ -120,7 +120,7 @@ const totalPhotos = galleryEvents.reduce((sum, ev) => sum + ev.photoCount, 0);
         aria-label="Jump to year"
         class="flex flex-wrap items-baseline gap-x-3 gap-y-2 pb-6 border-b border-ink/15"
       >
-        <span class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/55 mr-2">
+        <span class="font-mono text-[11px] uppercase tracking-[0.16em] text-ink/70 mr-2">
           Jump
         </span>
         {
@@ -154,14 +154,14 @@ const totalPhotos = galleryEvents.reduce((sum, ev) => sum + ev.photoCount, 0);
                   <article>
                     {/* Event header */}
                     <header>
-                      <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-coral font-bold">
+                      <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-coral-700 font-bold">
                         {event.date}
                       </p>
                       <h3 class="mt-2 font-display font-normal text-xl md:text-2xl tracking-tight leading-snug">
                         {event.title}
                       </h3>
                       {event.titleEn && (
-                        <p class="mt-1 text-sm text-ink/55 italic">
+                        <p class="mt-1 text-sm text-ink/70 italic">
                           {event.titleEn}
                         </p>
                       )}
@@ -172,7 +172,7 @@ const totalPhotos = galleryEvents.reduce((sum, ev) => sum + ev.photoCount, 0);
                       )}
                       {event.participants && (
                         <p class="mt-2 text-xs text-ink/65 leading-relaxed">
-                          <span class="font-mono uppercase tracking-wider text-ink/45 mr-1">
+                          <span class="font-mono uppercase tracking-wider text-ink/65 mr-1">
                             People:
                           </span>
                           {event.participants}
@@ -180,7 +180,7 @@ const totalPhotos = galleryEvents.reduce((sum, ev) => sum + ev.photoCount, 0);
                       )}
                       {event.awards && (
                         <p class="mt-1.5 text-xs text-ink/80 leading-relaxed">
-                          <span class="font-mono uppercase tracking-wider text-coral mr-1">
+                          <span class="font-mono uppercase tracking-wider text-coral-700 mr-1">
                             Awards:
                           </span>
                           {event.awards}

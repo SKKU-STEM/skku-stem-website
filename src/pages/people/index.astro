@@ -96,7 +96,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
       </svg>
 
       <div class="relative">
-        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral">
+        <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral-700">
           People
         </p>
         <h1
@@ -116,12 +116,15 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
           src="/members/YMK.jpg"
           alt="Prof. Young-Min Kim"
           class="aspect-[3/4] object-cover w-full max-w-[240px]"
-          loading="lazy"
+          width="240"
+          height="320"
+          loading="eager"
+          fetchpriority="high"
         />
 
         <div>
           <p
-            class="font-mono text-xs uppercase tracking-[0.16em] text-coral"
+            class="font-mono text-xs uppercase tracking-[0.16em] text-coral-700"
           >
             Principal Investigator
           </p>
@@ -158,14 +161,14 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
             >
               youngmk[at]skku.edu
             </a>
-            <span aria-hidden="true" class="text-ink/30">·</span>
+            <span aria-hidden="true" class="text-ink/55">·</span>
             <a
               href="tel:+82312994059"
               class="text-ink/80 hover:text-coral transition-colors"
             >
               +82-(0)31-299-4059
             </a>
-            <span aria-hidden="true" class="text-ink/30">·</span>
+            <span aria-hidden="true" class="text-ink/55">·</span>
             <a
               href="https://orcid.org/0000-0003-3220-9004"
               target="_blank"
@@ -191,7 +194,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
         class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Postdoctoral Researchers
-        <span class="ml-2 text-ink/35 tabular-nums">{postdocs.length}</span>
+        <span class="ml-2 text-ink/65 tabular-nums">{postdocs.length}</span>
       </h2>
 
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -205,7 +208,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   </p>
                   <p class="mt-1 text-sm text-ink/65 italic">{m.nameEn}</p>
 
-                  <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-coral">
+                  <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700">
                     {m.position}
                   </p>
                   <p class="mt-1 text-xs text-ink/65">
@@ -239,7 +242,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   </a>
                 </p>
                 {m.kri && (
-                  <p class="text-ink/45 font-mono text-[10px]">KRI {m.kri}</p>
+                  <p class="text-ink/65 font-mono text-[10px]">KRI {m.kri}</p>
                 )}
               </div>
             </li>
@@ -254,7 +257,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
         class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Ph.D. Candidates
-        <span class="ml-2 text-ink/35 tabular-nums">{phdCandidates.length}</span>
+        <span class="ml-2 text-ink/65 tabular-nums">{phdCandidates.length}</span>
       </h2>
 
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -268,14 +271,14 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   </p>
                   <p class="mt-1 text-sm text-ink/65 italic">{m.nameEn}</p>
 
-                  <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-coral">
+                  <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700">
                     {m.program}
                   </p>
                   <p class="mt-1 text-xs text-ink/65 tabular-nums">
                     {m.yearRange}
                   </p>
                   {m.coAdvisor && (
-                    <p class="mt-1 text-xs text-ink/55 italic">
+                    <p class="mt-1 text-xs text-ink/70 italic">
                       Co-advisor: {m.coAdvisor}
                     </p>
                   )}
@@ -307,7 +310,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   </a>
                 </p>
                 {m.kri && (
-                  <p class="text-ink/45 font-mono text-[10px]">KRI {m.kri}</p>
+                  <p class="text-ink/65 font-mono text-[10px]">KRI {m.kri}</p>
                 )}
               </div>
             </li>
@@ -322,7 +325,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
         class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Undergraduate Students
-        <span class="ml-2 text-ink/35 tabular-nums">{undergrads.length}</span>
+        <span class="ml-2 text-ink/65 tabular-nums">{undergrads.length}</span>
       </h2>
 
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -336,7 +339,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   </p>
                   <p class="mt-1 text-sm text-ink/65 italic">{m.nameEn}</p>
 
-                  <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-coral">
+                  <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700">
                     {m.program}
                   </p>
                   <p class="mt-1 text-xs text-ink/65 tabular-nums">
@@ -370,7 +373,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   </a>
                 </p>
                 {m.kri && (
-                  <p class="text-ink/45 font-mono text-[10px]">KRI {m.kri}</p>
+                  <p class="text-ink/65 font-mono text-[10px]">KRI {m.kri}</p>
                 )}
               </div>
             </li>
@@ -385,7 +388,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
         class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Alumni
-        <span class="ml-2 text-ink/35 tabular-nums">{alumni.length}</span>
+        <span class="ml-2 text-ink/65 tabular-nums">{alumni.length}</span>
       </h2>
 
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -399,7 +402,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   </p>
                   <p class="mt-1 text-sm text-ink/65 italic">{a.nameEn}</p>
 
-                  <p class="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/55">
+                  <p class="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/70">
                     {a.role}
                   </p>
                   {a.currentAffiliation && (
@@ -419,7 +422,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
               </div>
 
               {(a.email || a.orcid) && (
-                <div class="mt-4 pt-4 border-t border-ink/10 space-y-1 text-[11px] text-ink/55">
+                <div class="mt-4 pt-4 border-t border-ink/10 space-y-1 text-[11px] text-ink/70">
                   {a.email && (
                     <p>
                       <a
