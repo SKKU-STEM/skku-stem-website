@@ -1,7 +1,7 @@
 ---
 section: alumni
 order: 16
-nameKo: 양상혁 박사
+nameKo: 양상혁
 nameEn: Sang-Hyeok Yang, Ph.D.
 position: ''
 program: ''
