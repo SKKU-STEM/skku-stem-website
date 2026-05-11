@@ -1,7 +1,7 @@
 ---
 section: alumni
 order: 17
-nameKo: 이희범 박사
+nameKo: 이희범
 nameEn: Heebeom Lee, Ph.D.
 position: ''
 program: ''
