@@ -1,7 +1,7 @@
 ---
 section: alumni
 order: 25
-nameKo: 장우성 박사
+nameKo: 장우성
 nameEn: Woo-Sung Jang, Ph.D.
 position: ''
 program: ''
