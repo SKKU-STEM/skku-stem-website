@@ -1,7 +1,7 @@
 ---
 section: alumni
 order: 18
-nameKo: 주현아 박사
+nameKo: 주현아
 nameEn: Hyeon-Ah Ju, Ph.D.
 position: ''
 program: ''
