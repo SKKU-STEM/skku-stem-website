@@ -156,9 +156,10 @@ const researchHighlights = defineCollection({
     journal: z.string(),
     volumePages: z.string(),
     doi: z.string().url(),
-    codeUrl: z.string().url().optional(),
+    // Sveltia CMS는 빈 optional URL 필드를 ''로 저장 → preprocess로 undefined 정규화 후 URL 검증.
+    codeUrl: z.preprocess((v) => (v === '' ? undefined : v), z.string().url().optional()),
     mention: z.string().optional(),
-    mentionUrl: z.string().url().optional(),
+    mentionUrl: z.preprocess((v) => (v === '' ? undefined : v), z.string().url().optional()),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
   }),
