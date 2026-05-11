@@ -1,7 +1,7 @@
 ---
 section: alumni
 order: 15
-nameKo: 김선제 박사
+nameKo: 김선제
 nameEn: Seon Je Kim, Ph.D.
 position: ''
 program: ''
