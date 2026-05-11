@@ -1,83 +1,95 @@
-# Next session — 이미지 최적화 (jpg/png → webp/avif + srcset)
+# Next session — OG 이미지 자동 생성 (Satori)
 
 다음 세션 시작 시 아래 코드블록 안 텍스트를 그대로 붙여넣어 사용.
 
 ---
 
 ```
-SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)의 LCP·CLS 잔여 이슈를 이미지 최적화로 해결하자.
+SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)에 페이지별 동적 OG 이미지(1200×630)를 Satori로 생성하자. Twitter / Slack / LinkedIn / Discord 공유 미리보기를 코랄/cream 디자인 토큰과 일치하는 카드로 통일.
 
-## 현재까지 (HEAD: e18b631, 2026-05-11)
+## 현재까지 (HEAD: 51c1128, 2026-05-11)
 
-- Lighthouse a11y 통과: 전 10 페이지 a11y / best-practices / SEO 모두 100. 4종 위반(color-contrast, label-name-mismatch, link-in-text-block, target-size) 해소.
-- 남은 perf 이슈 (라이브 측정 기준):
-  - **people LCP 5079ms** — `/members/YMK.jpg` (PI 초상)이 LCP 후보. eager + fetchpriority="high" 적용했지만 원본이 무거워 여전히 5초대.
-  - **home CLS 0.223** — 본문 paragraph가 폰트 swap 시 reflow.
-  - **home LCP 2304ms** — 그룹 사진 `/photos/2026group-spring.jpg`도 동일.
-  - **facilities LCP 2443ms** — 첫 article의 JEM-ARM300F webp는 이미 Astro Image 처리 중이라 상대적으로 양호.
+- Lighthouse a11y 100 / best-practices 100 / SEO 100 (전 10 페이지). 이미지 최적화로 people LCP 5.08s → 2.53s 달성.
+- BaseLayout이 `<meta property="og:image">`를 props로 받지만 현재 사이트는 ogImage 한 번도 지정 안 함 — 공유 미리보기는 빈 이미지 또는 Cloudflare/플랫폼 자동 캡처.
+- 자산: src/assets/logo.svg (워드마크), public/logo-mark.png (로고 심볼), 디자인 토큰 cream/coral/ink + Newsreader/Inter 폰트.
 
 ## 무엇을 만드는가
 
-`public/` 아래 미가공 jpg/png를 Astro `<Image>` 컴포넌트로 마이그레이션해 build 시 webp/avif 변환 + width 변형 + width/height 자동 부여로 LCP·CLS 개선.
+페이지(또는 페이지 카테고리)별 1200×630 PNG/JPG OG 이미지. 빌드 시 사전 생성되어 dist/og/<slug>.png 으로 서빙. BaseLayout의 ogImage prop을 자동 채움.
 
-대상 자산 (대략):
-- `public/members/*.jpg` (~30 장, 멤버 초상화 — PortraitBox 컴포넌트가 사용)
-- `public/photos/2026group-spring.jpg` (Home hero)
-- `public/gallery/*.jpg` 또는 src/assets/gallery/* (GalleryPhoto 사용)
-- `public/research/*` (research highlight figure — 아직 placeholder가 다수)
+타입:
+1. **Site-wide default** — 로고 + 슬로건 ("Decoding matter, atom by atom")
+2. **Page-specific** — 페이지 제목 + (옵션) 부제 + 로고 마크. 동적 텍스트 fit 처리 필요.
+3. **News article** — News 제목 + 카테고리 배지 + 날짜 (가장 공유될 가능성 높음)
+4. **Publication** — 저널명 + 논문 제목 (DOI 클릭 시 OG 카드)
 
-이미 `<Image>` 사용 중인 곳 (제외 또는 수정 불필요):
-- `src/assets/facilities/*` (FacilityPhoto가 import.meta.glob + Image 사용)
-- `src/assets/research/*` (FigureSlot 사용)
+스코프 결정 필요 — 일단 (1)+(2)부터.
 
 ## 사용자와 결정할 것 (코딩 전)
 
-1. **정적 자산 위치 전환 범위**:
-   - (a) `public/members/`, `public/photos/` → `src/assets/members/`, `src/assets/photos/`로 이동 + Astro `<Image>`로 통일 (Recommended) — 빌드 시 자동 webp/avif·responsive variant
-   - (b) public에 그대로 두고 한 번만 webp/avif 수동 변환 (sharp CLI) + `<picture>` 폴백 직접 작성 — 제어력 ↑, 자동화 ↓
-2. **포맷**:
-   - (a) webp만 (모든 모던 브라우저 지원, 가장 단순)
-   - (b) avif + webp 폴백 (avif가 더 작지만 빌드 시간 늘고 일부 구형 환경 미지원)
-3. **변형 너비 (srcset)**:
-   - (a) 240w / 480w / 800w / 1200w (모든 자산 공통, 평균값)
-   - (b) 컴포넌트별 최적화 (포트레이트 320w/480w, hero 800w/1200w/1600w 등)
-4. **마이그레이션 절차**:
-   - (a) 자동 — 노드 스크립트로 public → src/assets 이동 + 컴포넌트 import 수정
-   - (b) 수동 — 컴포넌트별 한 번씩 손봄 (검증 쉬움, 시간 ↑)
-5. **CMS 영향**:
-   - 멤버 사진은 Sveltia CMS의 image widget으로 업로드되는데 현재 `media_folder: /public/members`. src/assets로 옮기면 CMS도 같이 갱신해야 함. 결정 필요 (그대로 public 두고 별도 처리 vs CMS 설정도 갱신).
+1. **렌더 엔진**:
+   - (a) Satori + sharp (Vercel OG 패턴, JSX → SVG → PNG, build-time) (Recommended)
+   - (b) `@vercel/og` (런타임 edge function, Cloudflare Pages Functions로도 가능 — 빌드 시간 0이지만 매 요청 마다 렌더)
+   - (c) Astro Image 외 직접 SVG → PNG (가장 단순, Astro 표준 패턴 없음)
+2. **디자인 템플릿**:
+   - (a) 텍스트만 (제목 + 부제 + 로고 우하단)
+   - (b) 텍스트 + 코랄 액센트 그래픽 (예: 우측에 stylized 원자 격자 + 제목 좌측)
+   - (c) 페이지마다 다른 시각 (Research = 에너지 지형 SVG 변형, People = 노드 네트워크 등 — hero SVG 재사용)
+3. **적용 범위**:
+   - (a) 9 정적 페이지 (home, research, people, people-pi, publications×3, news, gallery, facilities)
+   - (b) (a) + News 8 entries 각자 OG (per-entry)
+   - (c) (a) + News + Publication entries (~270편 — 매우 많음)
+4. **폰트**:
+   - (a) Inter Variable (현재 sans, 가독성 ↑)
+   - (b) Newsreader (현재 display, 학술적 느낌 ↑)
+   - (c) Inter (헤더) + Newsreader (본문) 혼용
 
 ## 빠르게 점검할 것
 
-- `src/components/PortraitBox.astro` 의 현재 구현 (img 태그? Image? optional 분기?)
-- Astro `image.service`는 sharp 사용 중 (astro.config.mjs 기 확인) — 빌드 시 자동 변환 가능
-- public/members/*.jpg 평균 파일 크기 (대략 100~500KB? 측정 후 효과 예상)
-- Astro Image의 `densities` / `widths` / `format` 옵션 활용
+- BaseLayout.astro의 `<meta property="og:image">` 가 어떻게 props로 받는지 (현재 옵셔널)
+- Satori는 React-like JSX를 받는데 Astro 외부에서 호출. 통상 `astro:build:setup` 훅이나 별도 스크립트로 dist/og/* 생성.
+- 한국어 글리프 (예: 김영민) 렌더링은 한글 폰트 fallback 필요 — Noto Sans KR variable 또는 Pretendard subset.
+- Cloudflare Pages 정적 호스팅이라 .png는 그냥 dist/에 두면 OK.
 
 ## 구현 (결정 후)
 
-- `src/assets/members/` 등 이동 → import.meta.glob으로 일괄 로드 (FacilityPhoto 패턴 참고)
-- 컴포넌트가 빌드 시 변형 자동 생성 → dist/_astro/* 에 webp/avif 생성 확인
-- LCP 후보 (Home hero, People PI portrait, Facilities first photo)는 priority + width/height 명시
-- CMS 영향 있을 시 public/admin/config.yml의 media_folder 동기화
+### 패키지
+```
+npm install satori sharp @resvg/resvg-js  # satori는 SVG, resvg/sharp가 PNG 변환
+# 또는 Vercel OG: npm install @vercel/og
+```
+
+### 디렉토리
+- `scripts/generate-og.mjs` — 페이지 메타 → SVG → PNG 생성
+- `dist/og/<slug>.png` 결과물 (sitemap에서 제외)
+- `public/og/_template.svg` (옵션 — 정적 베이스 템플릿)
+
+### Astro 통합
+- `astro.config.mjs`의 `integrations`에 커스텀 integration 추가, `astro:build:done` 훅에서 generate-og.mjs 실행
+- BaseLayout: ogImage 기본값을 페이지 slug로 자동 매핑 (`og/${slug}.png`)
+
+### News per-entry (선택 시)
+- `getCollection('news')` 순회 → 각 entry slug로 PNG 생성
+- News page entry에 absolute URL 메타 삽입 — Astro endpoint나 정적 page route가 없으니 OG는 /news#news-<slug> URL 직접 매핑은 안 되고, 전체 News에 site-wide OG 사용 권장.
 
 ## 검증
 
-- `npm run build` 후 `dist/` 에 변환된 webp/avif 생성 확인
-- `npm run preview` + Lighthouse CLI (`node scripts/lighthouse-audit.mjs --base=http://localhost:4321`) 로 LCP·CLS·perf 수치 변화 측정
-- 라이브 배포 후 동일 스크립트로 재측정 (people LCP 5s → ~2s, home LCP 2.3s → 1.5s 목표)
-- CMS에서 사진 업로드 → 빌드 → 라이브 round-trip 동작 확인 (옮겼다면)
+- `npm run build` → dist/og/* 생성 확인
+- `dist/og/home.png` 등을 직접 열어 시각 확인
+- https://www.opengraph.xyz/ 또는 https://socialsharepreview.com/ 에 배포 후 URL 입력 → 카드 미리보기
+- Twitter card validator (https://cards-dev.twitter.com/validator) 도 가능
+- 한국어 글리프 깨짐 여부 (PI 페이지에 "김영민" 포함)
 
 ## 알아둘 것
 
-- `<Image>` 가 빌드 시 `mix-blend-darken` CSS와 호환되는지 (현재 home hero / facility 사진이 사용 중) 확인.
-- 이미지 마이그레이션은 한 번만 하면 되는 일회성 작업이지만 잘못하면 모든 멤버 사진 깨짐 — 컴포넌트별 단계적 접근 권장.
-- Pagefind 인덱스는 이미지 변경에 영향 없음 (이미지 alt 텍스트만 인덱싱).
-- checklist의 Stage 4 polish 항목 추가 권장 ("이미지 최적화 — webp/avif").
+- Satori는 CSS subset만 지원 — Tailwind 그대로는 못 씀. 인라인 style만.
+- Cloudflare Pages는 PNG 정적 자산 캐싱 — 빌드마다 새 파일 OK.
+- 절대 URL 필요 (ogImage는 https://skkustem.org/og/<slug>.png 형식). astro.config.mjs의 site 사용.
+- 1200×630이 표준 (Twitter / FB / LinkedIn / Discord 모두). 정사각 1080×1080은 Mastodon에 더 잘 맞지만 표준 16:8.4 우선.
 
 ## 우선 확인할 것
 
-- 작업 시작 전 PRD.md §3 (디자인 시스템), src/components/PortraitBox.astro / NewsPhoto / GalleryPhoto / FacilityPhoto 현재 구현 비교, public/members /photos 파일 크기 측정.
-- 위 5개 결정 사항을 사용자에게 단답형으로 묻고 합의 후 코딩.
-- 첫 push 전 `npm run check` + `npm run build` + `npm run preview` + lighthouse-audit.mjs 재측정으로 회귀 없음 확인.
+- 작업 시작 전 BaseLayout.astro의 OG 메타 부분, src/assets/logo.svg, 디자인 토큰 (global.css의 @theme 색상) 훑기.
+- 위 4개 결정 사항을 사용자에게 단답형으로 묻고 합의 후 코딩.
+- 첫 push 전 `npm run check` + `npm run build` + 라이브 외부 OG validator로 시각 확인.
 ```
