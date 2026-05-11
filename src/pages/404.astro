@@ -1,0 +1,51 @@
+---
+// 404 — Cloudflare Pages가 dist/404.html을 잘못된 경로 fallback으로 자동 서빙
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 · SKKU-STEM Lab"
+  description="The page you requested could not be located."
+>
+  <section
+    class="container-prose pt-20 md:pt-28 pb-24 md:pb-32 flex flex-col items-start"
+  >
+    <p
+      class="font-mono text-[11px] uppercase tracking-[0.16em] text-coral"
+    >
+      404
+    </p>
+    <h1
+      class="mt-6 font-display font-normal tracking-tight text-4xl md:text-5xl leading-[1.1] text-balance"
+    >
+      This page is not at atomic resolution.
+    </h1>
+    <p class="mt-6 text-lg md:text-xl text-ink/80 leading-relaxed">
+      We couldn&rsquo;t locate the URL you requested. Try the site search,
+      or head back to the home page.
+    </p>
+
+    <div class="mt-10 flex flex-wrap items-center gap-3">
+      <a
+        href="/"
+        class="inline-flex items-center justify-center px-5 py-3 bg-ink text-cream rounded-md text-sm font-medium hover:bg-ink-700 transition-colors"
+      >
+        Back to home
+      </a>
+      <button
+        type="button"
+        id="four04-search"
+        class="inline-flex items-center justify-center px-5 py-3 border border-ink/25 text-ink rounded-md text-sm font-medium hover:bg-cream-200 hover:border-ink/40 transition-colors"
+      >
+        Search the site
+      </button>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Header에 이미 마운트된 SearchDialog의 트리거 버튼을 클릭으로 위임 — 모달 + Pagefind lazy-load가 함께 동작
+  document.getElementById('four04-search')?.addEventListener('click', () => {
+    document.getElementById('search-open')?.click();
+  });
+</script>

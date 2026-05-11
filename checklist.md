@@ -68,11 +68,11 @@
 - [x] Gallery — Astro Image responsive grid (`gallery.astro` + `PhotoMosaic.astro`, lightbox)
 - [x] Facilities — 장비/시설 카탈로그 (`facilities.astro`, JEM-ARM300F + ARM200F)
 - [x] News — Content Collection (`news` collection, date sort, category filter)
-  - [ ] RSS feed (`/rss.xml` endpoint)
+  - [x] RSS feed (`/rss.xml` endpoint via `@astrojs/rss`, BaseLayout `<link rel="alternate">` 자동 노출)
 - [ ] ~~Join — 모집 공고 + apply flow~~ N/A (PRD §4 — Home recruiting 섹션 + footer 이메일로 통합, 별도 페이지 없음)
 - [ ] ~~Contact — 위치/지도/이메일~~ N/A (PRD §4 — 동일 이유)
 - [x] Pagefind UI 컴포넌트 (`/pagefind/pagefind-ui.js` 동적 로드) — `SearchDialog.astro` (Header 아이콘 + `<dialog>` 모달, Cmd/Ctrl+K · `/` 단축키, cream/coral 토큰 override)
-- [ ] 404 페이지
+- [x] 404 페이지 (`src/pages/404.astro` — witty headline + 사이트 검색 모달 트리거 + Home 버튼, Cloudflare Pages가 dist/404.html을 자동 fallback)
 - [x] `robots.txt` + `sitemap.xml` 검증 — robots.txt(admin/oauth Disallow), `@astrojs/sitemap`이 sitemap-index.xml 생성, GSC 제출 완료 (PRD §11)
 
 - [x] Publications — 이전 사이트 3-layer 구조 마이그레이션
