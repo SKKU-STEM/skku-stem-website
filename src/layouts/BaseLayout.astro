@@ -1,8 +1,10 @@
 ---
-// 모든 페이지의 공통 HTML 셸 — Header / Footer / 메타 태그 / skip-link
+// 모든 페이지의 공통 HTML 셸 — Header / Footer / 메타 태그 / skip-link / 핵심 폰트 preload
 import '@styles/global.css';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
+// Inter Variable latin (본문·UI 전반) — preload로 swap reflow 최소화
+import interFontUrl from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -40,6 +42,13 @@ const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
     <meta name="generator" content={Astro.generator} />
 
     <link rel="canonical" href={canonicalURL} />
+    <link
+      rel="preload"
+      href={interFontUrl}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />

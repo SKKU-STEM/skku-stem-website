@@ -39,12 +39,13 @@
   --color-border: var(--color-cream-300);
 
   /* ─────────────── Typography tokens ─────────────── */
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "Newsreader Variable", ui-serif, Georgia, Cambria,
-    "Times New Roman", Times, serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular,
-    "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  /* "X fallback"은 fontaine vite plugin이 생성하는 size-adjust 보정 @font-face — 폰트 swap reflow(CLS) 제거. */
+  --font-sans: "Inter Variable", "Inter fallback", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Newsreader Variable", "Newsreader fallback", ui-serif, Georgia,
+    Cambria, "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains fallback", ui-monospace,
+    SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
   /* Display = Newsreader (헤드라인 전용 alias) */
   --font-display: var(--font-serif);
