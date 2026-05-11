@@ -59,7 +59,7 @@ const maxYear = Math.max(...years);
           ORNL postdoctoral fellowship.
         </p>
         <p class="mt-3 text-xs text-ink/70 italic">
-          <span class="text-coral font-medium tabular-nums">{leadCount}</span>{' '}
+          <span class="text-coral-400 font-medium tabular-nums">{leadCount}</span>{' '}
           lead-authored,{' '}
           <span class="tabular-nums">{coCount}</span> co-authored.
         </p>
@@ -137,13 +137,13 @@ const maxYear = Math.max(...years);
                     <span
                       class:list={[
                         'font-mono text-sm tabular-nums text-right pt-0.5',
-                        p.lead ? 'text-coral font-medium' : 'text-ink/65',
+                        p.lead ? 'text-coral-400 font-medium' : 'text-ink/65',
                       ]}
                     >
                       {p.number}
                     </span>
                     <div>
-                      <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral font-bold">
+                      <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-400 font-bold">
                         {p.journal}
                         {p.volumePages && (
                           <span class="text-ink/65 normal-case font-normal ml-1.5">
