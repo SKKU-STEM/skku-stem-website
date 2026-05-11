@@ -385,21 +385,18 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
       </ul>
     </section>
 
-    {/* ─────────────── 현 멤버 / Alumni 구분선 ─────────────── */}
-    <div class="container-page" aria-hidden="true">
-      <hr class="border-t border-ink/25" />
-    </div>
-
     {/* ─────────────── Alumni ─────────────── */}
+    {/* 약간 더 어두운 크림 배경(bg-cream-200)으로 현 멤버 섹션과 시각적으로 분리. */}
     <section class="container-page">
-      <h2
-        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
-      >
-        Alumni
-        <span class="ml-2 text-ink/65 tabular-nums">{alumni.length}</span>
-      </h2>
+      <div class="bg-cream-200 rounded-lg px-6 sm:px-8 md:px-10 py-10 md:py-12">
+        <h2
+          class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
+        >
+          Alumni
+          <span class="ml-2 text-ink/65 tabular-nums">{alumni.length}</span>
+        </h2>
 
-      <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           alumni.map((a) => (
             <li class="border border-ink/15 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft">
@@ -458,7 +455,8 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
             </li>
           ))
         }
-      </ul>
+        </ul>
+      </div>
     </section>
   </div>
 </BaseLayout>
