@@ -9,6 +9,6 @@ doi: https://doi.org/10.1021/acsenergylett.4c01233
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2024_4D STEM-based domain mapping for perovskite solar cells.png
+image: ''
 imageAlt: ''
 ---
