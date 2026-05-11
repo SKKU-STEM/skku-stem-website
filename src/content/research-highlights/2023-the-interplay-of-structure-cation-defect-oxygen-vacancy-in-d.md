@@ -9,6 +9,6 @@ doi: https://pubs.acs.org/doi/10.1021/acsnano.3c04983
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2023_The interplay of structure-cation defect-oxygen vacancy in doped HfO2 film.jpg
+image: ''
 imageAlt: ''
 ---
