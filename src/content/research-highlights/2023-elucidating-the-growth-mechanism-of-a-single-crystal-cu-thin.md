@@ -9,6 +9,6 @@ doi: https://www.nature.com/articles/s41467-023-36301-w
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2023_Elucidating the growth mechanism of a single crystal Cu thin film.png
+image: ''
 imageAlt: ''
 ---
