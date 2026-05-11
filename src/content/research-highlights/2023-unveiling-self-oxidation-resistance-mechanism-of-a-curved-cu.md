@@ -9,6 +9,6 @@ doi: https://onlinelibrary.wiley.com/doi/10.1002/adma.202210564
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2023_Unveiling self-oxidation resistance mechanism of a curved Cu surface.jpg
+image: ''
 imageAlt: ''
 ---
