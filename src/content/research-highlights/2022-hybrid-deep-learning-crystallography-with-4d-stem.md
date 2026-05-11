@@ -9,6 +9,6 @@ doi: https://onlinelibrary.wiley.com/doi/10.1002/smll.202107620
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2022_Hybrid deep learning crystallography with 4D-STEM.jpg
+image: ''
 imageAlt: ''
 ---
