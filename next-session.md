@@ -1,64 +1,66 @@
-# Next session — Research themes (연구 주제) 섹션 추가
+# Next session — Polish pack (404 page + News RSS feed)
 
 다음 세션 시작 시 아래 코드블록 안 텍스트를 그대로 붙여넣어 사용.
 
 ---
 
 ```
-SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)에 /research 페이지의 "연구 주제 (group themes / projects)" 섹션을 추가하자.
+SKKU-STEM 웹사이트(C:\Users\mirag\Documents\Claude\Projects\skkustem)에 (1) 404 페이지와 (2) News RSS feed 두 개를 한 번에 추가하자. 둘 다 작고 독립적이라 한 세션에 같이 끝낼 수 있음.
 
-## 현재까지 (HEAD: 8336017, 2026-05-11)
+## 현재까지 (HEAD: 933d9d6, 2026-05-11)
 
-- Stage 5.2 (Sveltia CMS) + Pagefind 검색 UI까지 라이브 반영 완료. 9 컬렉션 CMS 편집, Header 돋보기/Ctrl+K/'/' 검색.
-- /research는 현재 highlight 타임라인만 렌더 (역연대기 28 entries, src/content/research-highlights/*.md). 그 위에 얹을 "연구 그룹의 thrust 영역" 소개가 비어 있음.
+- Stage 5.2 Sveltia CMS, Pagefind 검색 UI, Research Themes(6 thrusts + per-theme 모달 + auto-classification) 모두 라이브 반영 완료.
+- checklist.md에 남은 진짜 미완 항목: **404 페이지 / News RSS / i18n / OG 자동 생성 / Lighthouse**. 이번 세션은 앞 두 개.
 
-## 무엇을 만드는가
+## 1) 404 페이지
 
-PRD §1 Project 개요 한 줄("Aberration-corrected STEM + 전자분광(EELS/EDX) + 4D-STEM + electron tomography + ML/DL 융합으로 에너지 소재의 원자 단위 구조·화학 분석")을 풀어낸 **4~6개 연구 주제 카드**. 각 카드는 제목 + 2~4문장 설명 + 대표 figure(선택) + 관련 highlight/publication 링크(선택).
+### 만들 것
+`src/pages/404.astro` — BaseLayout 기반의 정적 404. 타입스크립트/콘텐츠 의존 없음. Cloudflare Pages는 dist/404.html이 있으면 자동으로 이를 fallback으로 사용한다 (별도 routing rule 불필요).
 
-기존 28 highlights에서 추출되는 자연스러운 클러스터 후보:
-1. **STEM-EELS chemical / valence / oxygen-vacancy mapping** — 배터리·연료전지·고체전해질 (≈10건)
-2. **4D-STEM domain & strain mapping** — perovskite solar cell, HfO2 ferroelectric (≈4건)
-3. **Electron tomography (3D)** — Li-ion battery, PEM fuel cell, sparse-section DL (≈4건)
-4. **ML/DL for electron microscopy** — defect quantification, attention U-Net, hybrid crystallography (≈4건)
-5. **Cu thin-film growth & oxidation resistance** — single-crystal Cu, atomic-scale mechanism (≈4건)
-6. (선택) **Ferroelectric oxides & polarization** — HfO2 doping, ion-enhanced polarization (≈2건)
+### 사용자와 결정
+- **톤**: (a) 짧고 위트 있게 ("This page is not at atomic resolution.") (b) 정중하고 사무적 (c) 그냥 "Page not found"
+- **CTA**: (a) Home으로 돌아가는 단일 버튼 (b) 주요 nav 링크 5~6개 카드형 (c) 검색창 임베드 (Pagefind UI 재사용)
+- **그래픽**: (a) 텍스트만 (b) 기존 hero 패턴(에너지 지형 SVG) 변형 — 우물에 원자가 못 안착한 모습 (c) 단순 큰 "404" 텍스트
 
-위 클러스터는 어디까지나 archive 분류 — 실제 사이트에서 보여줄 thrust는 PI가 미래지향적으로 재정의해야 함 (예: "ML-driven atomic-scale chemistry" 같은 묶음). **사용자와 합의 먼저.**
+### 검증
+- `npm run build` → `dist/404.html` 생성 확인
+- `npm run preview` 후 임의 잘못된 URL (`/this-does-not-exist`) 접속 → 404 렌더 확인 (preview는 자동 fallback 안 할 수도 있음 — 이 경우 직접 `/404`로 접속)
+- 라이브 배포 후 잘못된 URL 접속해서 헤더/푸터 + 디자인 토큰 정상 적용 확인
 
-## 사용자와 결정할 것 (코딩 전)
+## 2) News RSS feed
 
-1. **배치**: (a) /research 페이지 상단에 themes 섹션, 아래에 timeline 유지 (b) /research/themes 별도 sub-page, /research는 timeline 그대로 (c) /research에서 themes로 메인 교체, timeline은 /research/highlights로 이동
-2. **데이터 소스**:
-   - (a) `src/data/research-themes.ts` 하드코딩 (5개 내외라 CMS 오버킬, PI가 직접 수정 거의 안 함)
-   - (b) Content collection `research-themes/` (.md per theme) + content.config.ts 스키마 + Sveltia CMS folder collection 추가 → 일관성·CMS 편집 가능, 단 컬렉션 1개·CMS 설정·index 페이지 모두 손봐야 함
-3. **테마 정의 작성 방식**: (a) 사용자가 직접 4~6개 제목+설명을 줌 (b) 위 archive 클러스터 후보를 사용자가 골라/병합/재명명 (c) Claude가 PI 페이지 bio·publications·highlights를 읽어 초안 5개를 제시 → 사용자가 가위질
-4. **카드 시각**: (a) 텍스트 카드만 (제목 + 설명 + 태그) (b) 텍스트 + 대표 figure (research highlights에서 재사용 vs 신규 업로드) (c) 텍스트 + 작은 아이콘
-5. **highlights와의 연결**: (a) 카드에 "관련 highlights →" 링크/태그로 연결 (b) 단순히 본문에 inline 언급만 (c) 연결 없음
+### 만들 것
+`src/pages/rss.xml.ts` — `@astrojs/rss` 패키지 추가 + News collection을 RSS 2.0 피드로 export. SEO·구독자용.
 
-## 구현 (결정 후)
+```bash
+npm install @astrojs/rss
+```
 
-- 배치 (a) 또는 (c) → `src/pages/research.astro` 수정 + 새 `<ResearchThemeCard>` 컴포넌트 (또는 인라인)
-- 데이터 (b) 채택 시 `src/content.config.ts`에 `researchThemes` collection 추가 + `src/content/research-themes/<slug>.md` 생성 + `public/admin/config.yml`에 folder collection 등록
-- 카드 figure는 기존 `src/assets/research/*` 재사용 가능 (`getCollection('research-highlights')`에서 image 매핑 lookup), 신규 figure는 `src/assets/research/themes/`에 분리하는 것도 옵션
-- 색/타이포는 기존 토큰 (cream/coral/Inter/Newsreader)만 사용 — PRD §3.5 디자인 원칙 준수
+### 구현 (간단)
+- `getCollection('news')` 로드 → date desc 정렬
+- title / description / pubDate / link / category 매핑
+- BaseLayout의 `<head>`에 `<link rel="alternate" type="application/rss+xml" title="SKKU-STEM Lab News" href="/rss.xml" />` 추가 (전체 페이지에서 발견 가능하게)
 
-## 검증
+### 사용자와 결정
+- **포함 항목 수**: (a) 전체 News (현재 8건) (b) 최신 N건 (예 20)
+- **본문 내용**: (a) headline + summary 만 (b) 전체 본문 (.md body) 포함
+- **카테고리 매핑**: News.category enum (paper/award/media/member/event/grant/lab) 그대로 RSS `<category>`에 노출
 
-- `npm run check` (타입) → `npm run build` (빌드 + Pagefind 인덱스에 새 텍스트 자동 편입) → `npm run preview`
-- Pagefind 검색에서 새 theme 키워드 (예: "tomography", "4D-STEM") 결과에 themes 섹션 페이지가 떠야 함
-- /admin (Sveltia CMS) — 컬렉션 추가했다면 폼 편집·저장 round-trip 확인
-- 모바일 viewport 카드 그리드 reflow 확인
+### 검증
+- `npm run build` → `dist/rss.xml` 생성, XML 유효성 확인
+- W3C Feed Validator (https://validator.w3.org/feed/) 또는 Feedly에 등록 테스트
+- BaseLayout `<link rel="alternate">` 가 모든 페이지 source에 보이는지
 
 ## 알아둘 것
 
-- /research의 highlight timeline은 그대로 두는 것이 안전 (28 entries, 연도별 sticky grid가 잘 동작 중)
-- "Research themes" 섹션은 PRD §5.2에 명시되어 있지 않음 — 새 섹션 추가하면 PRD §5.2 한 줄 갱신 권장
-- CMS 컬렉션 추가 시 v1 collection 번호가 9 → 10. 기존 컬렉션 형식과 맞추려면 ymlfile 끝 collections 배열에 항목 추가 + glob loader 등록 + 스키마 정의가 모두 짝을 맞춰야 함 (context-notes.md §의 CMS 설계 절 참고)
+- 두 작업 모두 기존 컴포넌트/스타일 토큰만 사용, 신규 의존성은 RSS의 `@astrojs/rss` 단 하나.
+- Sveltia CMS에는 영향 없음 (404는 정적, RSS는 News collection을 읽기만 함).
+- Pagefind 인덱스도 영향 없음 (404는 noindex가 자연스럽고, rss.xml은 비-HTML이라 인덱스 대상 아님).
+- checklist.md의 두 라인 (`- [ ] 404 페이지` / `- [ ] RSS feed (/rss.xml endpoint)`) 체크 + Stage/PRD 한 줄 갱신.
 
 ## 우선 확인할 것
 
-- 작업 시작 전 PRD.md §5.2, checklist.md "- [ ] Research — 연구 주제" 라인 주변, src/pages/research.astro 현재 구조 훑기
-- 위 5개 결정 사항을 사용자에게 단답형으로 묻고 합의된 후 코딩
-- 첫 push 전 `npm run check` + `npm run build` + `npm run preview`로 실 렌더 확인
+- 작업 시작 전 PRD.md §9.3 (Sitemap), checklist.md L74 / L70 sub-line 주변, src/content.config.ts의 news 스키마 (date 필드 포맷 확인) 훑기.
+- 위 결정 사항을 사용자에게 단답형으로 묻고 합의된 후 코딩.
+- 첫 push 전 `npm run check` + `npm run build` + `npm run preview`로 양쪽 다 동작 확인.
 ```
