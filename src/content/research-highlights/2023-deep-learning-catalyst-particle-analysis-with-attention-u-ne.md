@@ -9,6 +9,6 @@ doi: https://www.sciencedirect.com/science/article/abs/pii/S2468606923001041
 codeUrl: https://github.com/SKKU-STEM/PMA-Net
 mention: ''
 mentionUrl: ''
-image: /research/2023_Deep learning catalyst particle analysis with Attention U-Net.jpg
+image: ''
 imageAlt: ''
 ---
