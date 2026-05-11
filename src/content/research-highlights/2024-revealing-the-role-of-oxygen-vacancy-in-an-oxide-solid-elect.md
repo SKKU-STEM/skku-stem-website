@@ -9,6 +9,6 @@ doi: https://pubs.acs.org/doi/10.1021/acsenergylett.4c02078
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /research/2024_Revealing the role of oxygen vacancy in an oxide solid electrolyte.jpg
+image: ''
 imageAlt: ''
 ---
