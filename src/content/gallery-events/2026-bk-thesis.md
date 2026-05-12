@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 2
 slug: 2026-bk-thesis
 year: 2026
 date: Jan. 15, 2026
