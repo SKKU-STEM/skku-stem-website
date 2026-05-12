@@ -8,5 +8,5 @@ titleEn: ''
 location: ''
 participants: ''
 awards: ''
-photoCount: 2
+photoCount: 1
 ---
