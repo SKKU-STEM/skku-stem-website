@@ -1,8 +1,12 @@
 ---
 order: 16
-slug: "2024-hiking-spring"
+slug: 2024-hiking-spring
 year: 2024
-date: "April 9, 2024"
-title: "Spring hiking, Gwanggyosan"
-photoCount: 1
+date: April 9, 2024
+title: Spring hiking, Gwanggyosan
+titleEn: ''
+location: ''
+participants: ''
+awards: ''
+photoCount: 2
 ---
