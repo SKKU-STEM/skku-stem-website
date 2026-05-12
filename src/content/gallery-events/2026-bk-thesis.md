@@ -8,5 +8,5 @@ titleEn: ''
 location: Suwon, Korea
 participants: ''
 awards: 'Oral, Excellence award: 전예린 (Yerin Jeon) · Poster, Encouragement award: 박은별 (Eun-Byeol Park)'
-photoCount: 6
+photoCount: 5
 ---
