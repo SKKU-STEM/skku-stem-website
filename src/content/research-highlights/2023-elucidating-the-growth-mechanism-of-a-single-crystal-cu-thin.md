@@ -9,6 +9,6 @@ doi: https://www.nature.com/articles/s41467-023-36301-w
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: ''
+image: '2023-elucidating-the-growth-mechanism-of-a-single-crystal-cu-thin.png'
 imageAlt: ''
 ---
