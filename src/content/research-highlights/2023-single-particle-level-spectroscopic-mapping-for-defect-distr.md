@@ -9,6 +9,6 @@ doi: https://www.sciencedirect.com/science/article/abs/pii/S0926337322010815
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: ''
+image: '2023-single-particle-level-spectroscopic-mapping-for-defect-distr.jpg'
 imageAlt: ''
 ---
