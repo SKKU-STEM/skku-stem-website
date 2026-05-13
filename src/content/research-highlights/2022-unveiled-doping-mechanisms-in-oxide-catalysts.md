@@ -9,6 +9,6 @@ doi: https://www.sciencedirect.com/science/article/abs/pii/S0926337322000236
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: ''
+image: '2022-unveiled-doping-mechanisms-in-oxide-catalysts.jpg'
 imageAlt: ''
 ---
