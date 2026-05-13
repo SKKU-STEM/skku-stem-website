@@ -6,4 +6,5 @@ summary: "Successfully mapped copper dopants added at 0.2 at.% into a multi-comp
 journal: Materials Today Physics
 volumePages: "17, 100347"
 doi: "https://www.sciencedirect.com/science/article/abs/pii/S2542529321000080"
+image: '2021-atomic-scale-chemical-mapping-of-cu-dopants-0-2-at-in-a-ther.png'
 ---
