@@ -6,4 +6,5 @@ summary: "Using atom-resolved STEM-EDX/EELS, this study reveals that the electro
 journal: Journal of Materials Chemistry A
 volumePages: "6, 16111"
 doi: "https://pubs.rsc.org/en/content/articlelanding/2018/ta/c8ta04731f"
+image: '2018-valence-state-mapping-for-li-ion-batteries.png'
 ---
