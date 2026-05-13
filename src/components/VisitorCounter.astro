@@ -1,0 +1,117 @@
+---
+// 푸터 좌측 디지털 odometer 방문자 카운터 — CounterAPI v1 사용, 세션당 1회만 increment
+---
+
+<div class="visitor-counter" aria-label="Site visitor count">
+  <span class="visitor-counter__label">Visitors</span>
+  <div
+    class="visitor-counter__digits"
+    data-visitor-digits
+    aria-live="polite"
+    aria-atomic="true"
+  >
+    <span class="visitor-counter__digit visitor-counter__digit--idle">–</span>
+    <span class="visitor-counter__digit visitor-counter__digit--idle">–</span>
+    <span class="visitor-counter__digit visitor-counter__digit--idle">–</span>
+    <span class="visitor-counter__digit visitor-counter__digit--idle">–</span>
+    <span class="visitor-counter__digit visitor-counter__digit--idle">–</span>
+  </div>
+</div>
+
+<style>
+  .visitor-counter {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: var(--radius-md);
+    background-color: color-mix(in oklab, var(--color-cream) 4%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-cream) 10%, transparent);
+  }
+
+  .visitor-counter__label {
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--color-cream) 60%, transparent);
+    font-weight: 500;
+  }
+
+  .visitor-counter__digits {
+    display: inline-flex;
+    gap: 0.25rem;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .visitor-counter__digit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.625rem;
+    height: 2.125rem;
+    border-radius: var(--radius-sm);
+    background-color: #0a0a09;
+    border: 1px solid color-mix(in oklab, var(--color-cream) 8%, transparent);
+    color: var(--color-coral-400);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    line-height: 1;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+    transition: color 0.25s ease;
+  }
+
+  .visitor-counter__digit--idle {
+    color: color-mix(in oklab, var(--color-cream) 22%, transparent);
+  }
+</style>
+
+<script>
+  const NAMESPACE = 'skku-stem';
+  const COUNTER = 'site-visits';
+  const SESSION_KEY = 'skku-stem-visitor-counted';
+  const BASE = 'https://api.counterapi.dev/v1';
+  const MIN_DIGITS = 5;
+
+  function renderDigits(n: number) {
+    const root = document.querySelector('[data-visitor-digits]');
+    if (!root) return;
+    const padded = String(Math.max(0, Math.floor(n))).padStart(MIN_DIGITS, '0');
+    root.innerHTML = '';
+    for (const ch of padded) {
+      const cell = document.createElement('span');
+      cell.className = 'visitor-counter__digit';
+      cell.textContent = ch;
+      root.appendChild(cell);
+    }
+  }
+
+  async function loadCount() {
+    const shouldIncrement =
+      typeof sessionStorage !== 'undefined' &&
+      !sessionStorage.getItem(SESSION_KEY);
+    const path = shouldIncrement
+      ? `${NAMESPACE}/${COUNTER}/up`
+      : `${NAMESPACE}/${COUNTER}/`;
+    try {
+      const res = await fetch(`${BASE}/${path}`, { cache: 'no-store' });
+      if (!res.ok) return;
+      const json = (await res.json()) as { count?: number };
+      const count = typeof json?.count === 'number' ? json.count : 0;
+      if (shouldIncrement) {
+        try {
+          sessionStorage.setItem(SESSION_KEY, '1');
+        } catch {
+          /* private 모드 등에서 setItem 실패 시 무시 */
+        }
+      }
+      renderDigits(count);
+    } catch {
+      /* 네트워크/CORS 실패 시 idle placeholder 유지 */
+    }
+  }
+
+  loadCount();
+</script>
