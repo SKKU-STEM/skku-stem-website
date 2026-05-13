@@ -7,5 +7,5 @@ journal: Advanced Science
 volumePages: "8, 2101099"
 doi: "https://onlinelibrary.wiley.com/doi/10.1002/advs.202101099"
 codeUrl: "https://github.com/SKKU-STEM/2D_TMD_Quantification_with_Deeplearning"
-image: '2021-deep-learning-algorithm-for-automated-defect-quantification-'
+image: '2021-deep-learning-algorithm-for-automated-defect-quantification-.png'
 ---
