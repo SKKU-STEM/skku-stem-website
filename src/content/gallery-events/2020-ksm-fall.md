@@ -8,5 +8,5 @@ titleEn: ''
 location: Pyeongchang, Korea
 participants: Jung A. Hong, Seon Je Kim, Woo-Sung Jang, Min-Hyoung Jung, Daehee Yang
 awards: 'Best Poster Award: Woo-Sung Jang'
-photoCount: 3
+photoCount: 4
 ---
