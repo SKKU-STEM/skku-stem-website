@@ -9,6 +9,6 @@ doi: https://doi.org/10.1016/j.jechem.2025.01.018
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: ''
+image: '2025-sparse-section-imaging-based-deep-learning-electron-tomograp.png'
 imageAlt: ''
 ---
