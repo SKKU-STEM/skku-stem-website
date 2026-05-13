@@ -85,7 +85,8 @@
       "authors": "Birce Sena Tömekçe, Vladimir Calvi, Diego Jaramillo, Hang Sik Kim, Hyeongjoon Kim, Daniele Poletto, Vivek Chandrakant Wakchaure, Matthew David Barnes, Michele Buscema, Sorin Melinte, Young-Min Kim, Hyeon Suk Shin, Davide Bonifazi, Richard van Rijn, Irene Groot, Wilhelm Auwärter",
       "title": "Bottom-up synthesized B3N3-doped amorphous carbon monolayer",
       "journal": "Small Structures",
-      "volumePages": "7(1), e202500742"
+      "volumePages": "7(1), e202500742",
+      "doi": ""
     },
     {
       "id": "223",
@@ -879,7 +880,8 @@
       "authors": "Kyungwha Chung, Joonho Bang, Athira Thacharon, Hyun Yong Song, Se Hwang Kang, Woo-Sung Jang, Dinesh Thapa, C. Muhammed Ajmal, Bumsub Song, Sung-Gyu Lee, Zhen Wang, Albina Jetybayeva, Seungbum Hong, Kyu Hyoung Lee, Eun Jin Cho, Seunghyun Baik, Sang Ho Oh, Young-Min Kim, Young Hee Lee, Seong-Gon Kim*, Sung Wng Kim*",
       "title": "Non-oxidized bare copper nanoparticles with surface excess electrons in air",
       "journal": "Nature Nanotechnology",
-      "volumePages": "17(3), 285-291"
+      "volumePages": "17(3), 285-291",
+      "doi": ""
     },
     {
       "id": "149",
@@ -889,7 +891,8 @@
       "authors": "Seung Gyo Jeong, Jiwoong Kim, Ambrose Seo, Sungkyun Park, Hu Young Jeong, Young-Min Kim, Valeria Lauter, Takeshi Egami, Jung Hoon Han, Woo Seok Choi*",
       "title": "Unconventional interlayer exchange coupling via chiral phonons in synthetic magnetic oxide heterostructures",
       "journal": "Science Advances",
-      "volumePages": "8(4), eabm4005"
+      "volumePages": "8(4), eabm4005",
+      "doi": ""
     },
     {
       "id": "148",
@@ -963,7 +966,8 @@
       "authors": "Tuan Dung Nguyen, Jinbao Jiang, Bumsub Song, Minh Dao Tran, Wooseon Choi, Ji Hee Kim, Young-Min Kim, Dinh Loc Duong*, Young Hee Lee*",
       "title": "Gate-tunable magnetism via resonant Se-vacancy levels in WSe2",
       "journal": "Advanced Science",
-      "volumePages": "8(24), 2102911"
+      "volumePages": "8(24), 2102911",
+      "doi": ""
     },
     {
       "id": "141",
@@ -973,7 +977,8 @@
       "authors": "Jegon Lee, Prajwal Adiga, Sang A Lee, Seung Hyun Nam, Hyeon-Ah Ju, Min-Hyoung Jung, Hu Young Jeong, Young-Min Kim, Cindy Wong, Radwan Elzein, Raffik Addou, Kelsey A. Stoerzinger*, Woo Seok Choi*",
       "title": "Contribution of the sub-surface to electrocatalytic activity in atomically precise La0.7Sr0.3MnO3 heterostructures",
       "journal": "Small",
-      "volumePages": "17(49), 2103632"
+      "volumePages": "17(49), 2103632",
+      "doi": ""
     },
     {
       "id": "140",
@@ -983,7 +988,8 @@
       "authors": "Sang Eun Lee, Sung Yeb Jung, Jun Seo, Jong Hoon Joo, Jaekwang Lee, Young-Min Kim, Kyu Hyoung Lee, Yong In Kim, Hee Jung Park*",
       "title": "Anomalous electronic and protonic conductivity of 2D titanium oxide and low-temperature power generation using its protonic conduction",
       "journal": "Advanced Materials Interfaces",
-      "volumePages": "8(20), 2101156"
+      "volumePages": "8(20), 2101156",
+      "doi": ""
     },
     {
       "id": "139",
@@ -1206,7 +1212,8 @@
       "authors": "Hayeon Lee, Woosung Choi, Wontae Lee, Jae-Hyun Shim, Young-Min Kim, Won-Sub Yoon*",
       "title": "Impact of local separation on the structural and electrochemical behaviors in Li2MoO3-LiCrO2 disordered rock-salt cathode material",
       "journal": "Advanced Energy Materials",
-      "volumePages": "11(3), 2002958"
+      "volumePages": "11(3), 2002958",
+      "doi": ""
     },
     {
       "id": "118",
@@ -1216,7 +1223,8 @@
       "authors": "Kyungrok Kang, Won June Kim, Dohyun Kim, Sera Kim, Byungdo Ji, Dong Hoon Keum, Suyeon Cho, Young-Min Kim, Sebastien Lebegue, Heejun Yang*",
       "title": "Lifshitz transition and non-Fermi liquid behavior in highly doped semimetals",
       "journal": "Advanced Materials",
-      "volumePages": "33(1), 2005742"
+      "volumePages": "33(1), 2005742",
+      "doi": ""
     },
     {
       "id": "117",
@@ -1237,7 +1245,8 @@
       "authors": "Daehee Seol, Songkil Kim, Woo-Sung Jang, Yeongrok Jin, Seunghun Kang, Sera Kim, Dongyeun Won, Chanwoo Lee, Young-Min Kim, Jaekwang Lee, Heejun Yang, Mun Seok Jeong, Alex Belianinov, Alexander Tselev, Suhas Somnath, Christopher R. Smith, Olga S. Ovchinnikova, Nina Balke, Yunseok Kim*",
       "title": "Selective patterning of out-of-plane piezoelectricity in MoTe2 via focused ion beam",
       "journal": "Nano Energy",
-      "volumePages": "79, 105451"
+      "volumePages": "79, 105451",
+      "doi": ""
     },
     {
       "id": "115",
@@ -1299,7 +1308,8 @@
       "authors": "Se Hwang Kang, Joonho Bang, Kyungwha Chung, Chandani N. Nandadasa, Gyeongtak Han, Subin Lee, Kyu Hyoung Lee, Kimoon Lee, Yanming Ma, Sang Ho Oh, Seung-Gon Kim, Young-Min Kim, Sung Wng Kim*",
       "title": "Water- and acid-stable self-passivated dihafnium sulfide electride and its persistent electrocatalytic reaction",
       "journal": "Science Advances",
-      "volumePages": "6(23), eaba7461"
+      "volumePages": "6(23), eaba7461",
+      "doi": ""
     },
     {
       "id": "109",
@@ -1309,7 +1319,8 @@
       "authors": "Thi Hoai Thuong Luu, Dinh Loc Duong, Tae Hoon Lee, Duy Tho Pham, Ramkrishna Sahoo, Gyeongtak Han, Young-Min Kim, Young Hee Lee*",
       "title": "Monodispersed SnS nanoparticles anchored on carbon nanotubes for high-retention sodium ion storage",
       "journal": "Journal of Materials Chemistry A",
-      "volumePages": "8, 7861-7869"
+      "volumePages": "8, 7861-7869",
+      "doi": ""
     },
     {
       "id": "108",
@@ -1319,7 +1330,8 @@
       "authors": "Hagyeong Kwon, Byungdo Ji, Dongyeon Bae, Jun Ho Lee, Hee Jung Park, Do Hyun Kim, Young-Min Kim, Young Woo Son, Heejun Yang*, Suyeon Cho*",
       "title": "Role of Anionic Vacancy for Active Hydrogen Evolution in WTe2",
       "journal": "Applied Surface Science",
-      "volumePages": "515, 145972"
+      "volumePages": "515, 145972",
+      "doi": ""
     },
     {
       "id": "107",
@@ -1329,7 +1341,8 @@
       "authors": "Seok Joon Yun*, Dinh Loc Duong*, Doan Manh Ha, Kirandeep Singh, Thanh Luan Phan, Wooseon Choi, Young-Min Kim, Young Hee Lee*",
       "title": "Ferromagnetic order at room temperature in mololayer WSe2 semiconductor via vanadium dopant",
       "journal": "Advanced Science",
-      "volumePages": "7(9), 1903076"
+      "volumePages": "7(9), 1903076",
+      "doi": ""
     },
     {
       "id": "106",
@@ -1339,7 +1352,8 @@
       "authors": "Seong Gon Park†, Kyu Hyoung Lee†, Jae-Hoon Lee, Geukchan Bang, Junghwan Kim, Hee Jung Park, Min Suk Oh, Suyoun Lee, Young-Hoon Kim, Young-Min Kim, Hideo Hosono, Joonho Bang*, Kimoon Lee*",
       "title": "Improved polaronic transport under a strong Mott-Hubbard interaction in Cu-substituted NiO",
       "journal": "Inorganic Chemistry Frontiers",
-      "volumePages": "7, 853-858"
+      "volumePages": "7, 853-858",
+      "doi": ""
     },
     {
       "id": "105",
@@ -1448,7 +1462,8 @@
       "authors": "Seo Hyoung Chang, Seong Keun Kim, Young-Min Kim, Yongqi Dong, Chad M. Folkman, Da Woon Jeong, Woo Seok Choi, Albina Y. Borisevich, Jeffrey A. Eastman, Anand Bhattacharya, Dillon D. Fong*",
       "title": "Confined polaronic transport in (LaFeO3)n/(SrFeO3) superlattices",
       "journal": "APL Materials",
-      "volumePages": "7, 071117"
+      "volumePages": "7, 071117",
+      "doi": ""
     },
     {
       "id": "95",
@@ -1491,7 +1506,8 @@
       "authors": "Kyungeun Jung, Jeongwon Lee, Young-Min Kim, Yun Chang Park, Man Jong Lee*",
       "title": "Effect of manganese dopants on defects, nano-strain, and photovoltaic performance of Mn-CdS/CdSe nanocomposite-sensitized ZnO nanowire solar cells",
       "journal": "Composites Science and Technology",
-      "volumePages": "179, 79-87"
+      "volumePages": "179, 79-87",
+      "doi": ""
     },
     {
       "id": "91",
@@ -1567,7 +1583,8 @@
       "authors": "Joo Song Lee, Soo Ho Choi, Seok Joon Yun, Yong In Kim, Stephen Boandoh, Ji-Hoon Park, Bong Gyu Shin, Hayoung Ko, Seung Hee Lee, Young-Min Kim, Young Hee Lee*, Ki Kang Kim*, Soo Min Kim*",
       "title": "Wafer-scale single-crystal hexagonal boron nitride film via self-collimated grain formation",
       "journal": "Science",
-      "volumePages": "362, 817-821"
+      "volumePages": "362, 817-821",
+      "doi": ""
     },
     {
       "id": "84",
@@ -1661,7 +1678,8 @@
       "authors": "Stephen J. Pennycook*, Changjian Li, Mengsha Li, Chunhua Tang, Eiji Okunishi, Maria Varela, Young-Min Kim, Jae Hyuck Jang",
       "title": "Material structure, properties, and dynamics through scanning transmission electron microscopy",
       "journal": "Journal of Analytical Science and Technology",
-      "volumePages": "9, 11"
+      "volumePages": "9, 11",
+      "doi": ""
     },
     {
       "id": "75",
@@ -1759,7 +1777,8 @@
       "authors": "Jinbong Seok, Jun-Ho Lee, Suyeon Cho, Byungdo Ji, Hyo Won Kim, Min Kwon, Do Hyun Kim, Young-Min Kim, Sang Ho Oh, Sung Wng Kim, Young Hee Lee, Young-Woo Son, Heejun Yang*",
       "title": "Active hydrogen evolution through lattice distortion in semimetallic MoTe2",
       "journal": "2D Materials",
-      "volumePages": "4, 025061"
+      "volumePages": "4, 025061",
+      "doi": ""
     },
     {
       "id": "66",
@@ -1791,7 +1810,8 @@
       "authors": "Sang A Lee, Seokjae Oh, Jae-Yeol Hwang, Minseok Choi, Chulmin Youn, Ji Woong Kim, Seo Hyoung Chang, Sungmin Woo, Jong-Seong Bae, Sungkyun Park, Young-Min Kim, Suyoun Lee, Taekjib Choi, Sung Wng Kim, Woo Seok Choi*",
       "title": "Enhanced electrocatalytic activity via phase transitions in strongly correlated SrRuO3 thin films",
       "journal": "Energy & Environmental Science",
-      "volumePages": "10, 924-930"
+      "volumePages": "10, 924-930",
+      "doi": ""
     },
     {
       "id": "63",
@@ -1878,7 +1898,8 @@
       "authors": "Sung Bo Lee*, Seung Jo Yoo, Young-Min Kim, Jin-Gyu Kim, Heung Nam Han",
       "title": "Migration mechanism of a GaN bicrystalline grain boundary as a model system",
       "journal": "Scientific Reports",
-      "volumePages": "6, 264933"
+      "volumePages": "6, 264933",
+      "doi": ""
     },
     {
       "id": "55",
@@ -1888,7 +1909,8 @@
       "authors": "Hae Jin Kim*, Marios S Katsiotis, Saeed Alhassan, Irene Zafiropoulou, Michael Pissas, Yannis Sanakis, Georgios Mitrikas, Nikolaos Panopoulos, Nikolaos Boukos, Vasileios Tzitzios, Michael Fardis, Jin-Gyu Kim, Sang-Gil Lee, Young-Min Kim, Seung Jo Yoo, Ji-Hyun Lee, Antonios Kouloumpis, Dimitrios Gournis, Michael Karakassides, Georgios Papavassiliou",
       "title": "Unexpected orbital magnetism in Bi-rich Bi2Se3 nanoplatelets",
       "journal": "NPG Asia Materials",
-      "volumePages": "8, e271"
+      "volumePages": "8, e271",
+      "doi": ""
     },
     {
       "id": "54",
