@@ -6,4 +6,5 @@ summary: "STEM-EDX chemical mapping provides an atomic-level picture of what tru
 journal: Materials Today Physics
 volumePages: "16, 100302"
 doi: "https://www.sciencedirect.com/science/article/abs/pii/S2542529320301267"
+image: '2021-cation-vacancy-mapping-by-stem-edx.jpg'
 ---
