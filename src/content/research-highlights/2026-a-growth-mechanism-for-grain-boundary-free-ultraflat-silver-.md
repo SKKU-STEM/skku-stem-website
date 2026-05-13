@@ -9,6 +9,6 @@ doi: https://iopscience.iop.org/article/10.1088/1361-6633/ae3e3d
 codeUrl: ''
 mention: Physics World — Strain engineered single crystal silver films
 mentionUrl: https://physicsworld.com/a/strain-engineered-single-crystal-silver-films/
-image: 2026-a-growth-mechanism-for-grain-boundary-free-ultraflat-silver-.png
+image: ''
 imageAlt: ''
 ---
