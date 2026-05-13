@@ -6,4 +6,5 @@ summary: "Atomic-resolution STEM-EDX chemical mapping was conducted for the dire
 journal: Advanced Materials
 volumePages: "29, 1702091"
 doi: "https://onlinelibrary.wiley.com/doi/full/10.1002/adma.201702091"
+iamge: '2017-atomic-resolution-chemical-mapping-for-energy-materials.jpg'
 ---
