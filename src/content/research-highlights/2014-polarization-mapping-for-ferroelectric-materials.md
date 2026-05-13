@@ -6,4 +6,5 @@ summary: "By a combination of microscopy and spectroscopy techniques, we directl
 journal: Nature Materials
 volumePages: "13, 1019"
 doi: "https://www.nature.com/articles/nmat4058"
+image: '2014-polarization-mapping-for-ferroelectric-materials.png'
 ---
