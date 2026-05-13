@@ -9,6 +9,6 @@ doi: https://onlinelibrary.wiley.com/doi/10.1002/smll.202107620
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: ''
+image: '2022-hybrid-deep-learning-crystallography-with-4d-stem.jpg'
 imageAlt: ''
 ---
