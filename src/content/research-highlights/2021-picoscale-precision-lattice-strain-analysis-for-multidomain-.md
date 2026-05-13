@@ -9,5 +9,6 @@ doi: https://pubs.acs.org/doi/10.1021/acsnano.1c05316
 codeUrl: ''
 mention: ''
 mentionUrl: ''
+image: '2021-picoscale-precision-lattice-strain-analysis-for-multidomain-.jpg'
 imageAlt: ''
 ---
