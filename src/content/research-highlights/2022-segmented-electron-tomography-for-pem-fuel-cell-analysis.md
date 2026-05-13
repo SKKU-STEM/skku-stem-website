@@ -9,6 +9,6 @@ doi: https://www.sciencedirect.com/science/article/pii/S2095495622004132
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: ''
+image: '2022-segmented-electron-tomography-for-pem-fuel-cell-analysis.jpg'
 imageAlt: ''
 ---
