@@ -15,22 +15,18 @@ const externalLinks: Array<{ href: string; label: string }> = [
 <footer class="bg-ink text-cream">
   <div class="container-page py-14 text-sm text-cream/75">
     <div class="grid gap-10 md:grid-cols-2">
-      {/* Left — address + visitor counter */}
-      <div class="flex flex-col gap-6">
-        <address class="not-italic">
-          <p class="font-medium text-cream">SKKU-STEM Laboratory</p>
-          <p class="mt-3 leading-relaxed">
-            Department of Energy Science<br />
-            Sungkyunkwan University<br />
-            2066 Seobu-ro, Jangan-gu<br />
-            Suwon 16419, Republic of Korea
-          </p>
-        </address>
+      {/* Left — address */}
+      <address class="not-italic">
+        <p class="font-medium text-cream">SKKU-STEM Laboratory</p>
+        <p class="mt-3 leading-relaxed">
+          Department of Energy Science<br />
+          Sungkyunkwan University<br />
+          2066 Seobu-ro, Jangan-gu<br />
+          Suwon 16419, Republic of Korea
+        </p>
+      </address>
 
-        <VisitorCounter />
-      </div>
-
-      {/* Right — external links (coral, hover scale) */}
+      {/* Right — external links (coral, hover scale) + compact visitor counter */}
       <nav aria-label="External links" class="md:text-right">
         <ul class="flex flex-col md:items-end gap-3">
           {
@@ -48,6 +44,9 @@ const externalLinks: Array<{ href: string; label: string }> = [
             ))
           }
         </ul>
+        <div class="mt-5 flex md:justify-end">
+          <VisitorCounter />
+        </div>
       </nav>
     </div>
 
