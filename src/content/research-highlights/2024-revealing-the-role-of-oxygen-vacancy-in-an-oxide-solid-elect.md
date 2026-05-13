@@ -9,6 +9,6 @@ doi: https://pubs.acs.org/doi/10.1021/acsenergylett.4c02078
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: ''
+image: '2024-revealing-the-role-of-oxygen-vacancy-in-an-oxide-solid-elect.jpg'
 imageAlt: ''
 ---
