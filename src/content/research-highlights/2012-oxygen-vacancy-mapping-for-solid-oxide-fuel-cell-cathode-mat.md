@@ -6,4 +6,5 @@ summary: "Local oxygen stoichiometry in functional oxides has been a long-standi
 journal: Nature Materials
 volumePages: "11, 888"
 doi: "https://www.nature.com/articles/nmat3393"
+image: '2012-oxygen-vacancy-mapping-for-solid-oxide-fuel-cell-cathode-mat.jpg'
 ---
