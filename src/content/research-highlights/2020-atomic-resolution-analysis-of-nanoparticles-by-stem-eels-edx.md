@@ -6,4 +6,5 @@ summary: "STEM-EELS/EDX-based work revealed that surface oxygen vacancies in ana
 journal: Applied Surface Science
 volumePages: "507, 144916"
 doi: "https://www.sciencedirect.com/science/article/abs/pii/S016943321933733X"
+image: '2020-atomic-resolution-analysis-of-nanoparticles-by-stem-eels-edx.png'
 ---
