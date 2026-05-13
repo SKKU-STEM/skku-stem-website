@@ -6,4 +6,5 @@ summary: "Demonstrates how the geometrical parameters of active cathode material
 journal: "ACS Applied Materials & Interfaces"
 volumePages: "11, 4017"
 doi: "https://pubs.acs.org/doi/10.1021/acsami.8b19902"
+image: '2019-3d-electron-tomography-for-li-ion-batteries.png'
 ---
