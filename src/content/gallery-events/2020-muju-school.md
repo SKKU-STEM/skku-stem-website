@@ -8,5 +8,5 @@ titleEn: ''
 location: Deogyusan Resort, Muju, Korea
 participants: 'Poster presentations: Wooseon Choi, Woo-Sung Jang, Gyeongtak Han, Young-Hoon Kim'
 awards: ''
-photoCount: 2
+photoCount: 4
 ---
