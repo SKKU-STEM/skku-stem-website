@@ -6,4 +6,5 @@ summary: "Provides the first demonstration of octahedra-derived multiferroic pro
 journal: Advanced Functional Materials
 volumePages: "19, 1800839"
 doi: "https://onlinelibrary.wiley.com/doi/abs/10.1002/adfm.201800839"
+image: '2018-oxygen-octahedral-tilt-mapping-for-complex-oxide-thin-films.jpg'
 ---
