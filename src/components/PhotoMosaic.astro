@@ -81,7 +81,7 @@ const itemClass = (c: number, idx: number): string => {
           type="button"
           data-lightbox-open={p.dialogId}
           class:list={[
-            'relative overflow-hidden cursor-pointer group bg-cream-200',
+            'relative overflow-hidden cursor-pointer group bg-cream',
             itemClass(safeCount, p.idx),
           ]}
           aria-label={`Open photo: ${p.alt}`}
@@ -90,7 +90,7 @@ const itemClass = (c: number, idx: number): string => {
             src={p.image}
             alt={p.alt}
             loading="lazy"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            class="absolute inset-0 w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
           />
         </button>
       ) : (
