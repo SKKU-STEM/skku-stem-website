@@ -7,6 +7,12 @@ import { glob, file } from 'astro/loaders';
 // Astro에 array를 돌려주기 위해 parser로 items를 풀어준다.
 const itemsParser = (text: string) => JSON.parse(text).items;
 
+// Sveltia CMS는 빈 optional URL 필드를 ''로 저장하므로 .url() 검증 전 undefined로 정규화한다.
+const optionalUrl = z.preprocess(
+  (v) => (v === '' ? undefined : v),
+  z.string().url().optional(),
+);
+
 // ─────────── Publications: SKKU 시기 SCI 논문 ───────────
 const publicationsSkku = defineCollection({
   loader: file('src/content/publications/skku.json', { parser: itemsParser }),
@@ -17,7 +23,7 @@ const publicationsSkku = defineCollection({
     title: z.string(),
     journal: z.string(),
     volumePages: z.string().optional(),
-    doi: z.string().url().optional(),
+    doi: optionalUrl,
     lead: z.boolean(),
   }),
 });
@@ -32,7 +38,7 @@ const publicationsBeforeSkku = defineCollection({
     title: z.string(),
     journal: z.string(),
     volumePages: z.string().optional(),
-    doi: z.string().url().optional(),
+    doi: optionalUrl,
     lead: z.boolean(),
   }),
 });
@@ -46,7 +52,7 @@ const publicationsNonSciPatents = defineCollection({
     kind: z.enum(['non-sci', 'patent', 'book']),
     title: z.string(),
     titleEn: z.string().optional(),
-    link: z.string().url().optional(),
+    link: optionalUrl,
     // patent 전용
     region: z.enum(['Korea', 'USA']).optional(),
     inventors: z.string().optional(),
@@ -77,7 +83,7 @@ const publicationsPiSelected = defineCollection({
     journal: z.string(),
     year: z.number(),
     volumePages: z.string().optional(),
-    doi: z.string().url().optional(),
+    doi: optionalUrl,
   }),
 });
 
