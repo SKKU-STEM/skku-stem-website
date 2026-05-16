@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 import { FontaineTransform } from 'fontaine';
 import { spawn } from 'node:child_process';
 
+import cloudflare from "@astrojs/cloudflare";
+
 // 빌드 종료 후 OG 카드 PNG 생성 (scripts/generate-og.mjs)
 const ogGeneration = () => ({
   name: 'og-image-generator',
@@ -27,6 +29,7 @@ const ogGeneration = () => ({
 export default defineConfig({
   site: 'https://skkustem.org',
   integrations: [mdx(), sitemap(), ogGeneration()],
+
   vite: {
     plugins: [
       tailwindcss(),
@@ -38,10 +41,14 @@ export default defineConfig({
       }),
     ],
   },
+
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' },
   },
+
   build: {
     format: 'directory',
   },
+
+  adapter: cloudflare()
 });
