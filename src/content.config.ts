@@ -13,6 +13,10 @@ const optionalUrl = z.preprocess(
   z.string().url().optional(),
 );
 
+// Sveltia CMS는 빈 optional enum 필드도 ''로 저장하므로 enum 검증 전 undefined로 정규화한다.
+const optionalEnum = <T extends [string, ...string[]]>(values: T) =>
+  z.preprocess((v) => (v === '' ? undefined : v), z.enum(values).optional());
+
 // ─────────── Publications: SKKU 시기 SCI 논문 ───────────
 const publicationsSkku = defineCollection({
   loader: file('src/content/publications/skku.json', { parser: itemsParser }),
@@ -54,14 +58,14 @@ const publicationsNonSciPatents = defineCollection({
     titleEn: z.string().optional(),
     link: optionalUrl,
     // patent 전용
-    region: z.enum(['Korea', 'USA']).optional(),
+    region: optionalEnum(['Korea', 'USA']),
     inventors: z.string().optional(),
     patentNo: z.string().optional(),
     applicationNo: z.string().optional(),
     applicationDate: z.string().optional(),
     registrationNo: z.string().optional(),
     registrationDate: z.string().optional(),
-    status: z.enum(['Granted', 'Applied']).optional(),
+    status: optionalEnum(['Granted', 'Applied']),
     // non-sci / book 전용
     authors: z.string().optional(),
     journal: z.string().optional(),
