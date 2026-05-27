@@ -1,0 +1,473 @@
+---
+// 홈 'Research highlights' 카드 — 대표 미디어(이미지/GIF 최대 3장 캐러셀 + YouTube 클릭재생)와
+// 제목(카드별 link로 연결), 호버 그라디언트 그림자 효과. 데이터: src/content/home/research-featured.json
+interface MediaItem {
+  image?: string;
+  youtube?: string;
+  alt?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  summary?: string;
+  link: string;
+  media?: MediaItem[];
+}
+
+const { eyebrow, title, summary, link, media = [] } = Astro.props;
+
+// YouTube URL/ID에서 11자리 video id 추출 (watch / youtu.be / embed / shorts / bare id 지원).
+const youtubeId = (url?: string): string | null => {
+  if (!url) return null;
+  const u = url.trim();
+  if (/^[a-zA-Z0-9_-]{11}$/.test(u)) return u;
+  const m = u.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/,
+  );
+  return m ? m[1] : null;
+};
+
+// 빈 슬롯 제거 + youtube/image 타입 판별. youtube가 우선.
+const slides = media
+  .map((m) => {
+    const ytId = youtubeId(m.youtube);
+    return ytId
+      ? ({ type: 'youtube' as const, ytId, alt: m.alt ?? '' })
+      : m.image
+        ? ({ type: 'image' as const, src: m.image, alt: m.alt ?? '' })
+        : null;
+  })
+  .filter((s): s is NonNullable<typeof s> => s !== null);
+
+const multiple = slides.length > 1;
+const isExternal = /^https?:\/\//.test(link);
+---
+
+<article class="rh-card group relative flex flex-col rounded-lg border border-cream-300 bg-cream-200/60 transition-all duration-300">
+  {
+    slides.length > 0 && (
+      <div class="rh-card__media rounded-t-lg" data-rh-carousel>
+        <ul class="rh-card__track" data-rh-track>
+          {slides.map((s, i) => (
+            <li
+              class="rh-card__slide"
+              aria-hidden={multiple && i !== 0 ? 'true' : undefined}
+            >
+              {s.type === 'youtube' ? (
+                <button
+                  type="button"
+                  class="rh-card__yt"
+                  data-rh-yt={s.ytId}
+                  aria-label="Play video"
+                >
+                  <img
+                    src={`https://i.ytimg.com/vi/${s.ytId}/hqdefault.jpg`}
+                    alt={s.alt || 'Video thumbnail'}
+                    class="rh-card__img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="rh-card__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                </button>
+              ) : (
+                <img
+                  src={s.src}
+                  alt={s.alt}
+                  class="rh-card__img"
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
+            </li>
+          ))}
+        </ul>
+
+        {multiple && (
+          <>
+            <button
+              type="button"
+              class="rh-card__arrow rh-card__arrow--prev"
+              data-rh-prev
+              aria-label="Previous slide"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="rh-card__arrow rh-card__arrow--next"
+              data-rh-next
+              aria-label="Next slide"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+            <div class="rh-card__dots" data-rh-dots>
+              {slides.map((_, i) => (
+                <button
+                  type="button"
+                  class="rh-card__dot"
+                  data-rh-dot={i}
+                  aria-label={`Go to slide ${i + 1}`}
+                  aria-current={i === 0 ? 'true' : undefined}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    )
+  }
+
+  <div class="flex flex-1 flex-col p-6 md:p-7">
+    {
+      eyebrow && (
+        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700 font-bold">
+          {eyebrow}
+        </p>
+      )
+    }
+    <h3 class="mt-3 font-display font-normal text-xl md:text-2xl tracking-tight leading-snug text-balance">
+      <a
+        href={link}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+        class="transition-colors group-hover:text-coral hover:text-coral"
+      >
+        {title}
+      </a>
+    </h3>
+    {
+      summary && (
+        <p class="mt-4 font-serif text-base leading-relaxed text-ink/85">
+          {summary}
+        </p>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  /* 카드 — 호버 시 위로 살짝 떠오르며 코랄 그라디언트 글로우 그림자 + 코랄 보더. */
+  .rh-card {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .rh-card:hover,
+  .rh-card:focus-within {
+    transform: translateY(-6px);
+    border-color: color-mix(in oklab, var(--color-coral) 45%, transparent);
+    box-shadow:
+      0 8px 18px -8px rgba(204, 120, 92, 0.5),
+      0 22px 44px -14px rgba(204, 120, 92, 0.32),
+      0 10px 24px rgba(20, 20, 19, 0.1);
+  }
+
+  .rh-card__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: color-mix(in oklab, var(--color-cream-200) 60%, transparent);
+  }
+
+  /* 미디어 위에 호버 시 옅게 피어나는 코랄 그라디언트 시트(시각적 강조). */
+  .rh-card__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--color-coral) 35%, transparent),
+      transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .rh-card:hover .rh-card__media::after {
+    opacity: 0.16;
+  }
+
+  .rh-card__track {
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .rh-card__slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  .rh-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* YouTube 썸네일 + 중앙 재생 버튼 (클릭 시 iframe으로 교체). iframe 크기는 JS 인라인 스타일로 지정. */
+  .rh-card__yt {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .rh-card__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+    color: var(--color-cream);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .rh-card__yt:hover .rh-card__play {
+    transform: translate(-50%, -50%) scale(1.08);
+    background-color: var(--color-coral);
+  }
+
+  .rh-card__play svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 0.15rem;
+  }
+
+  /* 좌우 화살표 — 평소 숨김, hover/focus 시 노출 (터치 기기는 항상 옅게). */
+  .rh-card__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, var(--color-ink) 12%, transparent);
+    background-color: color-mix(in oklab, var(--color-cream) 82%, transparent);
+    color: var(--color-ink);
+    cursor: pointer;
+    opacity: 0;
+    transition:
+      opacity 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .rh-card:hover .rh-card__arrow,
+  .rh-card:focus-within .rh-card__arrow {
+    opacity: 1;
+  }
+
+  .rh-card__arrow:hover {
+    background-color: var(--color-cream);
+  }
+
+  .rh-card__arrow svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .rh-card__arrow--prev {
+    left: 0.6rem;
+  }
+
+  .rh-card__arrow--next {
+    right: 0.6rem;
+  }
+
+  @media (hover: none) {
+    .rh-card__arrow {
+      opacity: 0.6;
+    }
+  }
+
+  .rh-card__dots {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .rh-card__dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    padding: 0;
+    border: 0;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--color-cream) 55%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-ink) 20%, transparent);
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .rh-card__dot[aria-current='true'] {
+    background-color: var(--color-coral);
+    transform: scale(1.2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rh-card,
+    .rh-card__track {
+      transition: none;
+    }
+    .rh-card:hover,
+    .rh-card:focus-within {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  // 카드별 미디어 캐러셀(자동 슬라이드 + 화살표/점) + YouTube 클릭재생 초기화. 페이지의 모든 인스턴스에 적용.
+  // hover/focus·탭 비활성 시 자동재생 정지, 동영상 재생 시작 시 영구 정지, prefers-reduced-motion 존중.
+  function initCarousel(root: HTMLElement) {
+    if (root.dataset.rhReady === 'true') return;
+    root.dataset.rhReady = 'true';
+
+    const track = root.querySelector<HTMLElement>('[data-rh-track]');
+    const slides = Array.from(
+      root.querySelectorAll<HTMLElement>('.rh-card__slide'),
+    );
+    const dots = Array.from(
+      root.querySelectorAll<HTMLButtonElement>('[data-rh-dot]'),
+    );
+    const prevBtn = root.querySelector<HTMLButtonElement>('[data-rh-prev]');
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-rh-next]');
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    const INTERVAL = 5000;
+    const multiple = !!track && slides.length > 1;
+    let index = 0;
+    let timer: number | undefined;
+    let locked = false; // 동영상 재생을 시작하면 자동 슬라이드 영구 정지(재생 보호).
+
+    const go = (to: number) => {
+      if (!track) return;
+      index = (to + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d, i) =>
+        i === index
+          ? d.setAttribute('aria-current', 'true')
+          : d.removeAttribute('aria-current'),
+      );
+      slides.forEach((s, i) =>
+        i === index
+          ? s.removeAttribute('aria-hidden')
+          : s.setAttribute('aria-hidden', 'true'),
+      );
+    };
+
+    const stop = () => {
+      if (timer !== undefined) {
+        window.clearInterval(timer);
+        timer = undefined;
+      }
+    };
+
+    const start = () => {
+      if (!multiple || reduceMotion || locked) return;
+      stop();
+      timer = window.setInterval(() => go(index + 1), INTERVAL);
+    };
+
+    if (multiple) {
+      prevBtn?.addEventListener('click', () => {
+        go(index - 1);
+        start();
+      });
+      nextBtn?.addEventListener('click', () => {
+        go(index + 1);
+        start();
+      });
+      dots.forEach((d, i) =>
+        d.addEventListener('click', () => {
+          go(i);
+          start();
+        }),
+      );
+
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+      root.addEventListener('focusin', stop);
+      root.addEventListener('focusout', start);
+      document.addEventListener('visibilitychange', () =>
+        document.hidden ? stop() : start(),
+      );
+
+      start();
+    }
+
+    // YouTube 썸네일 클릭 → autoplay iframe으로 교체. 자동 슬라이드는 영구 정지(영상 보호).
+    root.querySelectorAll<HTMLButtonElement>('[data-rh-yt]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-rh-yt');
+        if (!id) return;
+        locked = true;
+        stop();
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+        iframe.title = 'YouTube video player';
+        iframe.allow =
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        // 동적 생성 요소에는 Astro scoped 스타일이 적용되지 않으므로 인라인으로 슬롯을 꽉 채운다.
+        iframe.style.cssText =
+          'position:absolute;inset:0;width:100%;height:100%;border:0;display:block;';
+        btn.replaceWith(iframe);
+      });
+    });
+  }
+
+  document
+    .querySelectorAll<HTMLElement>('[data-rh-carousel]')
+    .forEach(initCarousel);
+</script>

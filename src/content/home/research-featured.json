@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "eyebrow": "Reports on Progress in Physics · 2026",
+      "title": "A growth mechanism for grain-boundary-free ultraflat silver thin films",
+      "summary": "STEM revealed a feasible mechanism for a breakthrough in metal thin-film epitaxy, enabling wafer-scale growth of atomically flat, grain-boundary-free Ag films on Cu buffers with a 13% lattice mismatch.",
+      "link": "https://iopscience.iop.org/article/10.1088/1361-6633/ae3e3d",
+      "media": [
+        {
+          "image": "/research-featured/2026-silver-thin-films.png",
+          "alt": "Atomically flat single-crystal silver thin film imaged by STEM"
+        }
+      ]
+    },
+    {
+      "eyebrow": "Applied Catalysis B: Environment and Energy · 2026",
+      "title": "A machine learning solution for electrode characterization",
+      "summary": "Machine learning-driven electron spectroscopic imaging (ESI) enables nanoscale visualization and statistical analysis of structural degradation in PEMFC electrodes.",
+      "link": "https://www.sciencedirect.com/science/article/abs/pii/S092633732500894X",
+      "media": [
+        {
+          "image": "/research-featured/2026-ml-electrode-characterization.jpg",
+          "alt": "Electron spectroscopic imaging map of a PEMFC electrode"
+        }
+      ]
+    }
+  ]
+}

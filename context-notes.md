@@ -240,3 +240,24 @@ skkustem/
 - 컴포넌트 `src/components/HeroSlideshow.astro`: viewport(aspect 4/3, overflow hidden) + flex track(translateX) + 화살표(hover/focus 노출, 터치 기기 항상 옅게) + 점 인디케이터 + caption. 자동재생 5s, hover/focus/탭비활성 시 정지, prefers-reduced-motion 시 자동재생·전환 애니메이션 없음. 슬라이드 1장이면 컨트롤·스크립트 비활성(기존과 동일한 정적 이미지).
 - CMS: `public/admin/config.yml`에 10번째 컬렉션 `home`(`Home · Hero slides`) 추가. list widget `min:1 max:3`, image 위젯 media_folder `/src/assets/hero` public_folder `/hero`.
 - 검증: `npm run check` 0/0/0, `npm run build` 통과. 3장 시드로 dots·arrows·captions·srcset 렌더 확인 후 1장(실사진)으로 복원.
+
+## Home Research highlights + Recent papers 개편 (2026-05-28)
+
+- **데이터 소스 = 홈 전용 직접 큐레이션** (hero.json과 동일하게 `src/content/home/research-featured.json`을 index.astro가 직접 import). research-highlights 컬렉션 자동 연동(최신 2개) 대신, 사용자가 홈에 띄울 카드 2장을 CMS에서 직접 고르는 방식 선택. content.config.ts zod 미등록(hero 선례 동일).
+- **미디어 저장 = `public/research-featured/` + 일반 `<img>`** (hero/research 페이지의 `src/assets/*` + Astro `<Image>` 패턴과 다름). 이유: (1) GIF 애니메이션 보존 — Astro Image(sharp)는 기본적으로 GIF를 정적 webp로 변환, (2) jpg/png/gif/YouTube를 한 캐러셀에서 일관 처리. 미디어가 hero(LCP)보다 아래라 최적화 손실 영향 작음(lazy 로드).
+- **YouTube = 빌드타임 id 파싱 + 썸네일 facade.** 컴포넌트 frontmatter에서 watch/youtu.be/embed/shorts/bare-id → 11자리 id 추출, `i.ytimg.com/vi/<id>/hqdefault.jpg` 썸네일 + 재생버튼. 클릭 시 JS가 `youtube-nocookie.com/embed/<id>?autoplay=1` iframe으로 교체(초기 로드에 무거운 임베드 미포함).
+- **캐러셀 = 자동 슬라이드(5s) + 화살표/점 수동.** 사용자 요청으로 자동재생 추가. hover/focus·탭 비활성 시 정지, **동영상 facade 클릭(재생 시작) 시 `locked`로 자동 슬라이드 영구 정지**(재생 중 전환 방지), `prefers-reduced-motion` 시 자동재생 없음. 슬라이드 1개면 자동재생·컨트롤 비활성.
+- **제목 링크 = 카드별 `link` 필드**(사용자 선택). 기존 research-highlights의 doi 재사용 아님 — 논문·보도자료·영상 등 임의 대표 링크 가능.
+- **호버 그라디언트 그림자** = layered 코랄 `box-shadow`(3겹, blur 증가) + 미디어 위 코랄 linear-gradient 시트 fade-in + `translateY(-6px)`. `prefers-reduced-motion` 시 transform/transition 제거.
+- **Recent papers 리스트** = 기존 3-카드 그리드를 `sm:grid-cols-[13rem_1fr_auto]` 3줄 리스트로 압축(저널·연도 / 제목 / Read→), 행 hover 시 cream 배경 + 코랄. 데이터는 그대로 publications-skku lead 최신 3편 자동 추출.
+- **CMS**: `home` 컬렉션을 단일 파일(hero)에서 2-파일(hero + research-featured)로 확장, 라벨 `Home · Hero slides` → `Home`. research-featured image 위젯 media_folder `/public/research-featured`(research-themes/highlights의 `/public/research` 선례와 동일 prefix).
+- 검증: `npm run check` 0/0/0, `npm run build` 통과(11 pages + pagefind). dist/index.html에서 섹션 순서(Research highlights → Recent papers)·카드 link·미디어 경로 확인. 브라우저 드라이버 부재로 시각 스크린샷은 미실시(로컬 dev 프리뷰 권장).
+
+## Hero 높이 정렬 + 캡션 오버레이 (2026-05-28)
+
+- 좌측 텍스트와 우측 사진 높이 불일치(텍스트가 더 김) 해소: index.astro 히어로 grid `items-start` → `items-stretch`, HeroSlideshow `.hero-carousel`/`__viewport` `height:100
+## Hero 높이 정렬 + 캡션 오버레이 (2026-05-28)
+
+- 좌측 텍스트와 우측 사진 높이 불일치(텍스트가 더 김) 해소: index.astro 히어로 grid `items-start` → `items-stretch`, HeroSlideshow `.hero-carousel`/`__viewport` `height:100%`로 텍스트 칼럼 높이를 채움. 모바일(1열)은 기존 `aspect-ratio: 4/3`, 데스크톱(>=768px)은 `aspect-ratio:auto` + `min-height:22rem`.
+- 사진 표현 `object-fit: contain` + `mix-blend-mode: darken`(크림 레터박스) → `object-fit: cover`(꽉 채움, mix-blend 제거)로 변경. 단체사진이라 크롭 OK. `border-radius: var(--radius-lg)` 추가.
+- 캡션을 사진 아래 별도 bar(`__bar`) → 사진 안쪽 하단 오버레이(`__overlay`, to-top 그라디언트 스크림 위 caption 좌·dots 우)로 이동. caption은 cream + text-shadow, dots는 cream/coral. 오버레이 `pointer-events:none` + 자식만 auto(dots 클릭 유지). caption/dots 둘 다 없으면(단일·무캡션) 오버레이 미렌더.

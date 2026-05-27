@@ -4,10 +4,15 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
 import HeroSlideshow from '@components/HeroSlideshow.astro';
+import ResearchHighlightCard from '@components/ResearchHighlightCard.astro';
 import heroData from '@content/home/hero.json';
+import researchFeaturedData from '@content/home/research-featured.json';
 
 // 히어로 슬라이드(최대 3장) — /admin의 'Home · Hero slides'에서 편집, 배열 순서대로 재생.
 const heroSlides = heroData.items;
+
+// 홈 'Research highlights' 카드(2장) — /admin의 'Home · Research highlights'에서 직접 큐레이션.
+const researchFeatured = researchFeaturedData.items;
 
 // 최근 lead authorship 논문 3건 자동 추출 — number desc 정렬 후 lead 필터링.
 const skkuEntries = await getCollection('publications-skku');
@@ -22,7 +27,7 @@ const highlights = skkuEntries
   <div class="section-stack pb-24 md:pb-32">
     {/* ─────────────── Hero ─────────────── */}
     <section class="container-page pt-12 md:pt-20">
-      <div class="grid md:grid-cols-2 gap-12 md:gap-14 lg:gap-20 items-start">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-14 lg:gap-20 items-stretch">
         {/* Left: text */}
         <div>
           <p
@@ -78,56 +83,102 @@ const highlights = skkuEntries
       </div>
     </section>
 
-    {/* ─────────────── Latest research highlights ─────────────── */}
+    {/* ─────────────── Research highlights (큐레이션 2장 카드) ─────────────── */}
     <section class="container-page">
-      <div class="flex items-baseline justify-between gap-6">
+      <div class="flex items-end justify-between gap-6">
         <div>
-          <p
-            class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60"
+          <p class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60">
+            Featured work
+          </p>
+          <h2 class="mt-3 font-display text-3xl md:text-4xl tracking-tight">
+            Research highlights
+          </h2>
+        </div>
+        <a
+          href="/research"
+          class="cta-grad group inline-flex shrink-0 items-center gap-1.5 px-4 py-2.5 bg-ink text-cream rounded-md text-sm font-medium hover:bg-ink-700 transition-colors whitespace-nowrap"
+        >
+          <span class="cta-label">All research</span>
+          <span
+            aria-hidden="true"
+            class="transition-transform group-hover:translate-x-0.5"
           >
+            &rarr;
+          </span>
+        </a>
+      </div>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {
+          researchFeatured.map((item) => (
+            <ResearchHighlightCard
+              eyebrow={item.eyebrow}
+              title={item.title}
+              summary={item.summary}
+              link={item.link}
+              media={item.media}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    {/* ─────────────── Recent papers (컴팩트 3줄 리스트) ─────────────── */}
+    <section class="container-page">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.16em] text-ink/60">
             Latest research
           </p>
           <h2 class="mt-3 font-display text-3xl md:text-4xl tracking-tight">
-            Recent highlights
+            Recent papers
           </h2>
         </div>
         <a
           href="/publications"
-          class="hidden sm:inline-flex items-center gap-1 text-sm text-ink/70 hover:text-coral transition-colors whitespace-nowrap"
+          class="cta-grad group inline-flex shrink-0 items-center gap-1.5 px-4 py-2.5 bg-ink text-cream rounded-md text-sm font-medium hover:bg-ink-700 transition-colors whitespace-nowrap"
         >
-          All publications <span aria-hidden="true">&rarr;</span>
+          <span class="cta-label">All publications</span>
+          <span
+            aria-hidden="true"
+            class="transition-transform group-hover:translate-x-0.5"
+          >
+            &rarr;
+          </span>
         </a>
       </div>
 
-      <ul class="mt-10 grid gap-5 md:grid-cols-3">
+      <ul class="mt-8 border-t border-ink/12">
         {
           highlights.map((paper) => (
-            <li>
+            <li class="border-b border-ink/12">
               <a
                 href={paper.doi ?? '#'}
                 target={paper.doi ? '_blank' : undefined}
                 rel={paper.doi ? 'noopener noreferrer' : undefined}
-                class="group block h-full p-6 border border-ink/15 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft"
+                class="group grid grid-cols-1 sm:grid-cols-[13rem_1fr_auto] items-baseline gap-x-6 gap-y-1.5 py-4 md:py-5 px-3 -mx-3 rounded-md transition-colors hover:bg-cream-200/60"
               >
                 <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700 font-bold">
                   {paper.journal}
-                  <span class="text-ink/65 normal-case font-normal ml-1.5">
+                  <span class="text-ink/55 normal-case font-normal ml-1.5">
                     &middot; {paper.year}
                   </span>
                 </p>
                 <h3
-                  class="mt-3 font-display text-lg md:text-xl leading-snug tracking-tight group-hover:text-coral transition-colors"
+                  class="font-display font-normal text-base md:text-lg leading-snug tracking-tight group-hover:text-coral transition-colors text-balance"
                   set:html={formatChemistry(paper.title)}
                 />
-                <p class="mt-5 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-ink/60 group-hover:text-ink transition-colors">
-                  Read{' '}
+                <span
+                  class="hidden sm:inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-ink/55 group-hover:text-coral transition-colors whitespace-nowrap"
+                >
+                  Read
                   <span
                     aria-hidden="true"
                     class="transition-transform group-hover:translate-x-0.5"
                   >
                     &rarr;
                   </span>
-                </p>
+                </span>
               </a>
             </li>
           ))
@@ -258,6 +309,20 @@ const highlights = skkuEntries
 </BaseLayout>
 
 <style>
+  /* All research / All publications 버튼 공통 — 호버 시 라벨이 코랄 그라디언트로 채워진다. */
+  .cta-label {
+    transition: color 0.2s ease;
+  }
+
+  .cta-grad:hover .cta-label,
+  .cta-grad:focus-visible .cta-label {
+    background-image: linear-gradient(90deg, var(--color-coral-400), var(--color-coral));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
   /* Hero 모토 끝에 별/원자 심상의 작은 코랄 마크 — nucleus + halo + 8방향 ray */
   .motto-cursor::after {
     content: '';

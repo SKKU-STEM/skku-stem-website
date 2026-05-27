@@ -40,6 +40,7 @@ const resolved = slides
 
 const multiple = resolved.length > 1;
 const firstCaption = resolved[0]?.caption;
+const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
 ---
 
 {
@@ -124,24 +125,26 @@ const firstCaption = resolved[0]?.caption;
             </button>
           </>
         )}
-      </div>
 
-      <div class="hero-carousel__bar">
-        <figcaption class="hero-carousel__caption" data-hero-caption>
-          {firstCaption ? `— ${firstCaption}` : ''}
-        </figcaption>
+        {(multiple || hasAnyCaption) && (
+          <div class="hero-carousel__overlay">
+            <figcaption class="hero-carousel__caption" data-hero-caption>
+              {firstCaption ? `— ${firstCaption}` : ''}
+            </figcaption>
 
-        {multiple && (
-          <div class="hero-carousel__dots" data-hero-dots>
-            {resolved.map((_, i) => (
-              <button
-                type="button"
-                class="hero-carousel__dot"
-                data-hero-dot={i}
-                aria-label={`Go to slide ${i + 1}`}
-                aria-current={i === 0 ? 'true' : undefined}
-              />
-            ))}
+            {multiple && (
+              <div class="hero-carousel__dots" data-hero-dots>
+                {resolved.map((_, i) => (
+                  <button
+                    type="button"
+                    class="hero-carousel__dot"
+                    data-hero-dot={i}
+                    aria-label={`Go to slide ${i + 1}`}
+                    aria-current={i === 0 ? 'true' : undefined}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -152,6 +155,7 @@ const firstCaption = resolved[0]?.caption;
 <style>
   .hero-carousel {
     margin: 0;
+    height: 100%;
   }
 
   .hero-carousel__viewport {
@@ -159,7 +163,17 @@ const firstCaption = resolved[0]?.caption;
     overflow: hidden;
     aspect-ratio: 4 / 3;
     width: 100%;
+    height: 100%;
+    border-radius: var(--radius-lg);
     background-color: color-mix(in oklab, var(--color-cream-200) 60%, transparent);
+  }
+
+  /* 데스크톱(2열): 좌측 텍스트 칼럼 높이에 맞춰 사진이 꽉 차도록 — 고정 비율 대신 높이 100%. */
+  @media (min-width: 768px) {
+    .hero-carousel__viewport {
+      aspect-ratio: auto;
+      min-height: 22rem;
+    }
   }
 
   .hero-carousel__track {
@@ -181,8 +195,7 @@ const firstCaption = resolved[0]?.caption;
   .hero-carousel__img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    mix-blend-mode: darken;
+    object-fit: cover;
   }
 
   /* 좌우 화살표 — 평소엔 숨고 hover/focus 시 노출, 터치 기기에선 항상 옅게 노출. */
@@ -234,25 +247,43 @@ const firstCaption = resolved[0]?.caption;
     }
   }
 
-  /* caption(좌) + dots(우)를 한 줄에 배치. */
-  .hero-carousel__bar {
+  /* 사진 하단 오버레이 — 그라디언트 스크림 위에 caption(좌) + dots(우)를 사진 안쪽에 표시. */
+  .hero-carousel__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 1rem;
-    margin-top: 0.75rem;
+    padding: 2.5rem 1.1rem 0.9rem;
+    background: linear-gradient(
+      to top,
+      color-mix(in oklab, var(--color-ink) 72%, transparent),
+      color-mix(in oklab, var(--color-ink) 30%, transparent) 45%,
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  .hero-carousel__overlay > * {
+    pointer-events: auto;
   }
 
   .hero-carousel__caption {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-style: italic;
-    color: color-mix(in oklab, var(--color-ink) 60%, transparent);
+    line-height: 1.4;
+    color: color-mix(in oklab, var(--color-cream) 90%, transparent);
+    text-shadow: 0 1px 3px rgba(20, 20, 19, 0.45);
   }
 
   .hero-carousel__dots {
     display: flex;
     gap: 0.5rem;
     flex-shrink: 0;
+    padding-bottom: 0.15rem;
   }
 
   .hero-carousel__dot {
@@ -261,7 +292,8 @@ const firstCaption = resolved[0]?.caption;
     padding: 0;
     border: 0;
     border-radius: 9999px;
-    background-color: color-mix(in oklab, var(--color-ink) 20%, transparent);
+    background-color: color-mix(in oklab, var(--color-cream) 55%, transparent);
+    box-shadow: 0 0 0 1px rgba(20, 20, 19, 0.2);
     cursor: pointer;
     transition:
       background-color 0.2s ease,

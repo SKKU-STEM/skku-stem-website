@@ -146,3 +146,20 @@
 - [x] `src/assets/hero/README.md` — 업로드/명명/해상도 가이드
 - [x] `npm run check` 0/0/0 / `npm run build` 통과 / 3장·1장 렌더 검증
 - [ ] (배포) git push → Cloudflare Pages 라이브 반영 — 사용자 승인 후
+
+## 7. Home Research highlights + Recent papers 개편 (2026-05-28)
+
+- [x] `src/content/home/research-featured.json` — 홈 큐레이션 카드 2장 시드 (eyebrow/title/summary/link/media[])
+- [x] `public/research-featured/` — 시드 이미지 2장 복사 (silver films, ML electrode)
+- [x] `src/components/ResearchHighlightCard.astro` — 미디어 캐러셀(이미지/GIF ≤3장) + YouTube 클릭재생 facade + 호버 그라디언트 그림자, 제목=카드별 link
+- [x] `src/pages/index.astro`
+  - [x] 'Research highlights' 섹션 신설 — 2-카드 그리드, 우상단 'All research' 버튼(→/research), Recent papers 위에 배치
+  - [x] 기존 'Recent highlights' → 'Recent papers'로 리네임 + 3-카드 그리드 → 컴팩트 3줄 리스트
+  - [x] 'All publications'를 시각화된 아웃라인 pill 버튼으로
+- [x] `public/admin/config.yml` — `home` 컬렉션에 research-featured 파일 추가(media: image/youtube/alt list max 3), 컬렉션 라벨 'Home'으로
+- [x] `npm run check` 0/0/0 / `npm run build` 통과 (11 pages + pagefind)
+- [x] (수정) YouTube 재생 iframe 크기 — 동적 생성 요소에 scoped CSS 미적용 → 인라인 스타일로 슬롯 채움
+- [x] (수정) 캐러셀 자동 슬라이드(5s) 추가 — hover/focus·탭 비활성 정지, 동영상 재생 시 영구 정지
+- [x] Hero — 좌측 텍스트/우측 사진 높이 동일화(grid items-stretch + 사진 height:100%·object-cover), 캡션을 사진 안쪽 하단 그라디언트 스크림 오버레이로 이동
+- [ ] (시각 확인) 로컬 `npm run dev`로 캐러셀/호버/유튜브/히어로 동작 확인
+- [ ] (배포) git push → Cloudflare Pages 라이브 반영 — 사용자 승인 후
