@@ -1,10 +1,13 @@
 ---
 // Home — split hero + research highlights + recruiting (KO)
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
-import heroGroup from '@/assets/photos/2026group-spring.jpg';
+import HeroSlideshow from '@components/HeroSlideshow.astro';
+import heroData from '@content/home/hero.json';
+
+// 히어로 슬라이드(최대 3장) — /admin의 'Home · Hero slides'에서 편집, 배열 순서대로 재생.
+const heroSlides = heroData.items;
 
 // 최근 lead authorship 논문 3건 자동 추출 — number desc 정렬 후 lead 필터링.
 const skkuEntries = await getCollection('publications-skku');
@@ -70,22 +73,8 @@ const highlights = skkuEntries
           </div>
         </div>
 
-        {/* Right: group photo placeholder */}
-        <figure>
-          <Image
-            src={heroGroup}
-            alt="SKKU-STEM Lab group photo, cherry blossoms, April 2026"
-            widths={[800, 1200, 1600]}
-            sizes="(max-width: 768px) 100vw, 50vw"
-            format="webp"
-            loading="eager"
-            fetchpriority="high"
-            class="aspect-[4/3] object-contain w-full bg-cream-200/60 mix-blend-darken"
-          />
-          <figcaption class="mt-3 text-xs italic text-ink/60">
-            &mdash; Cherry blossoms &middot; April 2026
-          </figcaption>
-        </figure>
+        {/* Right: group photo slideshow (CMS, 최대 3장) */}
+        <HeroSlideshow slides={heroSlides} />
       </div>
     </section>
 

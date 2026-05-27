@@ -1,4 +1,5 @@
-# Sveltia/Decap CMS 컬렉션 매핑 — src/content.config.ts의 9개 zod 스키마와 1:1 정렬.
+# Sveltia/Decap CMS 컬렉션 매핑 — 9개는 src/content.config.ts의 zod 스키마와 1:1 정렬,
+# 'home'(히어로 슬라이드)는 src/pages/index.astro가 직접 import하는 데이터 파일이다.
 # enum 값·required·필드명을 어기면 Astro 빌드가 실패하므로 변경 시 양쪽을 함께 수정.
 
 backend:
@@ -23,6 +24,32 @@ public_folder: /uploads
 # ─────────────────────────────────────────────────────────────
 
 collections:
+  # ===== Home: 히어로 슬라이드쇼 (file: 최대 3장 list) =====
+  - name: home
+    label: 'Home · Hero slides'
+    files:
+      - file: src/content/home/hero.json
+        name: hero
+        label: 'Hero slideshow (최대 3장)'
+        fields:
+          - name: items
+            label: Slides
+            label_singular: Slide
+            widget: list
+            min: 1
+            max: 3
+            summary: '{{fields.alt}}'
+            fields:
+              - name: image
+                label: Photo
+                widget: image
+                media_folder: '/src/assets/hero'
+                public_folder: '/hero'
+                choose_url: false
+                hint: 'src/assets/hero/에 업로드되며 경로는 /hero/<filename>으로 저장된다. 4:3 비율, 1600×1200px 이상 권장 (첫 장이 LCP 이미지).'
+              - { name: alt, label: Alt text (스크린리더/SEO), widget: string }
+              - { name: caption, label: Caption (사진 아래 작은 설명, 선택), widget: string, required: false }
+
   # ===== Publications: SKKU 시기 SCI 논문 (file: items 배열) =====
   - name: publications-skku
     label: 'Publications · SKKU SCI'

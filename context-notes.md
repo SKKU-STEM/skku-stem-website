@@ -231,3 +231,12 @@ skkustem/
     └── styles/
         └── global.css
 ```
+
+## Hero 슬라이드쇼 (CMS, 2026-05-27)
+
+- 기존 단일 하드코딩 히어로 사진(`src/assets/photos/2026group-spring.jpg`, index.astro에서 직접 import)을 **최대 3장 가로 슬라이드 캐러셀**로 교체. 사진은 `src/assets/hero/`로 이동.
+- **데이터 저장 = 직접 JSON import** (`src/content/home/hero.json`의 `items[]`), `getCollection`/content.config.ts 미등록. 이유: file() loader의 배열 순서 보존 동작에 대한 확증이 없어, admin이 드래그한 슬라이드 순서를 100% 보장하려고 직접 import로 결정. 검증 손실은 미미(이미지는 glob 폴백, alt/caption은 자유 문자열).
+- 이미지 최적화는 멤버 사진(PortraitBox) 패턴 그대로: CMS가 `src/assets/hero/`에 업로드 → `import.meta.glob`으로 basename lookup → Astro `<Image>`(webp/반응형). 첫 장만 eager+fetchpriority high (LCP).
+- 컴포넌트 `src/components/HeroSlideshow.astro`: viewport(aspect 4/3, overflow hidden) + flex track(translateX) + 화살표(hover/focus 노출, 터치 기기 항상 옅게) + 점 인디케이터 + caption. 자동재생 5s, hover/focus/탭비활성 시 정지, prefers-reduced-motion 시 자동재생·전환 애니메이션 없음. 슬라이드 1장이면 컨트롤·스크립트 비활성(기존과 동일한 정적 이미지).
+- CMS: `public/admin/config.yml`에 10번째 컬렉션 `home`(`Home · Hero slides`) 추가. list widget `min:1 max:3`, image 위젯 media_folder `/src/assets/hero` public_folder `/hero`.
+- 검증: `npm run check` 0/0/0, `npm run build` 통과. 3장 시드로 dots·arrows·captions·srcset 렌더 확인 후 1장(실사진)으로 복원.

@@ -135,3 +135,14 @@
 - [x] Cloudflare Pages env 변수 등록: `GITHUB_CLIENT_ID` (Text), `GITHUB_CLIENT_SECRET` (Secret)
 - [x] git push → Pages 빌드 → `https://skkustem.org/admin` 접속 → GitHub 인증 → 9 컬렉션 노출 확인 (2026-05-10)
 - [x] news entry 편집·저장·라이브 반영 끝-to-끝 확인 (2026-05-10, commit bed627f) — CMS는 SKKU-STEM author로 main에 직접 commit, 메시지 패턴은 `Update News post "{slug}"`
+
+## 6. Hero 슬라이드쇼 (CMS, 2026-05-27)
+
+- [x] 기존 히어로 사진을 `src/assets/photos/` → `src/assets/hero/`로 이동 (`git mv`)
+- [x] 슬라이드 데이터 `src/content/home/hero.json` (`items[]`, image/alt/caption) 시드
+- [x] `src/components/HeroSlideshow.astro` — 가로 슬라이드 캐러셀(화살표+점, 자동재생 5s, hover 정지, reduced-motion 존중)
+- [x] `src/pages/index.astro` — 하드코딩 `<Image>` figure → `<HeroSlideshow slides={heroSlides} />`
+- [x] `public/admin/config.yml` — `home` 컬렉션(`Home · Hero slides`, list min:1 max:3, image→/src/assets/hero) 추가
+- [x] `src/assets/hero/README.md` — 업로드/명명/해상도 가이드
+- [x] `npm run check` 0/0/0 / `npm run build` 통과 / 3장·1장 렌더 검증
+- [ ] (배포) git push → Cloudflare Pages 라이브 반영 — 사용자 승인 후
