@@ -300,3 +300,9 @@ skkustem/
 - 색은 SVG presentation 속성에 var() 안 먹으므로 Tailwind 유틸 클래스(`fill-coral`/`stroke-ink` 등) 사용(기존 패턴). scale 애니는 `transform-box: fill-box; transform-origin: center/bottom`.
 - `prefers-reduced-motion`: 전부 정지(focus 링은 mid-scale, 막대/노드 정지, 링크 dash 해제).
 - 히어로 사진: object-fit cover(좌우 잘림) → **contain + object-position:top**으로 전체 표시. 남는 하단 공간은 뷰포트 배경 그라디언트(위 cream→아래 ink)로 어둡게, 캡션 오버레이 스크림도 진하게(ink 90%)·높게(padding-top 4rem), 캡션 1.05rem(+31%)로 키움.
+
+## 관리자 매뉴얼 갱신 + docs 커밋 (2026-05-28)
+
+- `scripts/generate-admin-manual.py`(reportlab, Malgun 폰트)로 `docs/SKKU-STEM_Admin_Manual.pdf` 생성. 재생성 명령: `python scripts/generate-admin-manual.py`(프로젝트 루트에서, reportlab 필요).
+- 최근 CMS 변경 반영하여 v1.0→v1.1 갱신: (1) 컬렉션 표에 **Home**(Hero 슬라이드 + Research highlights) 추가, 사이드바 11개 항목으로 정정, (2) "공통 — 미디어 입력" 섹션 신설(이미지/GIF/YouTube 리스트, 캐러셀, 구 photoCount/slug-N/git push 폐지 명시), (3) **5.0 Home** 섹션 신설, (4) News 필드표·cheat sheet의 photoCount → media, (5) Gallery 5.8을 CMS 직접 업로드로 재작성, (6) quick-ref ⑤ 갱신. Facilities는 photoCount 유지(스키마 변경 안 함)이라 그대로 둠.
+- `docs/skill-build/`(skku-report-pdf / skku-report-docx 스킬 소스 + .skill 패키지, 폰트 포함 ~4.7MB)는 사용자 결정으로 저장소에 커밋.
