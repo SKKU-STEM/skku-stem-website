@@ -8,5 +8,7 @@ titleEn: ''
 location: ''
 participants: ''
 awards: ''
-photoCount: 2
+media:
+  - image: /gallery-media/2026-graduation-feb25-1.jpg
+  - image: /gallery-media/2026-graduation-feb25-2.jpg
 ---

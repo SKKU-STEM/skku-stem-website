@@ -261,3 +261,24 @@ skkustem/
 - 좌측 텍스트와 우측 사진 높이 불일치(텍스트가 더 김) 해소: index.astro 히어로 grid `items-start` → `items-stretch`, HeroSlideshow `.hero-carousel`/`__viewport` `height:100%`로 텍스트 칼럼 높이를 채움. 모바일(1열)은 기존 `aspect-ratio: 4/3`, 데스크톱(>=768px)은 `aspect-ratio:auto` + `min-height:22rem`.
 - 사진 표현 `object-fit: contain` + `mix-blend-mode: darken`(크림 레터박스) → `object-fit: cover`(꽉 채움, mix-blend 제거)로 변경. 단체사진이라 크롭 OK. `border-radius: var(--radius-lg)` 추가.
 - 캡션을 사진 아래 별도 bar(`__bar`) → 사진 안쪽 하단 오버레이(`__overlay`, to-top 그라디언트 스크림 위 caption 좌·dots 우)로 이동. caption은 cream + text-shadow, dots는 cream/coral. 오버레이 `pointer-events:none` + 자식만 auto(dots 클릭 유지). caption/dots 둘 다 없으면(단일·무캡션) 오버레이 미렌더.
+
+## News 미디어 일원화 + MediaCarousel 추출 (2026-05-28)
+
+- Research highlights와 News가 "같은" 다양한 미디어를 쓰도록, 캐러셀 로직을 공용 `src/components/MediaCarousel.astro`로 추출. props: `media[]`(image/youtube/alt), `class`, `aspect`(기본 16/10, `--mc-aspect` CSS var). 클래스 prefix `mc__*`, data attr `data-mc-*`, 스크립트는 페이지의 모든 `[data-mc-carousel]` 초기화(자동 슬라이드 5s, hover/탭 정지, 동영상 재생 시 locked, reduced-motion 존중, YouTube 클릭 시 nocookie iframe 인라인 교체).
+- `ResearchHighlightCard.astro`는 인라인 미디어 마크업/CSS/스크립트를 제거하고 `<MediaCarousel class="rounded-t-lg" />`로 위임. **미디어 호버 sheen(`__media::after` 코랄 그라디언트)은 제거** — Astro scoped CSS는 자식 컴포넌트 내부 요소를 부모 hover로 제어 불가. 카드 자체의 코랄 box-shadow 글로우 + 리프트는 유지되므로 "호버 그라디언트 그림자"는 그대로.
+- News: 파일명 규칙 기반 `photoCount`(+ `NewsPhoto.astro`, `src/assets/news/`) 시스템을 **폐지**하고 `media[]`로 일원화(사용자 결정). 기존 8장은 `git mv`로 `public/news-media/`에 이동(Astro Image 최적화 → public 원본 서빙으로 전환; GIF/YouTube 일관 처리 위해). 6개 entry frontmatter를 `media:` 리스트로 마이그레이션, photoCount:0 2개는 필드 제거.
+- `content.config.ts` news 스키마: `photoCount: z.number().optional()` → `media: z.array({image?, youtube?, alt?}).optional()`. (facilities/gallery-events의 photoCount는 별개라 유지.)
+- CMS `public/admin/config.yml` news: photoCount number 필드 → media list(widget image media_folder `/public/news-media`, youtube/alt; max 8).
+- news.astro: 사진 grid(1/2/3-col) → `<MediaCarousel class="rounded-md ..." />` (max-w-xl). 여러 장이면 캐러셀로 슬라이드(기존 grid 레이아웃과 달라짐 — 일원화 trade-off).
+- 검증: check 0/0/0, build 통과. dist에서 홈 2 카드 + 뉴스 5 캐러셀(fellowship 3장 = autoplay), /news-media 이미지 8장 확인.
+
+## Gallery 미디어 일원화 (2026-05-28)
+
+- 사용자 결정: Gallery도 News처럼 `MediaCarousel`로 통일. 모자이크+라이트박스(클릭 확대) → 자동 슬라이드 캐러셀로 변경. 137장이 src/assets(Astro Image 최적화) → public/gallery-media(원본 서빙)로 이동하여 이미지 최적화는 약화되지만, GIF/YouTube 지원 + CMS 업로드 + 3개 페이지 일관성을 얻음.
+- 마이그레이션은 일회성 `scripts/_migrate-gallery.mjs`로 처리(실행 후 삭제). photoCount(파일명 규칙) → `media: [{image}]`로 변환, `src/assets/gallery/<slug>-<n>.jpg` → `public/gallery-media/`. 슬러그 접두 충돌(예: 2025-ksm vs 2025-ksm-fall) 방지 위해 정확히 `^<slug>-(\d+)\.jpg$` 매칭.
+- 발견·수정한 기존 데이터 버그: 파일 `2025-graduation-feb25.md`의 frontmatter는 `slug: 2026-graduation-feb25`, `year: 2026`이고 사진도 `2026-graduation-feb25-{1,2}.jpg`였다(파일명만 2025-). 스크립트가 파일명 기준이라 누락 → 수동으로 media 2장 연결. 표시는 frontmatter year로 그룹핑되어 무해하므로 파일명 rename은 보류(사용자 판단).
+- 2023-bk-thesis: 구 PhotoMosaic가 `safeCount = min(count, 6)`으로 6장만 표시 → 파일 14장 중 8장이 dead였음. 캐러셀 전환으로 14장 전부 노출(정리 효과).
+- alt 전략: gallery frontmatter media에는 alt를 저장하지 않고(대량 마이그레이션 단순화), gallery.astro에서 `m.alt || `${event.title} — photo ${i+1}`` 로 렌더타임 fallback. CMS media 필드에는 alt(선택) 있음.
+- gallery.astro: `<MediaCarousel aspect="3 / 2" class="rounded-md ..." />`(갤러리 가로 비율 유지), `max-w-2xl`. totalPhotos = Σ media.length.
+- orphan 정리: `PhotoMosaic.astro` 삭제(내 변경으로 미사용화), `src/assets/gallery/`(README 포함) 제거. **`GalleryPhoto.astro`는 이번 변경 이전부터 어디서도 import 안 되는 dead code** — §3에 따라 삭제하지 않고 보존(미사용 .astro는 빌드에 포함 안 되어 무해). 추후 정리 대상으로 언급.
+- News/Gallery 공통: 여러 장이 그리드 → 캐러셀(슬라이드)로 표시 방식이 바뀜. 라이트박스(확대)는 제거됨(통일 trade-off).

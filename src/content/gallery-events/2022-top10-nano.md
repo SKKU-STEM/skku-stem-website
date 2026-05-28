@@ -8,5 +8,6 @@ titleEn: 2022 Top 10 Nanotechnology R&D Achievements
 location: ''
 participants: ''
 awards: 정세영 교수 (부산대학교), 김영민 교수 (성균관대학교)
-photoCount: 1
+media:
+  - image: /gallery-media/2022-top10-nano-1.jpg
 ---

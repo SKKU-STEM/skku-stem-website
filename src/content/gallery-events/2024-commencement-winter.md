@@ -8,5 +8,6 @@ titleEn: Commencement Winter 2024
 location: ''
 participants: Wooseon and Young-Hoon — Congratulations on your graduation!
 awards: ''
-photoCount: 1
+media:
+  - image: /gallery-media/2024-commencement-winter-1.jpg
 ---

@@ -8,5 +8,8 @@ titleEn: 2024 SKKU Fellowship — Prof. Y.-M. Kim
 location: ''
 participants: ''
 awards: ''
-photoCount: 3
+media:
+  - image: /gallery-media/2025-fellowship-1.jpg
+  - image: /gallery-media/2025-fellowship-2.jpg
+  - image: /gallery-media/2025-fellowship-3.jpg
 ---

@@ -8,5 +8,6 @@ titleEn: ''
 location: ''
 participants: ''
 awards: ''
-photoCount: 1
+media:
+  - image: /gallery-media/2023-group-may31-1.jpg
 ---

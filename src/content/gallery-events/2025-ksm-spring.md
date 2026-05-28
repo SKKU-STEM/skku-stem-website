@@ -8,5 +8,6 @@ titleEn: Korean Society of Microscopy Spring Conference 2025
 location: Yonsei University, Korea
 participants: ''
 awards: ''
-photoCount: 1
+media:
+  - image: /gallery-media/2025-ksm-spring-1.jpg
 ---

@@ -8,5 +8,6 @@ titleEn: Commencement Summer 2022
 location: ''
 participants: Congratulations on your Graduation!
 awards: ''
-photoCount: 1
+media:
+  - image: /gallery-media/2022-commencement-summer-1.jpg
 ---

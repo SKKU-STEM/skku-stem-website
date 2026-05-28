@@ -8,5 +8,6 @@ titleEn: ''
 location: ''
 participants: ''
 awards: ''
-photoCount: 1
+media:
+  - image: /gallery-media/2025-graduation-feb24-1.jpg
 ---

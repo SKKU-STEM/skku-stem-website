@@ -8,5 +8,7 @@ titleEn: 2023 SKKU Graduate Student Paper Award
 location: SKKU, Korea
 participants: ''
 awards: 'Excellence award (₩4,000,000): 김선제 (Seon Je Kim)'
-photoCount: 2
+media:
+  - image: /gallery-media/2023-skku-paper-1.jpg
+  - image: /gallery-media/2023-skku-paper-2.jpg
 ---

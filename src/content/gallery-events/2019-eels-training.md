@@ -6,5 +6,6 @@ date: "2019"
 title: "EELS & EFTEM Analysis Training School"
 location: "Pleasanton, California"
 participants: "Woo-Sung Jang, Young-Hoon Kim"
-photoCount: 1
+media:
+  - image: /gallery-media/2019-eels-training-1.jpg
 ---

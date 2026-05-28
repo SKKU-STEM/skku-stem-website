@@ -8,5 +8,8 @@ titleEn: ''
 location: Suwon, Korea
 participants: ''
 awards: 'Oral, Grand Prize (₩2,000,000): 김영훈 (Young-Hoon Kim) · Poster, Excellence Award: 정민형 (Min-Hyoung Jung)'
-photoCount: 3
+media:
+  - image: /gallery-media/2024-bk-thesis-1.jpg
+  - image: /gallery-media/2024-bk-thesis-2.jpg
+  - image: /gallery-media/2024-bk-thesis-3.jpg
 ---

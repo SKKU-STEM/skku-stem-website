@@ -8,5 +8,9 @@ titleEn: ''
 location: Konjiam, Korea
 participants: ''
 awards: 'Oral, Encouragement award: 주현아 (Hyeon-Ah Ju) · Poster, Excellence awards: 주현아 (Hyeon-Ah Ju), 정민형 (Min-Hyoung Jung)'
-photoCount: 4
+media:
+  - image: /gallery-media/2025-bk-thesis-1.jpg
+  - image: /gallery-media/2025-bk-thesis-2.jpg
+  - image: /gallery-media/2025-bk-thesis-3.jpg
+  - image: /gallery-media/2025-bk-thesis-4.jpg
 ---

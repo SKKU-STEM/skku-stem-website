@@ -8,5 +8,6 @@ titleEn: ''
 location: TU Graz, Austria
 participants: Eun-Byeol Park, Yerin Jeon
 awards: ''
-photoCount: 1
+media:
+  - image: /gallery-media/2026-eels-school-1.jpg
 ---

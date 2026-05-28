@@ -8,5 +8,9 @@ titleEn: Korean Society of Microscopy Spring Conference 2024
 location: Hongcheon, Korea
 participants: 'Oral (KSM2024-137): Min-Hyoung Jung · Oral (KSM2024-138): Sang-Hyeok Yang · Poster (KSM2024-142): Yerin Jeon'
 awards: ''
-photoCount: 4
+media:
+  - image: /gallery-media/2024-ksm-spring-1.jpg
+  - image: /gallery-media/2024-ksm-spring-2.jpg
+  - image: /gallery-media/2024-ksm-spring-3.jpg
+  - image: /gallery-media/2024-ksm-spring-4.jpg
 ---

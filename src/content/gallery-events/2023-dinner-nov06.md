@@ -5,5 +5,7 @@ year: 2023
 date: "November 6, 2023"
 title: Group Dinner
 location: Novotel Ambassador The Square Suwon
-photoCount: 2
+media:
+  - image: /gallery-media/2023-dinner-nov06-1.jpg
+  - image: /gallery-media/2023-dinner-nov06-2.jpg
 ---

@@ -8,5 +8,7 @@ titleEn: ''
 location: SKKU, Korea
 participants: ''
 awards: 'Oral Encouragement (₩1,000,000): Sang-Hyeok Yang · Poster Encouragement: Young-Hoon Kim (₩800,000), Wooseon Choi (₩600,000)'
-photoCount: 2
+media:
+  - image: /gallery-media/2021-bk-thesis-1.jpg
+  - image: /gallery-media/2021-bk-thesis-2.jpg
 ---

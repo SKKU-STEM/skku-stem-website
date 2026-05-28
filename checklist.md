@@ -161,5 +161,33 @@
 - [x] (수정) YouTube 재생 iframe 크기 — 동적 생성 요소에 scoped CSS 미적용 → 인라인 스타일로 슬롯 채움
 - [x] (수정) 캐러셀 자동 슬라이드(5s) 추가 — hover/focus·탭 비활성 정지, 동영상 재생 시 영구 정지
 - [x] Hero — 좌측 텍스트/우측 사진 높이 동일화(grid items-stretch + 사진 height:100%·object-cover), 캡션을 사진 안쪽 하단 그라디언트 스크림 오버레이로 이동
-- [ ] (시각 확인) 로컬 `npm run dev`로 캐러셀/호버/유튜브/히어로 동작 확인
+- [x] (배포 완료) commit 0fb2593 → push → Cloudflare Pages 라이브 반영
+
+## 8. News 미디어 일원화 (2026-05-28)
+
+- [x] `src/components/MediaCarousel.astro` — 미디어 캐러셀 로직을 공용 컴포넌트로 추출(이미지/GIF/YouTube, 자동 슬라이드, `data-mc-*`, aspect prop)
+- [x] `ResearchHighlightCard.astro` — 인라인 미디어를 `<MediaCarousel>`로 교체(카드 호버 글로우는 유지, 미디어 호버 sheen은 제거)
+- [x] News `photoCount`(파일명 규칙) → `media[]`(image/youtube/alt) 일원화
+  - [x] `content.config.ts` news 스키마 photoCount → media 배열
+  - [x] 기존 8장 `src/assets/news/` → `public/news-media/` git mv, 6개 entry frontmatter 마이그레이션
+  - [x] `news.astro` — NewsPhoto 그리드 → `<MediaCarousel>` (max-w-xl)
+  - [x] orphan 제거: `NewsPhoto.astro`, `src/assets/news/`(README 포함)
+  - [x] `public/admin/config.yml` news photoCount 필드 → media list(max 8, /public/news-media)
+  - [x] `public/news-media/README.md` 새 안내
+- [x] `npm run check` 0/0/0 / `npm run build` 통과 (11 pages, 홈 2 카드 + 뉴스 5 캐러셀 렌더 확인)
+
+## 9. Gallery 미디어 일원화 (2026-05-28)
+
+- [x] 사용자 결정: News처럼 MediaCarousel로 통일(모자이크+라이트박스 → 캐러셀, 이미지 최적화 약화 수용)
+- [x] `content.config.ts` gallery-events 스키마 photoCount → media[] 배열
+- [x] 일회성 스크립트로 52개 entry 마이그레이션 + 137장 `src/assets/gallery/` → `public/gallery-media/` 이동 (실행 후 스크립트 삭제)
+  - [x] 슬러그 접두 충돌 방지(정확히 `<slug>-<n>.jpg` 매칭)
+  - [x] 데이터 버그 수정: `2025-graduation-feb25.md`는 slug/year가 2026, 사진도 `2026-graduation-feb25-*` — 수동으로 media 연결 (파일명만 2025-, 표시는 frontmatter year 기준이라 무해 / 파일 rename은 보류·사용자 판단)
+  - [x] 2023-bk-thesis: 기존 모자이크가 6장 cap이라 8장 dead였음 → 14장 전부 캐러셀로 노출(정리)
+- [x] `gallery.astro` — PhotoMosaic → MediaCarousel(aspect 3/2, max-w-2xl), totalPhotos = media.length 합, alt 비면 행사 제목 fallback
+- [x] `public/admin/config.yml` gallery-events photoCount → media list(max 20, /public/gallery-media)
+- [x] orphan 제거: `PhotoMosaic.astro`, `src/assets/gallery/`(README 포함). `GalleryPhoto.astro`는 **기존부터 미사용**(dead code)이라 보존·언급만
+- [x] `public/gallery-media/README.md` 새 안내
+- [x] `npm run check` 0/0/0 / `npm run build` 통과 (gallery 52 캐러셀 + 137 이미지 + 헤더 52 events/137 photos 확인)
+- [ ] (시각 확인) 로컬 `npm run dev`로 News·Gallery 캐러셀 확인
 - [ ] (배포) git push → Cloudflare Pages 라이브 반영 — 사용자 승인 후

@@ -8,5 +8,7 @@ titleEn: ''
 location: ''
 participants: ''
 awards: ''
-photoCount: 2
+media:
+  - image: /gallery-media/2022-hiking-fall-1.jpg
+  - image: /gallery-media/2022-hiking-fall-2.jpg
 ---

@@ -1,9 +1,9 @@
 ---
 // Gallery — 그룹 사진 + 학회/시상 등 행사 사진
 // 데이터: src/content/gallery-events/*.md (Astro Content Collection)
-// 사진 업로드 규칙: src/assets/gallery/README.md 참고
+// 미디어(이미지/GIF/YouTube): frontmatter media[] → MediaCarousel, 업로드는 public/gallery-media/README.md 참고
 import BaseLayout from '@layouts/BaseLayout.astro';
-import PhotoMosaic from '@components/PhotoMosaic.astro';
+import MediaCarousel from '@components/MediaCarousel.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 type GalleryEvent = CollectionEntry<'gallery-events'>['data'];
@@ -25,7 +25,10 @@ const years = Object.keys(byYear)
   .sort((a, b) => b - a);
 
 const totalEvents = galleryEvents.length;
-const totalPhotos = galleryEvents.reduce((sum, ev) => sum + ev.photoCount, 0);
+const totalPhotos = galleryEvents.reduce(
+  (sum, ev) => sum + (ev.media?.length ?? 0),
+  0
+);
 ---
 
 <BaseLayout
@@ -188,13 +191,16 @@ const totalPhotos = galleryEvents.reduce((sum, ev) => sum + ev.photoCount, 0);
                       )}
                     </header>
 
-                    {/* Photo mosaic (1-6 photos in fixed-aspect container, click to enlarge) */}
-                    {event.photoCount > 0 && (
-                      <div class="mt-6">
-                        <PhotoMosaic
-                          slug={event.slug}
-                          count={event.photoCount}
-                          alt={event.title}
+                    {/* Media (이미지/GIF/YouTube 캐러셀) */}
+                    {event.media && event.media.length > 0 && (
+                      <div class="mt-6 max-w-2xl">
+                        <MediaCarousel
+                          media={event.media.map((m, i) => ({
+                            ...m,
+                            alt: m.alt || `${event.title} — photo ${i + 1}`,
+                          }))}
+                          aspect="3 / 2"
+                          class="rounded-md border border-cream-300"
                         />
                       </div>
                     )}

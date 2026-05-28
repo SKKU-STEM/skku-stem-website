@@ -8,5 +8,7 @@ titleEn: Korean Surface Analysis Society 2025
 location: KW Convention center, Daejeon, Korea
 participants: Daehee Yang, Seon Je Kim — Oral presentations
 awards: ''
-photoCount: 2
+media:
+  - image: /gallery-media/2025-ksas-fall-1.jpg
+  - image: /gallery-media/2025-ksas-fall-2.jpg
 ---

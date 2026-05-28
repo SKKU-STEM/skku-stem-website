@@ -410,4 +410,21 @@ collections:
       - { name: location, label: Location, widget: string, required: false }
       - { name: participants, label: Participants, widget: string, required: false }
       - { name: awards, label: Awards, widget: string, required: false }
-      - { name: photoCount, label: Photo count, widget: number, value_type: int }
+      - name: media
+        label: Media (사진/GIF 또는 YouTube)
+        widget: list
+        required: false
+        max: 20
+        summary: '{{fields.alt}}'
+        hint: '1개면 단일 표시, 2개 이상이면 캐러셀로 슬라이드된다.'
+        fields:
+          - name: image
+            label: Photo / GIF
+            widget: image
+            required: false
+            media_folder: '/public/gallery-media'
+            public_folder: '/gallery-media'
+            choose_url: false
+            hint: 'public/gallery-media/에 업로드되며 경로는 /gallery-media/<filename>으로 저장된다. GIF도 원본 그대로 재생. YouTube를 쓰면 이미지는 비워둔다.'
+          - { name: youtube, label: YouTube URL, widget: string, required: false, hint: 'https://youtu.be/... 또는 watch?v=... — 입력하면 이 슬라이드는 동영상으로 재생된다.' }
+          - { name: alt, label: Alt text (비우면 행사 제목 사용), widget: string, required: false }

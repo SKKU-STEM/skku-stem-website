@@ -8,5 +8,8 @@ titleEn: 29th Samsung Humantech Paper Award
 location: Samsung Electronics Co., Ltd.
 participants: ''
 awards: 'Silver Prize (₩7,000,000): 김영훈 (Young-Hoon Kim, 1st author)'
-photoCount: 3
+media:
+  - image: /gallery-media/2023-samsung-humantech-1.jpg
+  - image: /gallery-media/2023-samsung-humantech-2.jpg
+  - image: /gallery-media/2023-samsung-humantech-3.jpg
 ---

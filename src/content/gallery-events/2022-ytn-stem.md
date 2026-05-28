@@ -8,5 +8,7 @@ titleEn: Young-Hoon Kim — STEM experiment demonstration
 location: YTN 사이언스 — K 사이언티스트
 participants: ''
 awards: ''
-photoCount: 2
+media:
+  - image: /gallery-media/2022-ytn-stem-1.jpg
+  - image: /gallery-media/2022-ytn-stem-2.jpg
 ---

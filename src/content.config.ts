@@ -212,7 +212,16 @@ const galleryEvents = defineCollection({
     location: z.string().optional(),
     participants: z.string().optional(),
     awards: z.string().optional(),
-    photoCount: z.number(),
+    // 이미지/GIF/YouTube 혼합 미디어 (MediaCarousel). image는 public 경로(/gallery-media/...).
+    media: z
+      .array(
+        z.object({
+          image: z.string().optional(),
+          youtube: z.string().optional(),
+          alt: z.string().optional(),
+        })
+      )
+      .optional(),
   }),
 });
 

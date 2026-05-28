@@ -8,5 +8,10 @@ titleEn: ''
 location: Suwon, Korea
 participants: ''
 awards: 'Oral, Excellence award: 전예린 (Yerin Jeon) · Poster, Encouragement award: 박은별 (Eun-Byeol Park)'
-photoCount: 5
+media:
+  - image: /gallery-media/2026-bk-thesis-1.jpg
+  - image: /gallery-media/2026-bk-thesis-2.jpg
+  - image: /gallery-media/2026-bk-thesis-3.jpg
+  - image: /gallery-media/2026-bk-thesis-4.jpg
+  - image: /gallery-media/2026-bk-thesis-5.jpg
 ---
