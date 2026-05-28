@@ -1,0 +1,406 @@
+---
+// 이미지/GIF + YouTube를 함께 담는 공용 미디어 캐러셀 — 1개면 단일 표시, 2개 이상이면 자동 슬라이드.
+// YouTube 슬라이드는 썸네일 클릭 시 인라인 재생. 사용처: 홈 Research highlights 카드, News 항목.
+interface MediaItem {
+  image?: string;
+  youtube?: string;
+  alt?: string;
+}
+
+interface Props {
+  media?: MediaItem[];
+  class?: string;
+  aspect?: string; // CSS aspect-ratio 값. 기본 '16 / 10'
+}
+
+const { media = [], class: className, aspect = '16 / 10' } = Astro.props;
+
+// YouTube URL/ID에서 11자리 video id 추출 (watch / youtu.be / embed / shorts / bare id 지원).
+const youtubeId = (url?: string): string | null => {
+  if (!url) return null;
+  const u = url.trim();
+  if (/^[a-zA-Z0-9_-]{11}$/.test(u)) return u;
+  const m = u.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/,
+  );
+  return m ? m[1] : null;
+};
+
+// 빈 슬롯 제거 + youtube/image 타입 판별. youtube가 우선.
+const slides = media
+  .map((m) => {
+    const ytId = youtubeId(m.youtube);
+    return ytId
+      ? ({ type: 'youtube' as const, ytId, alt: m.alt ?? '' })
+      : m.image
+        ? ({ type: 'image' as const, src: m.image, alt: m.alt ?? '' })
+        : null;
+  })
+  .filter((s): s is NonNullable<typeof s> => s !== null);
+
+const multiple = slides.length > 1;
+---
+
+{
+  slides.length > 0 && (
+    <div
+      class:list={['mc', className]}
+      style={`--mc-aspect: ${aspect};`}
+      data-mc-carousel
+    >
+      <ul class="mc__track" data-mc-track>
+        {slides.map((s, i) => (
+          <li class="mc__slide" aria-hidden={multiple && i !== 0 ? 'true' : undefined}>
+            {s.type === 'youtube' ? (
+              <button
+                type="button"
+                class="mc__yt"
+                data-mc-yt={s.ytId}
+                aria-label="Play video"
+              >
+                <img
+                  src={`https://i.ytimg.com/vi/${s.ytId}/hqdefault.jpg`}
+                  alt={s.alt || 'Video thumbnail'}
+                  class="mc__img"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="mc__play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </button>
+            ) : (
+              <img
+                src={s.src}
+                alt={s.alt}
+                class="mc__img"
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+          </li>
+        ))}
+      </ul>
+
+      {multiple && (
+        <>
+          <button
+            type="button"
+            class="mc__arrow mc__arrow--prev"
+            data-mc-prev
+            aria-label="Previous slide"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="mc__arrow mc__arrow--next"
+            data-mc-next
+            aria-label="Next slide"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+          <div class="mc__dots" data-mc-dots>
+            {slides.map((_, i) => (
+              <button
+                type="button"
+                class="mc__dot"
+                data-mc-dot={i}
+                aria-label={`Go to slide ${i + 1}`}
+                aria-current={i === 0 ? 'true' : undefined}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .mc {
+    position: relative;
+    aspect-ratio: var(--mc-aspect, 16 / 10);
+    overflow: hidden;
+    background-color: color-mix(in oklab, var(--color-cream-200) 60%, transparent);
+  }
+
+  .mc__track {
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mc__slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mc__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* YouTube 썸네일 + 중앙 재생 버튼 (클릭 시 iframe으로 교체). iframe 크기는 JS 인라인 스타일로 지정. */
+  .mc__yt {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .mc__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+    color: var(--color-cream);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .mc__yt:hover .mc__play {
+    transform: translate(-50%, -50%) scale(1.08);
+    background-color: var(--color-coral);
+  }
+
+  .mc__play svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 0.15rem;
+  }
+
+  /* 좌우 화살표 — 평소 숨김, hover/focus 시 노출 (터치 기기는 항상 옅게). */
+  .mc__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, var(--color-ink) 12%, transparent);
+    background-color: color-mix(in oklab, var(--color-cream) 82%, transparent);
+    color: var(--color-ink);
+    cursor: pointer;
+    opacity: 0;
+    transition:
+      opacity 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .mc:hover .mc__arrow,
+  .mc:focus-within .mc__arrow {
+    opacity: 1;
+  }
+
+  .mc__arrow:hover {
+    background-color: var(--color-cream);
+  }
+
+  .mc__arrow svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .mc__arrow--prev {
+    left: 0.6rem;
+  }
+
+  .mc__arrow--next {
+    right: 0.6rem;
+  }
+
+  @media (hover: none) {
+    .mc__arrow {
+      opacity: 0.6;
+    }
+  }
+
+  .mc__dots {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    max-width: 90%;
+  }
+
+  .mc__dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    padding: 0;
+    border: 0;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--color-cream) 55%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-ink) 20%, transparent);
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .mc__dot[aria-current='true'] {
+    background-color: var(--color-coral);
+    transform: scale(1.2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mc__track {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // 미디어 캐러셀(자동 슬라이드 + 화살표/점) + YouTube 클릭재생. 페이지의 모든 인스턴스에 적용.
+  // hover/focus·탭 비활성 시 자동재생 정지, 동영상 재생 시작 시 영구 정지, prefers-reduced-motion 존중.
+  function initCarousel(root: HTMLElement) {
+    if (root.dataset.mcReady === 'true') return;
+    root.dataset.mcReady = 'true';
+
+    const track = root.querySelector<HTMLElement>('[data-mc-track]');
+    const slides = Array.from(
+      root.querySelectorAll<HTMLElement>('.mc__slide'),
+    );
+    const dots = Array.from(
+      root.querySelectorAll<HTMLButtonElement>('[data-mc-dot]'),
+    );
+    const prevBtn = root.querySelector<HTMLButtonElement>('[data-mc-prev]');
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-mc-next]');
+
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    const INTERVAL = 5000;
+    const multiple = !!track && slides.length > 1;
+    let index = 0;
+    let timer: number | undefined;
+    let locked = false; // 동영상 재생을 시작하면 자동 슬라이드 영구 정지(재생 보호).
+
+    const go = (to: number) => {
+      if (!track) return;
+      index = (to + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d, i) =>
+        i === index
+          ? d.setAttribute('aria-current', 'true')
+          : d.removeAttribute('aria-current'),
+      );
+      slides.forEach((s, i) =>
+        i === index
+          ? s.removeAttribute('aria-hidden')
+          : s.setAttribute('aria-hidden', 'true'),
+      );
+    };
+
+    const stop = () => {
+      if (timer !== undefined) {
+        window.clearInterval(timer);
+        timer = undefined;
+      }
+    };
+
+    const start = () => {
+      if (!multiple || reduceMotion || locked) return;
+      stop();
+      timer = window.setInterval(() => go(index + 1), INTERVAL);
+    };
+
+    if (multiple) {
+      prevBtn?.addEventListener('click', () => {
+        go(index - 1);
+        start();
+      });
+      nextBtn?.addEventListener('click', () => {
+        go(index + 1);
+        start();
+      });
+      dots.forEach((d, i) =>
+        d.addEventListener('click', () => {
+          go(i);
+          start();
+        }),
+      );
+
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+      root.addEventListener('focusin', stop);
+      root.addEventListener('focusout', start);
+      document.addEventListener('visibilitychange', () =>
+        document.hidden ? stop() : start(),
+      );
+
+      start();
+    }
+
+    // YouTube 썸네일 클릭 → autoplay iframe으로 교체. 자동 슬라이드는 영구 정지(영상 보호).
+    root.querySelectorAll<HTMLButtonElement>('[data-mc-yt]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-mc-yt');
+        if (!id) return;
+        locked = true;
+        stop();
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+        iframe.title = 'YouTube video player';
+        iframe.allow =
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        // 동적 생성 요소에는 Astro scoped 스타일이 적용되지 않으므로 인라인으로 슬롯을 꽉 채운다.
+        iframe.style.cssText =
+          'position:absolute;inset:0;width:100%;height:100%;border:0;display:block;';
+        btn.replaceWith(iframe);
+      });
+    });
+  }
+
+  document
+    .querySelectorAll<HTMLElement>('[data-mc-carousel]')
+    .forEach(initCarousel);
+</script>

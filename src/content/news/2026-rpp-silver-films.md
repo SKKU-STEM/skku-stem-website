@@ -11,6 +11,5 @@ links:
     label: IOP
   - href: "https://physicsworld.com/a/strain-engineered-single-crystal-silver-films/"
     label: Physics World
-photoCount: 0
 featured: true
 ---

@@ -1,9 +1,9 @@
 ---
 // News — 연구실 게시판 (논문/수상/이벤트/멤버 소식 등)
 // 데이터: src/content/news/*.md (Astro Content Collection)
-// 사진 업로드: src/assets/news/README.md 참고
+// 미디어(이미지/GIF/YouTube): frontmatter media[] → MediaCarousel, 업로드는 public/news-media/README.md 참고
 import BaseLayout from '@layouts/BaseLayout.astro';
-import NewsPhoto from '@components/NewsPhoto.astro';
+import MediaCarousel from '@components/MediaCarousel.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 type NewsEntry = CollectionEntry<'news'>['data'];
@@ -175,7 +175,6 @@ const years = Object.keys(byYear)
 
               <div class="space-y-10 md:space-y-14">
                 {byYear[year].map((entry) => {
-                  const count = entry.photoCount ?? 0;
                   return (
                     <article
                       id={`news-${entry.slug}`}
@@ -228,28 +227,13 @@ const years = Object.keys(byYear)
                         </p>
                       )}
 
-                      {/* Photos */}
-                      {count > 0 && (
-                        <div
-                          class:list={[
-                            'mt-5 grid gap-3',
-                            count === 1
-                              ? 'grid-cols-1'
-                              : 'grid-cols-2',
-                          ]}
-                        >
-                          {Array.from({ length: count }, (_, i) => (
-                            <NewsPhoto
-                              slug={entry.slug}
-                              index={i + 1}
-                              alt={`${entry.headline} — photo ${i + 1}`}
-                              class={
-                                count === 3 && i === 0
-                                  ? 'col-span-2'
-                                  : undefined
-                              }
-                            />
-                          ))}
+                      {/* Media (이미지/GIF/YouTube 캐러셀) */}
+                      {entry.media && entry.media.length > 0 && (
+                        <div class="mt-5 max-w-xl">
+                          <MediaCarousel
+                            media={entry.media}
+                            class="rounded-md border border-cream-300"
+                          />
                         </div>
                       )}
 

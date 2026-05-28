@@ -111,7 +111,16 @@ const news = defineCollection({
         })
       )
       .optional(),
-    photoCount: z.number().optional(),
+    // 이미지/GIF/YouTube 혼합 미디어 (MediaCarousel). image는 public 경로(/news-media/...), youtube는 URL/ID.
+    media: z
+      .array(
+        z.object({
+          image: z.string().optional(),
+          youtube: z.string().optional(),
+          alt: z.string().optional(),
+        })
+      )
+      .optional(),
     featured: z.boolean().optional(),
   }),
 });

@@ -240,7 +240,24 @@ collections:
         fields:
           - { name: href, label: URL, widget: string }
           - { name: label, label: Label, widget: string }
-      - { name: photoCount, label: Photo count, widget: number, value_type: int, required: false, default: 0 }
+      - name: media
+        label: Media (이미지/GIF 또는 YouTube)
+        widget: list
+        required: false
+        max: 8
+        summary: '{{fields.alt}}'
+        hint: '1개면 단일 표시, 2개 이상이면 캐러셀로 슬라이드된다.'
+        fields:
+          - name: image
+            label: Image / GIF
+            widget: image
+            required: false
+            media_folder: '/public/news-media'
+            public_folder: '/news-media'
+            choose_url: false
+            hint: 'public/news-media/에 업로드되며 경로는 /news-media/<filename>으로 저장된다. GIF도 원본 그대로 재생. YouTube를 쓰면 이미지는 비워둔다.'
+          - { name: youtube, label: YouTube URL, widget: string, required: false, hint: 'https://youtu.be/... 또는 watch?v=... — 입력하면 이 슬라이드는 이미지 대신 동영상으로 재생된다.' }
+          - { name: alt, label: Alt text (이미지 설명), widget: string, required: false }
       - { name: featured, label: Featured (Home/News 카드형), widget: boolean, default: false, required: false }
 
   # ===== Members (folder, .md frontmatter-only, 현 멤버 + Alumni 통합) =====
