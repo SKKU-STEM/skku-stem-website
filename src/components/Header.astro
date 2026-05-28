@@ -22,12 +22,32 @@ const isCurrent = (href: string): boolean => {
 
 <header class="sticky top-0 z-40 bg-cream/95 backdrop-blur-sm border-b border-ink/15">
   <div class="container-page h-16 flex items-center justify-between">
-    <a
-      href="/"
-      class="text-ink inline-flex items-center hover:text-coral transition-colors"
-    >
-      <Logo class="h-7 w-auto" />
-    </a>
+    <div class="flex items-center gap-3 sm:gap-3.5">
+      <a
+        href="https://www.skku.edu/skku/index.do"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center shrink-0"
+        aria-label="Sungkyunkwan University home"
+      >
+        {/* JPG라 흰 배경이 있지만, mix-blend-mode multiply로 크림 헤더에 자연스럽게 녹는다. */}
+        <img
+          src="/skku-emblem.jpg"
+          alt="Sungkyunkwan University"
+          width="40"
+          height="40"
+          class="h-9 w-auto"
+          style="mix-blend-mode: multiply;"
+        />
+      </a>
+      <span class="h-7 w-px bg-ink/20 shrink-0" aria-hidden="true"></span>
+      <a
+        href="/"
+        class="text-ink inline-flex items-center hover:text-coral transition-colors"
+      >
+        <Logo class="h-7 w-auto" />
+      </a>
+    </div>
 
     <div class="flex items-center gap-1 -mr-2">
       <nav class="hidden md:block mr-3" aria-label="Primary navigation">
