@@ -4,6 +4,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
 import HeroSlideshow from '@components/HeroSlideshow.astro';
+import HeroResearchInfographic from '@components/HeroResearchInfographic.astro';
 import ResearchHighlightCard from '@components/ResearchHighlightCard.astro';
 import heroData from '@content/home/hero.json';
 import researchFeaturedData from '@content/home/research-featured.json';
@@ -68,13 +69,8 @@ const highlights = skkuEntries
             properties of energy materials.
           </p>
 
-          <div class="mt-10">
-            <a
-              href="/research"
-              class="inline-flex items-center justify-center px-5 py-3 bg-ink text-cream rounded-md text-sm font-medium hover:bg-ink-700 transition-colors animate-breathe"
-            >
-              Explore research
-            </a>
+          <div class="mt-10 md:mt-12">
+            <HeroResearchInfographic />
           </div>
         </div>
 
@@ -96,7 +92,7 @@ const highlights = skkuEntries
         </div>
         <a
           href="/research"
-          class="cta-grad group inline-flex shrink-0 items-center gap-1.5 px-4 py-2.5 bg-ink text-cream rounded-md text-sm font-medium hover:bg-ink-700 transition-colors whitespace-nowrap"
+          class="cta-grad group inline-flex shrink-0 items-center gap-1.5 px-4 py-2.5 bg-ink text-cream rounded-md text-sm font-medium hover:bg-ink-700 transition-colors whitespace-nowrap animate-breathe"
         >
           <span class="cta-label">All research</span>
           <span
@@ -136,7 +132,7 @@ const highlights = skkuEntries
         </div>
         <a
           href="/publications"
-          class="cta-grad group inline-flex shrink-0 items-center gap-1.5 px-4 py-2.5 bg-ink text-cream rounded-md text-sm font-medium hover:bg-ink-700 transition-colors whitespace-nowrap"
+          class="cta-grad group inline-flex shrink-0 items-center gap-1.5 px-4 py-2.5 bg-ink text-cream rounded-md text-sm font-medium hover:bg-ink-700 transition-colors whitespace-nowrap animate-breathe"
         >
           <span class="cta-label">All publications</span>
           <span

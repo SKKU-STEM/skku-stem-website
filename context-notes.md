@@ -282,3 +282,21 @@ skkustem/
 - gallery.astro: `<MediaCarousel aspect="3 / 2" class="rounded-md ..." />`(갤러리 가로 비율 유지), `max-w-2xl`. totalPhotos = Σ media.length.
 - orphan 정리: `PhotoMosaic.astro` 삭제(내 변경으로 미사용화), `src/assets/gallery/`(README 포함) 제거. **`GalleryPhoto.astro`는 이번 변경 이전부터 어디서도 import 안 되는 dead code** — §3에 따라 삭제하지 않고 보존(미사용 .astro는 빌드에 포함 안 되어 무해). 추후 정리 대상으로 언급.
 - News/Gallery 공통: 여러 장이 그리드 → 캐러셀(슬라이드)로 표시 방식이 바뀜. 라이트박스(확대)는 제거됨(통일 trade-off).
+
+## 히어로 인포그래픽 + 버튼 애니메이션 (2026-05-28)
+
+- All research / All publications 버튼에 `animate-breathe`(global.css의 scale+코랄 후광 펄스) 추가. 기존 cta-grad(호버 시 코랄 그라디언트 글자)와 공존. 사용자 의도: Explore research와 같은 기능(→/research)이므로 같은 애니메이션 통일.
+- 히어로 'Explore research' 버튼은 All research와 기능 중복이라 삭제하고, 빈자리를 `src/components/HeroResearchInfographic.astro`(동적 인포그래픽)로 채움 — 시각적 유인 요소.
+- 인포그래픽 구성(순수 SVG + CSS 애니, viewBox 480×172): 좌측 원자 격자(hex 패턴) 위를 STEM 스캔 빔(coral 그라디언트 rect+line)이 좌우로 훑고(translateX 0→252px, alternate), ML 검출 링 3개가 sonar처럼 펄스(scale+opacity, transform-box:fill-box, delay 0/1/2s), image→spectrum 연결자, 우측 EELS 스펙트럼 polyline이 stroke-dashoffset로 자가 드로잉(alternate). 하단 HTML 레전드 3축(Microscopy/Spectroscopy/Machine learning, 코랄 dot). `prefers-reduced-motion` 시 전부 정지(스캔은 중앙, 스펙트럼은 완성, 링은 opacity 0.5).
+- SVG CSS transform translateX는 px=사용자단위로 해석되는 점에 의존(모던 브라우저). 좌표는 viewBox 기준.
+- 히어로 좌우 높이는 items-stretch라, 버튼→인포그래픽으로 좌측이 더 길어져도 우측 사진이 그 높이에 맞춰 늘어남(균형 유지).
+
+## 히어로 인포그래픽 재설계: 은유적 아이콘 3개 (2026-05-28)
+
+- 사실적 1장면(원자격자+스캔빔+EELS)은 너무 literal하다는 피드백 → `HeroResearchInfographic.astro`를 **3개 아이콘 타일**로 재설계. 각 타일 = 애니메이션 SVG 아이콘 + 레전드.
+  - Microscopy: 코랄 링이 중심 원자로 반복해 좁혀짐(`ico-focus` scale 1.9→0.28, 초점 맞춤 은유) + 정적 reticle 틱.
+  - Spectroscopy: 스펙트럼 막대 5개가 미세하게 오르내림(`ico-bar` scaleY, transform-origin:bottom, stagger). 중앙 peak 프로파일.
+  - Machine learning: 좌3·우2 노드가 좌→우 펄스(`ico-node` scale, delay로 순전파 느낌) + 연결선 dash 흐름(`ico-flow`).
+- 색은 SVG presentation 속성에 var() 안 먹으므로 Tailwind 유틸 클래스(`fill-coral`/`stroke-ink` 등) 사용(기존 패턴). scale 애니는 `transform-box: fill-box; transform-origin: center/bottom`.
+- `prefers-reduced-motion`: 전부 정지(focus 링은 mid-scale, 막대/노드 정지, 링크 dash 해제).
+- 히어로 사진: object-fit cover(좌우 잘림) → **contain + object-position:top**으로 전체 표시. 남는 하단 공간은 뷰포트 배경 그라디언트(위 cream→아래 ink)로 어둡게, 캡션 오버레이 스크림도 진하게(ink 90%)·높게(padding-top 4rem), 캡션 1.05rem(+31%)로 키움.

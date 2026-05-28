@@ -189,5 +189,13 @@
 - [x] orphan 제거: `PhotoMosaic.astro`, `src/assets/gallery/`(README 포함). `GalleryPhoto.astro`는 **기존부터 미사용**(dead code)이라 보존·언급만
 - [x] `public/gallery-media/README.md` 새 안내
 - [x] `npm run check` 0/0/0 / `npm run build` 통과 (gallery 52 캐러셀 + 137 이미지 + 헤더 52 events/137 photos 확인)
-- [ ] (시각 확인) 로컬 `npm run dev`로 News·Gallery 캐러셀 확인
+- [x] (배포 완료) commit 7572a25(News) + fd5bf03(Gallery) → push
+
+## 10. 히어로 인포그래픽 + 버튼 애니메이션 (2026-05-28)
+
+- [x] All research / All publications 버튼에 `animate-breathe`(숨쉬는 펄스) 추가 — Explore research와 동일 효과
+- [x] 히어로 'Explore research' 버튼 삭제 (= All research와 기능 중복) → 동적 인포그래픽으로 대체
+- [x] `src/components/HeroResearchInfographic.astro` — 처음엔 사실적 1장면(격자+스캔빔+EELS)으로 만들었으나, 사용자 요청으로 **은유적 아이콘 3개**로 재설계: Microscopy(초점 좁히는 조준 링)·Spectroscopy(살아있는 스펙트럼 막대)·Machine learning(펄스+신호흐름 뉴럴넷). SVG/CSS 애니, `prefers-reduced-motion` 정지
+- [x] `npm run check` 0/0/0 / `npm run build` 통과 (Explore research 제거·인포그래픽·animate-breathe 3개 확인)
+- [ ] (시각 확인) 로컬 `npm run dev`로 인포그래픽 애니메이션 확인
 - [ ] (배포) git push → Cloudflare Pages 라이브 반영 — 사용자 승인 후

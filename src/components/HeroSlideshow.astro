@@ -165,7 +165,15 @@ const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
     width: 100%;
     height: 100%;
     border-radius: var(--radius-lg);
-    background-color: color-mix(in oklab, var(--color-cream-200) 60%, transparent);
+    /* 사진은 contain+top 정렬이라 남는 공간은 하단에 생긴다. 그 빈 영역이 진한 색이 되도록
+       위→아래로 cream에서 ink로 떨어지는 그라디언트 배경(캡션 가독성 확보). */
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-cream-200) 60%, transparent) 0%,
+      color-mix(in oklab, var(--color-cream-200) 55%, transparent) 48%,
+      color-mix(in oklab, var(--color-ink) 78%, transparent) 86%,
+      color-mix(in oklab, var(--color-ink) 92%, transparent) 100%
+    );
   }
 
   /* 데스크톱(2열): 좌측 텍스트 칼럼 높이에 맞춰 사진이 꽉 차도록 — 고정 비율 대신 높이 100%. */
@@ -195,7 +203,8 @@ const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
   .hero-carousel__img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: top center;
   }
 
   /* 좌우 화살표 — 평소엔 숨고 hover/focus 시 노출, 터치 기기에선 항상 옅게 노출. */
@@ -257,12 +266,12 @@ const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
     align-items: flex-end;
     justify-content: space-between;
     gap: 1rem;
-    padding: 2.5rem 1.1rem 0.9rem;
+    padding: 4rem 1.25rem 1rem;
     background: linear-gradient(
       to top,
-      color-mix(in oklab, var(--color-ink) 72%, transparent),
-      color-mix(in oklab, var(--color-ink) 30%, transparent) 45%,
-      transparent
+      color-mix(in oklab, var(--color-ink) 90%, transparent) 0%,
+      color-mix(in oklab, var(--color-ink) 62%, transparent) 38%,
+      transparent 72%
     );
     pointer-events: none;
   }
@@ -272,11 +281,11 @@ const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
   }
 
   .hero-carousel__caption {
-    font-size: 0.8rem;
+    font-size: 1.05rem;
     font-style: italic;
-    line-height: 1.4;
-    color: color-mix(in oklab, var(--color-cream) 90%, transparent);
-    text-shadow: 0 1px 3px rgba(20, 20, 19, 0.45);
+    line-height: 1.35;
+    color: var(--color-cream);
+    text-shadow: 0 1px 4px rgba(20, 20, 19, 0.55);
   }
 
   .hero-carousel__dots {

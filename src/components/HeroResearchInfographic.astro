@@ -1,0 +1,213 @@
+---
+// 홈 히어로 좌측 하단을 채우는 아이콘 인포그래픽 — 연구실 3대 축을 은유적으로 형상화한 애니메이션.
+// Microscopy(원자에 초점 맞추는 링) · Spectroscopy(살아있는 스펙트럼 막대) · Machine learning(신호 흐르는 뉴럴넷).
+// 순수 SVG + CSS 애니메이션. prefers-reduced-motion 시 정지 상태로 표시.
+---
+
+<figure
+  class="hero-icons"
+  aria-label="Research approach — microscopy, spectroscopy, and machine learning"
+>
+  <ul class="hero-icons__grid">
+    {/* ── Microscopy — 원자에 초점이 맞춰지는 조준 링 ── */}
+    <li class="hero-icons__tile">
+      <svg viewBox="0 0 64 64" class="hero-icons__svg" aria-hidden="true">
+        <g class="stroke-ink" stroke-width="1.4" opacity="0.28" stroke-linecap="round">
+          <line x1="32" y1="6" x2="32" y2="13" />
+          <line x1="32" y1="51" x2="32" y2="58" />
+          <line x1="6" y1="32" x2="13" y2="32" />
+          <line x1="51" y1="32" x2="58" y2="32" />
+        </g>
+        <circle cx="32" cy="32" r="19" fill="none" class="stroke-ink" stroke-width="1.4" opacity="0.22" />
+        <circle class="ico-focus stroke-coral" cx="32" cy="32" r="19" fill="none" stroke-width="1.8" />
+        <circle cx="32" cy="32" r="3.2" class="fill-coral" />
+      </svg>
+      <span class="hero-icons__label">Microscopy</span>
+    </li>
+
+    {/* ── Spectroscopy — 살아 움직이는 스펙트럼 막대 ── */}
+    <li class="hero-icons__tile">
+      <svg viewBox="0 0 64 64" class="hero-icons__svg" aria-hidden="true">
+        <line x1="9" y1="50" x2="55" y2="50" class="stroke-ink" stroke-width="1.3" opacity="0.25" stroke-linecap="round" />
+        <g class="fill-coral">
+          <rect class="ico-bar ico-bar--1" x="13" y="38" width="4.6" height="12" rx="1.6" />
+          <rect class="ico-bar ico-bar--2" x="22" y="28" width="4.6" height="22" rx="1.6" />
+          <rect class="ico-bar ico-bar--3" x="31" y="17" width="4.6" height="33" rx="1.6" />
+          <rect class="ico-bar ico-bar--4" x="40" y="30" width="4.6" height="20" rx="1.6" />
+          <rect class="ico-bar ico-bar--5" x="49" y="36" width="4.6" height="14" rx="1.6" />
+        </g>
+      </svg>
+      <span class="hero-icons__label">Spectroscopy</span>
+    </li>
+
+    {/* ── Machine learning — 신호가 흐르는 뉴럴 네트워크 ── */}
+    <li class="hero-icons__tile">
+      <svg viewBox="0 0 64 64" class="hero-icons__svg" aria-hidden="true">
+        <g class="ico-links stroke-coral" stroke-width="1.1" opacity="0.4">
+          <line x1="17" y1="18" x2="47" y2="25" />
+          <line x1="17" y1="18" x2="47" y2="39" />
+          <line x1="17" y1="32" x2="47" y2="25" />
+          <line x1="17" y1="32" x2="47" y2="39" />
+          <line x1="17" y1="46" x2="47" y2="25" />
+          <line x1="17" y1="46" x2="47" y2="39" />
+        </g>
+        <g class="fill-coral">
+          <circle class="ico-node ico-node--a" cx="17" cy="18" r="3.4" />
+          <circle class="ico-node ico-node--a" cx="17" cy="32" r="3.4" />
+          <circle class="ico-node ico-node--a" cx="17" cy="46" r="3.4" />
+          <circle class="ico-node ico-node--b" cx="47" cy="25" r="3.4" />
+          <circle class="ico-node ico-node--b" cx="47" cy="39" r="3.4" />
+        </g>
+      </svg>
+      <span class="hero-icons__label">Machine learning</span>
+    </li>
+  </ul>
+</figure>
+
+<style>
+  .hero-icons {
+    margin: 0;
+  }
+
+  .hero-icons__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-icons__tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1.1rem 0.5rem 0.9rem;
+    border: 1px solid var(--color-cream-300);
+    border-radius: var(--radius-lg);
+    background-color: color-mix(in oklab, var(--color-cream-200) 45%, transparent);
+    transition:
+      border-color 0.25s ease,
+      background-color 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .hero-icons__tile:hover {
+    border-color: color-mix(in oklab, var(--color-coral) 40%, transparent);
+    background-color: color-mix(in oklab, var(--color-cream-200) 70%, transparent);
+    transform: translateY(-2px);
+  }
+
+  .hero-icons__svg {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .hero-icons__label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    color: color-mix(in oklab, var(--color-ink) 68%, transparent);
+  }
+
+  /* Microscopy — 코랄 링이 중심 원자로 반복해 좁혀지며 초점 맞춤 */
+  .ico-focus {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ico-focus 3s ease-out infinite;
+  }
+  @keyframes ico-focus {
+    0% {
+      transform: scale(1.9);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(0.28);
+      opacity: 0;
+    }
+  }
+
+  /* Spectroscopy — 막대들이 스펙트럼처럼 미세하게 오르내림 */
+  .ico-bar {
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: ico-bar 1.5s ease-in-out infinite alternate;
+  }
+  .ico-bar--1 {
+    animation-delay: 0s;
+  }
+  .ico-bar--2 {
+    animation-delay: 0.35s;
+  }
+  .ico-bar--3 {
+    animation-delay: 0.15s;
+  }
+  .ico-bar--4 {
+    animation-delay: 0.5s;
+  }
+  .ico-bar--5 {
+    animation-delay: 0.25s;
+  }
+  @keyframes ico-bar {
+    from {
+      transform: scaleY(0.65);
+    }
+    to {
+      transform: scaleY(1.05);
+    }
+  }
+
+  /* Machine learning — 노드가 좌→우로 펄스(순전파), 연결선엔 신호가 흐름 */
+  .ico-node {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ico-node 2.4s ease-in-out infinite;
+  }
+  .ico-node--b {
+    animation-delay: 0.5s;
+  }
+  @keyframes ico-node {
+    0%,
+    55%,
+    100% {
+      transform: scale(1);
+      opacity: 0.85;
+    }
+    20% {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+  }
+
+  .ico-links {
+    stroke-dasharray: 4 6;
+    animation: ico-flow 1.3s linear infinite;
+  }
+  @keyframes ico-flow {
+    to {
+      stroke-dashoffset: -10;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ico-focus {
+      animation: none;
+      transform: scale(0.62);
+      opacity: 0.65;
+    }
+    .ico-bar,
+    .ico-node {
+      animation: none;
+    }
+    .ico-links {
+      animation: none;
+      stroke-dasharray: none;
+    }
+  }
+</style>
