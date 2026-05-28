@@ -112,7 +112,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
     {/* ─────────────── PI feature card ─────────────── */}
     <section class="container-page">
       <div
-        class="grid md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-8 md:gap-12 items-start border border-ink/15 p-6 md:p-10 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft"
+        class="lift-card grid md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-8 md:gap-12 items-start rounded-lg border border-cream-300 p-6 md:p-10"
       >
         <Image
           src={piPortrait}
@@ -203,7 +203,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           postdocs.map((m) => (
-            <li class="border border-ink/15 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft">
+            <li class="lift-card rounded-lg border border-cream-300 p-6">
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -266,7 +266,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           phdCandidates.map((m) => (
-            <li class="border border-ink/15 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft">
+            <li class="lift-card rounded-lg border border-cream-300 p-6">
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -334,7 +334,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           undergrads.map((m) => (
-            <li class="border border-ink/15 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft">
+            <li class="lift-card rounded-lg border border-cream-300 p-6">
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -399,7 +399,7 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
         <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           alumni.map((a) => (
-            <li class="border border-ink/15 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/40 hover:shadow-soft">
+            <li class="lift-card rounded-lg border border-cream-300 p-6">
               <div class="grid grid-cols-[1fr_auto] gap-4 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-base font-normal leading-tight">

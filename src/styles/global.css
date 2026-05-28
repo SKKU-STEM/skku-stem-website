@@ -192,3 +192,65 @@
     gap: var(--space-section-md);
   }
 }
+
+/* ─────────────── Card hover effects ─────────────── */
+/* .lift-card — 카드가 살짝 떠오르며 코랄 보더 + 3단 코랄 글로우 그림자.
+   ResearchHighlightCard에서 시작된 패턴을 사이트 전반의 카드(People, Research themes)로 통일. */
+.lift-card {
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.lift-card:hover,
+.lift-card:focus-within {
+  transform: translateY(-6px);
+  border-color: color-mix(in oklab, var(--color-coral) 45%, transparent);
+  box-shadow:
+    0 8px 18px -8px rgba(204, 120, 92, 0.5),
+    0 22px 44px -14px rgba(204, 120, 92, 0.32),
+    0 10px 24px rgba(20, 20, 19, 0.1);
+}
+
+/* .lift-row — list 행 변형. divide-y 라인과 공존하며 hover 시 코랄 그라디언트 배경 + 글로우 그림자.
+   Publications의 주저자/교신저자 논문 행에 카드처럼 부각 효과 부여. */
+.lift-row {
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-image 0.25s ease;
+}
+
+.lift-row:hover,
+.lift-row:focus-within {
+  transform: translateY(-3px);
+  border-color: color-mix(in oklab, var(--color-coral) 40%, transparent);
+  background-image: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-coral) 8%, transparent),
+    color-mix(in oklab, var(--color-coral) 2%, transparent) 70%
+  );
+  box-shadow:
+    0 8px 18px -8px rgba(204, 120, 92, 0.45),
+    0 18px 36px -14px rgba(204, 120, 92, 0.28),
+    0 8px 20px rgba(20, 20, 19, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lift-card,
+  .lift-row {
+    transition: none;
+  }
+  .lift-card:hover,
+  .lift-card:focus-within,
+  .lift-row:hover,
+  .lift-row:focus-within {
+    transform: none;
+  }
+}

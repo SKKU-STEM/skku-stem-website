@@ -22,7 +22,7 @@ const { eyebrow, title, summary, link, media = [] } = Astro.props;
 const isExternal = /^https?:\/\//.test(link);
 ---
 
-<article class="rh-card group relative flex flex-col rounded-lg border border-cream-300 bg-cream-200/60 transition-all duration-300">
+<article class="lift-card group relative flex flex-col rounded-lg border border-cream-300 bg-cream-200/60">
   <MediaCarousel media={media} class="rounded-t-lg" />
 
   <div class="flex flex-1 flex-col p-6 md:p-7">
@@ -53,29 +53,3 @@ const isExternal = /^https?:\/\//.test(link);
   </div>
 </article>
 
-<style>
-  /* 카드 — 호버 시 위로 살짝 떠오르며 코랄 그라디언트 글로우 그림자 + 코랄 보더. */
-  .rh-card {
-    box-shadow: var(--shadow-soft);
-  }
-
-  .rh-card:hover,
-  .rh-card:focus-within {
-    transform: translateY(-6px);
-    border-color: color-mix(in oklab, var(--color-coral) 45%, transparent);
-    box-shadow:
-      0 8px 18px -8px rgba(204, 120, 92, 0.5),
-      0 22px 44px -14px rgba(204, 120, 92, 0.32),
-      0 10px 24px rgba(20, 20, 19, 0.1);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .rh-card {
-      transition: none;
-    }
-    .rh-card:hover,
-    .rh-card:focus-within {
-      transform: none;
-    }
-  }
-</style>

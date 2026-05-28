@@ -133,7 +133,12 @@ const maxYear = Math.max(...years);
 
               <ol class="divide-y divide-ink/15">
                 {byYear[year].map((p) => (
-                  <li class="py-3 grid grid-cols-[2.5rem_1fr] gap-x-4">
+                  <li
+                    class:list={[
+                      'grid grid-cols-[2.5rem_1fr] gap-x-4',
+                      p.lead ? 'lift-row py-3 px-3 -mx-3' : 'py-3',
+                    ]}
+                  >
                     <span
                       class:list={[
                         'font-mono text-sm tabular-nums text-right pt-0.5',
