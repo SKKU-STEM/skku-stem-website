@@ -306,3 +306,9 @@ skkustem/
 - `scripts/generate-admin-manual.py`(reportlab, Malgun 폰트)로 `docs/SKKU-STEM_Admin_Manual.pdf` 생성. 재생성 명령: `python scripts/generate-admin-manual.py`(프로젝트 루트에서, reportlab 필요).
 - 최근 CMS 변경 반영하여 v1.0→v1.1 갱신: (1) 컬렉션 표에 **Home**(Hero 슬라이드 + Research highlights) 추가, 사이드바 11개 항목으로 정정, (2) "공통 — 미디어 입력" 섹션 신설(이미지/GIF/YouTube 리스트, 캐러셀, 구 photoCount/slug-N/git push 폐지 명시), (3) **5.0 Home** 섹션 신설, (4) News 필드표·cheat sheet의 photoCount → media, (5) Gallery 5.8을 CMS 직접 업로드로 재작성, (6) quick-ref ⑤ 갱신. Facilities는 photoCount 유지(스키마 변경 안 함)이라 그대로 둠.
 - `docs/skill-build/`(skku-report-pdf / skku-report-docx 스킬 소스 + .skill 패키지, 폰트 포함 ~4.7MB)는 사용자 결정으로 저장소에 커밋.
+
+## 모바일 히어로 헤드라인 오버플로 수정 (2026-05-28)
+
+- 라이브 모바일(390px) 점검에서 히어로 `h1` "Decoding matter,"가 강제 한 줄(`<br>`)+`text-[3.5rem]`(56px)이라 우측으로 넘쳐 잘리는 문제 발견(이번 변경과 무관한 기존 이슈, 360px에서 더 심함).
+- 수정: 모바일 글자 크기 `text-[3.5rem]` → `text-[2.5rem]`(40px). `md:text-6xl lg:text-7xl`은 그대로. 로컬 preview 390px 캡처로 한 줄 정상 수용 확인.
+- 점검 방법: Windows Edge 헤드리스 스크린샷(`msedge --headless=new --window-size=390,H --screenshot`)으로 라이브/로컬 모바일 렌더 캡처 후 확인. News·Gallery·Research highlights·인포그래픽은 모바일 정상.
