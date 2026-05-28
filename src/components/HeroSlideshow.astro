@@ -83,6 +83,21 @@ const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
               />
             </li>
           ))}
+          {multiple && (
+            /* 첫 슬라이드 클론 — 마지막→첫 wrap 시에도 R→L 방향을 유지하기 위해 끝에 한 장 더 둔다.
+               도달 직후 transition 없이 pos=0으로 스냅하면 시각적으로 끊김 없는 무한 루프. */
+            <li class="hero-carousel__slide" aria-hidden="true" data-hero-clone>
+              <Image
+                src={resolved[0].img}
+                alt=""
+                widths={[800, 1200, 1600]}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                format="webp"
+                loading="lazy"
+                class="hero-carousel__img"
+              />
+            </li>
+          )}
         </ul>
 
         {multiple && (
@@ -322,11 +337,15 @@ const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
 </style>
 
 <script>
-  // 가로 슬라이드 + 자동재생 컨트롤러. 슬라이드가 2장 이상일 때만 동작.
+  // 가로 슬라이드 + 자동재생 — 자동재생은 항상 R→L 방향. 끝에 첫 슬라이드 클론을 두고,
+  // 클론 도달 직후 transition 없이 pos=0으로 스냅해서 무한 루프 동안 방향 일관성 유지.
   function initCarousel(root: HTMLElement) {
     const track = root.querySelector<HTMLElement>('[data-hero-track]');
-    const slides = Array.from(
+    const allSlides = Array.from(
       root.querySelectorAll<HTMLElement>('.hero-carousel__slide'),
+    );
+    const slides = allSlides.filter(
+      (s) => !s.hasAttribute('data-hero-clone'),
     );
     const dots = Array.from(
       root.querySelectorAll<HTMLButtonElement>('[data-hero-dot]'),
@@ -338,29 +357,74 @@ const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
     if (!track || slides.length <= 1) return;
 
     const count = slides.length;
+    const hasClone = allSlides.length > count;
     const reduceMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches;
     const INTERVAL = 5000;
-    let index = 0;
+    // pos = 트랙의 현재 위치(0..count). count는 클론(=slide 0와 동일 시각) 자리.
+    let pos = 0;
     let timer: number | undefined;
 
-    function go(to: number) {
-      index = (to + count) % count;
-      track!.style.transform = `translateX(-${index * 100}%)`;
+    function updateLogical(logical: number) {
       dots.forEach((d, i) =>
-        i === index
+        i === logical
           ? d.setAttribute('aria-current', 'true')
           : d.removeAttribute('aria-current'),
       );
       slides.forEach((s, i) =>
-        i === index
+        i === logical
           ? s.removeAttribute('aria-hidden')
           : s.setAttribute('aria-hidden', 'true'),
       );
       if (caption) {
-        const cap = slides[index].getAttribute('data-caption') ?? '';
+        const cap = slides[logical].getAttribute('data-caption') ?? '';
         caption.textContent = cap ? `— ${cap}` : '';
+      }
+    }
+
+    function setPos(p: number) {
+      pos = p;
+      track!.style.transform = `translateX(-${pos * 100}%)`;
+      // 클론 위치(p === count)는 시각적으로 slide 0과 같으므로 logical 인덱스도 0.
+      updateLogical(pos === count ? 0 : pos);
+    }
+
+    // 클론으로 애니메이션이 끝난 직후, 트랜지션 없이 pos=0으로 스냅.
+    track.addEventListener('transitionend', (e) => {
+      if (e.propertyName !== 'transform') return;
+      if (hasClone && pos === count) {
+        track!.style.transition = 'none';
+        track!.style.transform = 'translateX(0)';
+        void track!.offsetWidth; // 강제 reflow로 무전환 변경 commit
+        track!.style.transition = '';
+        pos = 0;
+      }
+    });
+
+    function next() {
+      // 보호: 어쩌다 pos가 클론에 머물러 있으면 0으로 무전환 리셋 후 진행.
+      if (pos >= count) {
+        track!.style.transition = 'none';
+        track!.style.transform = 'translateX(0)';
+        void track!.offsetWidth;
+        track!.style.transition = '';
+        pos = 0;
+      }
+      setPos(pos + 1);
+    }
+
+    function prev() {
+      if (pos === 0) {
+        // 0에서 뒤로: 클론 자리(=slide 0과 동일 시각)로 무전환 점프 → count-1로 L→R 애니메이션.
+        track!.style.transition = 'none';
+        track!.style.transform = `translateX(-${count * 100}%)`;
+        void track!.offsetWidth;
+        track!.style.transition = '';
+        pos = count;
+        requestAnimationFrame(() => setPos(count - 1));
+      } else {
+        setPos(pos - 1);
       }
     }
 
@@ -374,20 +438,20 @@ const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
     function start() {
       if (reduceMotion) return;
       stop();
-      timer = window.setInterval(() => go(index + 1), INTERVAL);
+      timer = window.setInterval(next, INTERVAL);
     }
 
     prevBtn?.addEventListener('click', () => {
-      go(index - 1);
+      prev();
       start();
     });
     nextBtn?.addEventListener('click', () => {
-      go(index + 1);
+      next();
       start();
     });
     dots.forEach((d, i) =>
       d.addEventListener('click', () => {
-        go(i);
+        setPos(i);
         start();
       }),
     );
@@ -400,7 +464,7 @@ const hasAnyCaption = resolved.some((s) => Boolean(s.caption));
       document.hidden ? stop() : start(),
     );
 
-    go(0);
+    setPos(0);
     start();
   }
 
