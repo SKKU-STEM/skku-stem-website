@@ -1,6 +1,5 @@
 ---
-order: 11
-year: 2022
+date: 2022-01-04
 title: Mechanism for ion enhanced polarization in doped HfO2
 summary: A multimodal investigation based on microscopy and spectroscopy showed that ferroelectric properties improve when films of hafnium oxide are bombarded with a beam of helium ions.
 journal: Science

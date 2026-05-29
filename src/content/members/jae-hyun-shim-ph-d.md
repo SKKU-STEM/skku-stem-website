@@ -1,6 +1,5 @@
 ---
 section: alumni
-order: 29
 nameKo: 심재현 교수
 nameEn: Jae-Hyun Shim, Ph.D.
 position: ''

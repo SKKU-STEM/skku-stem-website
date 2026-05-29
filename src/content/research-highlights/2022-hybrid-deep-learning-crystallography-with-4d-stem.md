@@ -1,6 +1,5 @@
 ---
-order: 12
-year: 2022
+date: 2022-01-03
 title: Hybrid deep learning crystallography with 4D-STEM
 summary: Deep learning crystallographic analysis unequivocally addresses structure problems for sub-10 nm polycrystalline hafnium zirconium oxide thin films.
 journal: Small

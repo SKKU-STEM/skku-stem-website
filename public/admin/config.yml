@@ -282,17 +282,30 @@ collections:
     slug: '{{nameEn}}'
     identifier_field: nameEn
     summary: '[{{section}}] {{nameKo}} ({{nameEn}})'
+    # 현 멤버는 입학일(startDate) 오름차순, Alumni는 졸업연도 최신순으로 사이트가 자동 정렬한다.
+    sortable_fields:
+      fields: [startDate, nameEn, section]
+      default:
+        field: startDate
+        direction: ascending
     fields:
       - name: section
         label: Section
         widget: select
         options: [postdoc, phd, undergrad, alumni]
-      - { name: order, label: Order (낮을수록 위), widget: number, value_type: int }
+      - name: startDate
+        label: 입학 연·월 (현 멤버 — 정렬·연차·기수 자동 계산)
+        widget: datetime
+        date_format: 'YYYY-MM'
+        time_format: false
+        picker_utc: true
+        required: false
+        hint: '현 멤버(Postdoc/Ph.D./Undergrad)만 입력. 입학연도가 1년차이고, 학생은 입학 후 6개월마다 1기씩 늘어난 총 기수가 카드에 자동 표시된다. Alumni는 비우고 Role의 종료연도로 정렬된다.'
       - { name: nameKo, label: Name (KO), widget: string }
       - { name: nameEn, label: Name (EN), widget: string }
       - { name: position, label: Position (현 멤버), widget: string, required: false }
       - { name: program, label: Program (현 멤버), widget: string, required: false, hint: '예: Integrated course / Ph.D. course' }
-      - { name: yearRange, label: Year range, widget: string, required: false, hint: '예: 2021–present' }
+      - { name: yearRange, label: Year range (Postdoc 등 종료연도 있는 경우만), widget: string, required: false, hint: '예: 2020–2026. 학생은 비우면 startDate에서 "입학연도–present"가 자동 표시된다.' }
       - { name: email, label: Email, widget: string, required: false }
       - { name: orcid, label: ORCID, widget: string, required: false }
       - { name: kri, label: KRI ID, widget: string, required: false }
@@ -349,12 +362,23 @@ collections:
     format: yaml-frontmatter
     create: true
     delete: true
-    slug: '{{year}}-{{title}}'
+    slug: "{{fields.date | date('YYYY')}}-{{title}}"
     identifier_field: title
-    summary: '[{{year}}] {{title}}'
+    summary: "{{fields.date | date('YYYY')}} · {{title}}"
+    # 타임라인은 발행 날짜 최신순으로 자동 정렬 — order 없이 date만 채우면 된다.
+    sortable_fields:
+      fields: [date, title]
+      default:
+        field: date
+        direction: descending
     fields:
-      - { name: order, label: Order (낮을수록 위 / 보통 최신=0), widget: number, value_type: int }
-      - { name: year, label: Year, widget: number, value_type: int }
+      - name: date
+        label: Date (발행 연·월 — 최신순 자동 정렬)
+        widget: datetime
+        date_format: 'YYYY-MM'
+        time_format: false
+        picker_utc: true
+        hint: '연도+월만 입력. 같은 해 안의 순서는 월로 결정된다(월·일은 카드에 표시되지 않음).'
       - { name: title, label: Title, widget: string }
       - { name: summary, label: Summary, widget: text }
       - { name: journal, label: Journal, widget: string }

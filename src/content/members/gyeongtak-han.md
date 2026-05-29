@@ -1,6 +1,5 @@
 ---
 section: alumni
-order: 28
 nameKo: 한경탁
 nameEn: Gyeongtak Han
 position: ''

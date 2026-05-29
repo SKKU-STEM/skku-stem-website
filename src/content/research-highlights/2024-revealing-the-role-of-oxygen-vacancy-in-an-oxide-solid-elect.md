@@ -1,6 +1,5 @@
 ---
-order: 3
-year: 2024
+date: 2024-01-02
 title: Revealing the role of oxygen vacancy in an oxide solid electrolyte
 summary: The hidden role of the oxygen vacancy (V_O) in facilitating Li-ion transport in lithium lanthanum titanate solid electrolytes was unveiled. The V_O is directionally interconnected to form a 2D network parallel to the c-plane.
 journal: ACS Energy Letters

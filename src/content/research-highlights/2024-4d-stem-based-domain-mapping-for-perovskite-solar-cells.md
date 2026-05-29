@@ -1,6 +1,5 @@
 ---
-order: 4
-year: 2024
+date: 2024-01-01
 title: 4D STEM-based domain mapping for perovskite solar cells
 summary: 4D STEM-based crystallographic domain mapping unfolded the mystery of aging-induced efficiency improvement of perovskite solar cells, revealing that aging can induce partial lattice strain relaxation.
 journal: ACS Energy Letters

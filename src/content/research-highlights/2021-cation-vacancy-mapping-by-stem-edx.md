@@ -1,6 +1,5 @@
 ---
-order: 18
-year: 2021
+date: 2021-01-01
 title: "Cation vacancy mapping by STEM-EDX"
 summary: "STEM-EDX chemical mapping provides an atomic-level picture of what truly occurs with cation vacancies at an oxide interface — Sr and Ti vacancies in SrTiO3 film and Nb ions diffused from a Nb:SrTiO3 substrate."
 journal: Materials Today Physics

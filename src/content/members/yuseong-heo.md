@@ -1,6 +1,5 @@
 ---
 section: alumni
-order: 20
 nameKo: 허유성
 nameEn: Yuseong Heo
 position: ''

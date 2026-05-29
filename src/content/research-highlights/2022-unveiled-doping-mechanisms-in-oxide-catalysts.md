@@ -1,6 +1,5 @@
 ---
-order: 14
-year: 2022
+date: 2022-01-01
 title: Unveiled doping mechanisms in oxide catalysts
 summary: Electron microscopy and spectroscopy combined with theoretical modeling can directly resolve the site-specific doping phenomena of transition metals in SnO2 nanoparticles.
 journal: Applied Catalysis B-Environmental

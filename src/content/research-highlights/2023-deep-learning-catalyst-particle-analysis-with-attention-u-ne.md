@@ -1,6 +1,5 @@
 ---
-order: 7
-year: 2023
+date: 2023-01-03
 title: Deep learning catalyst particle analysis with Attention U-Net
 summary: Proposes a rapid, automated, and reliable analytical method for the morphological distribution of Pt-based electrocatalyst nanoparticles using deep learning processing.
 journal: Materials Today Energy

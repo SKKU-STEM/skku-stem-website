@@ -1,6 +1,5 @@
 ---
-order: 1
-year: 2026
+date: 2026-01-01
 title: A machine learning solution for electrode characterization
 summary: Machine learning-driven electron spectroscopic imaging (ESI) approach enables nanoscale visualization and statistical analysis of structural degradation in PEMFC electrodes.
 journal: 'Applied Catalysis B: Environment and Energy'

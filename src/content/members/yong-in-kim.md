@@ -1,6 +1,5 @@
 ---
 section: alumni
-order: 23
 nameKo: 김용인
 nameEn: Yong In Kim
 position: ''

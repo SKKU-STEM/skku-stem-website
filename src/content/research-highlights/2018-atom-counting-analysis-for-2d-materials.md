@@ -1,6 +1,5 @@
 ---
-order: 22
-year: 2018
+date: 2018-01-03
 title: Atom counting analysis for 2D materials
 summary: "Investigates the hitherto unsolved conundrum of how organic chemicals can heal chalcogen vacancies in MoS2 monolayer at the atomic scale, observing chalcogen vacancy healing by an organic molecule."
 journal: Nano Letters

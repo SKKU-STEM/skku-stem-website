@@ -1,6 +1,5 @@
 ---
-order: 0
-year: 2026
+date: 2026-01-02
 title: A growth mechanism for grain-boundary-free ultraflat silver thin films
 summary: STEM revealed a feasible mechanism for a breakthrough in metal thin-film epitaxy, enabling wafer-scale growth of atomically flat, grain-boundary-free Ag films on Cu buffers with a 13% lattice mismatch.
 journal: Reports on Progress in Physics

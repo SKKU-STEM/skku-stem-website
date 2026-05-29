@@ -1,6 +1,5 @@
 ---
 section: alumni
-order: 21
 nameKo: 최민영
 nameEn: Min-Yeong Choi
 position: ''

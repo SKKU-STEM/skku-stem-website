@@ -1,6 +1,5 @@
 ---
-order: 13
-year: 2022
+date: 2022-01-02
 title: Superb oxidation resistance of Cu uncovered by electron microscopy
 summary: Comprehensive atomic-resolution microscopy revealed that wafer-scale Cu(111) single-crystal thin films free of multilayer step edges show a semi-permanent oxidation resistance.
 journal: Nature

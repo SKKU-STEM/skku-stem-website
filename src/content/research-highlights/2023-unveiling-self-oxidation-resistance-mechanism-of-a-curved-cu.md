@@ -1,6 +1,5 @@
 ---
-order: 6
-year: 2023
+date: 2023-01-04
 title: Unveiling self-oxidation resistance mechanism of a curved Cu surface
 summary: Pico-scale precision electron microscopy revealed that porous copper nanostructures self-regulate giant oxidation resistance by constructing a curved surface that generates a series of monoatomic steps.
 journal: Advanced Materials

@@ -1,6 +1,5 @@
 ---
-order: 24
-year: 2018
+date: 2018-01-01
 title: Valence state mapping for Li ion batteries
 summary: "Using atom-resolved STEM-EDX/EELS, this study reveals that the electrochemical properties of Li(NixCoyMnz)O2 (NCM) materials are decisively determined by the interplay of combined cation disordering."
 journal: Journal of Materials Chemistry A

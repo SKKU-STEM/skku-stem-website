@@ -1,6 +1,5 @@
 ---
 section: alumni
-order: 27
 nameKo: 홍정아
 nameEn: Jung A. Hong
 position: ''

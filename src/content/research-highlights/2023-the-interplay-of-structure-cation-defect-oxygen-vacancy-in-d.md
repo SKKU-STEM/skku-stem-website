@@ -1,6 +1,5 @@
 ---
-order: 5
-year: 2023
+date: 2023-01-05
 title: The interplay of structure-cation defect-oxygen vacancy in doped HfO2 film
 summary: Multimodal 4D-STEM (PA)CBED/EDX/EELS at multiple length scales revealed the complicated interplay of structure, cation defects, and oxygen vacancies in La-doped HfO2 films.
 journal: ACS Nano

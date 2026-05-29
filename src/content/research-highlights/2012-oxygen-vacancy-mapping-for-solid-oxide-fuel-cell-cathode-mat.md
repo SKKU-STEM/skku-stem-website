@@ -1,6 +1,5 @@
 ---
-order: 27
-year: 2012
+date: 2012-01-01
 title: Oxygen vacancy mapping for solid oxide fuel cell cathode materials
 summary: "Local oxygen stoichiometry in functional oxides has been a long-standing challenge. The method developed in this work quantifies oxygen vacancy distribution and homogeneity, which directly control the operation of solid-oxide fuel cells."
 journal: Nature Materials

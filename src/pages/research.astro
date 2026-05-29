@@ -28,12 +28,12 @@ const getFigure = (filename?: string): ImageMetadata | null => {
 const highlightEntries = await getCollection('research-highlights');
 const highlights = highlightEntries
   .map((e) => e.data)
-  .sort((a, b) => a.order - b.order);
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
 
-// 연도별 그룹핑 (역연대기). 데이터가 reverse-chrono로 정렬되어 있어 그대로 받음.
+// 연도(date에서 파생)별 그룹핑. highlights가 이미 최신 날짜순이라 그대로 받음.
 const byYear = highlights.reduce<Record<number, ResearchHighlight[]>>(
   (acc, h) => {
-    (acc[h.year] ??= []).push(h);
+    (acc[h.date.getUTCFullYear()] ??= []).push(h);
     return acc;
   },
   {}
@@ -50,7 +50,7 @@ const themes = themeEntries
   .sort((a, b) => a.order - b.order);
 
 const slugToYear = new Map<string, number>(
-  highlightEntries.map((e) => [e.id, e.data.year])
+  highlightEntries.map((e) => [e.id, e.data.date.getUTCFullYear()])
 );
 
 // 모달 paper list 데이터 — publications-skku의 lead-author 2016+ paper를 키워드로 자동 분류

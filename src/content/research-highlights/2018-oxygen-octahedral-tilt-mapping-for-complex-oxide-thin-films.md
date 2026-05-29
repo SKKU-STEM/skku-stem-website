@@ -1,6 +1,5 @@
 ---
-order: 23
-year: 2018
+date: 2018-01-02
 title: Oxygen octahedral tilt mapping for complex oxide thin films
 summary: "Provides the first demonstration of octahedra-derived multiferroic properties that can be stabilized in a thin film form without the help of complex chemical modifications."
 journal: Advanced Functional Materials

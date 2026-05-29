@@ -1,6 +1,5 @@
 ---
-order: 25
-year: 2017
+date: 2017-01-01
 title: "Atomic-resolution chemical mapping for energy materials"
 summary: "Atomic-resolution STEM-EDX chemical mapping was conducted for the direct visualization of atomic-scale interstitial and antisite defects in complete single-phase Ti1-xHfxNiSn1-ySby half-Heusler (HH) thermoelectric alloys."
 journal: Advanced Materials

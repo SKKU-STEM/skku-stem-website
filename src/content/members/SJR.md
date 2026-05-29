@@ -1,10 +1,9 @@
 ---
 section: phd
-order: 9
+startDate: 2026-03
 nameKo: 노서정
 nameEn: Seo jeong Ro
 program: Integrated course
-yearRange: "2026–present"
 email: "ssojoya0630@g.skku.edu"
 orcid: "0009-0005-9326-2206"
 kri: "13282282"

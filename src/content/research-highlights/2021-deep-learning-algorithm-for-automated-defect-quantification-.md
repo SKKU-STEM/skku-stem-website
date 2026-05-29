@@ -1,6 +1,5 @@
 ---
-order: 15
-year: 2021
+date: 2021-01-04
 title: Deep learning algorithm for automated defect quantification in 2D TMDs
 summary: "A deep learning-assisted quantification algorithm reduces the heavy load of data processing for researchers, which has hindered the pace of design and development of two-dimensional transition metal dichalcogenides."
 journal: Advanced Science

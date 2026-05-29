@@ -1,6 +1,6 @@
 ---
 section: postdoc
-order: 0
+startDate: 2019-03
 nameKo: 정민형
 nameEn: "Min-Hyoung Jung, Ph.D."
 position: Postdoctoral researcher

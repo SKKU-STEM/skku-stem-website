@@ -1,6 +1,5 @@
 ---
-order: 16
-year: 2021
+date: 2021-01-03
 title: Picoscale precision lattice strain analysis for multidomain 2D TMDs
 summary: STEM-based statistical lattice strain analysis provided the first demonstration of successful control of the lattice structure of anisotropic ReS2, resulting in isotropic responses.
 journal: ACS Nano

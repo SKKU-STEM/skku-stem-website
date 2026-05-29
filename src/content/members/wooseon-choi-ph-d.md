@@ -1,6 +1,5 @@
 ---
 section: alumni
-order: 22
 nameKo: 최우선
 nameEn: Wooseon Choi, Ph.D.
 position: ''

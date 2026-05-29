@@ -1,6 +1,5 @@
 ---
 section: alumni
-order: 26
 nameKo: 민태원
 nameEn: Taewon Min, Ph.D.
 position: ''

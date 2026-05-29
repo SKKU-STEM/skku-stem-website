@@ -131,12 +131,14 @@ const members = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/members' }),
   schema: z.object({
     section: z.enum(['postdoc', 'phd', 'undergrad', 'alumni']),
-    order: z.number(),
+    // 현 멤버 입학 연·월 — 섹션 내 정렬 키이자 연차/기수 자동 계산 기준. alumni는 비우고 role의 종료연도로 정렬한다.
+    startDate: z.coerce.date().optional(),
     nameKo: z.string(),
     nameEn: z.string(),
     // 현 멤버
     position: z.string().optional(),
     program: z.string().optional(),
+    // Postdoc 등 종료 연도가 있는 경우만 사용. 학생은 startDate에서 "입학연도–present"를 자동 표시한다.
     yearRange: z.string().optional(),
     email: z.string().optional(),
     orcid: z.string().optional(),
@@ -169,8 +171,8 @@ const researchThemes = defineCollection({
 const researchHighlights = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/research-highlights' }),
   schema: z.object({
-    order: z.number(),
-    year: z.number(),
+    // 발행 연·월 — 최신 날짜 내림차순 자동 정렬 키. year는 여기서 파생한다. (월·일은 카드에 표시하지 않음)
+    date: z.coerce.date(),
     title: z.string(),
     summary: z.string(),
     journal: z.string(),

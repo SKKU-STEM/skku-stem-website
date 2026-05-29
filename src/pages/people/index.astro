@@ -12,16 +12,44 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import piPortrait from '@/assets/members/YMK.jpg';
 
-const allMembers = (await getCollection('members'))
-  .map((e) => e.data)
-  .sort((a, b) => a.order - b.order);
-
-const postdocs = allMembers.filter((m) => m.section === 'postdoc');
-const phdCandidates = allMembers.filter((m) => m.section === 'phd');
-const undergrads = allMembers.filter((m) => m.section === 'undergrad');
-const alumni = allMembers.filter((m) => m.section === 'alumni');
+const allMembers = (await getCollection('members')).map((e) => e.data);
 
 const obfuscate = (email: string): string => email.replace('@', '[at]');
+
+// 연차·기수는 빌드 시점 기준으로 계산 (재배포할 때마다 갱신).
+const NOW = new Date();
+
+// 연차: 입학연도를 1년차로 카운트.
+const yearsEnrolled = (start: Date) => NOW.getUTCFullYear() - start.getUTCFullYear() + 1;
+
+// 기수: 입학을 1기로, 입학 후 6개월마다 +1.
+const cohortTerm = (start: Date) => {
+  const months =
+    (NOW.getUTCFullYear() - start.getUTCFullYear()) * 12 +
+    (NOW.getUTCMonth() - start.getUTCMonth());
+  return Math.floor(Math.max(0, months) / 6) + 1;
+};
+
+// 현 멤버: 입학일 오름차순(시니어 먼저), 같은 시점은 이름순.
+const byStart = (
+  a: (typeof allMembers)[number],
+  b: (typeof allMembers)[number]
+) =>
+  (a.startDate?.getTime() ?? 0) - (b.startDate?.getTime() ?? 0) ||
+  a.nameEn.localeCompare(b.nameEn);
+
+// alumni: role 문자열의 종료연도(가장 큰 4자리)를 파싱해 최신 졸업 순으로 정렬.
+const gradYear = (m: (typeof allMembers)[number]) => {
+  const ys = (m.role ?? '').match(/\d{4}/g);
+  return ys ? Math.max(...ys.map(Number)) : 0;
+};
+
+const postdocs = allMembers.filter((m) => m.section === 'postdoc').sort(byStart);
+const phdCandidates = allMembers.filter((m) => m.section === 'phd').sort(byStart);
+const undergrads = allMembers.filter((m) => m.section === 'undergrad').sort(byStart);
+const alumni = allMembers
+  .filter((m) => m.section === 'alumni')
+  .sort((a, b) => gradYear(b) - gradYear(a) || a.nameEn.localeCompare(b.nameEn));
 ---
 
 <BaseLayout
@@ -217,6 +245,13 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                   <p class="mt-1 text-xs text-ink/65">
                     {m.program} · {m.yearRange}
                   </p>
+                  {m.startDate && (
+                    <p class="mt-2">
+                      <span class="rounded bg-coral/10 text-coral-700 font-mono text-[10px] tracking-wider px-1.5 py-0.5 tabular-nums">
+                        {yearsEnrolled(m.startDate)}년차
+                      </span>
+                    </p>
+                  )}
                 </div>
                 <PortraitBox
                   srcPath={m.photoPath}
@@ -278,8 +313,20 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                     {m.program}
                   </p>
                   <p class="mt-1 text-xs text-ink/65 tabular-nums">
-                    {m.yearRange}
+                    {m.startDate
+                      ? `${m.startDate.getUTCFullYear()}–present`
+                      : m.yearRange}
                   </p>
+                  {m.startDate && (
+                    <p class="mt-2 flex flex-wrap gap-1.5">
+                      <span class="rounded bg-coral/10 text-coral-700 font-mono text-[10px] tracking-wider px-1.5 py-0.5 tabular-nums">
+                        {yearsEnrolled(m.startDate)}년차
+                      </span>
+                      <span class="rounded bg-ink/[0.06] text-ink/70 font-mono text-[10px] tracking-wider px-1.5 py-0.5 tabular-nums">
+                        {cohortTerm(m.startDate)}기
+                      </span>
+                    </p>
+                  )}
                   {m.coAdvisor && (
                     <p class="mt-1 text-xs text-ink/70 italic">
                       Co-advisor: {m.coAdvisor}
@@ -346,8 +393,20 @@ const obfuscate = (email: string): string => email.replace('@', '[at]');
                     {m.program}
                   </p>
                   <p class="mt-1 text-xs text-ink/65 tabular-nums">
-                    {m.yearRange}
+                    {m.startDate
+                      ? `${m.startDate.getUTCFullYear()}–present`
+                      : m.yearRange}
                   </p>
+                  {m.startDate && (
+                    <p class="mt-2 flex flex-wrap gap-1.5">
+                      <span class="rounded bg-coral/10 text-coral-700 font-mono text-[10px] tracking-wider px-1.5 py-0.5 tabular-nums">
+                        {yearsEnrolled(m.startDate)}년차
+                      </span>
+                      <span class="rounded bg-ink/[0.06] text-ink/70 font-mono text-[10px] tracking-wider px-1.5 py-0.5 tabular-nums">
+                        {cohortTerm(m.startDate)}기
+                      </span>
+                    </p>
+                  )}
                 </div>
                 <PortraitBox
                   srcPath={m.photoPath}

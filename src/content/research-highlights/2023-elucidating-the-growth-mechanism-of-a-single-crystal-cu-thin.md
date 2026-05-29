@@ -1,6 +1,5 @@
 ---
-order: 8
-year: 2023
+date: 2023-01-02
 title: Elucidating the growth mechanism of a single crystal Cu thin film
 summary: Electron microscopy describes in detail the initial growth of copper thin films required for mono-atom step-level flat surfaces (MSFSs). Deposition by atomic sputtering epitaxy leads to the coherent merging of trillions of islands.
 journal: Nature Communications
