@@ -1,12 +1,53 @@
 ---
-// Prof. Young-Min Kim — full CV / bio
-// 출처: 이전 SKKU-STEM 사이트의 PI 페이지 (https://sites.google.com/site/skkustem/contact-us, 2026-05-09 fetch)
-// Selected publications는 publications-pi-selected 컬렉션에 분리 — 신규 논문 추가 시 컬렉션만 수정.
+// Prof. Young-Min Kim — full CV / bio. 본문(소개·Education·Experience·Honors·Contact)은
+// src/content/pi/profile.json에서 읽어 Sveltia CMS('People · PI 프로필')로 항목 추가·삭제·편집한다.
+// Selected publications는 publications-pi-selected 컬렉션에 분리 — 신규 논문 추가 시 그 컬렉션만 수정.
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
+import profileData from '@content/pi/profile.json';
 
 type Publication = CollectionEntry<'publications-pi-selected'>['data'];
+
+interface CVEntry {
+  years: string;
+  title: string;
+  institution: string;
+}
+// Experience는 start(YYYY-MM)를 정렬 키로 쓰고 years는 표시용 라벨이다.
+interface ExperienceEntry extends CVEntry {
+  start: string;
+}
+interface Honor {
+  year: string;
+  title: string;
+  cert?: string;
+  url?: string;
+}
+interface Profile {
+  nameKo: string;
+  nameEn: string;
+  position: string;
+  department: string;
+  university: string;
+  location: string;
+  bio: string;
+  education: CVEntry[];
+  experience: ExperienceEntry[];
+  honors: Honor[];
+  contact: { email: string; phone?: string; orcid?: string; office?: string };
+}
+
+const profile = profileData as Profile;
+
+// CMS 입력 순서와 무관하게 최신순 자동 정렬 — Experience는 start(YYYY-MM) 내림차순,
+// Honors는 year 숫자 내림차순(같은 해는 안정 정렬로 입력 순서 유지).
+const experience = [...profile.experience].sort((a, b) =>
+  b.start.localeCompare(a.start)
+);
+const honors = [...profile.honors].sort(
+  (a, b) => Number(b.year) - Number(a.year)
+);
 
 const piSelectedAll = (await getCollection('publications-pi-selected'))
   .map((e) => e.data)
@@ -24,134 +65,6 @@ const pubGroups: Array<{ id: string; title: string; entries: Publication[] }> = 
     entries: microscopyMaterialsScience,
   },
   { id: 'pub-ai', title: 'AI Microscopy', entries: aiMicroscopy },
-];
-
-interface CVEntry {
-  years: string;
-  title: string;
-  institution: string;
-}
-
-const education: CVEntry[] = [
-  {
-    years: 'Mar. 2005 – Feb. 2010',
-    title: 'Ph.D. in Materials Science',
-    institution:
-      'Korea Advanced Institute of Science and Technology (KAIST), Daejeon, Korea',
-  },
-  {
-    years: 'Mar. 1999 – Feb. 2001',
-    title: 'M.S. in Materials Science',
-    institution: 'Seoul National University, Seoul, Korea',
-  },
-  {
-    years: 'Mar. 1991 – Feb. 1999',
-    title: 'B.S. in Materials Science',
-    institution: 'Kangwon National University, Chuncheon, Korea',
-  },
-];
-
-// 역순 (가장 최근이 위)
-const experience: CVEntry[] = [
-  {
-    years: 'Feb. 2025 – present',
-    title: 'Professor',
-    institution: 'Department of Energy Science, Sungkyunkwan University, Korea',
-  },
-  {
-    years: 'Mar. 2020 – Feb. 2025',
-    title: 'Associate Professor',
-    institution: 'Department of Energy Science, Sungkyunkwan University, Korea',
-  },
-  {
-    years: 'Jan. 2016 – Feb. 2020',
-    title: 'Assistant Professor',
-    institution: 'Department of Energy Science, Sungkyunkwan University, Korea',
-  },
-  {
-    years: 'Mar. 2014 – Dec. 2015',
-    title: 'Principal Researcher',
-    institution: 'Korea Basic Science Institute (KBSI), Korea',
-  },
-  {
-    years: 'Dec. 2012 – Nov. 2013',
-    title: 'Visiting Scientist',
-    institution: 'Oak Ridge National Laboratory (ORNL), USA',
-  },
-  {
-    years: 'Nov. 2010 – Nov. 2012',
-    title: 'Postdoctoral Fellow',
-    institution:
-      'Materials Science & Technology Division, Oak Ridge National Laboratory (ORNL), USA',
-  },
-];
-
-const honors: Array<{
-  year: string;
-  title: string;
-  cert?: string;
-  url?: string;
-}> = [
-  {
-    year: '2024',
-    title: '2024 SKKU Fellowship',
-    url: 'https://www.skku.edu/skku/campus/skk_comm/news.do?mode=view&articleNo=125511',
-  },
-  {
-    year: '2022',
-    title: 'Minister’s award by the Ministry of Science and Technology',
-    cert: '22-03458',
-  },
-  {
-    year: '2014',
-    title: 'President’s award for research excellence in KBSI',
-    cert: '2014-596',
-  },
-  {
-    year: '2014',
-    title: 'Scientist of the month in Daejeon City',
-    cert: '30666',
-  },
-  {
-    year: '2012',
-    title: 'President’s grand award for research excellence in KBSI',
-    cert: '2012-125',
-  },
-  {
-    year: '2009',
-    title: 'President’s award for research excellence in KBSI',
-    cert: '2009-106',
-  },
-  {
-    year: '2008',
-    title: 'President’s award for research excellence in KBSI',
-    cert: '2008-187',
-  },
-  {
-    year: '2007',
-    title: 'President’s award for research excellence in KBSI',
-    cert: '2007-9',
-  },
-  {
-    year: '2006',
-    title: 'President’s award for the best staff of the year in KBSI',
-  },
-  {
-    year: '2006',
-    title: 'President’s award for research excellence in KBSI',
-    cert: '2006-33',
-  },
-  {
-    year: '2004',
-    title:
-      'President’s award by KRCF (Korea Research Council of Fundamental Science & Technology)',
-    cert: '04-02-01',
-  },
-  {
-    year: '2004',
-    title: 'Minister’s award by the Ministry of Science and Technology',
-    cert: '9599',
-  },
 ];
 ---
 
@@ -177,40 +90,23 @@ const honors: Array<{
         <h1
           class="mt-6 font-display font-normal tracking-tight text-5xl md:text-6xl leading-[1.05]"
         >
-          김영민
+          {profile.nameKo}
         </h1>
         <p
           class="mt-3 font-display text-2xl md:text-3xl text-ink/65 italic font-normal"
         >
-          Young-Min Kim
+          {profile.nameEn}
         </p>
 
         <p class="mt-7 text-base md:text-lg text-ink/80 leading-relaxed">
-          Professor &middot; Department of Energy Science<br />
-          Sungkyunkwan University &middot; Suwon 16419, Republic of Korea
+          {profile.position} &middot; {profile.department}<br />
+          {profile.university} &middot; {profile.location}
         </p>
 
         <p
           class="mt-8 font-serif text-lg md:text-xl text-ink/90 leading-relaxed"
         >
-          Young-Min Kim is a Professor in the Department of Energy Science at
-          Sungkyunkwan University, Korea. He received his Ph.D. (2010) in
-          Materials Science and Engineering from KAIST, Korea, and worked as a
-          researcher at the Korea Basic Science Institute (KBSI) for 14 years,
-          including during his Ph.D. studies. From 2010 to 2013, he was a
-          postdoctoral fellow and visiting scientist in the STEM group at Oak
-          Ridge National Laboratory, where he developed expertise in
-          aberration-corrected scanning transmission electron microscopy (STEM)
-          and transition metal oxide thin films. His research group focuses on
-          the atomic-scale structural and chemical characterization of
-          functional nanomaterials and thin films using advanced STEM
-          techniques, including electron energy-loss spectroscopy (EELS),
-          energy-dispersive X-ray spectroscopy (EDX), four-dimensional STEM
-          (4D-STEM), and electron tomography. A central theme of his recent
-          work is the integration of these multimodal microscopy capabilities
-          with machine learning and deep learning frameworks, enabling
-          quantitative and high-throughput analysis of complex material
-          systems.
+          {profile.bio}
         </p>
       </div>
     </section>
@@ -228,9 +124,9 @@ const honors: Array<{
         </h2>
         <ul class="mt-6 divide-y divide-ink/15">
           {
-            education.map((item) => (
-              <li class="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
-                <time class="font-mono text-sm text-ink/70 tabular-nums whitespace-nowrap">
+            profile.education.map((item) => (
+              <li class="lift-row group py-5 px-4 -mx-4 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
+                <time class="font-mono text-sm text-ink/70 group-hover:text-coral-700 tabular-nums whitespace-nowrap transition-colors">
                   {item.years}
                 </time>
                 <div>
@@ -258,8 +154,8 @@ const honors: Array<{
         <ul class="mt-6 divide-y divide-ink/15">
           {
             experience.map((item) => (
-              <li class="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
-                <time class="font-mono text-sm text-ink/70 tabular-nums whitespace-nowrap">
+              <li class="lift-row group py-5 px-4 -mx-4 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
+                <time class="font-mono text-sm text-ink/70 group-hover:text-coral-700 tabular-nums whitespace-nowrap transition-colors">
                   {item.years}
                 </time>
                 <div>
@@ -287,8 +183,8 @@ const honors: Array<{
         <ul class="mt-6 divide-y divide-ink/15">
           {
             honors.map((item) => (
-              <li class="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
-                <time class="font-mono text-sm text-ink/70 tabular-nums whitespace-nowrap">
+              <li class="lift-row group py-5 px-4 -mx-4 grid grid-cols-1 md:grid-cols-[14rem_1fr] gap-2 md:gap-6 items-baseline">
+                <time class="font-mono text-sm text-ink/70 group-hover:text-coral-700 tabular-nums whitespace-nowrap transition-colors">
                   {item.year}
                 </time>
                 <p class="text-base md:text-lg leading-snug">
@@ -338,9 +234,9 @@ const honors: Array<{
 
               <ol class="mt-7 divide-y divide-ink/15">
                 {group.entries.map((pub) => (
-                  <li class="py-5 grid grid-cols-1 md:grid-cols-[4rem_1fr] gap-2 md:gap-6 items-baseline">
+                  <li class="lift-row group py-5 px-4 -mx-4 grid grid-cols-1 md:grid-cols-[4rem_1fr] gap-2 md:gap-6 items-baseline">
                     <time
-                      class="font-mono text-sm text-ink/70 tabular-nums whitespace-nowrap"
+                      class="font-mono text-sm text-ink/70 group-hover:text-coral-700 tabular-nums whitespace-nowrap transition-colors"
                       datetime={String(pub.year)}
                     >
                       {pub.year}
@@ -410,48 +306,63 @@ const honors: Array<{
           </dt>
           <dd>
             <a
-              href="mailto:youngmk@skku.edu"
+              href={`mailto:${profile.contact.email}`}
               class="hover:text-coral transition-colors"
             >
-              youngmk@skku.edu
+              {profile.contact.email}
             </a>
           </dd>
 
-          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
-            Phone
-          </dt>
-          <dd>
-            <a
-              href="tel:+82312994059"
-              class="hover:text-coral transition-colors"
-            >
-              +82-(0)31-299-4059
-            </a>
-          </dd>
+          {
+            profile.contact.phone && (
+              <>
+                <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
+                  Phone
+                </dt>
+                <dd>
+                  <a
+                    href={`tel:${profile.contact.phone.replace(/[^+\d]/g, '')}`}
+                    class="hover:text-coral transition-colors"
+                  >
+                    {profile.contact.phone}
+                  </a>
+                </dd>
+              </>
+            )
+          }
 
-          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
-            ORCID
-          </dt>
-          <dd>
-            <a
-              href="https://orcid.org/0000-0003-3220-9004"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="hover:text-coral transition-colors font-mono text-sm"
-            >
-              0000-0003-3220-9004
-            </a>
-          </dd>
+          {
+            profile.contact.orcid && (
+              <>
+                <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
+                  ORCID
+                </dt>
+                <dd>
+                  <a
+                    href={`https://orcid.org/${profile.contact.orcid}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hover:text-coral transition-colors font-mono text-sm"
+                  >
+                    {profile.contact.orcid}
+                  </a>
+                </dd>
+              </>
+            )
+          }
 
-          <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
-            Office
-          </dt>
-          <dd class="text-ink/85 leading-relaxed">
-            Department of Energy Science<br />
-            Sungkyunkwan University<br />
-            2066 Seobu-ro, Jangan-gu<br />
-            Suwon 16419, Republic of Korea
-          </dd>
+          {
+            profile.contact.office && (
+              <>
+                <dt class="text-sm font-mono uppercase tracking-[0.14em] text-ink/70">
+                  Office
+                </dt>
+                <dd class="text-ink/85 leading-relaxed whitespace-pre-line">
+                  {profile.contact.office}
+                </dd>
+              </>
+            )
+          }
         </dl>
       </div>
     </section>

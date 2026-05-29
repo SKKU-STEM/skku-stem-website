@@ -210,6 +210,69 @@ collections:
               - { name: volumePages, label: Volume / pages, widget: string, required: false }
               - { name: doi, label: DOI URL, widget: string, required: false }
 
+  # ===== People · PI 프로필 (CV 본문 — file collection) =====
+  # pi.astro의 소개·Education·Experience·Honors·Contact를 편집한다.
+  # Selected publications는 위 'Publications · PI Selected' 컬렉션에서 따로 관리.
+  - name: pi-profile
+    label: 'People · PI 프로필'
+    files:
+      - file: src/content/pi/profile.json
+        name: profile
+        label: 'PI 프로필 (CV)'
+        fields:
+          - { name: nameKo, label: 이름 (KO), widget: string }
+          - { name: nameEn, label: Name (EN), widget: string }
+          - { name: position, label: '직위 (예: Professor)', widget: string }
+          - { name: department, label: 학과, widget: string }
+          - { name: university, label: 대학, widget: string }
+          - { name: location, label: '위치 (예: Suwon 16419, Republic of Korea)', widget: string }
+          - { name: bio, label: 소개 (Bio 단락), widget: text }
+          - name: education
+            label: Education
+            label_singular: 학력 항목
+            widget: list
+            summary: '{{fields.years}} — {{fields.title}}'
+            fields:
+              - { name: years, label: '기간 (예: Mar. 2005 – Feb. 2010)', widget: string }
+              - { name: title, label: 학위/제목, widget: string }
+              - { name: institution, label: 기관, widget: string }
+          - name: experience
+            label: Research Experience
+            label_singular: 경력 항목
+            widget: list
+            summary: '{{fields.start}} · {{fields.title}}'
+            hint: '입력 순서와 무관하게 시작일(Start) 최신순으로 사이트가 자동 정렬한다.'
+            fields:
+              - name: start
+                label: Start (시작 연·월 — 정렬 키)
+                widget: datetime
+                date_format: 'YYYY-MM'
+                time_format: false
+                picker_utc: true
+                hint: '연도+월만 선택. 이 값으로 최신순 자동 정렬된다(화면에는 아래 기간 라벨이 표시됨).'
+              - { name: years, label: '기간 라벨 (화면 표시 — 예: Feb. 2025 – present)', widget: string }
+              - { name: title, label: 직위/제목, widget: string }
+              - { name: institution, label: 기관, widget: string }
+          - name: honors
+            label: Honors & Awards
+            label_singular: 수상 항목
+            widget: list
+            summary: '{{fields.year}} — {{fields.title}}'
+            hint: '입력 순서와 무관하게 연도 최신순으로 자동 정렬된다(같은 해는 목록에 놓은 순서대로).'
+            fields:
+              - { name: year, label: 연도, widget: string }
+              - { name: title, label: 수상명, widget: string }
+              - { name: cert, label: 증서 번호 (선택), widget: string, required: false }
+              - { name: url, label: 링크 URL (선택), widget: string, required: false, hint: '있으면 수상명이 링크가 된다.' }
+          - name: contact
+            label: Contact
+            widget: object
+            fields:
+              - { name: email, label: Email, widget: string }
+              - { name: phone, label: Phone (선택), widget: string, required: false }
+              - { name: orcid, label: 'ORCID (숫자만 — 예: 0000-0003-3220-9004)', widget: string, required: false }
+              - { name: office, label: Office 주소 (선택, 줄바꿈 가능), widget: text, required: false }
+
   # ===== News (folder, .md frontmatter-only) =====
   - name: news
     label: News
