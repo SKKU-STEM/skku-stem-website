@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 5
 slug: 2025-mm-salt-lake
 year: 2025
 date: July 27–31, 2025
