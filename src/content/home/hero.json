@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "image": "/hero/photo_2026-05-29.jpg",
+      "alt": "SKKU-STEM Lab group photo, KSM conference, May 2026",
+      "caption": "KSM spring meeting · May 2026"
+    },
+    {
       "image": "/hero/2026group-spring.jpg",
       "alt": "SKKU-STEM Lab group photo, cherry blossoms, April 2026",
       "caption": "Cherry blossoms · April 2026"
