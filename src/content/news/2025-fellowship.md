@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 2
 slug: 2025-fellowship
 year: 2025
 date: February 19, 2025
