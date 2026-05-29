@@ -226,6 +226,18 @@ const alumni = allMembers
         <span class="ml-2 text-ink/65 tabular-nums">{postdocs.length}</span>
       </h2>
 
+      {postdocs.length === 0 ? (
+        <div
+          class="mt-8 rounded-lg border border-dashed border-cream-300 bg-cream-200/40 px-6 py-10 text-center"
+        >
+          <p class="font-display text-lg text-ink/70">
+            No positions available at this moment
+          </p>
+          <p class="mt-2 text-sm text-ink/55">
+            We welcome inquiries from prospective postdoctoral researchers.
+          </p>
+        </div>
+      ) : (
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           postdocs.map((m) => (
@@ -243,13 +255,6 @@ const alumni = allMembers
                   <p class="mt-1 text-xs text-ink/65">
                     {m.program} · {m.yearRange}
                   </p>
-                  {m.startDate && (
-                    <p class="mt-2">
-                      <span class="rounded bg-coral/10 text-coral-700 font-mono text-[10px] tracking-wider px-1.5 py-0.5 tabular-nums">
-                        {yearsEnrolled(m.startDate)}년차
-                      </span>
-                    </p>
-                  )}
                 </div>
                 <PortraitBox
                   srcPath={m.photoPath}
@@ -285,6 +290,7 @@ const alumni = allMembers
           ))
         }
       </ul>
+      )}
     </section>
 
     {/* ─────────────── Ph.D. Candidates ─────────────── */}
