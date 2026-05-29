@@ -1,8 +1,7 @@
 ---
-order: 2
 slug: 2026-bk-thesis
-year: 2026
-date: Jan. 15, 2026
+date: 2026-01-15
+dateLabel: Jan. 15, 2026
 title: The 11th BK DOES Thesis Competition
 titleEn: ''
 location: Suwon, Korea

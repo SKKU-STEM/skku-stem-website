@@ -1,8 +1,7 @@
 ---
-order: 30
 slug: 2023-bk-thesis
-year: 2023
-date: Jan. 12–13, 2023
+date: 2023-01-12
+dateLabel: Jan. 12–13, 2023
 title: 2022 BK 논문경진대회
 titleEn: The 8th BK DOES Thesis Competition
 location: Konjiam, Korea

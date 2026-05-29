@@ -1,8 +1,7 @@
 ---
-order: 1
 slug: 2026-eels-school
-year: 2026
-date: Feb. 10–13, 2026
+date: 2026-02-10
+dateLabel: Feb. 10–13, 2026
 title: European EELS & EFTEM School
 titleEn: ''
 location: TU Graz, Austria

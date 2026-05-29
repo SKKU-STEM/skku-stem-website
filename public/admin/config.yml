@@ -409,12 +409,22 @@ collections:
     delete: true
     slug: '{{fields.slug}}'
     identifier_field: title
-    summary: '[{{year}}] {{title}}'
+    summary: "{{fields.date | date('YYYY')}} · {{title}}"
+    # 목록은 날짜 최신순으로 자동 정렬 — order 필드 없이 date만 채우면 사이트가 알아서 정렬한다.
+    sortable_fields:
+      fields: [date, title]
+      default:
+        field: date
+        direction: descending
     fields:
-      - { name: order, label: Order, widget: number, value_type: int }
       - { name: slug, label: Slug (파일명), widget: string }
-      - { name: year, label: Year, widget: number, value_type: int }
-      - { name: date, label: Date (자유 텍스트), widget: string }
+      - name: date
+        label: Date (달력 선택 — 최신순 자동 정렬에 사용)
+        widget: datetime
+        date_format: 'YYYY-MM-DD'
+        time_format: false
+        picker_utc: true
+      - { name: dateLabel, label: Date label (표시용, 선택), widget: string, required: false, hint: '비우면 위 날짜를 "February 10, 2026"처럼 표시. 연도/월만 표기나 기간이 필요할 때만 입력 — 예: "2022", "Aug. 2022", "Nov. 3–5, 2021".' }
       - { name: title, label: Title, widget: string }
       - { name: titleEn, label: Title (EN, optional), widget: string, required: false }
       - { name: location, label: Location, widget: string, required: false }

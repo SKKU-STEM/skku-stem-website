@@ -1,8 +1,7 @@
 ---
-order: 40
 slug: 2022-samsung-humantech
-year: 2022
-date: Feb. 15, 2022
+date: 2022-02-15
+dateLabel: Feb. 15, 2022
 title: 제 28회 삼성휴먼테크논문대상
 titleEn: 28th Samsung Humantech Paper Award
 location: Samsung Electronics Co., Ltd.

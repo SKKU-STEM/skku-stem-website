@@ -1,8 +1,7 @@
 ---
-order: 44
 slug: 2020-ksm-fall
-year: 2020
-date: '2020'
+date: 2020-01-01
+dateLabel: '2020'
 title: The 2020 Autumn Korea Society of Microscopy
 titleEn: ''
 location: Pyeongchang, Korea

@@ -1,8 +1,7 @@
 ---
-order: 36
 slug: 2022-ksm-spring
-year: 2022
-date: June 30 – July 1, 2022
+date: 2022-06-30
+dateLabel: June 30 – July 1, 2022
 title: 2022년 한국현미경학회 춘계학술대회
 titleEn: Korean Society of Microscopy Spring Conference 2022
 location: Daegu, Korea

@@ -1,8 +1,7 @@
 ---
-order: 10
 slug: 2025-bk-thesis
-year: 2025
-date: Feb. 6–7, 2025
+date: 2025-02-06
+dateLabel: Feb. 6–7, 2025
 title: 2024 BK 논문경진대회 (10th BK DOES Thesis Competition)
 titleEn: ''
 location: Konjiam, Korea

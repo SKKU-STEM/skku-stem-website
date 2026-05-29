@@ -1,8 +1,7 @@
 ---
-order: 34
 slug: 2022-hiking-fall
-year: 2022
-date: Sept. 30, 2022
+date: 2022-09-30
+dateLabel: Sept. 30, 2022
 title: Fall hiking — group photo
 titleEn: ''
 location: ''

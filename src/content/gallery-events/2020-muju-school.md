@@ -1,8 +1,7 @@
 ---
-order: 46
 slug: 2020-muju-school
-year: 2020
-date: Jan. 12–16, 2020
+date: 2020-01-12
+dateLabel: Jan. 12–16, 2020
 title: The 6th Muju International Winter School Series (MIWS2-2020)
 titleEn: ''
 location: Deogyusan Resort, Muju, Korea

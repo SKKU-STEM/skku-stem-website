@@ -1,8 +1,7 @@
 ---
-order: 29
 slug: 2023-bk21-award
-year: 2023
-date: '2023'
+date: 2023-01-01
+dateLabel: '2023'
 title: 2022년도 4단계 BK21 사업 우수 참여인력 표창
 titleEn: 2022 BK21 Phase 4 Outstanding Participant Award
 location: ''

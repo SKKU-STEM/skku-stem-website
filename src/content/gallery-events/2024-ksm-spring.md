@@ -1,8 +1,7 @@
 ---
-order: 14
 slug: 2024-ksm-spring
-year: 2024
-date: May 30–31, 2024
+date: 2024-05-30
+dateLabel: May 30–31, 2024
 title: 2024년 한국현미경학회 춘계학술대회
 titleEn: Korean Society of Microscopy Spring Conference 2024
 location: Hongcheon, Korea

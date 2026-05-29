@@ -1,8 +1,7 @@
 ---
-order: 41
 slug: 2021-kcers-fall
-year: 2021
-date: Nov. 3–5, 2021
+date: 2021-11-03
+dateLabel: Nov. 3–5, 2021
 title: 2021년 한국세라믹학회 추계학술대회
 titleEn: Korean Ceramic Society Fall Conference 2021
 location: Jeju, Korea
