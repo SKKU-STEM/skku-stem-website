@@ -14,8 +14,6 @@ import piPortrait from '@/assets/members/YMK.jpg';
 
 const allMembers = (await getCollection('members')).map((e) => e.data);
 
-const obfuscate = (email: string): string => email.replace('@', '[at]');
-
 // 연차·기수는 빌드 시점 기준으로 계산 (재배포할 때마다 갱신).
 const NOW = new Date();
 
@@ -190,7 +188,7 @@ const alumni = allMembers
               href="mailto:youngmk@skku.edu"
               class="text-ink hover:text-coral transition-colors"
             >
-              youngmk[at]skku.edu
+              youngmk@skku.edu
             </a>
             <span aria-hidden="true" class="text-ink/55">·</span>
             <a
@@ -266,7 +264,7 @@ const alumni = allMembers
                     href={`mailto:${m.email}`}
                     class="hover:text-coral transition-colors break-all"
                   >
-                    {obfuscate(m.email ?? '')}
+                    {m.email ?? ''}
                   </a>
                 </p>
                 <p>
@@ -346,7 +344,7 @@ const alumni = allMembers
                     href={`mailto:${m.email}`}
                     class="hover:text-coral transition-colors break-all"
                   >
-                    {obfuscate(m.email ?? '')}
+                    {m.email ?? ''}
                   </a>
                 </p>
                 <p>
@@ -421,7 +419,7 @@ const alumni = allMembers
                     href={`mailto:${m.email}`}
                     class="hover:text-coral transition-colors break-all"
                   >
-                    {obfuscate(m.email ?? '')}
+                    {m.email ?? ''}
                   </a>
                 </p>
                 <p>
@@ -493,7 +491,7 @@ const alumni = allMembers
                         href={`mailto:${a.email}`}
                         class="hover:text-coral transition-colors break-all"
                       >
-                        {obfuscate(a.email)}
+                        {a.email}
                       </a>
                     </p>
                   )}
