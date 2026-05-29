@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 6
 slug: 2025-cnms-ornl
 year: 2025
 date: June 4–16, 2025
