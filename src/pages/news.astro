@@ -21,10 +21,19 @@ const CATEGORY_LABELS: Record<NewsCategory, string> = {
 
 const newsEntries = (await getCollection('news'))
   .map((e) => e.data)
-  .sort((a, b) => a.order - b.order);
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+// dateLabel이 있으면 그대로, 없으면 date를 "February 10, 2026" 형식으로 표시 (UTC 고정해 off-by-one 방지).
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+const displayDate = (e: NewsEntry) => e.dateLabel ?? dateFmt.format(e.date);
 
 const byYear = newsEntries.reduce<Record<number, NewsEntry[]>>((acc, e) => {
-  (acc[e.year] ??= []).push(e);
+  (acc[e.date.getUTCFullYear()] ??= []).push(e);
   return acc;
 }, {});
 
@@ -186,7 +195,12 @@ const years = Object.keys(byYear)
                     >
                       {/* Date · Category meta */}
                       <p class="font-mono text-[11px] uppercase tracking-[0.16em]">
-                        <time class="text-coral-700 font-bold">{entry.date}</time>
+                        <time
+                          datetime={entry.date.toISOString().slice(0, 10)}
+                          class="text-coral-700 font-bold"
+                        >
+                          {displayDate(entry)}
+                        </time>
                         <span class="mx-1.5 text-ink/55" aria-hidden="true">
                           &middot;
                         </span>

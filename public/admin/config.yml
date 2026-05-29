@@ -221,12 +221,22 @@ collections:
     delete: true
     slug: '{{fields.slug}}'
     identifier_field: headline
-    summary: '[{{year}}] {{headline}}'
+    summary: "{{fields.date | date('YYYY')}} · {{headline}}"
+    # 목록은 날짜 최신순으로 자동 정렬 — order 필드 없이 date만 채우면 사이트가 알아서 정렬한다.
+    sortable_fields:
+      fields: [date, headline, category]
+      default:
+        field: date
+        direction: descending
     fields:
-      - { name: order, label: Order (낮을수록 위), widget: number, value_type: int }
       - { name: slug, label: Slug (파일명, kebab-case 권장), widget: string }
-      - { name: year, label: Year, widget: number, value_type: int }
-      - { name: date, label: Date (자유 텍스트), widget: string }
+      - name: date
+        label: Date (달력 선택 — 최신순 자동 정렬에 사용)
+        widget: datetime
+        date_format: 'YYYY-MM-DD'
+        time_format: false
+        picker_utc: true
+      - { name: dateLabel, label: Date label (표시용, 선택), widget: string, required: false, hint: '비우면 위 날짜를 "February 10, 2026"처럼 표시. 기간/월만 표기가 필요할 때만 입력 — 예: "June 4–16, 2025", "February 2025".' }
       - name: category
         label: Category
         widget: select

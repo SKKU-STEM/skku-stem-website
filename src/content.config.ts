@@ -95,10 +95,11 @@ const publicationsPiSelected = defineCollection({
 const news = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/news' }),
   schema: z.object({
-    order: z.number(),
     slug: z.string(),
-    year: z.number(),
-    date: z.string(),
+    // 정렬 키 — CMS datetime 위젯이 'YYYY-MM-DD'로 저장한다. 페이지는 이 값으로 최신 날짜 내림차순 자동 정렬하고, year는 여기서 파생한다.
+    date: z.coerce.date(),
+    // 표시용 라벨(선택) — 기간("June 4–16, 2025")이나 월만("February 2025") 표기가 필요할 때 date 포맷을 덮어쓴다.
+    dateLabel: z.string().optional(),
     category: z.enum(['paper', 'award', 'media', 'member', 'event', 'grant', 'lab']),
     headline: z.string(),
     // 'body'는 Sveltia/Decap이 markdown body로 예약한 이름이라 'summary'로 둔다.

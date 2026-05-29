@@ -1,19 +1,13 @@
 // News RSS 2.0 feed — News collection을 frontmatter (headline + summary) 기반으로 export
-// pubDate는 (year, order)로 합성: order=1이 가장 최신 → year-12-28, 이후 하루씩 과거로
+// pubDate는 frontmatter date를 그대로 사용 — 최신 날짜 내림차순 정렬
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 
-function synthPubDate(year: number, order: number): Date {
-  const d = new Date(Date.UTC(year, 11, 28));
-  d.setUTCDate(d.getUTCDate() - (order - 1));
-  return d;
-}
-
 export async function GET(context: APIContext) {
   const items = (await getCollection('news'))
     .map((e) => e.data)
-    .sort((a, b) => a.order - b.order);
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
 
   return rss({
     title: 'SKKU-STEM Lab — News',
@@ -25,7 +19,7 @@ export async function GET(context: APIContext) {
     items: items.map((it) => ({
       title: it.headline,
       description: it.summary ?? '',
-      pubDate: synthPubDate(it.year, it.order),
+      pubDate: it.date,
       link: `/news/#news-${it.slug}`,
       categories: [it.category],
     })),

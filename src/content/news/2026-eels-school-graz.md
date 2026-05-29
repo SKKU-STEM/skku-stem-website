@@ -1,8 +1,7 @@
 ---
-order: 6
 slug: 2026-eels-school-graz
-year: 2026
-date: February 10–13, 2026
+date: 2026-02-10
+dateLabel: February 10–13, 2026
 category: event
 headline: Eun-Byeol and Yerin attend the European EELS & EFTEM School
 summary: Eun-Byeol Park and Yerin Jeon represent the lab at the European EELS & EFTEM School at TU Graz, Austria — a week of hands-on training in electron energy-loss spectroscopy.
