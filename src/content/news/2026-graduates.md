@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 7
 slug: 2026 graduates
 year: 2026
 date: FEBRUARY 25 2026
