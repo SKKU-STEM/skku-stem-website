@@ -1,5 +1,5 @@
 ---
-order: 7
+order: 1
 slug: 2025-graduations
 year: 2025
 date: February 2025
