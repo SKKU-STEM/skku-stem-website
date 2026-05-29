@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 6
 slug: 2026-eels-school-graz
 year: 2026
 date: February 10–13, 2026
