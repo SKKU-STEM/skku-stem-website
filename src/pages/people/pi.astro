@@ -267,16 +267,6 @@ const pubGroups: Array<{ id: string; title: string; entries: Publication[] }> = 
                       <p class="mt-1 text-[11px] text-ink/60 leading-snug">
                         {pub.authors}
                       </p>
-                      {pub.doi && (
-                        <a
-                          href={pub.doi}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="mt-1.5 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.14em] text-ink/70 hover:text-coral transition-colors"
-                        >
-                          DOI <span aria-hidden="true">&rarr;</span>
-                        </a>
-                      )}
                     </div>
                   </li>
                 ))}
