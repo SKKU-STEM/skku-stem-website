@@ -1,7 +1,7 @@
 ---
 slug: 2026 KSM spring meeting
 date: 2026-05-27
-dateLabel: 2026년 한국현미경학회 춘계학술대회
+dateLabel: May 27-29, 2026
 title: 2026년 한국현미경학회 춘계학술대회
 titleEn: ''
 location: 대전컨벤션센터
