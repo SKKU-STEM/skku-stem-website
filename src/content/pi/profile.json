@@ -59,33 +59,50 @@
       "years": "Nov. 2010 – Nov. 2012",
       "title": "Postdoctoral Fellow",
       "institution": "Materials Science & Technology Division, Oak Ridge National Laboratory (ORNL), USA"
+    },
+    {
+      "start": "2005-03",
+      "years": "Mar. 2005 - Feb. 2014",
+      "title": "Senior Researcher",
+      "institution": "Korea Basic Science Institute (KBSI), Korea"
+    },
+    {
+      "start": "2002-02",
+      "years": "Feb. 2002 – Feb. 2005",
+      "title": "Researcher",
+      "institution": "Korea Basic Science Institute (KBSI), Korea"
     }
   ],
   "honors": [
     {
       "year": "2024",
       "title": "2024 SKKU Fellowship",
+      "cert": "",
       "url": "https://www.skku.edu/skku/campus/skk_comm/news.do?mode=view&articleNo=125511"
     },
     {
       "year": "2022",
       "title": "Minister’s award by the Ministry of Science and Technology",
-      "cert": "22-03458"
+      "cert": "22-03458",
+      "url": ""
     },
     {
       "year": "2014",
       "title": "President’s award for research excellence in KBSI",
-      "cert": "2014-596"
+      "cert": "2014-596",
+      "url": ""
     },
     {
       "year": "2014",
       "title": "Scientist of the month in Daejeon City",
-      "cert": "30666"
+      "cert": "30666",
+      "url": ""
     },
     {
       "year": "2012",
       "title": "President’s grand award for research excellence in KBSI",
-      "cert": "2012-125"
+      "cert": "2012-125",
+      "url": ""
     },
     {
       "year": "2009",
