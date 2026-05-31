@@ -312,3 +312,14 @@ skkustem/
 - 라이브 모바일(390px) 점검에서 히어로 `h1` "Decoding matter,"가 강제 한 줄(`<br>`)+`text-[3.5rem]`(56px)이라 우측으로 넘쳐 잘리는 문제 발견(이번 변경과 무관한 기존 이슈, 360px에서 더 심함).
 - 수정: 모바일 글자 크기 `text-[3.5rem]` → `text-[2.5rem]`(40px). `md:text-6xl lg:text-7xl`은 그대로. 로컬 preview 390px 캡처로 한 줄 정상 수용 확인.
 - 점검 방법: Windows Edge 헤드리스 스크린샷(`msedge --headless=new --window-size=390,H --screenshot`)으로 라이브/로컬 모바일 렌더 캡처 후 확인. News·Gallery·Research highlights·인포그래픽은 모바일 정상.
+
+## PI CV Publications 동적 그래픽 (2026-05-31)
+
+- 사용자가 7섹션 제안 중 **1·2순위(Publications 두 그룹)만** 우선 구현 선택. 나머지(헤더 전자프로브/Education 빔트레이스/Experience 궤적/Honors 격자점등/Contact 회절)는 보류.
+- `src/components/PublicationsGraphic.astro` 신설 — variant prop(`lattice`|`denoise`). 두 그룹 `h3` 옆 배지(80px 모바일/104px md). pi.astro pubGroups에 `graphic` 필드 추가(microscopy→lattice, ai→denoise) + 그룹 div에 `data-pub-group`, 제목을 `flex items-center justify-between`로 감쌈.
+- **기술**: 프로젝트에 svelte/react 통합 없음 → 순수 Astro `<script>`(type module, 1회 실행) + Canvas + rAF. `querySelectorAll('canvas[data-pub-graphic]')`로 두 인스턴스 각각 init. 파티클 위치 보간이라 HeroResearchInfographic(CSS-only)과 달리 rAF 필요.
+- **메타포**: 6×6=36 도트가 lattice 사이트/노이즈 산포 두 위치를 공유. denoise는 clarityAt(주기 4600ms: 노이즈→복원→유지→재노이즈)로 보간 + 색을 ink→coral 전이(딥러닝 노이즈 제거). lattice는 사이트에 고정 + 미세 열진동(sin/cos)·코랄 단색. 둘 다 중심에서 퍼지는 초점 링.
+- **호버**: 그룹 div pointerenter/leave로 focus 0↔1 ease(0.08). denoise는 `max(clarity, focus)`로 즉시 복원, lattice는 진동 감쇠(amp 1.3→0.4)+도트 확대. 링도 진해짐.
+- **성능/접근성**: dpr 캡 2, IntersectionObserver(threshold 0.05)로 off-screen rAF 정지, `prefers-reduced-motion` 시 frame(2300)만 그리고 루프 미진입(복원된 격자 1프레임). 색은 `--color-coral`/`--color-ink` 런타임 read → 토큰 변경 추종. 신규 색 없음.
+- **검증**: `npm run check` 0/0/0, `npm run build` 통과(11 pages). Edge 헤드리스(`--virtual-time-budget`로 rAF 진행) 캡처 후 크롭 확인 — lattice는 정렬 코랄 격자, denoise는 재노이즈 구간에서 흩어진 회색 도트로 두 분야 시각 대비 확인.
+- 미배포 — 사용자 승인 후 push.

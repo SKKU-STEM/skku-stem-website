@@ -5,6 +5,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
+import PublicationsGraphic from '@components/PublicationsGraphic.astro';
 import profileData from '@content/pi/profile.json';
 
 type Publication = CollectionEntry<'publications-pi-selected'>['data'];
@@ -58,13 +59,19 @@ const microscopyMaterialsScience = piSelectedAll.filter(
 );
 const aiMicroscopy = piSelectedAll.filter((p) => p.category === 'ai');
 
-const pubGroups: Array<{ id: string; title: string; entries: Publication[] }> = [
+const pubGroups: Array<{
+  id: string;
+  title: string;
+  graphic: 'lattice' | 'denoise';
+  entries: Publication[];
+}> = [
   {
     id: 'pub-microscopy',
     title: 'Microscopy-based Materials Science',
+    graphic: 'lattice',
     entries: microscopyMaterialsScience,
   },
-  { id: 'pub-ai', title: 'AI Microscopy', entries: aiMicroscopy },
+  { id: 'pub-ai', title: 'AI Microscopy', graphic: 'denoise', entries: aiMicroscopy },
 ];
 ---
 
@@ -228,10 +235,17 @@ const pubGroups: Array<{ id: string; title: string; entries: Publication[] }> = 
 
         {
           pubGroups.map((group) => (
-            <div id={group.id} class="mt-8 first:mt-6 scroll-mt-12 md:scroll-mt-20">
-              <h3 class="font-display text-xl md:text-2xl font-normal tracking-tight">
-                {group.title}
-              </h3>
+            <div
+              id={group.id}
+              data-pub-group
+              class="mt-8 first:mt-6 scroll-mt-12 md:scroll-mt-20"
+            >
+              <div class="flex items-center justify-between gap-4">
+                <h3 class="font-display text-xl md:text-2xl font-normal tracking-tight">
+                  {group.title}
+                </h3>
+                <PublicationsGraphic variant={group.graphic} />
+              </div>
 
               <ol class="mt-4 divide-y divide-ink/10">
                 {group.entries.map((pub) => (

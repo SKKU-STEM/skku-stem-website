@@ -199,3 +199,16 @@
 - [x] `npm run check` 0/0/0 / `npm run build` 통과 (Explore research 제거·인포그래픽·animate-breathe 3개 확인)
 - [ ] (시각 확인) 로컬 `npm run dev`로 인포그래픽 애니메이션 확인
 - [ ] (배포) git push → Cloudflare Pages 라이브 반영 — 사용자 승인 후
+
+## 11. PI CV Publications 동적 그래픽 (2026-05-31)
+
+범위: 사용자가 제안 1·2순위(Publications 두 그룹)만 우선 선택. 나머지 5섹션 보류.
+
+- [x] `src/components/PublicationsGraphic.astro` — variant: lattice | denoise, 순수 Canvas + rAF
+- [x] denoise: 노이즈 산포 → 코랄 정렬 격자 전이(주기 루프) / lattice: HAADF 원자 격자 미세 열진동 + 초점 링
+- [x] 그룹 호버(`data-pub-group`) 시 intensify — denoise 즉시 복원, lattice 선명화
+- [x] `prefers-reduced-motion` 정적 1프레임 / IntersectionObserver off-screen 정지
+- [x] `pi.astro` 그룹 헤더 flex 래퍼에 삽입 (microscopy→lattice, ai→denoise)
+- [x] `npm run check` 0/0/0
+- [ ] (시각 확인) `npm run dev`로 두 그래픽 + 호버 확인
+- [ ] (배포) git push → 사용자 승인 후
