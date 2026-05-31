@@ -212,3 +212,17 @@
 - [x] `npm run check` 0/0/0
 - [x] (시각 확인) dev 서버 + CDP 호버 주입 캡처 — lattice 선명화·denoise 복원 확인
 - [x] (배포) commit 55d14b3 → push origin main (2026-05-31) → Cloudflare Pages 자동 배포
+
+## 12. PI CV 나머지 5섹션 동적 그래픽 (2026-05-31)
+
+- [x] `src/components/SectionGlyph.astro` — variant: beam|trajectory|lattice|diffraction, 순수 SVG+CSS
+  - [x] beam(Education): 내려오는 전자빔 + 학위 노드
+  - [x] trajectory(Experience): 기관 오가는 경력 궤적 아치 + 이동 점
+  - [x] lattice(Honors): 3×3 수상 격자 순차 점등(대각 웨이브)
+  - [x] diffraction(Contact): 4D-STEM 회절 패턴 + 맥동 링
+- [x] `src/components/ProbeField.astro` — 헤더 backdrop canvas, 커서 추적 전자 프로브(국소 격자 정렬)
+- [x] `pi.astro` — 4섹션 h2를 flex 래퍼로 감싸 글리프 삽입 + 헤더에 ProbeField(텍스트 relative로 위에)
+- [x] reduced-motion 정지 / ProbeField는 IntersectionObserver+ResizeObserver 대응
+- [x] `npm run check` 0/0/0 / `npm run build` 통과
+- [x] (시각 확인) CDP 캡처 — 헤더 프로브(마우스 전/후)·4글리프 렌더 + 헤더 가독성 확인
+- [ ] (배포) 사용자 승인 후 push

@@ -1,0 +1,173 @@
+---
+// PI CV 헤더 텍스트 뒤 동적 backdrop — 떠다니는 전자 입자 필드. 커서가 '전자 프로브'처럼
+// 주변 입자를 국소 격자로 끌어모아 초점을 맞춘다(STEM 프로브 은유). 텍스트 가독성 위해 매우 옅게,
+// 상단(이름) 짙고 하단(bio) 페이드. 순수 Canvas + rAF, prefers-reduced-motion 시 정적 1프레임.
+---
+
+<canvas data-probe-field class="probe-field" aria-hidden="true"></canvas>
+
+<style>
+  .probe-field {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* 텍스트 선택/클릭 방해 안 함 — 포인터는 host에서 받음 */
+    z-index: 0;
+  }
+</style>
+
+<script>
+  const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function hexToRgb(hex: string): [number, number, number] {
+    const m = hex.replace('#', '');
+    return [
+      parseInt(m.slice(0, 2), 16),
+      parseInt(m.slice(2, 4), 16),
+      parseInt(m.slice(4, 6), 16),
+    ];
+  }
+  const CORAL = hexToRgb(
+    getComputedStyle(document.documentElement).getPropertyValue('--color-coral').trim() ||
+      '#CC785C'
+  );
+
+  const STEP = 26; // 프로브가 만드는 국소 격자 간격(CSS px)
+  const PULL_R = 120; // 프로브 영향 반경
+
+  function initProbe(canvas: HTMLCanvasElement) {
+    const host =
+      canvas.closest<HTMLElement>('[data-probe-host]') ??
+      (canvas.parentElement as HTMLElement);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    let W = 0;
+    let H = 0;
+    interface P {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+    }
+    let dots: P[] = [];
+
+    // 면적 비례 입자 수(밀도 일정). seed는 위치 그대로 사용.
+    function rebuild() {
+      const rect = host.getBoundingClientRect();
+      W = Math.max(1, rect.width);
+      H = Math.max(1, rect.height);
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(90, Math.round((W * H) / 5200));
+      dots = [...Array(count)].map(() => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+      }));
+    }
+
+    // 포인터(프로브) — host 위에서만 활성
+    let px = -1;
+    let py = -1;
+    let active = 0; // 0..1 ease
+    let targetActive = 0;
+    if (!REDUCED) {
+      host.addEventListener('pointermove', (e) => {
+        const rect = host.getBoundingClientRect();
+        px = e.clientX - rect.left;
+        py = e.clientY - rect.top;
+        targetActive = 1;
+      });
+      host.addEventListener('pointerleave', () => (targetActive = 0));
+    }
+
+    function draw() {
+      active += (targetActive - active) * 0.06;
+      ctx!.clearRect(0, 0, W, H);
+
+      for (const d of dots) {
+        // 잔잔한 드리프트 + 가장자리 래핑
+        d.x += d.vx;
+        d.y += d.vy;
+        if (d.x < 0) d.x += W;
+        else if (d.x > W) d.x -= W;
+        if (d.y < 0) d.y += H;
+        else if (d.y > H) d.y -= H;
+
+        let alphaBoost = 0;
+        if (active > 0.01 && px >= 0) {
+          const dx = d.x - px;
+          const dy = d.y - py;
+          const dist = Math.hypot(dx, dy);
+          if (dist < PULL_R) {
+            // 프로브 주변에서 가장 가까운 격자 사이트로 끌어당겨 국소 정렬(초점)
+            const sx = px + Math.round(dx / STEP) * STEP;
+            const sy = py + Math.round(dy / STEP) * STEP;
+            const k = (1 - dist / PULL_R) * active * 0.14;
+            d.x += (sx - d.x) * k;
+            d.y += (sy - d.y) * k;
+            alphaBoost = (1 - dist / PULL_R) * active * 0.45;
+          }
+        }
+
+        // 상단 짙고 하단(bio) 옅게 — 텍스트 가독성
+        const falloff = 1 - (d.y / H) * 0.62;
+        const a = (0.18 * falloff + alphaBoost) * Math.max(0.15, falloff);
+        ctx!.beginPath();
+        ctx!.arc(d.x, d.y, 1.6, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${CORAL[0]},${CORAL[1]},${CORAL[2]},${a})`;
+        ctx!.fill();
+      }
+
+      // 프로브 링
+      if (active > 0.02 && px >= 0) {
+        ctx!.beginPath();
+        ctx!.arc(px, py, 16 + active * 6, 0, Math.PI * 2);
+        ctx!.strokeStyle = `rgba(${CORAL[0]},${CORAL[1]},${CORAL[2]},${active * 0.25})`;
+        ctx!.lineWidth = 1;
+        ctx!.stroke();
+      }
+    }
+
+    rebuild();
+    if (REDUCED) {
+      draw(); // 정적 1프레임
+      return;
+    }
+
+    let raf = 0;
+    const loop = () => {
+      draw();
+      raf = requestAnimationFrame(loop);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const en of entries) {
+          if (en.isIntersecting && !raf) raf = requestAnimationFrame(loop);
+          else if (!en.isIntersecting && raf) {
+            cancelAnimationFrame(raf);
+            raf = 0;
+          }
+        }
+      },
+      { threshold: 0 }
+    );
+    io.observe(canvas);
+
+    let rt = 0;
+    const ro = new ResizeObserver(() => {
+      clearTimeout(rt);
+      rt = window.setTimeout(rebuild, 150);
+    });
+    ro.observe(host);
+  }
+
+  document
+    .querySelectorAll<HTMLCanvasElement>('canvas[data-probe-field]')
+    .forEach(initProbe);
+</script>

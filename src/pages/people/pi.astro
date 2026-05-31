@@ -6,6 +6,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
 import PublicationsGraphic from '@components/PublicationsGraphic.astro';
+import SectionGlyph from '@components/SectionGlyph.astro';
+import ProbeField from '@components/ProbeField.astro';
 import profileData from '@content/pi/profile.json';
 
 type Publication = CollectionEntry<'publications-pi-selected'>['data'];
@@ -82,7 +84,9 @@ const pubGroups: Array<{
   <div class="flex flex-col gap-12 md:gap-16 pb-24 md:pb-32">
     {/* ─────────────── Page header ─────────────── */}
     <section class="container-page pt-12 md:pt-20">
-      <div class="container-prose">
+      <div class="container-prose relative" data-probe-host>
+        <ProbeField />
+        <div class="relative">
         <p class="font-mono text-xs uppercase tracking-[0.16em] text-coral-700">
           <a
             href="/people"
@@ -116,6 +120,7 @@ const pubGroups: Array<{
         >
           {profile.bio}
         </p>
+        </div>
       </div>
     </section>
 
@@ -125,11 +130,16 @@ const pubGroups: Array<{
       class="container-page scroll-mt-12 md:scroll-mt-20"
     >
       <div class="container-prose">
-        <h2
-          class="font-mono text-sm md:text-base font-bold uppercase tracking-[0.16em] text-coral-500 pb-3 border-b border-ink/15"
+        <div
+          class="flex items-end justify-between gap-3 pb-3 border-b border-ink/15"
         >
-          Education
-        </h2>
+          <h2
+            class="font-mono text-sm md:text-base font-bold uppercase tracking-[0.16em] text-coral-500"
+          >
+            Education
+          </h2>
+          <SectionGlyph variant="beam" />
+        </div>
         <ul class="mt-3 divide-y divide-ink/10">
           {
             profile.education.map((item) => (
@@ -154,11 +164,16 @@ const pubGroups: Array<{
       class="container-page scroll-mt-12 md:scroll-mt-20"
     >
       <div class="container-prose">
-        <h2
-          class="font-mono text-sm md:text-base font-bold uppercase tracking-[0.16em] text-coral-500 pb-3 border-b border-ink/15"
+        <div
+          class="flex items-end justify-between gap-3 pb-3 border-b border-ink/15"
         >
-          Research Experience
-        </h2>
+          <h2
+            class="font-mono text-sm md:text-base font-bold uppercase tracking-[0.16em] text-coral-500"
+          >
+            Research Experience
+          </h2>
+          <SectionGlyph variant="trajectory" />
+        </div>
         <ul class="mt-3 divide-y divide-ink/10">
           {
             experience.map((item) => (
@@ -183,11 +198,16 @@ const pubGroups: Array<{
       class="container-page scroll-mt-12 md:scroll-mt-20"
     >
       <div class="container-prose">
-        <h2
-          class="font-mono text-sm md:text-base font-bold uppercase tracking-[0.16em] text-coral-500 pb-3 border-b border-ink/15"
+        <div
+          class="flex items-end justify-between gap-3 pb-3 border-b border-ink/15"
         >
-          Honors &amp; Awards
-        </h2>
+          <h2
+            class="font-mono text-sm md:text-base font-bold uppercase tracking-[0.16em] text-coral-500"
+          >
+            Honors &amp; Awards
+          </h2>
+          <SectionGlyph variant="lattice" />
+        </div>
         <ul class="mt-3 divide-y divide-ink/10">
           {
             honors.map((item) => (
@@ -298,11 +318,16 @@ const pubGroups: Array<{
     {/* ─────────────── Contact ─────────────── */}
     <section id="contact" class="container-page scroll-mt-12 md:scroll-mt-20">
       <div class="container-prose">
-        <h2
-          class="font-mono text-sm md:text-base font-bold uppercase tracking-[0.16em] text-coral-500 pb-3 border-b border-ink/15"
+        <div
+          class="flex items-end justify-between gap-3 pb-3 border-b border-ink/15"
         >
-          Contact
-        </h2>
+          <h2
+            class="font-mono text-sm md:text-base font-bold uppercase tracking-[0.16em] text-coral-500"
+          >
+            Contact
+          </h2>
+          <SectionGlyph variant="diffraction" />
+        </div>
         <dl
           class="mt-4 grid grid-cols-1 md:grid-cols-[8rem_1fr] gap-y-3 md:gap-y-2 text-sm md:text-base"
         >

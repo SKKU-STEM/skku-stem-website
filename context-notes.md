@@ -322,4 +322,24 @@ skkustem/
 - **호버**: 그룹 div pointerenter/leave로 focus 0↔1 ease(0.08). denoise는 `max(clarity, focus)`로 즉시 복원, lattice는 진동 감쇠(amp 1.3→0.4)+도트 확대. 링도 진해짐.
 - **성능/접근성**: dpr 캡 2, IntersectionObserver(threshold 0.05)로 off-screen rAF 정지, `prefers-reduced-motion` 시 frame(2300)만 그리고 루프 미진입(복원된 격자 1프레임). 색은 `--color-coral`/`--color-ink` 런타임 read → 토큰 변경 추종. 신규 색 없음.
 - **검증**: `npm run check` 0/0/0, `npm run build` 통과(11 pages). Edge 헤드리스(`--virtual-time-budget`로 rAF 진행) 캡처 후 크롭 확인 — lattice는 정렬 코랄 격자, denoise는 재노이즈 구간에서 흩어진 회색 도트로 두 분야 시각 대비 확인.
+- 미배포 — 사용자 승인 후 push. (배포 완료: commit 55d14b3)
+
+## PI CV 나머지 5섹션 동적 그래픽 (2026-05-31)
+
+Publications에 이어 헤더 + Education/Experience/Honors/Contact 구현. 두 컴포넌트로 분리.
+
+- **배치 판단**: 섹션 h2는 작은 mono 라벨이라 Publications처럼 104px 캔버스 배지를 붙이면 불균형. → 라벨 옆에 ~2rem **SVG 글리프**(라벨 스케일에 맞춤)로 가고, 헤더만 인터랙티브 캔버스 centerpiece로 차등.
+- `src/components/SectionGlyph.astro` — variant 4종, **순수 SVG+CSS**(JS 없음), HeroResearchInfographic 관례 계승.
+  - beam(Education): 세로선 + 3 학위 노드, 밝은 빔 점이 위→아래 훑음(translateY). 노드 stagger 펄스.
+  - trajectory(Experience): 아치 path(`M6 28 C9 9 27 9 30 28`) + 점이 transform translate 키프레임 5단계로 아치를 왕복(alternate) — 떠났다 돌아오는 경력. offset-path는 SVG 호환 불확실해 회피, translate 키프레임으로 구현.
+  - lattice(Honors): 3×3 dots, `--d` 인라인 변수로 대각(r+c) 지연 점등.
+  - diffraction(Contact): 중심 + 육각 2링(ring2는 30° 오프셋, 좌표는 frontmatter에서 cos/sin 계산) + 맥동 링(scale 0.4→2.3 fade).
+  - 색은 SVG presentation에 var() 안 먹으므로 Tailwind `fill-coral`/`stroke-ink`/`stroke-coral` 유틸 + opacity 속성. scale 애니는 `transform-box:fill-box`. reduced-motion 전부 정지(각자 의미있는 정지 프레임).
+  - 글리프 크기 1.75rem(모바일)/2rem(md). pi.astro에서 4섹션 h2를 `<div flex items-end justify-between pb-3 border-b>`로 감싸고(기존 h2의 pb-3/border-b를 래퍼로 이동) 우측에 글리프. Publications h2는 미변경(h3 그룹에 이미 배지).
+- `src/components/ProbeField.astro` — 헤더 텍스트 뒤 **캔버스 backdrop**(유일한 인터랙티브 piece).
+  - 면적 비례 입자(밀도 ~1/5200px², 최대 90개) 잔잔한 드리프트 + 가장자리 래핑.
+  - 포인터('전자 프로브')가 host(container-prose) 위에 있으면, PULL_R(120px) 내 입자를 포인터 중심 STEP(26px) 격자의 최근접 사이트로 끌어당겨 **국소 정렬(초점)** + 밝기 부스트, 포인터 위치에 프로브 링. pointer-events:none(텍스트 클릭/선택 보존), 리스너는 host에서.
+  - **가독성**: 입자 alpha 매우 낮게(top 0.18, 세로 falloff 0.62로 bio 영역은 ~0.06), 반경 1.6. 텍스트는 `<div class="relative">`로 감싸 캔버스(z auto positioned, DOM 먼저) 위에 그려지게 함(둘 다 positioned면 후순위 DOM이 위).
+  - IntersectionObserver(off-screen rAF 정지) + ResizeObserver(debounce 150ms로 backing store 재생성). reduced-motion 정적 1프레임·포인터 비활성. dpr 캡 2.
+- **검증**: check 0/0/0, build 통과(11 pages). CDP(headless Edge + `Input.dispatchMouseEvent`로 실제 마우스 이동)로 헤더 프로브 전/후 캡처 — off는 미세 입자, on은 프로브 링+국소 밝아짐 + 텍스트 가독성 OK 확인. 4글리프도 스크롤 캡처로 렌더 확인. 검증 스크립트(`scripts/_verify5.mjs`, `_hover-check.mjs`)는 일회성이라 삭제.
 - 미배포 — 사용자 승인 후 push.
