@@ -268,6 +268,11 @@
 .lift-row.pub-row:focus-within::after {
   opacity: 0;
 }
+/* 떠오른 카드 바로 위 행의 하단 구분선도 숨겨 카드가 선 위로 부유하도록 처리 */
+.pub-row:has(+ .lift-row:hover)::after,
+.pub-row:has(+ .lift-row:focus-within)::after {
+  opacity: 0;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .lift-card,
