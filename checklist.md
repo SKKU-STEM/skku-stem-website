@@ -210,5 +210,5 @@
 - [x] `prefers-reduced-motion` 정적 1프레임 / IntersectionObserver off-screen 정지
 - [x] `pi.astro` 그룹 헤더 flex 래퍼에 삽입 (microscopy→lattice, ai→denoise)
 - [x] `npm run check` 0/0/0
-- [ ] (시각 확인) `npm run dev`로 두 그래픽 + 호버 확인
-- [ ] (배포) git push → 사용자 승인 후
+- [x] (시각 확인) dev 서버 + CDP 호버 주입 캡처 — lattice 선명화·denoise 복원 확인
+- [x] (배포) commit 55d14b3 → push origin main (2026-05-31) → Cloudflare Pages 자동 배포
