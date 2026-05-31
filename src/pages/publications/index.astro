@@ -207,11 +207,11 @@ const grandMinYear = Math.min(
                 {year}
               </h2>
 
-              <ol class="divide-y divide-ink/15">
+              <ol>
                 {byYear[year].map((p) => (
                   <li
                     class:list={[
-                      'grid grid-cols-[2.5rem_1fr] gap-x-4',
+                      'pub-row grid grid-cols-[2.5rem_1fr] gap-x-4',
                       p.lead ? 'lift-row py-3 px-3 -mx-3' : 'py-3',
                     ]}
                   >

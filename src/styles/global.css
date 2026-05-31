@@ -242,6 +242,33 @@
     0 8px 20px rgba(20, 20, 19, 0.08);
 }
 
+/* .pub-row — Publications 리스트 행 구분선. ::after 의사요소로 그어 lift-row 카드 보더와 분리해
+   주저자/공저 행에 동일한 선을 보장. 주저자 행이 hover로 떠오를 때 자신의 하단 선을 숨겨 카드가 깔끔히 부유. */
+.pub-row {
+  position: relative;
+}
+.pub-row::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 15%, transparent);
+  transition: opacity 0.2s ease;
+}
+.pub-row:last-child::after {
+  display: none;
+}
+/* lift-row는 -mx-3/px-3로 박스가 좌우 0.75rem 넓으므로 구분선을 같은 양만큼 들여 일반 행과 정렬 통일 */
+.lift-row.pub-row::after {
+  left: 0.75rem;
+  right: 0.75rem;
+}
+.lift-row.pub-row:hover::after,
+.lift-row.pub-row:focus-within::after {
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .lift-card,
   .lift-row {
