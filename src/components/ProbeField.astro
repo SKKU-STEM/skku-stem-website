@@ -62,7 +62,7 @@
       canvas.width = W * dpr;
       canvas.height = H * dpr;
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(90, Math.round((W * H) / 5200));
+      const count = Math.min(220, Math.round((W * H) / 2200));
       dots = [...Array(count)].map(() => ({
         x: Math.random() * W,
         y: Math.random() * H,
@@ -117,9 +117,9 @@
 
         // 상단 짙고 하단(bio) 옅게 — 텍스트 가독성
         const falloff = 1 - (d.y / H) * 0.62;
-        const a = (0.18 * falloff + alphaBoost) * Math.max(0.15, falloff);
+        const a = (0.32 * falloff + alphaBoost) * Math.max(0.18, falloff);
         ctx!.beginPath();
-        ctx!.arc(d.x, d.y, 1.6, 0, Math.PI * 2);
+        ctx!.arc(d.x, d.y, 1.7, 0, Math.PI * 2);
         ctx!.fillStyle = `rgba(${CORAL[0]},${CORAL[1]},${CORAL[2]},${a})`;
         ctx!.fill();
       }
