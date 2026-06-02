@@ -1,6 +1,5 @@
 ---
 section: alumni
-startDate: ''
 nameKo: 주현아
 nameEn: Hyeon-Ah Ju, Ph.D.
 position: ''
