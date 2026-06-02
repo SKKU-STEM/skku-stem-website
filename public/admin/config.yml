@@ -355,7 +355,7 @@ collections:
       - name: section
         label: Section
         widget: select
-        options: [postdoc, phd, undergrad, alumni]
+        options: [postdoc, phd, master, undergrad, alumni]
       - name: startDate
         label: 입학 연·월 (현 멤버 — 정렬·연차·기수 자동 계산)
         widget: datetime
@@ -367,7 +367,8 @@ collections:
       - { name: nameKo, label: Name (KO), widget: string }
       - { name: nameEn, label: Name (EN), widget: string }
       - { name: position, label: Position (현 멤버), widget: string, required: false }
-      - { name: program, label: Program (현 멤버), widget: string, required: false, hint: '예: Integrated course / Ph.D. course' }
+      - { name: program, label: Program (현 멤버), widget: string, required: false, hint: '예: Integrated course / Ph.D. course / MS course' }
+      - { name: industry, label: 산학 (산학협력 학생), widget: boolean, required: false, default: false, hint: '켜면 카드의 연차·기수 배지 옆에 「산학」 배지가 표시된다.' }
       - { name: yearRange, label: Year range (Postdoc 등 종료연도 있는 경우만), widget: string, required: false, hint: '예: 2020–2026. 학생은 비우면 startDate에서 "입학연도–present"가 자동 표시된다.' }
       - { name: email, label: Email, widget: string, required: false }
       - { name: orcid, label: ORCID, widget: string, required: false }

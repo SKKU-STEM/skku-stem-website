@@ -4,6 +4,7 @@ startDate: 2025-03
 nameKo: 최다혜
 nameEn: Dahye Choi
 position: Industry
+industry: true
 program: Ph.D. course
 yearRange: ''
 email: chlekgp0424@skku.edu

@@ -130,9 +130,11 @@ const news = defineCollection({
 const members = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/members' }),
   schema: z.object({
-    section: z.enum(['postdoc', 'phd', 'undergrad', 'alumni']),
+    section: z.enum(['postdoc', 'phd', 'master', 'undergrad', 'alumni']),
     // 현 멤버 입학 연·월 — 섹션 내 정렬 키이자 연차/기수 자동 계산 기준. alumni는 비우고 role의 종료연도로 정렬한다.
     startDate: z.coerce.date().optional(),
+    // 산학(산학협력) 학생 여부 — true면 연차/기수 배지 옆에 '산학' 배지를 표시한다.
+    industry: z.boolean().optional(),
     nameKo: z.string(),
     nameEn: z.string(),
     // 현 멤버

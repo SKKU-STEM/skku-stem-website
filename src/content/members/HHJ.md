@@ -1,9 +1,10 @@
 ---
-section: phd
+section: master
 startDate: 2026-03
 nameKo: 정호현
 nameEn: Hohyeon Jung
 position: Industry
+industry: true
 program: MS course
 yearRange: ''
 email: police0830@naver.com
