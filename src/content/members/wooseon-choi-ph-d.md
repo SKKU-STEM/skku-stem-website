@@ -5,7 +5,7 @@ nameEn: Wooseon Choi, Ph.D.
 position: ''
 program: ''
 yearRange: ''
-email: wooseon@skku.edu
+email: wooseon.choi@samsung.com
 orcid: 0000-0001-8115-1596
 kri: ''
 coAdvisor: ''
