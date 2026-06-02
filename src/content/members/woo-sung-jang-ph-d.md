@@ -5,7 +5,7 @@ nameEn: Woo-Sung Jang, Ph.D.
 position: ''
 program: ''
 yearRange: ''
-email: wsjang@skku.edu
+email: w00sung.jang@samsung.com
 orcid: 0000-0002-4209-6819
 kri: ''
 coAdvisor: ''
