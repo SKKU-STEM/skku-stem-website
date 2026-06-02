@@ -5,7 +5,7 @@ nameEn: Heebeom Lee, Ph.D.
 position: ''
 program: ''
 yearRange: ''
-email: heebeom.lee@skku.edu
+email: heebeom.lee@lamresearch.com
 orcid: 0000-0002-5922-2076
 kri: ''
 coAdvisor: ''
