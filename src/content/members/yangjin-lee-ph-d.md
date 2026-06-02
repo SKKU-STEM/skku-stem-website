@@ -1,6 +1,5 @@
 ---
 section: alumni
-startDate: ''
 nameKo: 이양진
 nameEn: Yangjin Lee, Ph.D.
 position: ''
