@@ -5,7 +5,7 @@ nameEn: Young-Hoon Kim, Ph.D.
 position: ''
 program: ''
 yearRange: ''
-email: di1147@skku.edu
+email: yhoonkimtem@gmail.com
 orcid: 0000-0001-7343-1512
 kri: ''
 coAdvisor: ''
