@@ -5,7 +5,7 @@ nameEn: Taewon Min, Ph.D.
 position: ''
 program: ''
 yearRange: ''
-email: teawon_min@pusan.ac.kr
+email: taewon.min@sk.com
 orcid: ''
 kri: ''
 coAdvisor: ''
