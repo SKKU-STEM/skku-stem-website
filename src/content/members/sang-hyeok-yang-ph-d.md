@@ -5,7 +5,7 @@ nameEn: Sang-Hyeok Yang, Ph.D.
 position: ''
 program: ''
 yearRange: ''
-email: 0412ysh@skku.edu
+email: syang@kriss.re.kr
 orcid: 0000-0002-6287-7612
 kri: ''
 coAdvisor: ''
