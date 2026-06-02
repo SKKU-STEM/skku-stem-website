@@ -5,7 +5,7 @@ nameEn: Seon Je Kim, Ph.D.
 position: ''
 program: ''
 yearRange: ''
-email: muytjswp@skku.edu
+email: seonje.kim@lamresearch.com 
 orcid: 0000-0002-7756-5312
 kri: ''
 coAdvisor: ''
