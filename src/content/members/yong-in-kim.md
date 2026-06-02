@@ -5,7 +5,7 @@ nameEn: Yong In Kim
 position: ''
 program: ''
 yearRange: ''
-email: panzeri@skku.edu
+email: yikim@enftech.com
 orcid: ''
 kri: ''
 coAdvisor: ''
