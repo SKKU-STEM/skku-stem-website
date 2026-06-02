@@ -5,7 +5,7 @@ nameEn: Yuseong Heo
 position: ''
 program: ''
 yearRange: ''
-email: ysh7742@g.skku.edu
+email: gjdbtjd0703@gmail.com
 orcid: 0000-0003-2825-315X
 kri: ''
 coAdvisor: ''
