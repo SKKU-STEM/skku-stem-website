@@ -1,11 +1,12 @@
 ---
 section: alumni
+startDate: ''
 nameKo: 주현아
 nameEn: Hyeon-Ah Ju, Ph.D.
 position: ''
 program: ''
 yearRange: ''
-email: hyeonah.ju@g.skku.edu
+email: hyeonah.ju@kaist.ac.kr
 orcid: 0000-0002-5887-1162
 kri: ''
 coAdvisor: ''
