@@ -1,11 +1,12 @@
 ---
 section: alumni
+startDate: ''
 nameKo: 이양진
 nameEn: Yangjin Lee, Ph.D.
 position: ''
 program: ''
 yearRange: ''
-email: moyh1331@gmail.com
+email: yangjinlee@kist.re.kr
 orcid: 0000-0001-7336-1198
 kri: ''
 coAdvisor: ''
