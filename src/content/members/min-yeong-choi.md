@@ -5,7 +5,7 @@ nameEn: Min-Yeong Choi
 position: ''
 program: ''
 yearRange: ''
-email: minzero@g.skku.edu
+email: minzero@nnfc.re.kr
 orcid: 0000-0002-3044-3860
 kri: ''
 coAdvisor: ''
