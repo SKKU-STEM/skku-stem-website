@@ -98,6 +98,8 @@ collections:
             label: Entries
             label_singular: Entry
             widget: list
+            add_to_top: true
+            collapsed: true
             summary: '#{{fields.number}} ({{fields.year}}) — {{fields.title}}'
             fields:
               - { name: id, label: ID (number 동일하게), widget: string }
@@ -122,6 +124,8 @@ collections:
             label: Entries
             label_singular: Entry
             widget: list
+            add_to_top: true
+            collapsed: true
             summary: '#{{fields.number}} ({{fields.year}}) — {{fields.title}}'
             fields:
               - { name: id, label: ID (number 동일하게), widget: string }
@@ -146,6 +150,8 @@ collections:
             label: Entries
             label_singular: Entry
             widget: list
+            add_to_top: true
+            collapsed: true
             summary: '#{{fields.number}} [{{fields.kind}}] {{fields.title}}'
             fields:
               - { name: id, label: ID (number 동일하게), widget: string }
@@ -195,6 +201,8 @@ collections:
             label: Entries
             label_singular: Entry
             widget: list
+            add_to_top: true
+            collapsed: true
             summary: '[{{fields.category}} #{{fields.order}}] {{fields.year}} — {{fields.title}}'
             fields:
               - { name: id, label: ID (kebab-case, unique), widget: string }
