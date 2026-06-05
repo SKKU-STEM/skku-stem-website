@@ -1,7 +1,8 @@
 ---
 section: alumni
+startDate: ''
 nameKo: 이희범
-nameEn: Heebeom Lee, Ph.D.
+nameEn: Hee-Beom Lee, Ph.D.
 position: ''
 program: ''
 yearRange: ''
