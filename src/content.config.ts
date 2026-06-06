@@ -17,6 +17,13 @@ const optionalUrl = z.preprocess(
 const optionalEnum = <T extends [string, ...string[]]>(values: T) =>
   z.preprocess((v) => (v === '' ? undefined : v), z.enum(values).optional());
 
+// Sveltia CMS는 빈 optional 날짜 필드도 ''로 저장하므로 coerce 전 undefined로 정규화한다.
+// (''를 그대로 z.coerce.date()에 넣으면 Invalid Date가 되어 빌드가 깨진다.)
+const optionalDate = z.preprocess(
+  (v) => (v === '' ? undefined : v),
+  z.coerce.date().optional(),
+);
+
 // ─────────── Publications: SKKU 시기 SCI 논문 ───────────
 const publicationsSkku = defineCollection({
   loader: file('src/content/publications/skku.json', { parser: itemsParser }),
@@ -132,7 +139,7 @@ const members = defineCollection({
   schema: z.object({
     section: z.enum(['postdoc', 'phd', 'master', 'undergrad', 'alumni']),
     // 현 멤버 입학 연·월 — 섹션 내 정렬 키이자 연차/기수 자동 계산 기준. alumni는 비우고 role의 종료연도로 정렬한다.
-    startDate: z.coerce.date().optional(),
+    startDate: optionalDate,
     // 산학(산학협력) 학생 여부 — true면 연차/기수 배지 옆에 '산학' 배지를 표시한다.
     industry: z.boolean().optional(),
     nameKo: z.string(),
