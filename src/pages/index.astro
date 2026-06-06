@@ -206,34 +206,53 @@ const highlights = skkuEntries
             {/* 원자 격자 — 에너지 소재의 결정 구조 + STEM의 atomic-resolution 이미지 */}
             <rect width="100%" height="100%" fill="url(#hex-lattice)" opacity="0.55" />
 
-            {/* CV 검출 링 — 인공지능이 atomic column을 식별한 정적 마커 */}
-            <g fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.5">
-              <circle cx="680" cy="80" r="16" />
-              <circle cx="120" cy="370" r="17" />
-              <circle cx="120" cy="370" r="9" />
-              <circle cx="700" cy="380" r="14" />
-              <circle cx="240" cy="210" r="11" />
-              <circle cx="470" cy="115" r="13" />
+            {/* 파형 링 — 모든 검출 지점에서 동심원이 물결처럼 퍼져나가는 ripple.
+                음수 delay로 처음부터 위상이 흩어진 상태로 시작해 항상 움직인다. */}
+            <g fill="none" stroke="currentColor" stroke-width="1.4">
+              {/* emitter — 180,120 */}
+              <circle class="ripple" cx="180" cy="120" r="10" style="animation-delay:0s" />
+              <circle class="ripple" cx="180" cy="120" r="10" style="animation-delay:-1.4s" />
+              <circle class="ripple" cx="180" cy="120" r="10" style="animation-delay:-2.8s" />
+              {/* emitter — 560,190 */}
+              <circle class="ripple" cx="560" cy="190" r="10" style="animation-delay:-0.5s" />
+              <circle class="ripple" cx="560" cy="190" r="10" style="animation-delay:-1.9s" />
+              <circle class="ripple" cx="560" cy="190" r="10" style="animation-delay:-3.3s" />
+              {/* emitter — 370,380 */}
+              <circle class="ripple" cx="370" cy="380" r="10" style="animation-delay:-1s" />
+              <circle class="ripple" cx="370" cy="380" r="10" style="animation-delay:-2.4s" />
+              <circle class="ripple" cx="370" cy="380" r="10" style="animation-delay:-3.8s" />
+              {/* emitter — 680,80 */}
+              <circle class="ripple" cx="680" cy="80" r="10" style="animation-delay:-1.5s" />
+              <circle class="ripple" cx="680" cy="80" r="10" style="animation-delay:-2.9s" />
+              <circle class="ripple" cx="680" cy="80" r="10" style="animation-delay:-4.3s" />
+              {/* emitter — 120,370 */}
+              <circle class="ripple" cx="120" cy="370" r="10" style="animation-delay:-2s" />
+              <circle class="ripple" cx="120" cy="370" r="10" style="animation-delay:-3.4s" />
+              <circle class="ripple" cx="120" cy="370" r="10" style="animation-delay:-4.8s" />
+              {/* emitter — 700,380 */}
+              <circle class="ripple" cx="700" cy="380" r="10" style="animation-delay:-2.5s" />
+              <circle class="ripple" cx="700" cy="380" r="10" style="animation-delay:-3.9s" />
+              <circle class="ripple" cx="700" cy="380" r="10" style="animation-delay:-5.3s" />
+              {/* emitter — 240,210 */}
+              <circle class="ripple" cx="240" cy="210" r="10" style="animation-delay:-3s" />
+              <circle class="ripple" cx="240" cy="210" r="10" style="animation-delay:-4.4s" />
+              <circle class="ripple" cx="240" cy="210" r="10" style="animation-delay:-5.8s" />
+              {/* emitter — 470,115 */}
+              <circle class="ripple" cx="470" cy="115" r="10" style="animation-delay:-3.5s" />
+              <circle class="ripple" cx="470" cy="115" r="10" style="animation-delay:-4.9s" />
+              <circle class="ripple" cx="470" cy="115" r="10" style="animation-delay:-6.3s" />
             </g>
 
-            {/* 파형 링 — 검출 지점에서 동심원이 물결처럼 퍼져나가는 ripple */}
-            <g fill="none" stroke="currentColor" stroke-width="1.4">
-              {/* emitter 1 — 180,120 */}
-              <circle class="ripple" cx="180" cy="120" r="10" style="animation-delay:0s" />
-              <circle class="ripple" cx="180" cy="120" r="10" style="animation-delay:1.4s" />
-              <circle class="ripple" cx="180" cy="120" r="10" style="animation-delay:2.8s" />
-              {/* emitter 2 — 560,190 */}
-              <circle class="ripple" cx="560" cy="190" r="10" style="animation-delay:0.7s" />
-              <circle class="ripple" cx="560" cy="190" r="10" style="animation-delay:2.1s" />
-              <circle class="ripple" cx="560" cy="190" r="10" style="animation-delay:3.5s" />
-              {/* emitter 3 — 370,380 */}
-              <circle class="ripple" cx="370" cy="380" r="10" style="animation-delay:0.35s" />
-              <circle class="ripple" cx="370" cy="380" r="10" style="animation-delay:1.75s" />
-              <circle class="ripple" cx="370" cy="380" r="10" style="animation-delay:3.15s" />
-              {/* 검출 지점 중심 도트 */}
-              <circle cx="180" cy="120" r="3" fill="currentColor" stroke="none" opacity="0.6" />
-              <circle cx="560" cy="190" r="3" fill="currentColor" stroke="none" opacity="0.6" />
-              <circle cx="370" cy="380" r="3" fill="currentColor" stroke="none" opacity="0.6" />
+            {/* 검출 지점 중심 도트 */}
+            <g fill="currentColor" stroke="none" opacity="0.6">
+              <circle cx="180" cy="120" r="3" />
+              <circle cx="560" cy="190" r="3" />
+              <circle cx="370" cy="380" r="3" />
+              <circle cx="680" cy="80" r="3" />
+              <circle cx="120" cy="370" r="3" />
+              <circle cx="700" cy="380" r="3" />
+              <circle cx="240" cy="210" r="3" />
+              <circle cx="470" cy="115" r="3" />
             </g>
 
             {/* 스캔 라인 — CV 처리 진행을 암시하는 가로선 */}
@@ -271,7 +290,7 @@ const highlights = skkuEntries
           </p>
 
           <h2
-            class="recruit-title mt-5 font-display font-medium text-3xl md:text-4xl tracking-tight leading-snug"
+            class="recruit-title mt-5 font-display font-semibold text-3xl md:text-4xl tracking-tight leading-snug"
           >
             석박통합과정 및 학부연구생을 모집합니다
           </h2>
@@ -373,15 +392,15 @@ const highlights = skkuEntries
     }
   }
 
-  /* 모집 제목 — 눈에 띄는 밝은 코랄 + 좌우로 흐르는 광택 sweep */
+  /* 모집 제목 — 진한 코랄로 또렷하게 + 좌우로 흐르는 광택 sweep (대비 확보) */
   .recruit-title {
     background-image: linear-gradient(
       100deg,
-      var(--color-coral) 0%,
-      #e8916e 25%,
-      #f6a98a 50%,
-      #e8916e 75%,
-      var(--color-coral) 100%
+      var(--color-coral-700) 0%,
+      var(--color-coral-600) 30%,
+      var(--color-coral) 50%,
+      var(--color-coral-600) 70%,
+      var(--color-coral-700) 100%
     );
     background-size: 220% 100%;
     -webkit-background-clip: text;
