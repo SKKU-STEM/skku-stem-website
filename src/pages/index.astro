@@ -273,17 +273,20 @@ const highlights = skkuEntries
         <div class="relative container-prose">
           <p class="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.16em] text-ink">
             <span
-              class="relative inline-flex h-[1.15rem] w-[1.15rem] items-center justify-center text-coral"
+              class="relative inline-flex h-[1.5rem] w-[1.5rem] items-center justify-center text-coral"
               aria-hidden="true"
             >
               <svg
-                class="recruit-sparkle h-full w-full"
+                class="recruit-spinner h-full w-full"
                 viewBox="0 0 24 24"
-                fill="currentColor"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.6"
+                stroke-linecap="round"
               >
-                <path
-                  d="M12 1.5C12.55 8 16 11.45 22.5 12C16 12.55 12.55 16 12 22.5C11.45 16 8 12.55 1.5 12C8 11.45 12.55 8 12 1.5Z"
-                />
+                <line x1="12" y1="2.5" x2="12" y2="21.5" />
+                <line x1="3.77" y1="7.25" x2="20.23" y2="16.75" />
+                <line x1="3.77" y1="16.75" x2="20.23" y2="7.25" />
               </svg>
             </span>
             Now recruiting
@@ -373,22 +376,22 @@ const highlights = skkuEntries
     }
   }
 
-  /* NOW RECRUITING 점 — 점이 별(sparkle)로 부풀었다 줄어드는 반짝임 */
-  .recruit-sparkle {
+  /* NOW RECRUITING 마크 — Claude Code 스피너처럼 6갈래 별표가 천천히 회전하며 맥동한다. */
+  .recruit-spinner {
     transform-box: fill-box;
     transform-origin: center;
-    animation: sparkle-twinkle 1.9s ease-in-out infinite;
+    animation: spinner-spin 4s linear infinite;
   }
 
-  @keyframes sparkle-twinkle {
-    0%,
-    100% {
-      transform: scale(0.4) rotate(0deg);
-      opacity: 0.55;
+  @keyframes spinner-spin {
+    0% {
+      transform: rotate(0deg) scale(0.9);
     }
     50% {
-      transform: scale(1) rotate(45deg);
-      opacity: 1;
+      transform: rotate(180deg) scale(1.08);
+    }
+    100% {
+      transform: rotate(360deg) scale(0.9);
     }
   }
 
@@ -426,9 +429,9 @@ const highlights = skkuEntries
       animation: none;
       background-position: 50% 0;
     }
-    .recruit-sparkle {
+    .recruit-spinner {
       animation: none;
-      transform: scale(0.85);
+      transform: scale(1);
     }
   }
 
