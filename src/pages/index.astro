@@ -206,18 +206,34 @@ const highlights = skkuEntries
             {/* 원자 격자 — 에너지 소재의 결정 구조 + STEM의 atomic-resolution 이미지 */}
             <rect width="100%" height="100%" fill="url(#hex-lattice)" opacity="0.55" />
 
-            {/* CV 검출 링 — 머신러닝이 atomic column을 식별한 마커 */}
-            <g fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.55">
-              <circle cx="180" cy="120" r="22" />
-              <circle cx="180" cy="120" r="13" />
-              <circle cx="560" cy="190" r="18" />
-              <circle cx="560" cy="190" r="10" />
-              <circle cx="370" cy="380" r="20" />
-              <circle cx="370" cy="380" r="12" />
+            {/* CV 검출 링 — 인공지능이 atomic column을 식별한 정적 마커 */}
+            <g fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.5">
               <circle cx="680" cy="80" r="16" />
               <circle cx="120" cy="370" r="17" />
               <circle cx="120" cy="370" r="9" />
               <circle cx="700" cy="380" r="14" />
+              <circle cx="240" cy="210" r="11" />
+              <circle cx="470" cy="115" r="13" />
+            </g>
+
+            {/* 파형 링 — 검출 지점에서 동심원이 물결처럼 퍼져나가는 ripple */}
+            <g fill="none" stroke="currentColor" stroke-width="1.4">
+              {/* emitter 1 — 180,120 */}
+              <circle class="ripple" cx="180" cy="120" r="10" style="animation-delay:0s" />
+              <circle class="ripple" cx="180" cy="120" r="10" style="animation-delay:1.4s" />
+              <circle class="ripple" cx="180" cy="120" r="10" style="animation-delay:2.8s" />
+              {/* emitter 2 — 560,190 */}
+              <circle class="ripple" cx="560" cy="190" r="10" style="animation-delay:0.7s" />
+              <circle class="ripple" cx="560" cy="190" r="10" style="animation-delay:2.1s" />
+              <circle class="ripple" cx="560" cy="190" r="10" style="animation-delay:3.5s" />
+              {/* emitter 3 — 370,380 */}
+              <circle class="ripple" cx="370" cy="380" r="10" style="animation-delay:0.35s" />
+              <circle class="ripple" cx="370" cy="380" r="10" style="animation-delay:1.75s" />
+              <circle class="ripple" cx="370" cy="380" r="10" style="animation-delay:3.15s" />
+              {/* 검출 지점 중심 도트 */}
+              <circle cx="180" cy="120" r="3" fill="currentColor" stroke="none" opacity="0.6" />
+              <circle cx="560" cy="190" r="3" fill="currentColor" stroke="none" opacity="0.6" />
+              <circle cx="370" cy="380" r="3" fill="currentColor" stroke="none" opacity="0.6" />
             </g>
 
             {/* 스캔 라인 — CV 처리 진행을 암시하는 가로선 */}
@@ -237,23 +253,31 @@ const highlights = skkuEntries
         {/* Content */}
         <div class="relative container-prose">
           <p class="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.16em] text-ink">
-            <span class="relative inline-flex h-2 w-2">
-              <span
-                class="absolute inline-flex h-full w-full rounded-full bg-coral opacity-60 animate-ping"
-              ></span>
-              <span class="relative inline-flex h-2 w-2 rounded-full bg-coral"></span>
+            <span
+              class="relative inline-flex h-[1.15rem] w-[1.15rem] items-center justify-center text-coral"
+              aria-hidden="true"
+            >
+              <svg
+                class="recruit-sparkle h-full w-full"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 1.5C12.55 8 16 11.45 22.5 12C16 12.55 12.55 16 12 22.5C11.45 16 8 12.55 1.5 12C8 11.45 12.55 8 12 1.5Z"
+                />
+              </svg>
             </span>
             Now recruiting
           </p>
 
           <h2
-            class="mt-5 font-display font-normal text-3xl md:text-4xl tracking-tight leading-snug"
+            class="recruit-title mt-5 font-display font-medium text-3xl md:text-4xl tracking-tight leading-snug"
           >
             석박통합과정 및 학부연구생을 모집합니다
           </h2>
 
           <p class="mt-6 text-base md:text-lg text-ink/85 leading-relaxed">
-            주사투과전자현미경과 머신러닝 기술을 바탕으로, 차세대 에너지 소재의
+            주사투과전자현미경과 인공지능 기술을 바탕으로, 차세대 에너지 소재의
             원자 단위 구조와 작동 메커니즘을 함께 탐구할 동료를 찾고 있습니다.
             물리·화학·재료·전산 어느 배경에서 오시든, 현미경과 데이터 사이의
             새로운 길을 함께 만들어 갑시다.
@@ -305,6 +329,88 @@ const highlights = skkuEntries
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+  }
+
+  /* 모집 배경 — 검출 지점에서 동심원이 물결처럼 퍼져나가는 파형 ripple */
+  .ripple {
+    transform-box: fill-box;
+    transform-origin: center;
+    vector-effect: non-scaling-stroke;
+    opacity: 0;
+    animation: ripple-wave 4.2s ease-out infinite;
+  }
+
+  @keyframes ripple-wave {
+    0% {
+      transform: scale(0.3);
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(3.6);
+      opacity: 0;
+    }
+  }
+
+  /* NOW RECRUITING 점 — 점이 별(sparkle)로 부풀었다 줄어드는 반짝임 */
+  .recruit-sparkle {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: sparkle-twinkle 1.9s ease-in-out infinite;
+  }
+
+  @keyframes sparkle-twinkle {
+    0%,
+    100% {
+      transform: scale(0.4) rotate(0deg);
+      opacity: 0.55;
+    }
+    50% {
+      transform: scale(1) rotate(45deg);
+      opacity: 1;
+    }
+  }
+
+  /* 모집 제목 — 눈에 띄는 밝은 코랄 + 좌우로 흐르는 광택 sweep */
+  .recruit-title {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-coral) 0%,
+      #e8916e 25%,
+      #f6a98a 50%,
+      #e8916e 75%,
+      var(--color-coral) 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: title-sheen 5s linear infinite;
+  }
+
+  @keyframes title-sheen {
+    to {
+      background-position: -220% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ripple {
+      animation: none;
+      opacity: 0.4;
+      transform: scale(1.5);
+    }
+    .recruit-title {
+      animation: none;
+      background-position: 50% 0;
+    }
+    .recruit-sparkle {
+      animation: none;
+      transform: scale(0.85);
+    }
   }
 
   /* Hero 모토 끝에 별/원자 심상의 작은 코랄 마크 — nucleus + halo + 8방향 ray */
