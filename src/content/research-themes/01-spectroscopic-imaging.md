@@ -1,5 +1,5 @@
 ---
-order: 1
+order: 4
 slug: spectroscopic-imaging
 title: Atomic-scale spectroscopic imaging for energy materials
 subtitle: STEM-EELS/EDX chemical, valence, and oxygen-vacancy mapping
@@ -18,6 +18,6 @@ relatedHighlights:
   - 2017-atomic-resolution-chemical-mapping-for-energy-materials
   - 2014-polarization-mapping-for-ferroelectric-materials
   - 2012-oxygen-vacancy-mapping-for-solid-oxide-fuel-cell-cathode-mat
-image: ""
-imageAlt: ""
+image: ''
+imageAlt: ''
 ---
