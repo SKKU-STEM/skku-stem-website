@@ -1,7 +1,7 @@
 ---
 order: 4
 slug: spectroscopic-imaging
-title: Atomic-scale spectroscopic imaging for energy materials
+title: Electron spectroscopic imaging for energy materials
 subtitle: STEM-EELS/EDX chemical, valence, and oxygen-vacancy mapping
 summary: Atomic-resolution STEM combined with EELS/EDX spectroscopy directly visualizes oxygen vacancies, cation distributions, and valence states in energy oxides — SOFC cathodes, Li-ion electrodes, solid electrolytes, catalysts, and thermoelectrics. By quantifying the defect chemistry that governs functionality at the single-atom level, we trace the microscopic origins of structure–property relationships.
 relatedHighlights:
