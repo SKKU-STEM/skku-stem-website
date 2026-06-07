@@ -10,7 +10,10 @@
       "journal": "npj Computational Materials",
       "volumePages": "accepted",
       "doi": "",
-      "themes": ["4d-stem-crystallography", "machine-learning-em"]
+      "themes": [
+        "4d-stem-crystallography",
+        "machine-learning-em"
+      ]
     },
     {
       "id": "231",
@@ -32,7 +35,10 @@
       "title": "Damage-minimized 3D structural analysis of a catalyst electrode–polymer electrolyte cell in proton exchange membrane water electrolyzer",
       "journal": "Journal of Power Sources",
       "volumePages": "accepted",
-      "doi": ""
+      "doi": "",
+      "themes": [
+        "electron-tomography"
+      ]
     },
     {
       "id": "229",
@@ -43,7 +49,10 @@
       "title": "Machine-learning-driven integrated probing of oxygen-vacancy distribution and ionomer morphology in iridium oxide catalyst–ionomer nanocomposite electrode for water electrolyzer",
       "journal": "Journal of Materials Chemistry A",
       "volumePages": "14(33), 21927-21939",
-      "doi": "https://doi.org/10.1039/D5TA08480F"
+      "doi": "https://doi.org/10.1039/D5TA08480F",
+      "themes": [
+        "spectroscopic-imaging"
+      ]
     },
     {
       "id": "228",
