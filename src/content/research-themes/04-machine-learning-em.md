@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 1
 slug: machine-learning-em
 title: Machine learning for electron microscopy
 subtitle: Automated defect, particle, and structure analysis
@@ -10,6 +10,6 @@ relatedHighlights:
   - 2023-deep-learning-catalyst-particle-analysis-with-attention-u-ne
   - 2022-hybrid-deep-learning-crystallography-with-4d-stem
   - 2021-deep-learning-algorithm-for-automated-defect-quantification-
-image: ""
-imageAlt: ""
+image: ''
+imageAlt: ''
 ---
