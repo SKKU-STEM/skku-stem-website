@@ -194,7 +194,10 @@
       "title": "A trailblazing quenching strategy for simultaneous LiF formation at surface and intergranular interfaces for enhanced stability of high-Ni NCM cathodes",
       "journal": "Small",
       "volumePages": "21(42), e07292",
-      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/smll.202507292"
+      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/smll.202507292",
+      "themes": [
+        "electron-tomography"
+      ]
     },
     {
       "id": "215",
@@ -280,7 +283,10 @@
       "title": "Improving cyclability and structural stability of Co-free layered cathode by controlling porosity and cracks in secondary particles for low-cost and high-energy LIBs",
       "journal": "Advanced Functional Materials",
       "volumePages": "35(27), 2424880",
-      "doi": "https://doi.org/10.1002/adfm.202424880"
+      "doi": "https://doi.org/10.1002/adfm.202424880",
+      "themes": [
+        "electron-tomography"
+      ]
     },
     {
       "id": "207",
@@ -509,7 +515,11 @@
       "title": "Deep learning image segmentation for the reliable porosity measurement of high-capacity Ni-based oxide cathode secondary particles",
       "journal": "Journal of Analytical Science and Technology",
       "volumePages": "14, 47",
-      "doi": "https://doi.org/10.1186/s40543-023-00407-z"
+      "doi": "https://doi.org/10.1186/s40543-023-00407-z",
+      "themes": [
+        "electron-tomography",
+        "machine-learning-em"
+      ]
     },
     {
       "id": "186",
