@@ -8,7 +8,7 @@ import ThemeIcon from '@components/ThemeIcon.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { formatChemistry } from '@/utils/chemistry';
-import { papersForTheme, type ThemeSlug } from '@/utils/themeClassifier';
+import { papersForTheme } from '@/utils/themeClassifier';
 
 type ResearchHighlight = CollectionEntry<'research-highlights'>['data'];
 
@@ -65,7 +65,7 @@ const themeCards = themes.map((theme) => {
     .filter((y): y is number => typeof y === 'number');
   const anchorYear = relatedYears.length ? Math.max(...relatedYears) : null;
 
-  const papers = papersForTheme(theme.slug as ThemeSlug, leadPapers);
+  const papers = papersForTheme(theme.slug, leadPapers);
 
   return {
     ...theme,

@@ -36,6 +36,10 @@ const publicationsSkku = defineCollection({
     volumePages: z.string().optional(),
     doi: optionalUrl,
     lead: z.boolean(),
+    // CMS relation 위젯으로 research-themes 컬렉션에서 직접 tick하는 분야 슬러그(0~N개).
+    // 분야 개수는 research-themes/*.md 가 단일 source of truth라 enum 고정 없이 string으로 받는다.
+    // lead 논문이면 Research 페이지 해당 분야 모달에 노출된다. 비우면 themeClassifier 키워드/override로 폴백.
+    themes: z.array(z.string()).optional(),
   }),
 });
 

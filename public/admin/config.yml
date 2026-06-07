@@ -111,6 +111,18 @@ collections:
               - { name: journal, label: Journal, widget: string }
               - { name: volumePages, label: Volume / pages, widget: string, required: false }
               - { name: doi, label: DOI URL, widget: string, required: false, hint: 'https://doi.org/...' }
+              # research-themes 컬렉션을 동적 참조 → 분야를 추가/삭제하면 이 선택지도 자동 반영(하드코딩 없음).
+              # 저장값은 각 테마의 slug, 표시는 title. themeClassifier가 이 slug로 Research 페이지 모달에 배정.
+              - name: themes
+                label: 'Research themes (분야 선택)'
+                widget: relation
+                collection: research-themes
+                value_field: slug
+                display_fields: [title]
+                search_fields: [title, slug]
+                multiple: true
+                required: false
+                hint: '주저자/교신저자(Lead) 논문이면 관련 Research 분야를 tick. 선택한 분야 모달에 자동 노출된다. 비워두면 제목 키워드로 자동 분류 폴백. 분야 목록은 Research Themes에서 추가/삭제한 대로 자동 갱신된다.'
 
   # ===== Publications: Pre-SKKU 시기 SCI 논문 =====
   - name: publications-before-skku

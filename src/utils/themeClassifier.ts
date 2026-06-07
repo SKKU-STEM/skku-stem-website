@@ -1,6 +1,7 @@
-// Research theme 분류기 — paper title/journal 키워드 매칭으로 빌드 시 자동 분류.
-// 새 lead-author 논문이 publications-skku에 추가되면 다음 빌드에서 자동으로 분류됨.
-// 키워드로 잡히지 않거나 잘못 분류되는 경우는 paperOverrides에 수동 등록.
+// Research theme 분류기 — paper의 themes 선택을 1순위로, 없으면 title/journal 키워드/override로 분류.
+// 분류 우선순위: ① CMS에서 tick한 themes 필드 → ② paperOverrides(number 기준) → ③ themeKeywords 정규식.
+// 권장 흐름은 Publications 입력 시 themes를 직접 tick하는 것이고, 비워두면 키워드로 자동 폴백한다.
+// 키워드 방식은 표기 변형(하이픈·풀어쓰기)에 취약하므로 누락되면 themes를 tick하면 된다.
 //
 // 사용 위치: src/pages/research.astro — 6개 테마 모달의 paper list 자동 산출.
 
@@ -8,7 +9,8 @@ import type { CollectionEntry } from 'astro:content';
 
 type SkkuPaper = CollectionEntry<'publications-skku'>['data'];
 
-// 테마 슬러그 — src/content/research-themes/*.md 의 slug 필드와 일치해야 함
+// 키워드 폴백용 테마 슬러그 — 초기 6개 분야. 분야의 source of truth는 research-themes/*.md 이고
+// 새 분야는 CMS tick(paper.themes)으로 배정한다. 이 목록은 themeKeywords 자동 폴백 대상에만 쓰인다.
 export const THEME_SLUGS = [
   'spectroscopic-imaging',
   '4d-stem-crystallography',
@@ -75,10 +77,12 @@ const paperOverrides: Record<number, ThemeSlug[]> = {
 
 /**
  * Paper 한 편을 테마 슬러그 배열로 분류한다.
+ * - paper.themes가 비어있지 않으면 그 선택을 그대로 반환 (CMS tick 1순위, 자동 분류 우회).
  * - paperOverrides에 등록된 number는 override를 그대로 반환 (자동 분류 우회).
  * - 그 외에는 themeKeywords 정규식 매칭 결과 (0~N개 슬러그).
  */
-export function classifyPaper(paper: SkkuPaper): ThemeSlug[] {
+export function classifyPaper(paper: SkkuPaper): string[] {
+  if (paper.themes && paper.themes.length) return paper.themes;
   if (paperOverrides[paper.number]) return paperOverrides[paper.number];
   const text = `${paper.title} ${paper.journal}`;
   return THEME_SLUGS.filter((slug) => themeKeywords[slug].test(text));
@@ -86,9 +90,11 @@ export function classifyPaper(paper: SkkuPaper): ThemeSlug[] {
 
 /**
  * 전체 lead-author paper(2016+ filter는 호출자가 처리) 중 특정 테마에 속하는 것만 추려 number desc로 정렬.
+ * themeSlug는 research-themes/*.md 의 slug라면 무엇이든 받는다(새로 추가된 분야 포함).
+ * 키워드 폴백은 기존 6개 THEME_SLUGS에만 작동하므로, 새 분야는 paper.themes tick으로만 배정된다.
  */
 export function papersForTheme(
-  themeSlug: ThemeSlug,
+  themeSlug: string,
   papers: SkkuPaper[],
 ): SkkuPaper[] {
   return papers
