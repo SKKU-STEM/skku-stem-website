@@ -36,6 +36,8 @@ collections:
             label: Slides
             label_singular: Slide
             widget: list
+            add_to_top: true
+            collapsed: true
             min: 1
             max: 3
             summary: '{{fields.alt}}'
@@ -58,6 +60,8 @@ collections:
             label: Cards
             label_singular: Card
             widget: list
+            add_to_top: true
+            collapsed: true
             min: 1
             max: 2
             summary: '{{fields.title}}'
@@ -70,6 +74,8 @@ collections:
                 label: Media (이미지/GIF 최대 3장 또는 YouTube)
                 label_singular: Media item
                 widget: list
+                add_to_top: true
+                collapsed: true
                 required: false
                 max: 3
                 summary: '{{fields.alt}}'
@@ -247,6 +253,8 @@ collections:
             label: Education
             label_singular: 학력 항목
             widget: list
+            add_to_top: true
+            collapsed: true
             summary: '{{fields.years}} — {{fields.title}}'
             fields:
               - { name: years, label: '기간 (예: Mar. 2005 – Feb. 2010)', widget: string }
@@ -256,6 +264,8 @@ collections:
             label: Research Experience
             label_singular: 경력 항목
             widget: list
+            add_to_top: true
+            collapsed: true
             summary: '{{fields.start}} · {{fields.title}}'
             hint: '입력 순서와 무관하게 시작일(Start) 최신순으로 사이트가 자동 정렬한다.'
             fields:
@@ -273,6 +283,8 @@ collections:
             label: Honors & Awards
             label_singular: 수상 항목
             widget: list
+            add_to_top: true
+            collapsed: true
             summary: '{{fields.year}} — {{fields.title}}'
             hint: '입력 순서와 무관하게 연도 최신순으로 자동 정렬된다(같은 해는 목록에 놓은 순서대로).'
             fields:
@@ -325,13 +337,18 @@ collections:
       - name: links
         label: External links
         widget: list
+        add_to_top: true
+        collapsed: true
         required: false
+        summary: '{{fields.label}}'
         fields:
           - { name: href, label: URL, widget: string }
           - { name: label, label: Label, widget: string }
       - name: media
         label: Media (이미지/GIF 또는 YouTube)
         widget: list
+        add_to_top: true
+        collapsed: true
         required: false
         max: 8
         summary: '{{fields.alt}}'
@@ -423,6 +440,8 @@ collections:
       - name: relatedHighlights
         label: Related highlights (slug 목록)
         widget: list
+        add_to_top: true
+        collapsed: true
         hint: 'src/content/research-highlights/ 의 파일명에서 .md 빼고 입력. 새 paper 자동 분류는 src/utils/themeClassifier.ts 키워드/override 기반.'
       - name: image
         label: Figure
@@ -497,6 +516,8 @@ collections:
       - name: highlights
         label: Highlights (불릿)
         widget: list
+        add_to_top: true
+        collapsed: true
         required: false
         field: { name: bullet, widget: string, label: Bullet }
       - { name: location, label: Location, widget: string, required: false }
@@ -537,6 +558,8 @@ collections:
       - name: media
         label: Media (사진/GIF 또는 YouTube)
         widget: list
+        add_to_top: true
+        collapsed: true
         required: false
         max: 20
         summary: '{{fields.alt}}'
