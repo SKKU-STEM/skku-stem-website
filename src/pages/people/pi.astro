@@ -1,7 +1,8 @@
 ---
 // Prof. Young-Min Kim — full CV / bio. 본문(소개·Education·Experience·Honors·Contact)은
 // src/content/pi/profile.json에서 읽어 Sveltia CMS('People · PI 프로필')로 항목 추가·삭제·편집한다.
-// Selected publications는 publications-pi-selected 컬렉션에 분리 — 신규 논문 추가 시 그 컬렉션만 수정.
+// Selected publications는 publications-pi-selected 컬렉션이 Publications 전역 number만 참조 —
+// 여기서 그 번호로 skku/before-skku 원본 논문을 찾아 렌더한다(논문 데이터 중복 저장 없음).
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
@@ -10,7 +11,7 @@ import SectionGlyph from '@components/SectionGlyph.astro';
 import ProbeField from '@components/ProbeField.astro';
 import profileData from '@content/pi/profile.json';
 
-type Publication = CollectionEntry<'publications-pi-selected'>['data'];
+type Publication = CollectionEntry<'publications-skku'>['data'];
 
 interface CVEntry {
   years: string;
@@ -52,14 +53,30 @@ const honors = [...profile.honors].sort(
   (a, b) => Number(b.year) - Number(a.year)
 );
 
-const piSelectedAll = (await getCollection('publications-pi-selected'))
-  .map((e) => e.data)
-  .sort((a, b) => a.order - b.order);
+// Publications 전역 번호 → 원본 논문 조회 맵 (SKKU + Pre-SKKU SCI 통합, 번호는 전역 유일).
+const pubByNumber = new Map<number, Publication>();
+for (const e of await getCollection('publications-skku')) pubByNumber.set(e.data.number, e.data);
+for (const e of await getCollection('publications-before-skku'))
+  pubByNumber.set(e.data.number, e.data);
 
-const microscopyMaterialsScience = piSelectedAll.filter(
-  (p) => p.category === 'microscopy'
-);
-const aiMicroscopy = piSelectedAll.filter((p) => p.category === 'ai');
+// pi-selected는 {category, number} 참조 목록 — 배열 순서(최신 입력이 위)대로 표시한다.
+// 존재하지 않는 번호는 건너뛰며 빌드 경고를 남긴다.
+const piSelected = (await getCollection('publications-pi-selected')).map((e) => e.data);
+const resolve = (category: 'microscopy' | 'ai'): Publication[] =>
+  piSelected
+    .filter((s) => s.category === category)
+    .map((s) => {
+      const pub = pubByNumber.get(s.number);
+      if (!pub)
+        console.warn(
+          `[pi.astro] Selected publication #${s.number} (${category}) not found in Publications.`
+        );
+      return pub;
+    })
+    .filter((pub): pub is Publication => pub !== undefined);
+
+const microscopyMaterialsScience = resolve('microscopy');
+const aiMicroscopy = resolve('ai');
 
 const pubGroups: Array<{
   id: string;

@@ -201,7 +201,9 @@ collections:
               - { name: isbn, label: ISBN (book), widget: string, required: false }
               - { name: publicationDate, label: Publication date (book), widget: string, required: false }
 
-  # ===== Publications: PI Selected (CV 페이지 노출용) =====
+  # ===== Publications: PI Selected (CV 페이지 노출용 — Publications 번호 참조) =====
+  # 논문 데이터를 다시 입력하지 않고 Publications의 #번호만 적으면 해당 논문이 노출된다.
+  # 새 항목은 맨 위에 추가되고 접힌 채로 표시된다(add_to_top + collapsed).
   - name: publications-pi-selected
     label: 'Publications · PI Selected'
     files:
@@ -215,20 +217,14 @@ collections:
             widget: list
             add_to_top: true
             collapsed: true
-            summary: '[{{fields.category}} #{{fields.order}}] {{fields.year}} — {{fields.title}}'
+            summary: '[{{fields.category}}] #{{fields.number}}'
             fields:
-              - { name: id, label: ID (kebab-case, unique), widget: string }
               - name: category
-                label: Category
+                label: Category (표시 그룹)
                 widget: select
                 options: [microscopy, ai]
-              - { name: order, label: Order (작을수록 위), widget: number, value_type: int }
-              - { name: year, label: Year, widget: number, value_type: int }
-              - { name: authors, label: Authors, widget: text }
-              - { name: title, label: Title, widget: text }
-              - { name: journal, label: Journal, widget: string }
-              - { name: volumePages, label: Volume / pages, widget: string, required: false }
-              - { name: doi, label: DOI URL, widget: string, required: false }
+                hint: 'microscopy = Microscopy-based Materials Science 그룹, ai = AI Microscopy 그룹.'
+              - { name: number, label: Publication Number (논문 #번호), widget: number, value_type: int, hint: 'Publications · SKKU/Pre-SKKU SCI 목록에 매겨진 #번호를 입력하면 그 논문이 자동으로 노출된다. 주저자/교신저자(Lead) 논문 번호만 넣을 것.' }
 
   # ===== People · PI 프로필 (CV 본문 — file collection) =====
   # pi.astro의 소개·Education·Experience·Honors·Contact를 편집한다.

@@ -88,17 +88,19 @@ const publicationsNonSciPatents = defineCollection({
 });
 
 // ─────────── Publications: PI Selected (CV 페이지 노출) ───────────
+// 논문 데이터를 중복 저장하지 않고 Publications(skku/before-skku)의 전역 number만 참조한다.
+// pi.astro가 number로 원본 논문을 찾아 렌더하고, 표시 순서는 배열 순서(최신 입력이 위)를 따른다.
+// file() 로더는 각 항목에 고유 id가 필요하므로 CMS 입력을 늘리지 않고 여기서 합성한다(category-number).
+const piSelectedParser = (text: string) =>
+  JSON.parse(text).items.map((it: { category: string; number: number }) => ({
+    ...it,
+    id: `${it.category}-${it.number}`,
+  }));
 const publicationsPiSelected = defineCollection({
-  loader: file('src/content/publications/pi-selected.json', { parser: itemsParser }),
+  loader: file('src/content/publications/pi-selected.json', { parser: piSelectedParser }),
   schema: z.object({
     category: z.enum(['microscopy', 'ai']),
-    order: z.number(), // 표시 순서 (작은 값이 위)
-    authors: z.string(),
-    title: z.string(),
-    journal: z.string(),
-    year: z.number(),
-    volumePages: z.string().optional(),
-    doi: optionalUrl,
+    number: z.number(), // Publications 전역 번호 — 이 번호의 논문을 찾아 노출
   }),
 });
 
