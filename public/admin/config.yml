@@ -230,7 +230,7 @@ collections:
                 widget: select
                 options: [microscopy, ai]
                 hint: 'microscopy = Microscopy-based Materials Science 그룹, ai = AI Microscopy 그룹.'
-              - { name: number, label: Publication Number (논문 #번호), widget: number, value_type: int, hint: 'Publications · SKKU/Pre-SKKU SCI 목록에 매겨진 #번호를 입력하면 그 논문이 자동으로 노출된다. 주저자/교신저자(Lead) 논문 번호만 넣을 것.' }
+              - { name: number, label: 'Publication Number (논문 #번호)', widget: number, value_type: int, hint: 'Publications · SKKU/Pre-SKKU SCI 목록에 매겨진 #번호를 입력하면 그 논문이 자동으로 노출된다. 주저자/교신저자(Lead) 논문 번호만 넣을 것.' }
 
   # ===== People · PI 프로필 (CV 본문 — file collection) =====
   # pi.astro의 소개·Education·Experience·Honors·Contact를 편집한다.
