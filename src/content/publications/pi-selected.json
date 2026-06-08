@@ -1,10 +1,6 @@
 {
   "items": [
     {
-      "category": "ai",
-      "number": 232
-    },
-    {
       "category": "microscopy",
       "number": 223
     },
@@ -75,6 +71,10 @@
     {
       "category": "microscopy",
       "number": 37
+    },
+    {
+      "category": "ai",
+      "number": 232
     },
     {
       "category": "ai",
