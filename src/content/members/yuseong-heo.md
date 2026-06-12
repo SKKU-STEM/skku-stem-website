@@ -12,5 +12,5 @@ kri: ''
 coAdvisor: ''
 photoPath: /members/허유성 Yuseong Heo.jpg
 role: Master's degree · 2023–2026
-currentAffiliation: SK Hynix (2026-present)
+currentAffiliation: SK Hynix (2026–present)
 ---
