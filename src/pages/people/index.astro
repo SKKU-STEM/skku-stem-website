@@ -63,7 +63,7 @@ const alumni = allMembers
       <svg
         viewBox="0 0 800 200"
         preserveAspectRatio="xMidYMid slice"
-        class="absolute inset-0 w-full h-full pointer-events-none"
+        class="people-net absolute inset-0 w-full h-full pointer-events-none"
         aria-hidden="true"
       >
         <defs>
@@ -92,6 +92,28 @@ const alumni = allMembers
           d="M 60 80 L 235 125 L 410 35 L 585 170 L 760 80"
         />
 
+        {/* 활성 경로를 따라 흐르는 신호 (두 줄을 시차 배치해 끊김 없이 순환) */}
+        <path
+          fill="none"
+          class="net-signal stroke-coral"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          opacity="0.85"
+          pathLength="1000"
+          stroke-dasharray="40 960"
+          d="M 60 80 L 235 125 L 410 35 L 585 170 L 760 80"
+        />
+        <path
+          fill="none"
+          class="net-signal net-signal--lag stroke-coral"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          opacity="0.85"
+          pathLength="1000"
+          stroke-dasharray="40 960"
+          d="M 60 80 L 235 125 L 410 35 L 585 170 L 760 80"
+        />
+
         {/* Regular 노드 (15개) */}
         <g class="fill-ink" opacity="0.36">
           <circle cx="60" cy="35" r="2.2" />
@@ -111,17 +133,17 @@ const alumni = allMembers
           <circle cx="760" cy="170" r="2.2" />
         </g>
 
-        {/* Featured 노드 (5개, layer 당 1개) — coral glow + dot */}
-        <circle cx="60" cy="80" r="13" fill="url(#people-node-glow)" />
-        <circle cx="60" cy="80" r="3.3" fill="#CC785C" />
-        <circle cx="235" cy="125" r="13" fill="url(#people-node-glow)" />
-        <circle cx="235" cy="125" r="3.3" fill="#CC785C" />
-        <circle cx="410" cy="35" r="13" fill="url(#people-node-glow)" />
-        <circle cx="410" cy="35" r="3.3" fill="#CC785C" />
-        <circle cx="585" cy="170" r="13" fill="url(#people-node-glow)" />
-        <circle cx="585" cy="170" r="3.3" fill="#CC785C" />
-        <circle cx="760" cy="80" r="13" fill="url(#people-node-glow)" />
-        <circle cx="760" cy="80" r="3.3" fill="#CC785C" />
+        {/* Featured 노드 (5개, layer 당 1개) — coral glow + dot. 시차를 둬 물결치듯 호흡. */}
+        <circle class="net-glow" cx="60" cy="80" r="13" fill="url(#people-node-glow)" style="animation-delay:-3.2s" />
+        <circle class="net-core" cx="60" cy="80" r="3.3" fill="#CC785C" style="animation-delay:-3.2s" />
+        <circle class="net-glow" cx="235" cy="125" r="13" fill="url(#people-node-glow)" style="animation-delay:-2.4s" />
+        <circle class="net-core" cx="235" cy="125" r="3.3" fill="#CC785C" style="animation-delay:-2.4s" />
+        <circle class="net-glow" cx="410" cy="35" r="13" fill="url(#people-node-glow)" style="animation-delay:-1.6s" />
+        <circle class="net-core" cx="410" cy="35" r="3.3" fill="#CC785C" style="animation-delay:-1.6s" />
+        <circle class="net-glow" cx="585" cy="170" r="13" fill="url(#people-node-glow)" style="animation-delay:-0.8s" />
+        <circle class="net-core" cx="585" cy="170" r="3.3" fill="#CC785C" style="animation-delay:-0.8s" />
+        <circle class="net-glow" cx="760" cy="80" r="13" fill="url(#people-node-glow)" style="animation-delay:0s" />
+        <circle class="net-core" cx="760" cy="80" r="3.3" fill="#CC785C" style="animation-delay:0s" />
       </svg>
 
       <div class="relative">
@@ -631,3 +653,65 @@ const alumni = allMembers
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  /* 헤더 신경망: slice로 꽉 채우되 가장자리를 부드럽게 페이드해 딱딱한 잘림을 제거 */
+  .people-net {
+    -webkit-mask-image: radial-gradient(120% 140% at 50% 45%, #000 56%, transparent 100%);
+    mask-image: radial-gradient(120% 140% at 50% 45%, #000 56%, transparent 100%);
+  }
+
+  /* 활성 경로를 따라 흐르는 신호 */
+  .net-signal {
+    animation: net-flow 4.4s linear infinite;
+  }
+  .net-signal--lag {
+    animation-delay: -2.2s;
+  }
+  @keyframes net-flow {
+    from {
+      stroke-dashoffset: 1000;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* featured 노드 호흡 — glow는 확대/명도, core는 반지름 맥동 */
+  .net-glow {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: net-breathe 4s ease-in-out infinite;
+  }
+  .net-core {
+    animation: net-pulse 4s ease-in-out infinite;
+  }
+  @keyframes net-breathe {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(0.82);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.18);
+    }
+  }
+  @keyframes net-pulse {
+    0%,
+    100% {
+      r: 3;
+    }
+    50% {
+      r: 3.9;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .net-signal,
+    .net-glow,
+    .net-core {
+      animation: none;
+    }
+  }
+</style>
