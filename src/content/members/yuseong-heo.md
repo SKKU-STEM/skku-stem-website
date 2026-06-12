@@ -1,5 +1,6 @@
 ---
 section: alumni
+startDate: ''
 nameKo: 허유성
 nameEn: Yuseong Heo
 position: ''
@@ -11,5 +12,5 @@ kri: ''
 coAdvisor: ''
 photoPath: /members/허유성 Yuseong Heo.jpg
 role: Master's degree · 2023–2026
-currentAffiliation: ''
+currentAffiliation: SK Hynix (2026-present)
 ---
