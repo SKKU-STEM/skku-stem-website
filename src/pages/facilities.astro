@@ -70,8 +70,8 @@ const facilityEquipment = (await getCollection('facilities'))
         </g>
 
         {/* Central probe atom — featured coral (현재 imaging 중인 atom) */}
-        <circle cx="700" cy="158" r="10" fill="url(#facilities-glow)" />
-        <circle cx="700" cy="158" r="2.6" fill="#CC785C" />
+        <circle class="optic-glow" style="--d:-1.7s" cx="700" cy="158" r="10" fill="url(#facilities-glow)" />
+        <circle class="optic-core" style="--d:-1.7s" cx="700" cy="158" r="2.6" fill="#CC785C" />
 
         {/* Projector lens */}
         <ellipse cx="700" cy="185" rx="38" ry="8" fill="none" class="stroke-ink" stroke-width="0.85" opacity="0.42" />
@@ -81,8 +81,14 @@ const facilityEquipment = (await getCollection('facilities'))
         <circle cx="700" cy="215" r="6" fill="none" class="stroke-ink" stroke-width="0.85" opacity="0.42" />
 
         {/* Electron source — 최상단 coral dot + glow (FEATURED) */}
-        <circle cx="700" cy="22" r="14" fill="url(#facilities-glow)" />
-        <circle cx="700" cy="22" r="3.5" fill="#CC785C" />
+        <circle class="optic-glow" style="--d:0s" cx="700" cy="22" r="14" fill="url(#facilities-glow)" />
+        <circle class="optic-core" style="--d:0s" cx="700" cy="22" r="3.5" fill="#CC785C" />
+
+        {/* 전자 — source에서 detector까지 광학축을 따라 하강하는 신호 */}
+        <g class="beam-e">
+          <circle cx="700" cy="22" r="8" fill="url(#facilities-glow)" />
+          <circle cx="700" cy="22" r="2.2" fill="#CC785C" />
+        </g>
       </svg>
 
       <div class="relative max-w-2xl">
@@ -168,3 +174,38 @@ const facilityEquipment = (await getCollection('facilities'))
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  /* 헤더 배경 — 전자가 컬럼을 따라 하강(source→probe→detector), source·probe 원자 호흡 */
+  .beam-e {
+    animation: beam-fall 3s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+  @keyframes beam-fall {
+    0% { transform: translateY(0); opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { transform: translateY(193px); opacity: 0; }
+  }
+  .optic-glow {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: optic-breathe 3.4s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  .optic-core {
+    animation: optic-core 3.4s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes optic-breathe {
+    0%, 100% { opacity: 0.55; transform: scale(0.88); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+  @keyframes optic-core {
+    0%, 100% { r: 3; }
+    50% { r: 3.8; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .beam-e, .optic-glow, .optic-core { animation: none; }
+    .beam-e { opacity: 0; }
+  }
+</style>

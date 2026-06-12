@@ -129,11 +129,11 @@ const themeCards = themes.map((theme) => {
           <ellipse cx="380" cy="290" rx="42" ry="22" />
         </g>
 
-        {/* Shuttle trajectory — 좌상단에서 우측 우물 중심으로 가는 dashed path */}
+        {/* Shuttle trajectory — 좌상단에서 우측 우물 중심으로 가는 dashed path (안쪽으로 흐름) */}
         <path
           d="M 60 70 Q 280 130 420 180 T 605 192"
           fill="none"
-          class="stroke-coral"
+          class="shuttle stroke-coral"
           stroke-width="0.9"
           stroke-dasharray="2 5"
           opacity="0.35"
@@ -154,9 +154,10 @@ const themeCards = themes.map((theme) => {
           <circle cx="80" cy="300" r="1.6" />
         </g>
 
-        {/* 깊은 우물 중앙의 featured atom — coral glow + dot */}
-        <circle cx="610" cy="195" r="32" fill="url(#research-atom-glow)" />
-        <circle cx="610" cy="195" r="4.5" fill="#CC785C" />
+        {/* 깊은 우물 중앙의 featured atom — coral glow + dot + 바깥으로 퍼지는 에너지 파동 */}
+        <ellipse class="atom-ripple" cx="610" cy="195" rx="14" ry="10" fill="none" stroke="#CC785C" stroke-width="0.9" />
+        <circle class="atom-glow" cx="610" cy="195" r="32" fill="url(#research-atom-glow)" />
+        <circle class="atom-core" cx="610" cy="195" r="4.5" fill="#CC785C" />
       </svg>
 
       <div class="relative max-w-2xl">
@@ -489,6 +490,43 @@ const themeCards = themes.map((theme) => {
     .theme-modal-inner {
       max-height: 100dvh;
     }
+  }
+
+  /* 헤더 배경 — 에너지 우물에 안착해 호흡하는 원자 + 흐르는 셔틀 궤적 */
+  .atom-glow {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: atom-breathe 4.2s ease-in-out infinite;
+  }
+  .atom-core {
+    animation: atom-core 4.2s ease-in-out infinite;
+  }
+  .atom-ripple {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: atom-ripple 4.2s ease-out infinite;
+  }
+  .shuttle {
+    animation: shuttle-flow 3.5s linear infinite;
+  }
+  @keyframes atom-breathe {
+    0%, 100% { opacity: 0.55; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.12); }
+  }
+  @keyframes atom-core {
+    0%, 100% { r: 4; }
+    50% { r: 5.2; }
+  }
+  @keyframes atom-ripple {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(13); opacity: 0; }
+  }
+  @keyframes shuttle-flow {
+    to { stroke-dashoffset: -70; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .atom-glow, .atom-core, .atom-ripple, .shuttle { animation: none; }
+    .atom-ripple { opacity: 0; }
   }
 </style>
 

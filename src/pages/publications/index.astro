@@ -100,12 +100,14 @@ const grandMinYear = Math.min(
           <use href="#paper-lines" stroke="#141413" opacity="0.20" />
         </g>
 
-        {/* Paper 4 — FEATURED top (lead authorship 강조, coral) */}
+        {/* Paper 4 — FEATURED top (lead authorship 강조, coral). 은은하게 부유. */}
         <g transform="translate(712 132) rotate(9)">
-          <rect x="-50" y="-67.5" width="100" height="135" fill="#CC785C" fill-opacity="0.10" stroke="#CC785C" stroke-width="0.85" stroke-opacity="0.50" />
-          <rect x="-40" y="-55" width="62" height="3" fill="#CC785C" opacity="0.55" />
-          <line x1="-40" y1="-44" x2="-8" y2="-44" stroke="#CC785C" stroke-width="0.6" opacity="0.45" />
-          <use href="#paper-lines" stroke="#CC785C" opacity="0.42" />
+          <g class="paper-feat">
+            <rect x="-50" y="-67.5" width="100" height="135" fill="#CC785C" fill-opacity="0.10" stroke="#CC785C" stroke-width="0.85" stroke-opacity="0.50" />
+            <rect x="-40" y="-55" width="62" height="3" fill="#CC785C" opacity="0.55" />
+            <line x1="-40" y1="-44" x2="-8" y2="-44" stroke="#CC785C" stroke-width="0.6" opacity="0.45" />
+            <use href="#paper-lines" stroke="#CC785C" opacity="0.42" />
+          </g>
         </g>
       </svg>
 
@@ -259,3 +261,19 @@ const grandMinYear = Math.min(
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  /* 헤더 배경 — featured 논문이 스택 위로 은은히 떠오름 */
+  .paper-feat {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: paper-float 5s ease-in-out infinite;
+  }
+  @keyframes paper-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-4px) rotate(1.2deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .paper-feat { animation: none; }
+  }
+</style>

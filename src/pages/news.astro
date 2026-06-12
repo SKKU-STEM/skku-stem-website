@@ -119,15 +119,21 @@ const years = Object.keys(byYear)
           <circle cx="710" cy="152" r="1.7" />
         </g>
 
-        {/* Featured milestones — coral with glow (4개 주요 event) */}
-        <circle cx="190" cy="70" r="13" fill="url(#news-glow)" />
-        <circle cx="190" cy="70" r="3.3" fill="#CC785C" />
-        <circle cx="345" cy="115" r="13" fill="url(#news-glow)" />
-        <circle cx="345" cy="115" r="3.3" fill="#CC785C" />
-        <circle cx="475" cy="78" r="13" fill="url(#news-glow)" />
-        <circle cx="475" cy="78" r="3.3" fill="#CC785C" />
-        <circle cx="650" cy="92" r="13" fill="url(#news-glow)" />
-        <circle cx="650" cy="92" r="3.3" fill="#CC785C" />
+        {/* Featured milestones — coral with glow (4개 주요 event), 시차 호흡 */}
+        <circle class="ms-glow" style="--d:-2.4s" cx="190" cy="70" r="13" fill="url(#news-glow)" />
+        <circle class="ms-core" style="--d:-2.4s" cx="190" cy="70" r="3.3" fill="#CC785C" />
+        <circle class="ms-glow" style="--d:-1.6s" cx="345" cy="115" r="13" fill="url(#news-glow)" />
+        <circle class="ms-core" style="--d:-1.6s" cx="345" cy="115" r="3.3" fill="#CC785C" />
+        <circle class="ms-glow" style="--d:-0.8s" cx="475" cy="78" r="13" fill="url(#news-glow)" />
+        <circle class="ms-core" style="--d:-0.8s" cx="475" cy="78" r="3.3" fill="#CC785C" />
+        <circle class="ms-glow" style="--d:0s" cx="650" cy="92" r="13" fill="url(#news-glow)" />
+        <circle class="ms-core" style="--d:0s" cx="650" cy="92" r="3.3" fill="#CC785C" />
+
+        {/* Playhead — 타임라인 축을 따라 좌→우로 흐르는 현재 시점 표식 */}
+        <g class="playhead">
+          <circle cx="40" cy="130" r="9" fill="url(#news-glow)" />
+          <circle cx="40" cy="130" r="2.6" fill="#CC785C" />
+        </g>
       </svg>
 
       <div class="relative max-w-2xl">
@@ -278,3 +284,38 @@ const years = Object.keys(byYear)
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  /* 헤더 배경 — 타임라인을 훑는 플레이헤드 + 시차 호흡하는 마일스톤 */
+  .playhead {
+    animation: playhead-sweep 7s ease-in-out infinite;
+  }
+  @keyframes playhead-sweep {
+    0% { transform: translateX(0); opacity: 0; }
+    8% { opacity: 1; }
+    92% { opacity: 1; }
+    100% { transform: translateX(720px); opacity: 0; }
+  }
+  .ms-glow {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ms-breathe 3.6s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  .ms-core {
+    animation: ms-core 3.6s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes ms-breathe {
+    0%, 100% { opacity: 0.5; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+  @keyframes ms-core {
+    0%, 100% { r: 3; }
+    50% { r: 3.9; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .playhead, .ms-glow, .ms-core { animation: none; }
+    .playhead { opacity: 0; }
+  }
+</style>
