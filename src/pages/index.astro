@@ -6,8 +6,10 @@ import { formatChemistry } from '@/utils/chemistry';
 import HeroSlideshow from '@components/HeroSlideshow.astro';
 import HeroResearchInfographic from '@components/HeroResearchInfographic.astro';
 import ResearchHighlightCard from '@components/ResearchHighlightCard.astro';
+import RecruitingMedia from '@components/RecruitingMedia.astro';
 import heroData from '@content/home/hero.json';
 import researchFeaturedData from '@content/home/research-featured.json';
+import recruitingMedia from '@content/home/recruiting.json';
 
 // 히어로 슬라이드(최대 3장) — /admin의 'Home · Hero slides'에서 편집, 배열 순서대로 재생.
 const heroSlides = heroData.items;
@@ -269,8 +271,9 @@ const highlights = skkuEntries
           </svg>
         </div>
 
-        {/* Content */}
-        <div class="relative container-prose">
+        {/* Content — 좌: 모집 텍스트 / 우: 시각자료(이미지·동영상·YouTube, /admin에서 관리) */}
+        <div class="relative grid md:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-center">
+          <div>
           <p class="inline-flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.16em] text-ink">
             <span
               class="relative inline-flex h-[1.5rem] w-[1.5rem] items-center justify-center text-coral"
@@ -331,6 +334,17 @@ const highlights = skkuEntries
                 &rarr;
               </span>
             </a>
+          </div>
+          </div>
+
+          {/* 우: 시각자료 박스 — 동영상은 자동재생·무한반복(음소거), YouTube는 박스 안에서 재생 */}
+          <div>
+            <RecruitingMedia
+              video={recruitingMedia.video}
+              image={recruitingMedia.image}
+              youtube={recruitingMedia.youtube}
+              alt={recruitingMedia.alt}
+            />
           </div>
         </div>
       </div>

@@ -1,0 +1,160 @@
+---
+// 홈 모집 섹션 우측 시각자료 — 동영상(자동재생·무한반복)·이미지·YouTube 중 하나를 박스에 표시.
+// 데이터: src/content/home/recruiting.json (/admin의 'Home · Recruiting media'에서 편집).
+interface Props {
+  video?: string;
+  image?: string;
+  youtube?: string;
+  alt?: string;
+  class?: string;
+}
+
+const { video, image, youtube, alt = '', class: className } = Astro.props;
+
+// YouTube URL/ID에서 11자리 video id 추출 (watch / youtu.be / embed / shorts / bare id 지원).
+const youtubeId = (url?: string): string | null => {
+  if (!url) return null;
+  const u = url.trim();
+  if (/^[a-zA-Z0-9_-]{11}$/.test(u)) return u;
+  const m = u.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/,
+  );
+  return m ? m[1] : null;
+};
+
+const ytId = youtubeId(youtube);
+// 우선순위: YouTube > 동영상(mp4) > 이미지. 셋 다 비면 박스 자체를 렌더하지 않는다.
+const kind = ytId ? 'youtube' : video ? 'video' : image ? 'image' : null;
+---
+
+{
+  kind && (
+    <div class:list={['rm', className]}>
+      {kind === 'youtube' && (
+        <button
+          type="button"
+          class="rm__yt"
+          data-rm-yt={ytId}
+          aria-label="Play video"
+        >
+          <img
+            src={`https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`}
+            alt={alt || 'Video thumbnail'}
+            class="rm__media"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="rm__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </span>
+        </button>
+      )}
+
+      {kind === 'video' && (
+        <video
+          class="rm__media"
+          src={video}
+          autoplay
+          loop
+          muted
+          playsinline
+          controls
+          preload="metadata"
+          aria-label={alt || undefined}
+        />
+      )}
+
+      {kind === 'image' && (
+        <img
+          src={image}
+          alt={alt}
+          class="rm__media"
+          loading="lazy"
+          decoding="async"
+        />
+      )}
+    </div>
+  )
+}
+
+<style>
+  .rm {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background-color: color-mix(in oklab, var(--color-cream-200) 70%, transparent);
+    box-shadow: 0 1px 2px color-mix(in oklab, var(--color-ink) 8%, transparent);
+  }
+
+  .rm__media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* YouTube 썸네일 + 중앙 재생 버튼 — 클릭 시 인라인 iframe으로 교체(박스 안에서 재생). */
+  .rm__yt {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .rm__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+    color: var(--color-cream);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .rm__yt:hover .rm__play {
+    transform: translate(-50%, -50%) scale(1.08);
+    background-color: var(--color-coral);
+  }
+
+  .rm__play svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 0.15rem;
+  }
+</style>
+
+<script>
+  // YouTube 썸네일 클릭 → autoplay iframe으로 인라인 교체 (박스 상태에서 재생).
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-rm-yt]')
+    .forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-rm-yt');
+        if (!id) return;
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+        iframe.title = 'YouTube video player';
+        iframe.allow =
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        // 동적 생성 요소엔 scoped 스타일이 안 붙으므로 인라인으로 슬롯을 꽉 채운다.
+        iframe.style.cssText =
+          'position:absolute;inset:0;width:100%;height:100%;border:0;display:block;';
+        btn.replaceWith(iframe);
+      });
+    });
+</script>

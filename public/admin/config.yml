@@ -92,6 +92,29 @@ collections:
                   - { name: youtube, label: YouTube URL, widget: string, required: false, hint: 'https://youtu.be/... 또는 watch?v=... — 입력하면 이 슬라이드는 이미지 대신 동영상으로 재생된다.' }
                   - { name: alt, label: Alt text (이미지 설명), widget: string, required: false }
 
+      - file: src/content/home/recruiting.json
+        name: recruiting
+        label: 'Recruiting media (모집 섹션 시각자료)'
+        fields:
+          - name: video
+            label: Video (mp4, 자동재생·무한반복)
+            widget: file
+            required: false
+            media_folder: '/public/recruiting'
+            public_folder: '/recruiting'
+            choose_url: false
+            hint: 'public/recruiting/에 업로드되며 경로는 /recruiting/<filename>으로 저장된다. mp4 권장, 음소거 상태로 자동재생·반복된다. YouTube를 쓰면 비워둔다.'
+          - name: image
+            label: Image (동영상 없을 때 표시)
+            widget: image
+            required: false
+            media_folder: '/public/recruiting'
+            public_folder: '/recruiting'
+            choose_url: false
+            hint: 'public/recruiting/에 업로드된다. Video·YouTube가 비어 있을 때만 사용된다.'
+          - { name: youtube, label: YouTube URL, widget: string, required: false, hint: 'https://youtu.be/... 또는 watch?v=... — 입력하면 이미지·동영상 대신 YouTube가 박스 안에서 재생된다 (최우선).' }
+          - { name: alt, label: Alt text (시각자료 설명), widget: string, required: false }
+
   # ===== Publications: SKKU 시기 SCI 논문 (file: items 배열) =====
   - name: publications-skku
     label: 'Publications · SKKU SCI'
