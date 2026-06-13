@@ -73,6 +73,7 @@
   const NAMESPACE = 'skku-stem';
   const COUNTER = 'site-visits';
   const SESSION_KEY = 'skku-stem-visitor-counted';
+  const CACHE_KEY = 'skku-stem-visitor-count';
   const BASE = 'https://api.counterapi.dev/v1';
   const MIN_DIGITS = 5;
 
@@ -89,28 +90,52 @@
     }
   }
 
+  function readCache(): number | null {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (raw === null) return null;
+      const n = Number(raw);
+      return Number.isFinite(n) ? n : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function writeCache(n: number) {
+    try {
+      localStorage.setItem(CACHE_KEY, String(n));
+    } catch {
+      /* private 모드 등에서 setItem 실패 시 무시 */
+    }
+  }
+
   async function loadCount() {
+    // 페이지 이동 후 재방문 시에도 마지막 집계값을 즉시 표시
+    const cached = readCache();
+    if (cached !== null) renderDigits(cached);
+
+    // 세션당 1회만 increment — 그 외에는 캐시값만 사용 (read 엔드포인트는 429)
     const shouldIncrement =
       typeof sessionStorage !== 'undefined' &&
       !sessionStorage.getItem(SESSION_KEY);
-    const path = shouldIncrement
-      ? `${NAMESPACE}/${COUNTER}/up`
-      : `${NAMESPACE}/${COUNTER}/`;
+    if (!shouldIncrement) return;
+
     try {
-      const res = await fetch(`${BASE}/${path}`, { cache: 'no-store' });
+      const res = await fetch(`${BASE}/${NAMESPACE}/${COUNTER}/up`, {
+        cache: 'no-store',
+      });
       if (!res.ok) return;
       const json = (await res.json()) as { count?: number };
       const count = typeof json?.count === 'number' ? json.count : 0;
-      if (shouldIncrement) {
-        try {
-          sessionStorage.setItem(SESSION_KEY, '1');
-        } catch {
-          /* private 모드 등에서 setItem 실패 시 무시 */
-        }
+      try {
+        sessionStorage.setItem(SESSION_KEY, '1');
+      } catch {
+        /* private 모드 등에서 setItem 실패 시 무시 */
       }
+      writeCache(count);
       renderDigits(count);
     } catch {
-      /* 네트워크/CORS 실패 시 idle placeholder 유지 */
+      /* 네트워크/CORS 실패 시 캐시값 또는 idle placeholder 유지 */
     }
   }
 
