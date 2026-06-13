@@ -1,5 +1,5 @@
 ---
-// Research theme 카드 우측 상단의 stroke 아이콘 — slug별로 6가지 (spectrum / lattice / 3D cube / NN / steps / 2D sheets)
+// Research theme 카드 우측 상단의 stroke 아이콘 — slug별 6종 + 각 주제를 표현하는 루프 애니메이션
 interface Props {
   slug: string;
   class?: string;
@@ -14,7 +14,7 @@ const { slug, class: className = '' } = Astro.props;
   stroke-width="1.5"
   stroke-linecap="round"
   stroke-linejoin="round"
-  class:list={[className]}
+  class:list={['theme-icon', `ti-${slug}`, className]}
   aria-hidden="true"
 >
   {
@@ -22,6 +22,8 @@ const { slug, class: className = '' } = Astro.props;
       <g>
         {/* 스펙트럼 라인 — 좌→우 피크 강도 */}
         <path d="M3 18 L5 18 L6 14 L7.5 17 L9 9 L10.5 16 L12 12 L13.5 18 L15.5 13 L17 18 L21 18" />
+        {/* 좌우로 쓸고 가는 측정 커서 */}
+        <line class="spec-scan" x1="3" y1="5" x2="3" y2="19" stroke-width="1" opacity="0.55" />
       </g>
     )
   }
@@ -29,22 +31,22 @@ const { slug, class: className = '' } = Astro.props;
   {
     slug === '4d-stem-crystallography' && (
       <g>
-        {/* 6-fold Bragg spots */}
+        {/* 6-fold Bragg spots — 회절 점이 staggered 하게 반짝임 */}
         <circle cx="12" cy="12" r="1.6" fill="currentColor" />
-        <circle cx="12" cy="5" r="1" fill="currentColor" />
-        <circle cx="12" cy="19" r="1" fill="currentColor" />
-        <circle cx="6" cy="8.5" r="1" fill="currentColor" />
-        <circle cx="18" cy="8.5" r="1" fill="currentColor" />
-        <circle cx="6" cy="15.5" r="1" fill="currentColor" />
-        <circle cx="18" cy="15.5" r="1" fill="currentColor" />
+        <circle class="bragg-spot" style="--d:0s" cx="12" cy="5" r="1" fill="currentColor" />
+        <circle class="bragg-spot" style="--d:0.5s" cx="18" cy="8.5" r="1" fill="currentColor" />
+        <circle class="bragg-spot" style="--d:1s" cx="18" cy="15.5" r="1" fill="currentColor" />
+        <circle class="bragg-spot" style="--d:1.5s" cx="12" cy="19" r="1" fill="currentColor" />
+        <circle class="bragg-spot" style="--d:2s" cx="6" cy="15.5" r="1" fill="currentColor" />
+        <circle class="bragg-spot" style="--d:2.5s" cx="6" cy="8.5" r="1" fill="currentColor" />
       </g>
     )
   }
 
   {
     slug === 'electron-tomography' && (
-      <g>
-        {/* 3D 큐브 + 슬라이스 라인 */}
+      <g class="tomo-tilt">
+        {/* 3D 큐브 — tilt-series 처럼 좌우로 기울어짐 */}
         <path d="M6 8 L12 5 L18 8 L18 16 L12 19 L6 16 Z" />
         <path d="M6 8 L12 11 L18 8" />
         <path d="M12 11 L12 19" />
@@ -56,13 +58,18 @@ const { slug, class: className = '' } = Astro.props;
   {
     slug === 'machine-learning-em' && (
       <g>
-        {/* 단순 신경망 — 3 노드 입력 / 3 노드 출력 + 연결선 */}
+        {/* 단순 신경망 — 연결선을 따라 신호가 흐르고 출력 노드가 점화 */}
         <circle cx="5" cy="6" r="1.4" fill="currentColor" />
         <circle cx="5" cy="12" r="1.4" fill="currentColor" />
         <circle cx="5" cy="18" r="1.4" fill="currentColor" />
-        <circle cx="19" cy="8" r="1.4" fill="currentColor" />
-        <circle cx="19" cy="16" r="1.4" fill="currentColor" />
-        <path d="M5 6 L19 8 M5 6 L19 16 M5 12 L19 8 M5 12 L19 16 M5 18 L19 8 M5 18 L19 16" opacity="0.5" stroke-width="1" />
+        <circle class="nn-out" style="--d:0s" cx="19" cy="8" r="1.4" fill="currentColor" />
+        <circle class="nn-out" style="--d:0.9s" cx="19" cy="16" r="1.4" fill="currentColor" />
+        <path
+          class="nn-edges"
+          d="M5 6 L19 8 M5 6 L19 16 M5 12 L19 8 M5 12 L19 16 M5 18 L19 8 M5 18 L19 16"
+          stroke-width="1"
+          stroke-dasharray="2 3"
+        />
       </g>
     )
   }
@@ -70,8 +77,14 @@ const { slug, class: className = '' } = Astro.props;
   {
     slug === 'thin-film-growth' && (
       <g>
-        {/* 단원자 스텝 — 우상향 계단 */}
-        <path d="M3 19 L9 19 L9 15 L14 15 L14 11 L19 11 L19 7 L21 7" />
+        {/* 단원자 스텝 — 기반 계단 + 성장 전선이 계단을 타고 전파 */}
+        <path d="M3 19 L9 19 L9 15 L14 15 L14 11 L19 11 L19 7 L21 7" opacity="0.35" />
+        <path
+          class="step-front"
+          d="M3 19 L9 19 L9 15 L14 15 L14 11 L19 11 L19 7 L21 7"
+          pathLength="100"
+          stroke-dasharray="18 82"
+        />
         <path d="M3 21 L21 21" opacity="0.5" />
       </g>
     )
@@ -80,13 +93,115 @@ const { slug, class: className = '' } = Astro.props;
   {
     slug === '2d-materials-vdw' && (
       <g>
-        {/* vdW 적층 — 3장의 얇은 시트 + 사이 점선 (interlayer gap) */}
-        <path d="M4 7 L20 7 L20 8.5 L4 8.5 Z" fill="currentColor" opacity="0.85" />
+        {/* vdW 적층 — 위/아래 시트가 interlayer gap을 호흡하듯 벌어졌다 좁혀짐 */}
+        <path class="vdw-top" d="M4 7 L20 7 L20 8.5 L4 8.5 Z" fill="currentColor" opacity="0.85" />
         <path d="M4 11.5 L20 11.5 L20 13 L4 13 Z" fill="currentColor" opacity="0.85" />
-        <path d="M4 16 L20 16 L20 17.5 L4 17.5 Z" fill="currentColor" opacity="0.85" />
-        <path d="M6 9.8 L18 9.8" stroke-dasharray="1 1.5" opacity="0.5" stroke-width="1" />
-        <path d="M6 14.3 L18 14.3" stroke-dasharray="1 1.5" opacity="0.5" stroke-width="1" />
+        <path class="vdw-bot" d="M4 16 L20 16 L20 17.5 L4 17.5 Z" fill="currentColor" opacity="0.85" />
+        <path class="vdw-gap" d="M6 9.8 L18 9.8" stroke-dasharray="1 1.5" opacity="0.5" stroke-width="1" />
+        <path class="vdw-gap" d="M6 14.3 L18 14.3" stroke-dasharray="1 1.5" opacity="0.5" stroke-width="1" />
       </g>
     )
   }
 </svg>
+
+<style>
+  /* ── 1. 스펙트럼 측정 커서 좌→우 스윕 ── */
+  .spec-scan {
+    animation: spec-sweep 3.2s ease-in-out infinite;
+  }
+  @keyframes spec-sweep {
+    0%, 100% { transform: translateX(0); opacity: 0; }
+    10% { opacity: 0.55; }
+    50% { transform: translateX(17px); opacity: 0.55; }
+    60% { opacity: 0; }
+  }
+
+  /* ── 2. Bragg 회절 점 반짝임 ── */
+  .bragg-spot {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: bragg-twinkle 3s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes bragg-twinkle {
+    0%, 70%, 100% { opacity: 0.5; transform: scale(0.85); }
+    12% { opacity: 1; transform: scale(1.35); }
+  }
+
+  /* ── 3. 토모그래피 tilt-series 회전 ── */
+  .tomo-tilt {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: tomo-rotate 5s ease-in-out infinite;
+  }
+  @keyframes tomo-rotate {
+    0%, 100% { transform: rotate(-9deg); }
+    50% { transform: rotate(9deg); }
+  }
+
+  /* ── 4. 신경망 신호 흐름 + 출력 노드 점화 ── */
+  .nn-edges {
+    opacity: 0.55;
+    animation: nn-flow 1.4s linear infinite;
+  }
+  @keyframes nn-flow {
+    to { stroke-dashoffset: -10; }
+  }
+  .nn-out {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: nn-fire 1.8s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes nn-fire {
+    0%, 60%, 100% { opacity: 0.55; transform: scale(0.9); }
+    20% { opacity: 1; transform: scale(1.25); }
+  }
+
+  /* ── 5. 박막 성장 전선 전파 ── */
+  .step-front {
+    animation: step-grow 2.8s linear infinite;
+  }
+  @keyframes step-grow {
+    from { stroke-dashoffset: 100; }
+    to { stroke-dashoffset: -100; }
+  }
+
+  /* ── 6. vdW 층간 호흡 ── */
+  .vdw-top {
+    animation: vdw-breathe-up 3.6s ease-in-out infinite;
+  }
+  .vdw-bot {
+    animation: vdw-breathe-down 3.6s ease-in-out infinite;
+  }
+  .vdw-gap {
+    animation: vdw-shimmer 3.6s ease-in-out infinite;
+  }
+  @keyframes vdw-breathe-up {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1.1px); }
+  }
+  @keyframes vdw-breathe-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(1.1px); }
+  }
+  @keyframes vdw-shimmer {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 0.7; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spec-scan,
+    .bragg-spot,
+    .tomo-tilt,
+    .nn-edges,
+    .nn-out,
+    .step-front,
+    .vdw-top,
+    .vdw-bot,
+    .vdw-gap {
+      animation: none;
+    }
+    .spec-scan { opacity: 0; }
+  }
+</style>
