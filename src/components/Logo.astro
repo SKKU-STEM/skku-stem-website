@@ -9,14 +9,107 @@ const { class: className } = Astro.props;
 ---
 
 <span class:list={['inline-flex items-center gap-2 sm:gap-2.5', className]}>
-  <span
-    class="block h-full bg-coral shrink-0 aspect-[194/228]"
-    style="mask: url(/logo-mark.png) no-repeat center / contain; -webkit-mask: url(/logo-mark.png) no-repeat center / contain;"
-    aria-hidden="true"
-  ></span>
+  {/* 심볼 마크를 광학 컬럼으로 보고, 광축을 따라 전자가 위→아래로 하강하는 애니메이션을 얹는다. */}
+  <span class="logo-mark relative block h-full shrink-0 aspect-[194/228]" aria-hidden="true">
+    <span
+      class="absolute inset-0 bg-coral"
+      style="mask: url(/logo-mark.png) no-repeat center / contain; -webkit-mask: url(/logo-mark.png) no-repeat center / contain;"
+    ></span>
+    {/* 광학 축(중심 세로선) + 하강하는 전자 — 마크 형상으로 클리핑해 윤곽 안에서만 보인다. */}
+    <span
+      class="logo-column absolute inset-0"
+      style="mask: url(/logo-mark.png) no-repeat center / contain; -webkit-mask: url(/logo-mark.png) no-repeat center / contain;"
+    >
+      <span class="logo-axis"></span>
+      <span class="logo-electron"></span>
+    </span>
+  </span>
   <span
     class="font-sans text-base sm:text-lg font-semibold tracking-tight whitespace-nowrap"
   >
     SKKU-STEM <span class="font-normal">Laboratory</span>
   </span>
 </span>
+
+<style>
+  /* 광축 — 중심 세로선, 위아래로 옅게 페이드. 항상 은은하게 비친다. */
+  .logo-axis {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--color-coral) 40%, transparent) 22%,
+      color-mix(in srgb, var(--color-coral) 40%, transparent) 78%,
+      transparent 100%
+    );
+    opacity: 0.5;
+  }
+
+  /* 전자 — 밝은 코어 + 글로우를 가진 점이 광축을 따라 하강하며, 위로 짧은 꼬리를 끈다. */
+  .logo-electron {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 3px;
+    height: 3px;
+    border-radius: 9999px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle at center,
+      #fff 0%,
+      var(--color-coral) 55%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 4px 1px color-mix(in srgb, var(--color-coral) 90%, transparent),
+      0 0 7px 2px color-mix(in srgb, var(--color-coral) 50%, transparent);
+    animation: electron-fall 2.6s cubic-bezier(0.45, 0, 0.6, 1) infinite;
+  }
+
+  /* 전자 꼬리 — 진행 방향(위쪽)으로 늘어지는 코멧 트레일 */
+  .logo-electron::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform: translateX(-50%);
+    width: 1.5px;
+    height: 9px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to top,
+      var(--color-coral) 0%,
+      transparent 100%
+    );
+  }
+
+  @keyframes electron-fall {
+    0% {
+      top: -8%;
+      opacity: 0;
+    }
+    14% {
+      opacity: 1;
+    }
+    86% {
+      opacity: 1;
+    }
+    100% {
+      top: 108%;
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-electron {
+      animation: none;
+      top: 50%;
+      opacity: 0.85;
+    }
+  }
+</style>
