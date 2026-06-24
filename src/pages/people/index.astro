@@ -161,8 +161,62 @@ const alumni = allMembers
     {/* ─────────────── PI feature card ─────────────── */}
     <section class="container-page">
       <div
-        class="lift-card grid md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-8 md:gap-12 items-start rounded-lg border border-cream-300 p-6 md:p-10"
+        class="lift-card pi-cosmos grid md:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-8 md:gap-12 items-start rounded-lg border border-cream-300 p-6 md:p-10"
       >
+        {/* 우상단 코랄 우주 모티프 — 토성·혜성·별. PI 카드의 빈 우측 상단 공간을 장식하며 텍스트 뒤에 깔린다. */}
+        <svg
+          class="pi-cosmos-svg pointer-events-none absolute top-0 right-0 w-40 sm:w-48 md:w-56 h-auto"
+          viewBox="0 0 200 160"
+          fill="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <radialGradient id="pi-planet" cx="38%" cy="34%" r="72%">
+              <stop offset="0%" stop-color="#D8957D" stop-opacity="0.55" />
+              <stop offset="60%" stop-color="#CC785C" stop-opacity="0.40" />
+              <stop offset="100%" stop-color="#8C4D3A" stop-opacity="0.28" />
+            </radialGradient>
+            <linearGradient id="pi-tail" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#CC785C" stop-opacity="0" />
+              <stop offset="100%" stop-color="#CC785C" stop-opacity="0.85" />
+            </linearGradient>
+          </defs>
+
+          {/* 별 — 잔잔히 반짝임 */}
+          <g fill="#CC785C">
+            <circle class="pi-star" cx="42" cy="34" r="1.3" style="animation-delay:-0.2s" />
+            <circle class="pi-star" cx="72" cy="18" r="1" style="animation-delay:-1.1s" />
+            <circle class="pi-star" cx="150" cy="120" r="1.2" style="animation-delay:-1.7s" />
+            <circle class="pi-star" cx="188" cy="72" r="1" style="animation-delay:-0.7s" />
+            <circle class="pi-star" cx="104" cy="130" r="1" style="animation-delay:-2.3s" />
+          </g>
+
+          {/* 토성 — 행성 + 이중 고리. 살짝 부유 */}
+          <g class="pi-saturn">
+            <ellipse
+              cx="132" cy="66" rx="52" ry="16"
+              transform="rotate(-19 132 66)"
+              stroke="#B0624A" stroke-width="2.5" stroke-opacity="0.5"
+            />
+            <circle cx="132" cy="66" r="24" fill="url(#pi-planet)" />
+            <ellipse
+              cx="132" cy="66" rx="40" ry="11"
+              transform="rotate(-19 132 66)"
+              stroke="#CC785C" stroke-width="1.4" stroke-opacity="0.7"
+            />
+          </g>
+
+          {/* 혜성들 — 코너를 대각선으로 가로지름 */}
+          <g class="pi-comet pi-comet--a">
+            <path d="M0 0 L 30 7" stroke="url(#pi-tail)" stroke-width="2.2" stroke-linecap="round" />
+            <circle cx="30" cy="7" r="2.4" fill="#CC785C" />
+          </g>
+          <g class="pi-comet pi-comet--b">
+            <path d="M0 0 L 22 5" stroke="url(#pi-tail)" stroke-width="1.6" stroke-linecap="round" />
+            <circle cx="22" cy="5" r="1.8" fill="#D8957D" />
+          </g>
+        </svg>
+
         <Image
           src={piPortrait}
           alt="Prof. Young-Min Kim"
@@ -264,7 +318,7 @@ const alumni = allMembers
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           postdocs.map((m) => (
-            <li class="lift-card rounded-lg border border-cream-300 p-6">
+            <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -328,7 +382,7 @@ const alumni = allMembers
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           phdCandidates.map((m) => (
-            <li class="lift-card rounded-lg border border-cream-300 p-6">
+            <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -417,7 +471,7 @@ const alumni = allMembers
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           masterStudents.map((m) => (
-            <li class="lift-card rounded-lg border border-cream-300 p-6">
+            <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -506,7 +560,7 @@ const alumni = allMembers
       <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           undergrads.map((m) => (
-            <li class="lift-card rounded-lg border border-cream-300 p-6">
+            <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -592,7 +646,7 @@ const alumni = allMembers
         <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
           alumni.map((a) => (
-            <li class="lift-card rounded-lg border border-cream-300 p-6">
+            <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
               <div class="grid grid-cols-[1fr_auto] gap-4 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-base font-normal leading-tight">
@@ -707,11 +761,153 @@ const alumni = allMembers
     }
   }
 
+  /* ─────────────── 멤버 카드 혜성 ───────────────
+     카드가 떠오르는(hover/focus) 동안 코랄 혜성이 카드 배경을 대각선으로 가로지른다.
+     People 페이지에 스코프되며(comet-card), 텍스트 뒤(z-index:-1)에 깔린다. */
+  .comet-card {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate; /* 음수 z-index 혜성을 카드 내부 스택에 가둔다 */
+  }
+  .comet-card::before {
+    content: '';
+    position: absolute;
+    z-index: -1; /* 카드 배경 위, 텍스트 아래 */
+    top: 0;
+    left: 0;
+    width: 130px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, var(--color-coral));
+    filter: drop-shadow(0 0 6px color-mix(in oklab, var(--color-coral) 70%, transparent));
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+    transform: translate(-150px, -70px) rotate(34deg);
+  }
+  .comet-card:hover::before,
+  .comet-card:focus-within::before {
+    animation: comet-streak 1.6s ease-in-out infinite;
+  }
+  @keyframes comet-streak {
+    0% {
+      opacity: 0;
+      transform: translate(-150px, -70px) rotate(34deg);
+    }
+    14% {
+      opacity: 1;
+    }
+    82% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(380px, 260px) rotate(34deg);
+    }
+  }
+
+  /* ─────────────── PI 카드 우주 모티프 ─────────────── */
+  .pi-cosmos {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .pi-cosmos-svg {
+    z-index: -1; /* 텍스트 뒤 장식 */
+  }
+  .pi-saturn {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pi-float 7s ease-in-out infinite;
+  }
+  @keyframes pi-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+  .pi-star {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pi-twinkle 3.2s ease-in-out infinite;
+  }
+  @keyframes pi-twinkle {
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+    50% {
+      opacity: 0.9;
+    }
+  }
+  .pi-comet {
+    transform-box: fill-box;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .pi-comet--a {
+    animation: pi-comet-a 5.5s ease-in-out infinite;
+  }
+  .pi-comet--b {
+    animation: pi-comet-b 7s ease-in-out 2.6s infinite;
+  }
+  @keyframes pi-comet-a {
+    0% {
+      opacity: 0;
+      transform: translate(6px, 112px) rotate(-24deg);
+    }
+    12% {
+      opacity: 0.85;
+    }
+    58% {
+      opacity: 0.85;
+    }
+    78%,
+    100% {
+      opacity: 0;
+      transform: translate(112px, 18px) rotate(-24deg);
+    }
+  }
+  @keyframes pi-comet-b {
+    0% {
+      opacity: 0;
+      transform: translate(30px, 138px) rotate(-30deg);
+    }
+    14% {
+      opacity: 0.7;
+    }
+    55% {
+      opacity: 0.7;
+    }
+    74%,
+    100% {
+      opacity: 0;
+      transform: translate(150px, 46px) rotate(-30deg);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .net-signal,
     .net-glow,
     .net-core {
       animation: none;
+    }
+    .comet-card:hover::before,
+    .comet-card:focus-within::before,
+    .pi-saturn,
+    .pi-star,
+    .pi-comet {
+      animation: none;
+    }
+    /* 모션을 끄면 혜성은 잔상 없이 숨기고, 토성·별은 정적으로 표시 */
+    .comet-card::before {
+      opacity: 0;
+    }
+    .pi-comet {
+      opacity: 0.55;
     }
   }
 </style>
