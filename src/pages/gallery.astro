@@ -58,52 +58,52 @@ const totalPhotos = galleryEvents.reduce(
         <defs>
           {/* 큰 orb용 — peak가 낮고 더 dispersive (out-of-focus 큰 광원) */}
           <radialGradient id="gallery-bokeh-soft" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.22" />
-            <stop offset="60%" stop-color="#CC785C" stop-opacity="0.08" />
+            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.34" />
+            <stop offset="60%" stop-color="#CC785C" stop-opacity="0.12" />
             <stop offset="100%" stop-color="#CC785C" stop-opacity="0" />
           </radialGradient>
           {/* 작은~중간 orb용 — peak가 더 밝고 sharper center (in-focus에 가까운 빛점) */}
           <radialGradient id="gallery-bokeh-warm" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.45" />
-            <stop offset="50%" stop-color="#CC785C" stop-opacity="0.15" />
+            <stop offset="0%" stop-color="#CC785C" stop-opacity="0.62" />
+            <stop offset="50%" stop-color="#CC785C" stop-opacity="0.22" />
             <stop offset="100%" stop-color="#CC785C" stop-opacity="0" />
           </radialGradient>
         </defs>
 
-        {/* 큰 bokeh — out-of-focus 큰 빛망울 (느리게 부유·명멸) */}
-        <circle class="bokeh" style="--dur:7.5s;--d:0s" cx="180" cy="75" r="48" fill="url(#gallery-bokeh-soft)" />
-        <circle class="bokeh" style="--dur:8.5s;--d:-2.1s" cx="450" cy="150" r="52" fill="url(#gallery-bokeh-soft)" />
-        <circle class="bokeh" style="--dur:7s;--d:-3.4s" cx="680" cy="80" r="45" fill="url(#gallery-bokeh-soft)" />
-        <circle class="bokeh" style="--dur:9s;--d:-1.2s" cx="320" cy="180" r="42" fill="url(#gallery-bokeh-soft)" />
+        {/* 큰 bokeh — out-of-focus 큰 빛망울 (크게 부유·맥동) */}
+        <circle class="bokeh" style="--dur:5.5s;--d:0s;--dx:34px;--dy:-26px" cx="180" cy="75" r="48" fill="url(#gallery-bokeh-soft)" />
+        <circle class="bokeh" style="--dur:6.2s;--d:-2.1s;--dx:-40px;--dy:22px" cx="450" cy="150" r="52" fill="url(#gallery-bokeh-soft)" />
+        <circle class="bokeh" style="--dur:5s;--d:-3.4s;--dx:28px;--dy:30px" cx="680" cy="80" r="45" fill="url(#gallery-bokeh-soft)" />
+        <circle class="bokeh" style="--dur:6.6s;--d:-1.2s;--dx:-32px;--dy:-28px" cx="320" cy="180" r="42" fill="url(#gallery-bokeh-soft)" />
 
         {/* 중간 bokeh */}
-        <circle class="bokeh" style="--dur:6s;--d:-0.6s" cx="90" cy="140" r="26" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:6.8s;--d:-2.8s" cx="260" cy="110" r="28" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:5.6s;--d:-1.5s" cx="390" cy="55" r="24" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:7.2s;--d:-4s" cx="560" cy="175" r="27" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:6.4s;--d:-3.1s" cx="620" cy="65" r="22" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:5.8s;--d:-0.9s" cx="730" cy="160" r="27" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:4.4s;--d:-0.6s;--dx:30px;--dy:24px" cx="90" cy="140" r="26" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:4.9s;--d:-2.8s;--dx:-26px;--dy:-30px" cx="260" cy="110" r="28" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:4s;--d:-1.5s;--dx:24px;--dy:-34px" cx="390" cy="55" r="24" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:5.2s;--d:-4s;--dx:-34px;--dy:18px" cx="560" cy="175" r="27" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:4.6s;--d:-3.1s;--dx:36px;--dy:-20px" cx="620" cy="65" r="22" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:4.2s;--d:-0.9s;--dx:-28px;--dy:28px" cx="730" cy="160" r="27" fill="url(#gallery-bokeh-warm)" />
 
-        {/* 작은 bokeh — in-focus에 가까운 작은 빛점 */}
-        <circle class="bokeh" style="--dur:4.6s;--d:-1.8s" cx="45" cy="75" r="12" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:5.2s;--d:-0.4s" cx="140" cy="175" r="14" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:4.2s;--d:-2.5s" cx="240" cy="35" r="10" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:5s;--d:-3.6s" cx="490" cy="65" r="13" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:4.8s;--d:-1.1s" cx="570" cy="110" r="12" fill="url(#gallery-bokeh-warm)" />
-        <circle class="bokeh" style="--dur:4.4s;--d:-2.9s" cx="760" cy="50" r="11" fill="url(#gallery-bokeh-warm)" />
+        {/* 작은 bokeh — in-focus에 가까운 작은 빛점 (빠르게 날아다님) */}
+        <circle class="bokeh" style="--dur:3.2s;--d:-1.8s;--dx:42px;--dy:30px" cx="45" cy="75" r="12" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:3.6s;--d:-0.4s;--dx:-38px;--dy:-32px" cx="140" cy="175" r="14" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:2.9s;--d:-2.5s;--dx:34px;--dy:-40px" cx="240" cy="35" r="10" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:3.4s;--d:-3.6s;--dx:-44px;--dy:26px" cx="490" cy="65" r="13" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:3.1s;--d:-1.1s;--dx:40px;--dy:34px" cx="570" cy="110" r="12" fill="url(#gallery-bokeh-warm)" />
+        <circle class="bokeh" style="--dur:3.8s;--d:-2.9s;--dx:-36px;--dy:-28px" cx="760" cy="50" r="11" fill="url(#gallery-bokeh-warm)" />
 
         {/* Sparkle dots — ink subtle 작은 점 (멀리 있는 광점/먼지 광택, 빠르게 깜박) */}
-        <g class="fill-ink" opacity="0.40">
-          <circle class="sparkle" style="--d:0s" cx="110" cy="30" r="2" />
-          <circle class="sparkle" style="--d:-0.7s" cx="175" cy="105" r="1.7" />
-          <circle class="sparkle" style="--d:-1.4s" cx="300" cy="65" r="2" />
-          <circle class="sparkle" style="--d:-2.1s" cx="380" cy="165" r="1.7" />
-          <circle class="sparkle" style="--d:-0.4s" cx="430" cy="100" r="2" />
-          <circle class="sparkle" style="--d:-1.8s" cx="520" cy="135" r="1.7" />
-          <circle class="sparkle" style="--d:-2.6s" cx="590" cy="35" r="2" />
-          <circle class="sparkle" style="--d:-1.1s" cx="650" cy="195" r="1.7" />
-          <circle class="sparkle" style="--d:-2.3s" cx="700" cy="110" r="2" />
-          <circle class="sparkle" style="--d:-0.9s" cx="75" cy="195" r="1.7" />
+        <g class="fill-ink" opacity="0.45">
+          <circle class="sparkle" style="--dur:1.4s;--d:0s" cx="110" cy="30" r="2" />
+          <circle class="sparkle" style="--dur:1.9s;--d:-0.7s" cx="175" cy="105" r="1.7" />
+          <circle class="sparkle" style="--dur:1.5s;--d:-1.4s" cx="300" cy="65" r="2" />
+          <circle class="sparkle" style="--dur:2.1s;--d:-2.1s" cx="380" cy="165" r="1.7" />
+          <circle class="sparkle" style="--dur:1.3s;--d:-0.4s" cx="430" cy="100" r="2" />
+          <circle class="sparkle" style="--dur:1.8s;--d:-1.8s" cx="520" cy="135" r="1.7" />
+          <circle class="sparkle" style="--dur:1.6s;--d:-2.6s" cx="590" cy="35" r="2" />
+          <circle class="sparkle" style="--dur:2s;--d:-1.1s" cx="650" cy="195" r="1.7" />
+          <circle class="sparkle" style="--dur:1.5s;--d:-2.3s" cx="700" cy="110" r="2" />
+          <circle class="sparkle" style="--dur:1.7s;--d:-0.9s" cx="75" cy="195" r="1.7" />
         </g>
       </svg>
 
@@ -227,24 +227,47 @@ const totalPhotos = galleryEvents.reduce(
 </BaseLayout>
 
 <style>
-  /* 헤더 배경 — 보케 빛망울이 부드럽게 부유·명멸, sparkle은 빠르게 깜박 */
+  /* 헤더 배경 — 보케 빛망울이 활발하게 떠다니며 크게 맥동, sparkle은 톡톡 터지듯 깜박 */
   .bokeh {
     transform-box: fill-box;
     transform-origin: center;
-    animation: bokeh-twinkle var(--dur, 6s) ease-in-out infinite;
+    animation: bokeh-float var(--dur, 6s) ease-in-out infinite;
     animation-delay: var(--d, 0s);
+    will-change: transform, opacity;
   }
-  @keyframes bokeh-twinkle {
-    0%, 100% { opacity: 0.5; transform: scale(0.9); }
-    50% { opacity: 1; transform: scale(1.1); }
+  @keyframes bokeh-float {
+    0% {
+      opacity: 0.25;
+      transform: translate(0, 0) scale(0.7);
+    }
+    25% {
+      opacity: 0.95;
+      transform: translate(var(--dx, 20px), var(--dy, -16px)) scale(1.15);
+    }
+    50% {
+      opacity: 0.55;
+      transform: translate(calc(var(--dx, 20px) * -0.4), calc(var(--dy, -16px) * 1.1))
+        scale(1.4);
+    }
+    75% {
+      opacity: 1;
+      transform: translate(calc(var(--dx, 20px) * 0.7), calc(var(--dy, -16px) * -0.5))
+        scale(0.95);
+    }
+    100% {
+      opacity: 0.25;
+      transform: translate(0, 0) scale(0.7);
+    }
   }
   .sparkle {
-    animation: sparkle-twinkle 3s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: sparkle-twinkle var(--dur, 1.6s) ease-in-out infinite;
     animation-delay: var(--d, 0s);
   }
   @keyframes sparkle-twinkle {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 1; }
+    0%, 100% { opacity: 0.1; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.6); }
   }
   @media (prefers-reduced-motion: reduce) {
     .bokeh, .sparkle { animation: none; }
