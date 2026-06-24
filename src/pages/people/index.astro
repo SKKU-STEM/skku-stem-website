@@ -775,24 +775,34 @@ const alumni = allMembers
     z-index: -1; /* 카드 배경 위, 텍스트 아래 */
     top: 0;
     left: 0;
-    width: 130px;
-    height: 2px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, transparent, var(--color-coral));
-    filter: drop-shadow(0 0 6px color-mix(in oklab, var(--color-coral) 70%, transparent));
+    width: 170px;
+    height: 28px;
+    /* 헬리혜성 심상 — 밝은 코마(머리)에서 뒤로 흐려지며 좁아지는 눈물방울 꼬리 */
+    background:
+      radial-gradient(circle at calc(100% - 9px) 50%,
+        #fff 0%,
+        color-mix(in oklab, var(--color-coral) 88%, #fff) 28%,
+        var(--color-coral) 48%,
+        transparent 72%),
+      radial-gradient(ellipse 74% 44% at 100% 50%,
+        color-mix(in oklab, var(--color-coral) 62%, transparent) 0%,
+        color-mix(in oklab, var(--color-coral) 24%, transparent) 46%,
+        transparent 80%);
+    background-repeat: no-repeat;
+    filter: blur(0.4px) drop-shadow(0 0 7px color-mix(in oklab, var(--color-coral) 55%, transparent));
     opacity: 0;
     pointer-events: none;
     will-change: transform, opacity;
-    transform: translate(-150px, -70px) rotate(34deg);
+    transform: translate(-190px, -96px) rotate(34deg);
   }
   .comet-card:hover::before,
   .comet-card:focus-within::before {
-    animation: comet-streak 1.6s ease-in-out infinite;
+    animation: comet-streak 3.2s ease-in-out infinite;
   }
   @keyframes comet-streak {
     0% {
       opacity: 0;
-      transform: translate(-150px, -70px) rotate(34deg);
+      transform: translate(-190px, -96px) rotate(34deg);
     }
     14% {
       opacity: 1;
@@ -802,7 +812,7 @@ const alumni = allMembers
     }
     100% {
       opacity: 0;
-      transform: translate(380px, 260px) rotate(34deg);
+      transform: translate(380px, 256px) rotate(34deg);
     }
   }
 
