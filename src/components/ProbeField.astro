@@ -1,7 +1,8 @@
 ---
-// PI CV 헤더 텍스트 뒤 동적 backdrop — 떠다니는 전자 입자 필드. 커서가 '전자 프로브'처럼
-// 주변 입자를 국소 격자로 끌어모아 초점을 맞춘다(STEM 프로브 은유). 텍스트 가독성 위해 매우 옅게,
-// 상단(이름) 짙고 하단(bio) 페이드. 순수 Canvas + rAF, prefers-reduced-motion 시 정적 1프레임.
+// PI CV 헤더 텍스트 뒤 동적 backdrop — 밤하늘 심상. coral 별들이 명멸(twinkle)·크기 변화하며
+// 천천히 흐르고, 혜성이 꼬리를 끌며 하늘을 빠르게 가로지른다. 커서는 '망원경'처럼 주변 별을
+// 밝게 키운다. 텍스트 가독성 위해 하단(bio)으로 갈수록 페이드. 순수 Canvas + rAF,
+// prefers-reduced-motion 시 정적 1프레임.
 ---
 
 <canvas data-probe-field class="probe-field" aria-hidden="true"></canvas>
@@ -32,11 +33,33 @@
     getComputedStyle(document.documentElement).getPropertyValue('--color-coral').trim() ||
       '#CC785C'
   );
+  const rgba = (a: number) => `rgba(${CORAL[0]},${CORAL[1]},${CORAL[2]},${a})`;
 
-  const STEP = 26; // 프로브가 만드는 국소 격자 간격(CSS px)
-  const PULL_R = 120; // 프로브 영향 반경
+  const GAZE_R = 130; // 커서(망원경) 영향 반경
 
-  function initProbe(canvas: HTMLCanvasElement) {
+  interface Star {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    baseR: number; // 기본 반지름
+    phase: number; // 명멸 위상
+    twSpeed: number; // 명멸 속도
+    bright: number; // 기본 밝기
+    glow: boolean; // 큰 별은 후광
+  }
+  interface Comet {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    sp: number; // 속력
+    len: number; // 꼬리 길이
+    life: number; // 경과(ms)
+    max: number; // 수명(ms)
+  }
+
+  function initField(canvas: HTMLCanvasElement) {
     const host =
       canvas.closest<HTMLElement>('[data-probe-host]') ??
       (canvas.parentElement as HTMLElement);
@@ -46,15 +69,10 @@
 
     let W = 0;
     let H = 0;
-    interface P {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-    }
-    let dots: P[] = [];
+    let stars: Star[] = [];
+    let comets: Comet[] = [];
+    let nextCometAt = 0;
 
-    // 면적 비례 입자 수(밀도 일정). seed는 위치 그대로 사용.
     function rebuild() {
       const rect = host.getBoundingClientRect();
       W = Math.max(1, rect.width);
@@ -62,19 +80,50 @@
       canvas.width = W * dpr;
       canvas.height = H * dpr;
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(220, Math.round((W * H) / 2200));
-      dots = [...Array(count)].map(() => ({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: (Math.random() - 0.5) * 0.18,
-      }));
+      // 면적 비례 별 수(밀도 일정)
+      const count = Math.min(260, Math.round((W * H) / 1900));
+      stars = [...Array(count)].map(() => {
+        const baseR = 0.5 + Math.random() * 1.8;
+        return {
+          x: Math.random() * W,
+          y: Math.random() * H,
+          // 별이 흐르는 느낌 — 느린 드리프트
+          vx: (Math.random() - 0.5) * 0.12,
+          vy: (Math.random() - 0.5) * 0.1,
+          baseR,
+          phase: Math.random() * Math.PI * 2,
+          twSpeed: 0.7 + Math.random() * 2.2, // 별마다 다른 명멸 주기
+          bright: 0.28 + Math.random() * 0.5,
+          glow: baseR > 1.8,
+        };
+      });
+      comets = [];
+      nextCometAt = 0; // 첫 draw에서 스케줄
     }
 
-    // 포인터(프로브) — host 위에서만 활성
+    function spawnComet(t: number) {
+      const fromLeft = Math.random() < 0.5;
+      const sp = 9 + Math.random() * 7; // 빠르게
+      const vy = sp * (0.32 + Math.random() * 0.3);
+      const vx = (fromLeft ? 1 : -1) * Math.sqrt(Math.max(0, sp * sp - vy * vy));
+      comets.push({
+        x: fromLeft ? -30 : W + 30,
+        y: Math.random() * H * 0.55, // 상단 절반에서 출발
+        vx,
+        vy,
+        sp,
+        len: 80 + Math.random() * 110,
+        life: 0,
+        max: 1100 + Math.random() * 700,
+      });
+      // 다음 혜성 — 2.4~5.8s 뒤, 가끔 둘
+      nextCometAt = t + 2400 + Math.random() * 3400;
+    }
+
+    // 커서(망원경) — host 위에서만 활성
     let px = -1;
     let py = -1;
-    let active = 0; // 0..1 ease
+    let active = 0;
     let targetActive = 0;
     if (!REDUCED) {
       host.addEventListener('pointermove', (e) => {
@@ -86,49 +135,113 @@
       host.addEventListener('pointerleave', () => (targetActive = 0));
     }
 
-    function draw() {
+    let prevT = 0;
+    function draw(t: number) {
+      const dt = prevT ? Math.min(50, t - prevT) : 16;
+      prevT = t;
       active += (targetActive - active) * 0.06;
       ctx!.clearRect(0, 0, W, H);
 
-      for (const d of dots) {
-        // 잔잔한 드리프트 + 가장자리 래핑
-        d.x += d.vx;
-        d.y += d.vy;
-        if (d.x < 0) d.x += W;
-        else if (d.x > W) d.x -= W;
-        if (d.y < 0) d.y += H;
-        else if (d.y > H) d.y -= H;
+      // ── 별 ──
+      for (const s of stars) {
+        s.x += s.vx;
+        s.y += s.vy;
+        if (s.x < -4) s.x += W + 8;
+        else if (s.x > W + 4) s.x -= W + 8;
+        if (s.y < -4) s.y += H + 8;
+        else if (s.y > H + 4) s.y -= H + 8;
 
-        let alphaBoost = 0;
+        // 명멸 0..1 — 사인 기반, 별마다 위상·속도 다름
+        const tw = 0.5 + 0.5 * Math.sin(t * 0.0013 * s.twSpeed + s.phase);
+
+        // 커서 근처 별은 밝게·크게
+        let boost = 0;
         if (active > 0.01 && px >= 0) {
-          const dx = d.x - px;
-          const dy = d.y - py;
-          const dist = Math.hypot(dx, dy);
-          if (dist < PULL_R) {
-            // 프로브 주변에서 가장 가까운 격자 사이트로 끌어당겨 국소 정렬(초점)
-            const sx = px + Math.round(dx / STEP) * STEP;
-            const sy = py + Math.round(dy / STEP) * STEP;
-            const k = (1 - dist / PULL_R) * active * 0.14;
-            d.x += (sx - d.x) * k;
-            d.y += (sy - d.y) * k;
-            alphaBoost = (1 - dist / PULL_R) * active * 0.45;
-          }
+          const dist = Math.hypot(s.x - px, s.y - py);
+          if (dist < GAZE_R) boost = (1 - dist / GAZE_R) * active;
         }
 
-        // 상단 짙고 하단(bio) 옅게 — 텍스트 가독성
-        const falloff = 1 - (d.y / H) * 0.62;
-        const a = (0.32 * falloff + alphaBoost) * Math.max(0.18, falloff);
+        // 하단(bio)으로 갈수록 페이드 — 텍스트 가독성
+        const falloff = Math.max(0.18, 1 - (s.y / H) * 0.62);
+        const r = s.baseR * (0.55 + 0.7 * tw) + boost * 1.4;
+        const a = Math.min(
+          0.9,
+          (s.bright * (0.35 + 0.75 * tw) * falloff) + boost * 0.5
+        );
+
+        if (s.glow || boost > 0.3) {
+          // 밝은 별 후광
+          const g = ctx!.createRadialGradient(s.x, s.y, 0, s.x, s.y, r * 4);
+          g.addColorStop(0, rgba(a * 0.5));
+          g.addColorStop(1, rgba(0));
+          ctx!.fillStyle = g;
+          ctx!.beginPath();
+          ctx!.arc(s.x, s.y, r * 4, 0, Math.PI * 2);
+          ctx!.fill();
+        }
         ctx!.beginPath();
-        ctx!.arc(d.x, d.y, 1.7, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(${CORAL[0]},${CORAL[1]},${CORAL[2]},${a})`;
+        ctx!.arc(s.x, s.y, r, 0, Math.PI * 2);
+        ctx!.fillStyle = rgba(a);
         ctx!.fill();
       }
 
-      // 프로브 링
+      // ── 혜성 ──
+      if (nextCometAt === 0) nextCometAt = t + 1000; // 첫 혜성 ~1s 뒤
+      else if (t >= nextCometAt) spawnComet(t);
+
+      for (let i = comets.length - 1; i >= 0; i--) {
+        const c = comets[i];
+        c.life += dt;
+        c.x += c.vx;
+        c.y += c.vy;
+        // 화면 밖 + 수명 초과면 제거
+        if (
+          c.life > c.max ||
+          c.x < -120 ||
+          c.x > W + 120 ||
+          c.y > H + 120
+        ) {
+          comets.splice(i, 1);
+          continue;
+        }
+        // 진입/이탈 페이드
+        const fIn = Math.min(1, c.life / 160);
+        const fOut = Math.min(1, (c.max - c.life) / 320);
+        const fade = Math.min(fIn, fOut);
+
+        const ux = c.vx / c.sp;
+        const uy = c.vy / c.sp;
+        const tx = c.x - ux * c.len;
+        const ty = c.y - uy * c.len;
+
+        // 꼬리 — 머리에서 밝게, 끝으로 사라짐
+        const grad = ctx!.createLinearGradient(c.x, c.y, tx, ty);
+        grad.addColorStop(0, rgba(0.85 * fade));
+        grad.addColorStop(0.4, rgba(0.3 * fade));
+        grad.addColorStop(1, rgba(0));
+        ctx!.strokeStyle = grad;
+        ctx!.lineWidth = 2;
+        ctx!.lineCap = 'round';
+        ctx!.beginPath();
+        ctx!.moveTo(c.x, c.y);
+        ctx!.lineTo(tx, ty);
+        ctx!.stroke();
+
+        // 머리 후광
+        const hg = ctx!.createRadialGradient(c.x, c.y, 0, c.x, c.y, 6);
+        hg.addColorStop(0, rgba(0.95 * fade));
+        hg.addColorStop(1, rgba(0));
+        ctx!.fillStyle = hg;
+        ctx!.beginPath();
+        ctx!.arc(c.x, c.y, 6, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      // 커서 후광 링
       if (active > 0.02 && px >= 0) {
         ctx!.beginPath();
-        ctx!.arc(px, py, 16 + active * 6, 0, Math.PI * 2);
-        ctx!.strokeStyle = `rgba(${CORAL[0]},${CORAL[1]},${CORAL[2]},${active * 0.25})`;
+        ctx!.arc(px, py, 18 + active * 8, 0, Math.PI * 2);
+        ctx!.strokeStyle = rgba(active * 0.2);
         ctx!.lineWidth = 1;
         ctx!.stroke();
       }
@@ -136,13 +249,13 @@
 
     rebuild();
     if (REDUCED) {
-      draw(); // 정적 1프레임
+      draw(0); // 정적 1프레임
       return;
     }
 
     let raf = 0;
-    const loop = () => {
-      draw();
+    const loop = (t: number) => {
+      draw(t);
       raf = requestAnimationFrame(loop);
     };
     const io = new IntersectionObserver(
@@ -152,6 +265,7 @@
           else if (!en.isIntersecting && raf) {
             cancelAnimationFrame(raf);
             raf = 0;
+            prevT = 0;
           }
         }
       },
@@ -169,5 +283,5 @@
 
   document
     .querySelectorAll<HTMLCanvasElement>('canvas[data-probe-field]')
-    .forEach(initProbe);
+    .forEach(initField);
 </script>
