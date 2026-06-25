@@ -775,53 +775,64 @@ const alumni = allMembers
     z-index: -1; /* 카드 배경 위, 텍스트 아래 */
     top: 0;
     left: 0;
-    width: 156px;
-    height: 16px;
+    width: 150px;
+    height: 18px;
     /* 헬리혜성 심상 — 오른쪽 끝의 밝고 작은 코마(머리)에서 왼쪽 꼬리로 갈수록 희미 */
     background:
-      /* 코마(머리) — 흰 중심에 코랄 후광을 두른 둥근 별 */
-      radial-gradient(circle 6.5px at calc(100% - 9px) 50%,
+      /* 코마(머리) — 흰 중심에 코랄 후광을 두른 둥근 별. 우측 끝에서 13px 들여
+         라운드 글로우가 우측 모서리에 잘리지 않게 한다 */
+      radial-gradient(circle 7px at calc(100% - 13px) 50%,
         #fff 0%,
-        color-mix(in oklab, var(--color-coral) 88%, #fff) 30%,
-        var(--color-coral) 56%,
-        transparent 80%),
+        color-mix(in oklab, var(--color-coral) 88%, #fff) 32%,
+        var(--color-coral) 58%,
+        transparent 82%),
       /* 꼬리 — 머리 바로 뒤는 비우고 왼쪽으로 흐려짐(머리 주변 사각 번짐 방지) */
       linear-gradient(to left,
         transparent 0%,
-        color-mix(in oklab, var(--color-coral) 46%, transparent) 12%,
-        color-mix(in oklab, var(--color-coral) 18%, transparent) 46%,
-        transparent 84%);
+        color-mix(in oklab, var(--color-coral) 44%, transparent) 16%,
+        color-mix(in oklab, var(--color-coral) 16%, transparent) 52%,
+        transparent 88%);
     background-repeat: no-repeat;
-    /* 머리 글로우가 잘리지 않게 우측을 2px 남기고 꼬리 끝(왼쪽 점)으로 좁힘 */
-    clip-path: polygon(calc(100% - 2px) 0, calc(100% - 2px) 100%, 0 50%);
-    filter: blur(0.3px) drop-shadow(0 0 4.5px color-mix(in oklab, var(--color-coral) 50%, transparent));
+    /* 꼬리만 왼쪽 점으로 좁히고, 머리 쪽(우측)은 자르지 않아 전면 후광이 둥글게 유지된다 */
+    clip-path: polygon(100% 0, 100% 100%, 0 50%);
+    filter: blur(0.3px) drop-shadow(0 0 5px color-mix(in oklab, var(--color-coral) 52%, transparent));
     opacity: 0;
     pointer-events: none;
     will-change: offset-distance, opacity;
-    /* 곡선 궤도(orbit)를 따라 이동하고, offset-rotate:auto로 항상 접선을 향해
-       머리가 진행 방향을 보고 꼬리는 궤도를 따라 뒤로 끌린다 */
-    offset-path: path('M -150 -70 C 40 70, 250 120, 430 300');
+    /* 궤도: 위에서 하강 → 원형 궤도 1바퀴 → 우상단으로 이탈.
+       offset-rotate:auto로 항상 접선을 향해 머리가 진행 방향을 보고 꼬리는 궤도를 따라 뒤로 끌린다 */
+    offset-path: path('M 150 -90 C 120 -50, 140 0, 150 38 C 184 38, 212 66, 212 100 C 212 134, 184 162, 150 162 C 116 162, 88 134, 88 100 C 88 66, 116 38, 150 38 C 175 5, 280 -40, 440 -120');
     offset-rotate: auto;
     offset-distance: 0%;
   }
   .comet-card:hover::before,
   .comet-card:focus-within::before {
-    animation: comet-streak 4s ease-in-out infinite;
+    /* linear 타이밍 — 구간별 속도를 키프레임 stop이 직접 결정한다 */
+    animation: comet-orbit 5s linear infinite;
   }
-  @keyframes comet-streak {
+  /* offset-distance 진행: 하강 0→15%, 원형 궤도 15→60%, 이탈 60→100%.
+     시간 배분으로 진입은 느리게(15%거리/40%시간), 회전은 빠르게(45%거리/22%시간),
+     이탈은 보통 속도(40%거리/38%시간)로 만든다 */
+  @keyframes comet-orbit {
     0% {
       opacity: 0;
       offset-distance: 0%;
     }
-    14% {
+    9% {
       opacity: 1;
     }
-    82% {
+    40% {
+      offset-distance: 15%; /* 하강 끝 — 느리게 */
+    }
+    62% {
+      offset-distance: 60%; /* 원형 궤도 끝 — 빠르게 */
+    }
+    92% {
       opacity: 1;
     }
     100% {
       opacity: 0;
-      offset-distance: 100%;
+      offset-distance: 100%; /* 이탈 끝 — 보통 속도 */
     }
   }
 
