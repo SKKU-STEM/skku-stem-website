@@ -181,6 +181,11 @@ const alumni = allMembers
               <stop offset="0%" stop-color="#CC785C" stop-opacity="0" />
               <stop offset="100%" stop-color="#CC785C" stop-opacity="0.85" />
             </linearGradient>
+            {/* 행성 실루엣만큼 뒤 반호를 잘라내는 마스크 — 행성이 반투명이라 z-order만으론 가려지지 않아 필요하다. */}
+            <mask id="pi-planet-mask">
+              <rect x="0" y="0" width="200" height="160" fill="white" />
+              <circle cx="132" cy="66" r="24" fill="black" />
+            </mask>
           </defs>
 
           {/* 별 — 잔잔히 반짝임 */}
@@ -195,15 +200,17 @@ const alumni = allMembers
           {/* 토성 — 행성 + 이중 고리. 살짝 부유.
               고리의 뒤쪽(위) 반호는 행성 뒤로 가려지고, 앞쪽(아래) 반호만 행성 앞을 지나 입체감을 준다. */}
           <g class="pi-saturn">
-            {/* 뒤쪽(위) 반호 — 행성 뒤 */}
-            <path
-              d="M 82.833 82.929 A 52 16 -19 0 1 181.167 49.071"
-              fill="none" stroke="#B0624A" stroke-width="2.5" stroke-opacity="0.5" stroke-linecap="round"
-            />
-            <path
-              d="M 94.179 79.023 A 40 11 -19 0 1 169.821 52.977"
-              fill="none" stroke="#CC785C" stroke-width="1.4" stroke-opacity="0.7" stroke-linecap="round"
-            />
+            {/* 뒤쪽(위) 반호 — 행성 뒤. 마스크로 행성과 겹치는 부분을 잘라내 좌·우 끝만 행성 뒤에서 비어져 나오게 한다. */}
+            <g mask="url(#pi-planet-mask)">
+              <path
+                d="M 82.833 82.929 A 52 16 -19 0 1 181.167 49.071"
+                fill="none" stroke="#B0624A" stroke-width="2.5" stroke-opacity="0.5" stroke-linecap="round"
+              />
+              <path
+                d="M 94.179 79.023 A 40 11 -19 0 1 169.821 52.977"
+                fill="none" stroke="#CC785C" stroke-width="1.4" stroke-opacity="0.7" stroke-linecap="round"
+              />
+            </g>
             {/* 행성 */}
             <circle cx="132" cy="66" r="24" fill="url(#pi-planet)" />
             {/* 앞쪽(아래) 반호 — 행성 앞 */}
