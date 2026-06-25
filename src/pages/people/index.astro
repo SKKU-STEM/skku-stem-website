@@ -11,6 +11,7 @@ import PortraitBox from '@components/PortraitBox.astro';
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import piPortrait from '@/assets/members/YMK.jpg';
+import piProfile from '@content/pi/profile.json';
 
 const allMembers = (await getCollection('members')).map((e) => e.data);
 
@@ -253,7 +254,7 @@ const alumni = allMembers
             </span>
           </h2>
           <p class="mt-3 text-base text-ink/70 leading-relaxed">
-            Professor, Department of Energy Science<br />
+            {piProfile.position}, {piProfile.department}<br />
             Sungkyunkwan University
           </p>
 
