@@ -802,7 +802,7 @@ const alumni = allMembers
   }
   .comet-card:hover::before,
   .comet-card:focus-within::before {
-    animation: comet-streak 3.2s ease-in-out infinite;
+    animation: comet-streak 4s ease-in-out infinite;
   }
   @keyframes comet-streak {
     0% {
@@ -817,7 +817,8 @@ const alumni = allMembers
     }
     100% {
       opacity: 0;
-      transform: translate(380px, 256px) rotate(34deg);
+      /* 궤적을 따라 한 바퀴(360°) 회전하며 빠져나간다 */
+      transform: translate(380px, 256px) rotate(394deg);
     }
   }
 
