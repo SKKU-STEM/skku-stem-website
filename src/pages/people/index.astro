@@ -8,6 +8,7 @@
 // 멤버 데이터는 src/content/members/*.md 컬렉션에 저장 (section 필드로 그룹).
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PortraitBox from '@components/PortraitBox.astro';
+import CometTrail from '@components/CometTrail.astro';
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import piPortrait from '@/assets/members/YMK.jpg';
@@ -319,6 +320,7 @@ const alumni = allMembers
         {
           postdocs.map((m) => (
             <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
+              <CometTrail />
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -383,6 +385,7 @@ const alumni = allMembers
         {
           phdCandidates.map((m) => (
             <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
+              <CometTrail />
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -472,6 +475,7 @@ const alumni = allMembers
         {
           masterStudents.map((m) => (
             <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
+              <CometTrail />
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -561,6 +565,7 @@ const alumni = allMembers
         {
           undergrads.map((m) => (
             <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
+              <CometTrail />
               <div class="grid grid-cols-[1fr_auto] gap-4 sm:gap-5 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-lg font-normal leading-tight">
@@ -647,6 +652,7 @@ const alumni = allMembers
         {
           alumni.map((a) => (
             <li class="lift-card comet-card rounded-lg border border-cream-300 p-6">
+              <CometTrail />
               <div class="grid grid-cols-[1fr_auto] gap-4 items-start">
                 <div class="min-w-0">
                   <p class="font-display text-base font-normal leading-tight">
@@ -769,70 +775,123 @@ const alumni = allMembers
     overflow: hidden;
     isolation: isolate; /* 음수 z-index 혜성을 카드 내부 스택에 가둔다 */
   }
-  .comet-card::before {
-    content: '';
+  /* 혜성 SVG 오버레이 — 궤도 path의 dash 조각을 꼬리로 써서 궤도를 따라 휜다.
+     마크업은 CometTrail.astro. 카드 위쪽(음수 y) 진입/이탈 구간은 카드 overflow가 클립 */
+  .comet-trail {
     position: absolute;
-    z-index: -1; /* 카드 배경 위, 텍스트 아래 */
     top: 0;
     left: 0;
-    width: 150px;
-    height: 18px;
-    /* 헬리혜성 심상 — 오른쪽 끝의 밝고 작은 코마(머리)에서 왼쪽 꼬리로 갈수록 희미 */
-    background:
-      /* 코마(머리) — 흰 중심에 코랄 후광을 두른 둥근 별. 우측 끝에서 13px 들여
-         라운드 글로우가 우측 모서리에 잘리지 않게 한다 */
-      radial-gradient(circle 7px at calc(100% - 13px) 50%,
-        #fff 0%,
-        color-mix(in oklab, var(--color-coral) 88%, #fff) 32%,
-        var(--color-coral) 58%,
-        transparent 82%),
-      /* 꼬리 — 머리 바로 뒤는 비우고 왼쪽으로 흐려짐(머리 주변 사각 번짐 방지) */
-      linear-gradient(to left,
-        transparent 0%,
-        color-mix(in oklab, var(--color-coral) 44%, transparent) 16%,
-        color-mix(in oklab, var(--color-coral) 16%, transparent) 52%,
-        transparent 88%);
-    background-repeat: no-repeat;
-    /* 꼬리만 왼쪽 점으로 좁히고, 머리 쪽(우측)은 자르지 않아 전면 후광이 둥글게 유지된다 */
-    clip-path: polygon(100% 0, 100% 100%, 0 50%);
-    filter: blur(0.3px) drop-shadow(0 0 5px color-mix(in oklab, var(--color-coral) 52%, transparent));
-    opacity: 0;
+    z-index: -1; /* 카드 배경 위, 텍스트 아래 */
+    overflow: visible;
     pointer-events: none;
-    will-change: offset-distance, opacity;
-    /* 궤도: 위에서 하강 → 원형 궤도 1바퀴 → 우상단으로 이탈.
-       offset-rotate:auto로 항상 접선을 향해 머리가 진행 방향을 보고 꼬리는 궤도를 따라 뒤로 끌린다 */
-    offset-path: path('M 150 -90 C 120 -50, 140 0, 150 38 C 184 38, 212 66, 212 100 C 212 134, 184 162, 150 162 C 116 162, 88 134, 88 100 C 88 66, 116 38, 150 38 C 175 5, 280 -40, 440 -120');
-    offset-rotate: auto;
-    offset-distance: 0%;
+    opacity: 0;
   }
-  .comet-card:hover::before,
-  .comet-card:focus-within::before {
-    /* linear 타이밍 — 구간별 속도를 키프레임 stop이 직접 결정한다 */
-    animation: comet-orbit 5s linear infinite;
+  .comet-card:hover .comet-trail,
+  .comet-card:focus-within .comet-trail {
+    /* 등장/퇴장 페이드 (속도와 무관한 가시성) */
+    animation: comet-fade 5s linear infinite;
   }
-  /* offset-distance 진행: 하강 0→15%, 원형 궤도 15→60%, 이탈 60→100%.
-     시간 배분으로 진입은 느리게(15%거리/40%시간), 회전은 빠르게(45%거리/22%시간),
-     이탈은 보통 속도(40%거리/38%시간)로 만든다 */
-  @keyframes comet-orbit {
+  @keyframes comet-fade {
     0% {
       opacity: 0;
-      offset-distance: 0%;
     }
     9% {
       opacity: 1;
-    }
-    40% {
-      offset-distance: 15%; /* 하강 끝 — 느리게 */
-    }
-    62% {
-      offset-distance: 60%; /* 원형 궤도 끝 — 빠르게 */
     }
     92% {
       opacity: 1;
     }
     100% {
       opacity: 0;
-      offset-distance: 100%; /* 이탈 끝 — 보통 속도 */
+    }
+  }
+
+  /* 꼬리 — 궤도 path의 dash 조각. dashoffset을 애니메이션해 머리 뒤를 궤도 따라 끌고 간다.
+     바깥(흐릿·굵음) + 안쪽(밝음·가늚) 두 겹으로 길이 방향 페이드를 흉내 낸다 */
+  .comet-trail__tail {
+    fill: none;
+    stroke: var(--color-coral);
+    stroke-linecap: round;
+    will-change: stroke-dashoffset;
+  }
+  .comet-trail__tail--outer {
+    stroke-width: 4;
+    stroke-opacity: 0.26;
+    stroke-dasharray: 200 2000;
+    filter: blur(1.3px);
+  }
+  .comet-trail__tail--inner {
+    stroke-width: 2;
+    stroke-opacity: 0.62;
+    stroke-dasharray: 92 2000;
+    filter: blur(0.4px);
+  }
+  .comet-card:hover .comet-trail__tail--outer,
+  .comet-card:focus-within .comet-trail__tail--outer {
+    animation: comet-tail-outer 5s linear infinite;
+  }
+  .comet-card:hover .comet-trail__tail--inner,
+  .comet-card:focus-within .comet-trail__tail--inner {
+    animation: comet-tail-inner 5s linear infinite;
+  }
+  /* dashoffset = (꼬리길이 − 머리거리 d). pathLength=1000 정규화 기준.
+     시간→거리 배분: 하강 0→150(느리게), 궤도 150→600(빠르게), 이탈 600→1000(보통) */
+  @keyframes comet-tail-outer {
+    0% {
+      stroke-dashoffset: 200;
+    }
+    40% {
+      stroke-dashoffset: 50;
+    }
+    62% {
+      stroke-dashoffset: -400;
+    }
+    100% {
+      stroke-dashoffset: -800;
+    }
+  }
+  @keyframes comet-tail-inner {
+    0% {
+      stroke-dashoffset: 92;
+    }
+    40% {
+      stroke-dashoffset: -58;
+    }
+    62% {
+      stroke-dashoffset: -508;
+    }
+    100% {
+      stroke-dashoffset: -908;
+    }
+  }
+
+  /* 머리 — 흰 코어에 코랄 후광을 두른 둥근 코마. 원형이라 전면 후광 절단이 없다 */
+  .comet-trail__head {
+    fill: #fff;
+    will-change: offset-distance;
+    offset-path: path('M 150 -90 C 150 -44, 182 28, 150 38 C 116 38, 88 66, 88 100 C 88 134, 116 162, 150 162 C 184 162, 212 134, 212 100 C 212 66, 184 38, 150 38 C 110 30, -40 -110, -120 -120');
+    offset-rotate: 0deg;
+    offset-distance: 0%;
+    filter: drop-shadow(0 0 3px color-mix(in oklab, var(--color-coral) 85%, transparent))
+      drop-shadow(0 0 6px color-mix(in oklab, var(--color-coral) 55%, transparent));
+  }
+  .comet-card:hover .comet-trail__head,
+  .comet-card:focus-within .comet-trail__head {
+    animation: comet-head 5s linear infinite;
+  }
+  /* 머리 거리 d 진행: 하강 0→15%, 궤도 15→60%, 이탈 60→100% (꼬리 dashoffset과 동기) */
+  @keyframes comet-head {
+    0% {
+      offset-distance: 0%;
+    }
+    40% {
+      offset-distance: 15%;
+    }
+    62% {
+      offset-distance: 60%;
+    }
+    100% {
+      offset-distance: 100%;
     }
   }
 
@@ -925,15 +984,17 @@ const alumni = allMembers
     .net-core {
       animation: none;
     }
-    .comet-card:hover::before,
-    .comet-card:focus-within::before,
+    .comet-card:hover .comet-trail,
+    .comet-card:focus-within .comet-trail,
+    .comet-trail__tail,
+    .comet-trail__head,
     .pi-saturn,
     .pi-star,
     .pi-comet {
       animation: none;
     }
     /* 모션을 끄면 혜성은 잔상 없이 숨기고, 토성·별은 정적으로 표시 */
-    .comet-card::before {
+    .comet-trail {
       opacity: 0;
     }
     .pi-comet {

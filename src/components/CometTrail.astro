@@ -1,0 +1,22 @@
+---
+// People 멤버 카드 혜성 — 궤도 path의 dash 조각을 꼬리로 써서 궤도를 따라 휘는 표현
+// 머리(원)와 두 겹 꼬리(바깥 흐릿·안쪽 밝음)가 같은 궤도 path를 따라 이동한다.
+// 스타일·키프레임은 people/index.astro의 .comet-card 스코프 CSS에 정의.
+// 하강 → 반시계(위→왼→아래→오른→위) 한 바퀴 → 좌상단으로 위로 이탈
+const PATH =
+  'M 150 -90 C 150 -44, 182 28, 150 38 C 116 38, 88 66, 88 100 C 88 134, 116 162, 150 162 C 184 162, 212 134, 212 100 C 212 66, 184 38, 150 38 C 110 30, -40 -110, -120 -120';
+---
+
+<svg class="comet-trail" width="460" height="300" fill="none" aria-hidden="true">
+  <path
+    class="comet-trail__tail comet-trail__tail--outer"
+    d={PATH}
+    pathLength="1000"
+  />
+  <path
+    class="comet-trail__tail comet-trail__tail--inner"
+    d={PATH}
+    pathLength="1000"
+  />
+  <circle class="comet-trail__head" cx="0" cy="0" r="3.4" />
+</svg>
