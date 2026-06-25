@@ -797,8 +797,12 @@ const alumni = allMembers
     filter: blur(0.3px) drop-shadow(0 0 4.5px color-mix(in oklab, var(--color-coral) 50%, transparent));
     opacity: 0;
     pointer-events: none;
-    will-change: transform, opacity;
-    transform: translate(-190px, -96px) rotate(34deg);
+    will-change: offset-distance, opacity;
+    /* 곡선 궤도(orbit)를 따라 이동하고, offset-rotate:auto로 항상 접선을 향해
+       머리가 진행 방향을 보고 꼬리는 궤도를 따라 뒤로 끌린다 */
+    offset-path: path('M -150 -70 C 40 70, 250 120, 430 300');
+    offset-rotate: auto;
+    offset-distance: 0%;
   }
   .comet-card:hover::before,
   .comet-card:focus-within::before {
@@ -807,7 +811,7 @@ const alumni = allMembers
   @keyframes comet-streak {
     0% {
       opacity: 0;
-      transform: translate(-190px, -96px) rotate(34deg);
+      offset-distance: 0%;
     }
     14% {
       opacity: 1;
@@ -817,8 +821,7 @@ const alumni = allMembers
     }
     100% {
       opacity: 0;
-      /* 궤적을 따라 한 바퀴(360°) 회전하며 빠져나간다 */
-      transform: translate(380px, 256px) rotate(394deg);
+      offset-distance: 100%;
     }
   }
 
