@@ -779,21 +779,22 @@ const alumni = allMembers
     height: 16px;
     /* 헬리혜성 심상 — 오른쪽 끝의 밝고 작은 코마(머리)에서 왼쪽 꼬리로 갈수록 희미 */
     background:
-      /* 코마(머리) — 작고 밝은 점 */
-      radial-gradient(circle 7px at calc(100% - 7px) 50%,
+      /* 코마(머리) — 흰 중심에 코랄 후광을 두른 둥근 별 */
+      radial-gradient(circle 6.5px at calc(100% - 9px) 50%,
         #fff 0%,
-        color-mix(in oklab, var(--color-coral) 85%, #fff) 26%,
-        var(--color-coral) 50%,
-        transparent 74%),
-      /* 꼬리 — 머리에서 왼쪽으로 선형으로 흐려짐 */
+        color-mix(in oklab, var(--color-coral) 88%, #fff) 30%,
+        var(--color-coral) 56%,
+        transparent 80%),
+      /* 꼬리 — 머리 바로 뒤는 비우고 왼쪽으로 흐려짐(머리 주변 사각 번짐 방지) */
       linear-gradient(to left,
-        color-mix(in oklab, var(--color-coral) 52%, transparent) 0%,
-        color-mix(in oklab, var(--color-coral) 20%, transparent) 38%,
-        transparent 82%);
+        transparent 0%,
+        color-mix(in oklab, var(--color-coral) 46%, transparent) 12%,
+        color-mix(in oklab, var(--color-coral) 18%, transparent) 46%,
+        transparent 84%);
     background-repeat: no-repeat;
-    /* 머리(오른쪽 full-height)에서 꼬리 끝(왼쪽 점)으로 좁혀 굵기를 가늘게 */
-    clip-path: polygon(100% 0, 100% 100%, 0 50%);
-    filter: blur(0.3px) drop-shadow(0 0 4px color-mix(in oklab, var(--color-coral) 45%, transparent));
+    /* 머리 글로우가 잘리지 않게 우측을 2px 남기고 꼬리 끝(왼쪽 점)으로 좁힘 */
+    clip-path: polygon(calc(100% - 2px) 0, calc(100% - 2px) 100%, 0 50%);
+    filter: blur(0.3px) drop-shadow(0 0 4.5px color-mix(in oklab, var(--color-coral) 50%, transparent));
     opacity: 0;
     pointer-events: none;
     will-change: transform, opacity;
