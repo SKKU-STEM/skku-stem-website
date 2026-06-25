@@ -775,21 +775,25 @@ const alumni = allMembers
     z-index: -1; /* 카드 배경 위, 텍스트 아래 */
     top: 0;
     left: 0;
-    width: 170px;
-    height: 28px;
-    /* 헬리혜성 심상 — 밝은 코마(머리)에서 뒤로 흐려지며 좁아지는 눈물방울 꼬리 */
+    width: 156px;
+    height: 16px;
+    /* 헬리혜성 심상 — 오른쪽 끝의 밝고 작은 코마(머리)에서 왼쪽 꼬리로 갈수록 희미 */
     background:
-      radial-gradient(circle at calc(100% - 9px) 50%,
+      /* 코마(머리) — 작고 밝은 점 */
+      radial-gradient(circle 7px at calc(100% - 7px) 50%,
         #fff 0%,
-        color-mix(in oklab, var(--color-coral) 88%, #fff) 28%,
-        var(--color-coral) 48%,
-        transparent 72%),
-      radial-gradient(ellipse 74% 44% at 100% 50%,
-        color-mix(in oklab, var(--color-coral) 62%, transparent) 0%,
-        color-mix(in oklab, var(--color-coral) 24%, transparent) 46%,
-        transparent 80%);
+        color-mix(in oklab, var(--color-coral) 85%, #fff) 26%,
+        var(--color-coral) 50%,
+        transparent 74%),
+      /* 꼬리 — 머리에서 왼쪽으로 선형으로 흐려짐 */
+      linear-gradient(to left,
+        color-mix(in oklab, var(--color-coral) 52%, transparent) 0%,
+        color-mix(in oklab, var(--color-coral) 20%, transparent) 38%,
+        transparent 82%);
     background-repeat: no-repeat;
-    filter: blur(0.4px) drop-shadow(0 0 7px color-mix(in oklab, var(--color-coral) 55%, transparent));
+    /* 머리(오른쪽 full-height)에서 꼬리 끝(왼쪽 점)으로 좁혀 굵기를 가늘게 */
+    clip-path: polygon(100% 0, 100% 100%, 0 50%);
+    filter: blur(0.3px) drop-shadow(0 0 4px color-mix(in oklab, var(--color-coral) 45%, transparent));
     opacity: 0;
     pointer-events: none;
     will-change: transform, opacity;
