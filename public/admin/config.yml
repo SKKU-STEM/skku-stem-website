@@ -267,9 +267,14 @@ collections:
         fields:
           - { name: nameKo, label: 이름 (KO), widget: string }
           - { name: nameEn, label: Name (EN), widget: string }
-          - { name: position, label: '직위 (예: Professor)', widget: string }
-          - { name: department, label: 학과, widget: string }
-          - { name: university, label: 대학, widget: string }
+          - name: titles
+            label: '직함 (여러 개 추가 가능 · 각 줄로 표시)'
+            widget: list
+            field: { name: title, label: 직함, widget: string }
+          - name: affiliations
+            label: '소속 기관 (여러 개 추가 가능 · 각 줄로 표시)'
+            widget: list
+            field: { name: affiliation, label: 소속, widget: string }
           - { name: location, label: '위치 (예: Suwon 16419, Republic of Korea)', widget: string }
           - { name: bio, label: 소개 (Bio 단락), widget: text }
           - name: education

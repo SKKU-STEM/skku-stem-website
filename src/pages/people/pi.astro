@@ -31,9 +31,8 @@ interface Honor {
 interface Profile {
   nameKo: string;
   nameEn: string;
-  position: string;
-  department: string;
-  university: string;
+  titles: string[];
+  affiliations: string[];
   location: string;
   bio: string;
   education: CVEntry[];
@@ -127,8 +126,9 @@ const pubGroups: Array<{
         </p>
 
         <p class="mt-7 text-base md:text-lg text-ink/80 leading-relaxed">
-          {profile.position} &middot; {profile.department}<br />
-          {profile.university} &middot; {profile.location}
+          {[...profile.titles, ...profile.affiliations, profile.location].map((line, i) => (
+            <Fragment>{i > 0 && <br />}{line}</Fragment>
+          ))}
         </p>
 
         <p
