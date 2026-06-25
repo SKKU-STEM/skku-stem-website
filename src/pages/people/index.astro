@@ -764,8 +764,9 @@ const alumni = allMembers
     overflow: hidden;
     isolation: isolate; /* 음수 z-index 혜성을 카드 내부 스택에 가둔다 */
   }
-  /* 머리(::after)와 꼬리(::before)를 분리 — 같은 박스·궤적으로 겹쳐 함께 이동하되,
-     꼬리의 삼각 clip이 머리의 둥근 후광을 자르지 않도록 한다 */
+  /* PI 카드 혜성과 동일한 모양 — 가느다란 직선 꼬리가 뒤로 갈수록 투명하게 사라지고
+     앞쪽에 둥근 머리가 달린다. ::before·::after를 각각 독립된 혜성으로 써서
+     서로 다른 높이·주기로 흘러 유성우처럼 산발적으로 2개가 지나간다 */
   .comet-card::before,
   .comet-card::after {
     content: '';
@@ -774,41 +775,43 @@ const alumni = allMembers
     top: 0;
     left: 0;
     width: 150px;
-    height: 18px;
+    height: 16px;
     background-repeat: no-repeat;
     opacity: 0;
     pointer-events: none;
     will-change: offset-distance, opacity;
-    /* 좌상단 → 우하단 대각선 궤적. offset-rotate:auto로 머리가 진행 방향(우하단)을 보고
-       꼬리가 뒤로 끌린다 */
-    offset-path: path('M -150 -70 C 40 70, 250 120, 430 300');
-    offset-rotate: auto;
+    offset-rotate: auto; /* 머리가 진행 방향(우하단)을 보고 꼬리가 뒤로 끌린다 */
     offset-distance: 0%;
+    /* 두 레이어 = 머리(둥근 후광) + 꼬리(직선 그라데이션, 왼쪽=뒤로 갈수록 투명) */
+    background-image:
+      radial-gradient(circle 6px at calc(100% - 6px) 50%,
+        #fff 0%,
+        color-mix(in oklab, var(--color-coral) 88%, #fff) 32%,
+        var(--color-coral) 60%,
+        transparent 82%),
+      linear-gradient(to left,
+        color-mix(in oklab, var(--color-coral) 78%, transparent) 0%,
+        color-mix(in oklab, var(--color-coral) 28%, transparent) 48%,
+        transparent 90%);
+    background-size: 100% 100%, calc(100% - 12px) 2.5px;
+    background-position: 0 0, left center;
+    filter: drop-shadow(0 0 4px color-mix(in oklab, var(--color-coral) 50%, transparent));
   }
-  /* 꼬리 — 왼쪽 점으로 좁아지는 삼각 clip. 머리와 분리돼 머리 후광을 건드리지 않는다 */
+  /* 두 혜성의 궤적 높이를 다르게 — 유성우처럼 높낮이가 엇갈린다 */
   .comet-card::before {
-    background-image: linear-gradient(to left,
-      transparent 0%,
-      color-mix(in oklab, var(--color-coral) 44%, transparent) 16%,
-      color-mix(in oklab, var(--color-coral) 16%, transparent) 52%,
-      transparent 88%);
-    clip-path: polygon(100% 0, 100% 100%, 0 50%);
-    filter: blur(0.3px);
+    offset-path: path('M -150 -60 C 40 70, 250 120, 440 300');
   }
-  /* 머리(코마) — 흰 중심에 코랄 후광을 두른 둥근 별. clip 없이 drop-shadow까지 둥글게 유지 */
   .comet-card::after {
-    background-image: radial-gradient(circle 7px at calc(100% - 13px) 50%,
-      #fff 0%,
-      color-mix(in oklab, var(--color-coral) 88%, #fff) 32%,
-      var(--color-coral) 58%,
-      transparent 82%);
-    filter: drop-shadow(0 0 5px color-mix(in oklab, var(--color-coral) 52%, transparent));
+    offset-path: path('M -170 40 C 30 120, 260 180, 460 380');
   }
+  /* 서로 다른 주기·지연으로 산발적으로(겹치지 않게) 흐른다 */
   .comet-card:hover::before,
+  .comet-card:focus-within::before {
+    animation: comet-streak 3.4s ease-in-out infinite;
+  }
   .comet-card:hover::after,
-  .comet-card:focus-within::before,
   .comet-card:focus-within::after {
-    animation: comet-streak 4s ease-in-out infinite;
+    animation: comet-streak 4.6s ease-in-out 1.6s infinite;
   }
   @keyframes comet-streak {
     0% {
