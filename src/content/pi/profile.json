@@ -1,8 +1,13 @@
 {
   "nameKo": "김영민",
   "nameEn": "Young-Min Kim",
-  "titles": ["Professor", "Head of Department of Energy Science"],
-  "affiliations": ["Sungkyunkwan University"],
+  "titles": [
+    "Professor",
+    "Head of Department of Energy Science"
+  ],
+  "affiliations": [
+    "Sungkyunkwan University"
+  ],
   "location": "Suwon 16419, Republic of Korea",
   "bio": "Young-Min Kim is a Professor in the Department of Energy Science at Sungkyunkwan University, Korea. He received his Ph.D. (2010) in Materials Science and Engineering from KAIST, Korea, and worked as a researcher at the Korea Basic Science Institute (KBSI) for 14 years, including during his Ph.D. studies. From 2010 to 2013, he was a postdoctoral fellow and visiting scientist in the STEM group at Oak Ridge National Laboratory, where he developed expertise in aberration-corrected scanning transmission electron microscopy (STEM) and transition metal oxide thin films. His research group focuses on the atomic-scale structural and chemical characterization of functional nanomaterials and thin films using advanced STEM techniques, including electron energy-loss spectroscopy (EELS), energy-dispersive X-ray spectroscopy (EDX), four-dimensional STEM (4D-STEM), and electron tomography. A central theme of his recent work is the integration of these multimodal microscopy capabilities with machine learning and deep learning frameworks, enabling quantitative and high-throughput analysis of complex material systems.",
   "education": [
@@ -50,13 +55,13 @@
     {
       "start": "2012-12",
       "years": "Dec. 2012 – Nov. 2013",
-      "title": "Visiting Scientist",
+      "title": "Visiting Scientist (on leave from KBSI)",
       "institution": "Oak Ridge National Laboratory (ORNL), USA"
     },
     {
       "start": "2010-11",
       "years": "Nov. 2010 – Nov. 2012",
-      "title": "Postdoctoral Fellow",
+      "title": "Postdoctoral Fellow (on leave from KBSI)",
       "institution": "Materials Science & Technology Division, Oak Ridge National Laboratory (ORNL), USA"
     },
     {
