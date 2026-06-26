@@ -1,6 +1,18 @@
 {
   "items": [
     {
+      "id": "233",
+      "number": 233,
+      "year": 2026,
+      "lead": false,
+      "authors": "Sujeong Kim, Byeong Wook Cho, Jaekak Yoo, Mingu Kang, Hyeongwoo Lee, Jiwon Kim, Soo Ho Choi, Young-Min Kim, Mun Seok Jeong, Ki Kang Kim*, Kyoung-Duck Park*",
+      "title": "Laser-induced deterministic thickness engineering of violet phosphorus for nanoscale optical functionality",
+      "journal": "Light: Advanced Manufacturing",
+      "volumePages": "accepted",
+      "doi": "",
+      "themes": []
+    },
+    {
       "id": "232",
       "number": 232,
       "year": 2026,
