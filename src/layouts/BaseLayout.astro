@@ -10,12 +10,15 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  // 뷰포트 외곽에 은은한 코랄 글로우 오버레이를 켤지 여부 (현재 People 페이지에만 사용)
+  edgeGlow?: boolean;
 }
 
 const {
   title,
   description = 'SKKU-STEM Lab — 성균관대학교 에너지과학과 김영민 교수 연구실',
   ogImage,
+  edgeGlow = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
@@ -82,6 +85,8 @@ const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
       Skip to content
     </a>
 
+    {edgeGlow && <div class="edge-glow" aria-hidden="true" />}
+
     <Header />
 
     <main id="main" class="flex-1">
@@ -102,3 +107,34 @@ const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
     }
   </body>
 </html>
+
+<style>
+  /* 뷰포트 외곽을 따라 안쪽으로 번지는 코랄 글로우. 클릭은 통과(pointer-events:none) */
+  .edge-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    box-shadow:
+      inset 0 0 90px 8px color-mix(in oklab, var(--color-coral) 20%, transparent),
+      inset 0 0 200px 40px color-mix(in oklab, var(--color-coral) 10%, transparent);
+    animation: edge-glow-pulse 6s ease-in-out infinite;
+  }
+
+  @keyframes edge-glow-pulse {
+    0%,
+    100% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .edge-glow {
+      animation: none;
+      opacity: 0.85;
+    }
+  }
+</style>
