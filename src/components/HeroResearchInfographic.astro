@@ -1,6 +1,6 @@
 ---
 // 홈 히어로 좌측 하단을 채우는 아이콘 인포그래픽 — 연구실 3대 축을 은유적으로 형상화한 애니메이션.
-// Microscopy(원자에 초점 맞추는 링) · Spectroscopy(살아있는 스펙트럼 막대) · Machine learning(신호 흐르는 뉴럴넷).
+// Microscopy(원자에 초점 맞추는 링) · Spectroscopy(저손실 EELS 프로파일) · Machine learning(신호 흐르는 뉴럴넷).
 // 순수 SVG + CSS 애니메이션. prefers-reduced-motion 시 정지 상태로 표시.
 ---
 
@@ -25,17 +25,24 @@
       <span class="hero-icons__label">Microscopy</span>
     </li>
 
-    {/* ── Spectroscopy — 살아 움직이는 스펙트럼 막대 ── */}
+    {/* ── Spectroscopy — 저손실 EELS 프로파일(zero-loss 피크 + plasmon-loss 험프) ── */}
     <li class="hero-icons__tile">
       <svg viewBox="0 0 64 64" class="hero-icons__svg" aria-hidden="true">
         <line x1="9" y1="50" x2="55" y2="50" class="stroke-ink" stroke-width="1.3" opacity="0.25" stroke-linecap="round" />
-        <g class="fill-coral">
-          <rect class="ico-bar ico-bar--1" x="13" y="38" width="4.6" height="12" rx="1.6" />
-          <rect class="ico-bar ico-bar--2" x="22" y="28" width="4.6" height="22" rx="1.6" />
-          <rect class="ico-bar ico-bar--3" x="31" y="17" width="4.6" height="33" rx="1.6" />
-          <rect class="ico-bar ico-bar--4" x="40" y="30" width="4.6" height="20" rx="1.6" />
-          <rect class="ico-bar ico-bar--5" x="49" y="36" width="4.6" height="14" rx="1.6" />
-        </g>
+        <path
+          class="fill-coral"
+          opacity="0.12"
+          d="M9 50 L13 49.5 C14.2 49.5 15.2 13 16 13 C16.8 13 17.8 49.5 19 49.5 C23 49.5 25 31 30 31 C35 31 37 42 41 42 C45 42 50 49.5 55 49.5 L55 50 Z"
+        />
+        <path
+          class="ico-spectrum stroke-coral"
+          pathLength="100"
+          d="M9 50 L13 49.5 C14.2 49.5 15.2 13 16 13 C16.8 13 17.8 49.5 19 49.5 C23 49.5 25 31 30 31 C35 31 37 42 41 42 C45 42 50 49.5 55 49.5"
+          fill="none"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
       <span class="hero-icons__label">Spectroscopy</span>
     </li>
@@ -133,33 +140,20 @@
     }
   }
 
-  /* Spectroscopy — 막대들이 스펙트럼처럼 미세하게 오르내림 */
-  .ico-bar {
-    transform-box: fill-box;
-    transform-origin: bottom;
-    animation: ico-bar 1.5s ease-in-out infinite alternate;
+  /* Spectroscopy — 저손실 스펙트럼이 좌→우로 그려지며 취득되는 느낌 */
+  .ico-spectrum {
+    stroke-dasharray: 100;
+    animation: ico-spectrum 3.4s ease-in-out infinite;
   }
-  .ico-bar--1 {
-    animation-delay: 0s;
-  }
-  .ico-bar--2 {
-    animation-delay: 0.35s;
-  }
-  .ico-bar--3 {
-    animation-delay: 0.15s;
-  }
-  .ico-bar--4 {
-    animation-delay: 0.5s;
-  }
-  .ico-bar--5 {
-    animation-delay: 0.25s;
-  }
-  @keyframes ico-bar {
-    from {
-      transform: scaleY(0.65);
+  @keyframes ico-spectrum {
+    0% {
+      stroke-dashoffset: 100;
     }
-    to {
-      transform: scaleY(1.05);
+    55% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: 0;
     }
   }
 
@@ -201,7 +195,10 @@
       transform: scale(0.62);
       opacity: 0.65;
     }
-    .ico-bar,
+    .ico-spectrum {
+      animation: none;
+      stroke-dasharray: none;
+    }
     .ico-node {
       animation: none;
     }
