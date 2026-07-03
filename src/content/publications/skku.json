@@ -1,6 +1,18 @@
 {
   "items": [
     {
+      "id": "234",
+      "number": 234,
+      "year": 2026,
+      "lead": false,
+      "authors": "Young-Hoon Kim*, Reza Ghanbari, Min-Hyoung Jung, Yang Zhang, Young-Min Kim, Ruijuan Xu*, Miaofang Chi*",
+      "title": "Establishing atomic coherence in twisted oxide membranes containing volatile elements",
+      "journal": "Advanced Materials",
+      "volumePages": "accepted",
+      "doi": "",
+      "themes": []
+    },
+    {
       "id": "233",
       "number": 233,
       "year": 2026,
