@@ -147,7 +147,7 @@
 - [x] `npm run check` 0/0/0 / `npm run build` 통과 / 3장·1장 렌더 검증
 - [ ] (배포) git push → Cloudflare Pages 라이브 반영 — 사용자 승인 후
 
-## 7. Home Research highlights + Recent papers 개편 (2026-05-28)
+## 7. Home Research highlights + Recent papers 개편 (2026-05-28) — ⚠️ 아래 데이터 소스는 2026-07-14 개편으로 대체됨(섹션 13 참조)
 
 - [x] `src/content/home/research-featured.json` — 홈 큐레이션 카드 2장 시드 (eyebrow/title/summary/link/media[])
 - [x] `public/research-featured/` — 시드 이미지 2장 복사 (silver films, ML electrode)
@@ -225,4 +225,16 @@
 - [x] reduced-motion 정지 / ProbeField는 IntersectionObserver+ResizeObserver 대응
 - [x] `npm run check` 0/0/0 / `npm run build` 통과
 - [x] (시각 확인) CDP 캡처 — 헤더 프로브(마우스 전/후)·4글리프 렌더 + 헤더 가독성 확인
+- [ ] (배포) 사용자 승인 후 push
+
+## 13. Home Research highlights 자동 게시 개편 (2026-07-14)
+
+- [x] `src/utils/researchFigure.ts` 신설 — `getResearchFigure(path)`로 `src/assets/research/*` basename 해석(맨 파일명·`/research/<fn>` 모두). `research.astro`의 로컬 `getFigure` 대체
+- [x] `src/components/ResearchHighlightCard.astro` — `MediaCarousel`(public URL) → `FigureSlot`(astro:assets `<Image>`), props `media` → `figure`
+- [x] `src/pages/index.astro` — 홈 하이라이트를 `research-highlights` 컬렉션 **최신 2건 자동 게시**(date 내림차순)로 전환. eyebrow=`저널 · 연도`, link=doi, figure=getResearchFigure(image)
+- [x] 수기 시스템 제거 — `src/content/home/research-featured.json`, `public/research-featured/*` 이미지 2장, `public/admin/config.yml`의 `research-featured` 파일 컬렉션 삭제(섹션 7 대체)
+- [x] 구리 항목 이미지 정상화 — `public/recruiting/Cu-Cu bonding.jpg` → `src/assets/research/2026-untangling-copper-electromigration.jpg`, entry image 필드 수정
+- [x] CMS 정합화 — research-highlights image 위젯 media_folder `/public/research` → `/src/assets/research`(hero 패턴). research-themes 필드도 동일 정합화(단 테마 카드는 이미지 미렌더)
+- [x] `npm run check` 0/0/0 / `npm run build` 통과. dist에서 홈 2건(구리·은박막)+이미지, /research 구리 그림 확인
+- [x] main 병합(3816ecf). 스펙·계획: `docs/superpowers/specs|plans/2026-07-14-home-research-highlights-auto*`
 - [ ] (배포) 사용자 승인 후 push

@@ -241,7 +241,7 @@ skkustem/
 - CMS: `public/admin/config.yml`에 10번째 컬렉션 `home`(`Home · Hero slides`) 추가. list widget `min:1 max:3`, image 위젯 media_folder `/src/assets/hero` public_folder `/hero`.
 - 검증: `npm run check` 0/0/0, `npm run build` 통과. 3장 시드로 dots·arrows·captions·srcset 렌더 확인 후 1장(실사진)으로 복원.
 
-## Home Research highlights + Recent papers 개편 (2026-05-28)
+## Home Research highlights + Recent papers 개편 (2026-05-28) — ⚠️ 데이터 소스/미디어 저장 방식은 2026-07-14 개편으로 대체됨(문서 하단 참조)
 
 - **데이터 소스 = 홈 전용 직접 큐레이션** (hero.json과 동일하게 `src/content/home/research-featured.json`을 index.astro가 직접 import). research-highlights 컬렉션 자동 연동(최신 2개) 대신, 사용자가 홈에 띄울 카드 2장을 CMS에서 직접 고르는 방식 선택. content.config.ts zod 미등록(hero 선례 동일).
 - **미디어 저장 = `public/research-featured/` + 일반 `<img>`** (hero/research 페이지의 `src/assets/*` + Astro `<Image>` 패턴과 다름). 이유: (1) GIF 애니메이션 보존 — Astro Image(sharp)는 기본적으로 GIF를 정적 webp로 변환, (2) jpg/png/gif/YouTube를 한 캐러셀에서 일관 처리. 미디어가 hero(LCP)보다 아래라 최적화 손실 영향 작음(lazy 로드).
@@ -343,3 +343,13 @@ Publications에 이어 헤더 + Education/Experience/Honors/Contact 구현. 두 
   - IntersectionObserver(off-screen rAF 정지) + ResizeObserver(debounce 150ms로 backing store 재생성). reduced-motion 정적 1프레임·포인터 비활성. dpr 캡 2.
 - **검증**: check 0/0/0, build 통과(11 pages). CDP(headless Edge + `Input.dispatchMouseEvent`로 실제 마우스 이동)로 헤더 프로브 전/후 캡처 — off는 미세 입자, on은 프로브 링+국소 밝아짐 + 텍스트 가독성 OK 확인. 4글리프도 스크롤 캡처로 렌더 확인. 검증 스크립트(`scripts/_verify5.mjs`, `_hover-check.mjs`)는 일회성이라 삭제.
 - 미배포 — 사용자 승인 후 push.
+
+## Home Research highlights 자동 게시 개편 (2026-07-14)
+
+- **데이터 소스 전환 = 컬렉션 자동.** 2026-05-28의 수기 큐레이션(`research-featured.json`)을 폐지하고, 홈 하이라이트를 `research-highlights` 컬렉션 **최신 2건**(date 내림차순 `.slice(0,2)`)으로 자동 게시. index.astro가 `getCollection('research-highlights')`로 로드해 `{eyebrow: \`${journal} · ${year}\`, title, summary, link: doi, figure}` 매핑. 홈에 특정 논문을 띄우려면 그 항목의 date를 최신으로.
+- **근본 원인 진단.** 신규 CMS 항목이 홈에 반영 안 됨 = (1) 홈이 컬렉션이 아니라 별도 JSON에서 데이터를 받음 + (2) CMS 이미지 업로드 폴더(`/public/research`)와 코드 해석 경로(`src/assets/research/` glob)가 어긋나 하이라이트 이미지가 원래부터 미렌더. `/recruiting/Cu-Cu bonding.jpg`로 저장된 구리 이미지는 그 증상.
+- **이미지 해석 통일 = `src/utils/researchFigure.ts`.** `getResearchFigure(path)`가 `import.meta.glob('/src/assets/research/*')` 후 basename으로 astro:assets `ImageMetadata` 반환. `/research`(FigureSlot)와 홈 카드가 공유. 맨 파일명과 `/research/<fn>` 접두 경로 모두 해석.
+- **홈 카드 = FigureSlot(최적화 `<Image>`)로 전환.** 컬렉션 이미지는 `src/assets`에 있어 public URL(`MediaCarousel`)로는 404. `ResearchHighlightCard`를 FigureSlot 기반으로 변경(props `media`→`figure`). `MediaCarousel`은 News/Gallery가 계속 사용하므로 유지.
+- **CMS 정합화.** research-highlights image 위젯 media_folder `/public/research` → `/src/assets/research`(hero/members와 동일 패턴, public_folder `/research` 유지) → 향후 CMS 업로드가 최적화 경로로 해석됨. research-themes 동일 필드도 정합화했으나 **테마 카드는 이미지를 렌더링하지 않는 dead 필드**(6개 항목 모두 image 빈 값). 193행 노트("research-highlights.image media_folder /public/research…")는 이 개편으로 무효.
+- 검증: `npm run check` 0/0/0, `npm run build` 통과(11 pages + pagefind). dist/index.html 홈 하이라이트 2건(ACS Nano·구리 / RoPP·은박막)+최적화 webp, dist/research/index.html 구리 figure webp 확인. 서브에이전트 주도(태스크별 리뷰 + opus 전체 리뷰 merge-ready).
+- 미배포 — 사용자 승인 후 push(main 병합 3816ecf까지).
