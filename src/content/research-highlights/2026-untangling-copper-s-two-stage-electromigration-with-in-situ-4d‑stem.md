@@ -9,5 +9,5 @@ codeUrl: ''
 mention: ''
 mentionUrl: ''
 image: /recruiting/Cu-Cu bonding.jpg
-imageAlt: 'Caught in the Act: In Situ 4D‑STEM Untangles Two-Stage Electromigration in Cu-Cu Bonds'
+imageAlt: ''
 ---
