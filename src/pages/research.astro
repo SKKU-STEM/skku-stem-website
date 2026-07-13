@@ -6,23 +6,11 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import FigureSlot from '@components/FigureSlot.astro';
 import ThemeIcon from '@components/ThemeIcon.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import type { ImageMetadata } from 'astro';
 import { formatChemistry } from '@/utils/chemistry';
 import { papersForTheme } from '@/utils/themeClassifier';
+import { getResearchFigure } from '@/utils/researchFigure';
 
 type ResearchHighlight = CollectionEntry<'research-highlights'>['data'];
-
-// src/assets/research/* 의 모든 figure 파일을 build-time에 eager-load
-const figureModules = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/research/*.{jpg,jpeg,png,webp}',
-  { eager: true }
-);
-
-const getFigure = (filename?: string): ImageMetadata | null => {
-  if (!filename) return null;
-  const mod = figureModules[`/src/assets/research/${filename}`];
-  return mod?.default ?? null;
-};
 
 // ─── Highlights 데이터 로드 ───
 const highlightEntries = await getCollection('research-highlights');
@@ -441,7 +429,7 @@ const themeCards = themes.map((theme) => {
                       </div>
 
                       <FigureSlot
-                        image={getFigure(entry.image)}
+                        image={getResearchFigure(entry.image)}
                         alt={entry.imageAlt ?? entry.title}
                         class="w-full lg:w-72 xl:w-80 shrink-0"
                         aspectClass="aspect-[4/3]"

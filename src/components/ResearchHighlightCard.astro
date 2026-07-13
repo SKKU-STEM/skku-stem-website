@@ -1,29 +1,29 @@
 ---
-// 홈 'Research highlights' 카드 — 대표 미디어(MediaCarousel: 이미지/GIF/YouTube)와
-// 제목(카드별 link로 연결), 호버 그라디언트 그림자 효과. 데이터: src/content/home/research-featured.json
-import MediaCarousel from '@components/MediaCarousel.astro';
-
-interface MediaItem {
-  image?: string;
-  youtube?: string;
-  alt?: string;
-}
+// 홈 'Research highlights' 카드 — Research Highlights 컬렉션의 최적화 figure(FigureSlot)와
+// 제목(카드별 link로 연결), 호버 그라디언트 그림자 효과. 데이터: src/content/research-highlights/*.md
+import FigureSlot from '@components/FigureSlot.astro';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   eyebrow?: string;
   title: string;
   summary?: string;
   link: string;
-  media?: MediaItem[];
+  figure?: ImageMetadata | null;
 }
 
-const { eyebrow, title, summary, link, media = [] } = Astro.props;
+const { eyebrow, title, summary, link, figure } = Astro.props;
 
 const isExternal = /^https?:\/\//.test(link);
 ---
 
 <article class="lift-card group relative flex flex-col rounded-lg border border-cream-300 bg-cream-200/60">
-  <MediaCarousel media={media} class="rounded-t-lg" />
+  <FigureSlot
+    image={figure}
+    alt={title}
+    class="w-full rounded-t-lg"
+    aspectClass="aspect-[16/10]"
+  />
 
   <div class="flex flex-1 flex-col p-6 md:p-7">
     {
@@ -52,4 +52,3 @@ const isExternal = /^https?:\/\//.test(link);
     }
   </div>
 </article>
-

@@ -3,19 +3,29 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { formatChemistry } from '@/utils/chemistry';
+import { getResearchFigure } from '@/utils/researchFigure';
 import HeroSlideshow from '@components/HeroSlideshow.astro';
 import HeroResearchInfographic from '@components/HeroResearchInfographic.astro';
 import ResearchHighlightCard from '@components/ResearchHighlightCard.astro';
 import RecruitingMedia from '@components/RecruitingMedia.astro';
 import heroData from '@content/home/hero.json';
-import researchFeaturedData from '@content/home/research-featured.json';
 import recruitingMedia from '@content/home/recruiting.json';
 
 // 히어로 슬라이드(최대 3장) — /admin의 'Home · Hero slides'에서 편집, 배열 순서대로 재생.
 const heroSlides = heroData.items;
 
-// 홈 'Research highlights' 카드(2장) — /admin의 'Home · Research highlights'에서 직접 큐레이션.
-const researchFeatured = researchFeaturedData.items;
+// 홈 'Research highlights' 카드(2장) — Research Highlights 컬렉션 최신 2건 자동 게시(date 내림차순).
+const researchFeatured = (await getCollection('research-highlights'))
+  .map((e) => e.data)
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
+  .slice(0, 2)
+  .map((h) => ({
+    eyebrow: `${h.journal} · ${h.date.getUTCFullYear()}`,
+    title: h.title,
+    summary: h.summary,
+    link: h.doi,
+    figure: getResearchFigure(h.image),
+  }));
 
 // 최근 lead authorship 논문 3건 자동 추출 — number desc 정렬 후 lead 필터링.
 const skkuEntries = await getCollection('publications-skku');
@@ -108,7 +118,7 @@ const highlights = skkuEntries
               title={item.title}
               summary={item.summary}
               link={item.link}
-              media={item.media}
+              figure={item.figure}
             />
           ))
         }
