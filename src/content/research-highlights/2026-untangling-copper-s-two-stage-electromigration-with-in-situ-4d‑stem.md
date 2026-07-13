@@ -8,6 +8,6 @@ doi: https://pubs.acs.org/doi/10.1021/acsnano.6c06734
 codeUrl: ''
 mention: ''
 mentionUrl: ''
-image: /recruiting/Cu-Cu bonding.jpg
+image: 2026-untangling-copper-electromigration.jpg
 imageAlt: ''
 ---
