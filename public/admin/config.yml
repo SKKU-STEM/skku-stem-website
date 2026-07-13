@@ -435,9 +435,10 @@ collections:
         label: Figure
         widget: image
         required: false
-        media_folder: '/public/research'
+        media_folder: '/src/assets/research'
         public_folder: '/research'
         choose_url: false
+        hint: 'src/assets/research/에 업로드되며 경로는 /research/<filename>으로 저장된다. 현재 테마 카드는 이미지를 렌더링하지 않으니 highlights와 폴더만 정합화해 둔 필드다.'
       - { name: imageAlt, label: Figure alt text, widget: string, required: false }
 
   # ===== Research Highlights (folder, .md frontmatter-only) =====
