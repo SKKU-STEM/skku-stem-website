@@ -9,5 +9,4 @@ participants: ''
 awards: 'Excellence award (₩4,000,000): 김선제 (Seon Je Kim)'
 media:
   - image: /gallery-media/2023-skku-paper-1.jpg
-  - image: /gallery-media/2023-skku-paper-2.jpg
 ---
