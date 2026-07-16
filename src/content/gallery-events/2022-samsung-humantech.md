@@ -9,6 +9,4 @@ participants: ''
 awards: 'Bronze Prize (₩5,000,000): 김영훈 (Young-Hoon Kim, 1st author), 양상혁 (Sang-Hyeok Yang, 1st co-author)'
 media:
   - image: /gallery-media/2022-samsung-humantech-1.jpg
-  - image: /gallery-media/2022-samsung-humantech-2.jpg
-  - image: /gallery-media/2022-samsung-humantech-3.jpg
 ---
