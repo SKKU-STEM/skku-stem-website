@@ -9,7 +9,4 @@ participants: 'Oral (KSM2024-137): Min-Hyoung Jung · Oral (KSM2024-138): Sang-H
 awards: ''
 media:
   - image: /gallery-media/2024-ksm-spring-1.jpg
-  - image: /gallery-media/2024-ksm-spring-2.jpg
-  - image: /gallery-media/2024-ksm-spring-3.jpg
-  - image: /gallery-media/2024-ksm-spring-4.jpg
 ---
