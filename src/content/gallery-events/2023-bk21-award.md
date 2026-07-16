@@ -9,7 +9,6 @@ participants: ''
 awards: 장우성 (Woo-Sung Jang) — 부총리 겸 교육부장관 표창 (Deputy Prime Minister and Minister of Education Award)
 media:
   - image: /gallery-media/2023-bk21-award-1.jpg
-  - image: /gallery-media/2023-bk21-award-2.jpg
   - image: /gallery-media/2023-bk21-award-3.jpg
   - image: /gallery-media/2023-bk21-award-4.jpg
 ---
