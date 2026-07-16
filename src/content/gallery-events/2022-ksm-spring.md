@@ -10,8 +10,6 @@ awards: 'Excellence awards (KSM2022-179, KSM2022-181): 김영훈 (Young-Hoon Kim
 media:
   - image: /gallery-media/2022-ksm-spring-1.jpg
   - image: /gallery-media/2022-ksm-spring-2.jpg
-  - image: /gallery-media/2022-ksm-spring-3.jpg
-  - image: /gallery-media/2022-ksm-spring-4.jpg
   - image: /gallery-media/2022-ksm-spring-5.jpg
   - image: /gallery-media/2022-ksm-spring-6.jpg
 ---
