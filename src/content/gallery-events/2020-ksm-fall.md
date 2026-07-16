@@ -10,6 +10,5 @@ awards: 'Best Poster Award: Woo-Sung Jang'
 media:
   - image: /gallery-media/2020-ksm-fall-1.jpg
   - image: /gallery-media/2020-ksm-fall-2.jpg
-  - image: /gallery-media/2020-ksm-fall-3.jpg
   - image: /gallery-media/2020-ksm-fall-4.jpg
 ---
