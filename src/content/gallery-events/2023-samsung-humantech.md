@@ -9,6 +9,4 @@ participants: ''
 awards: 'Silver Prize (₩7,000,000): 김영훈 (Young-Hoon Kim, 1st author)'
 media:
   - image: /gallery-media/2023-samsung-humantech-1.jpg
-  - image: /gallery-media/2023-samsung-humantech-2.jpg
-  - image: /gallery-media/2023-samsung-humantech-3.jpg
 ---
