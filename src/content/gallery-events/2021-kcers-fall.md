@@ -9,9 +9,6 @@ participants: 'Keynote: Prof. Young-Min Kim — "Deep learning electron crystall
 awards: 'PACRIM Award (Oral, ₩1,000,000): Woo-Sung Jang · KcerS Excellence (Poster): Young-Hoon Kim · Yang Song Poster Award: Hyeon-Ah Ju'
 media:
   - image: /gallery-media/2021-kcers-fall-1.jpg
-  - image: /gallery-media/2021-kcers-fall-2.jpg
   - image: /gallery-media/2021-kcers-fall-3.jpg
   - image: /gallery-media/2021-kcers-fall-4.jpg
-  - image: /gallery-media/2021-kcers-fall-5.jpg
-  - image: /gallery-media/2021-kcers-fall-6.jpg
 ---
