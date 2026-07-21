@@ -1,6 +1,18 @@
 {
   "items": [
     {
+      "id": "236",
+      "number": 236,
+      "year": 2026,
+      "lead": false,
+      "authors": "Su Jae Kim, Seong-Gon Kim, Young-Min Kim, Se-Young Jeong*",
+      "title": "Surface Engineering and Oxidation Control in Single-Crystal Cu Thin Films: Mechanisms and Applications",
+      "journal": "Current Applied Physics",
+      "volumePages": "accepted",
+      "doi": "https://doi.org/10.1016/j.cap.2026.07.004",
+      "themes": []
+    },
+    {
       "id": "235",
       "number": 235,
       "year": 2026,
