@@ -1,6 +1,29 @@
 {
   "items": [
     {
+      "id": "31",
+      "number": 31,
+      "year": 2026,
+      "kind": "non-sci",
+      "title": "Takmo Jeong, Bumsub Song, Bong Gyu Shin, Jae Woo Kim, Sang-Hyeok Yang, Young-Min Kim, Ki Kang Kim*, Young Hee Lee*, Seok Joon Yun*",
+      "titleEn": "",
+      "link": "",
+      "region": "",
+      "inventors": "",
+      "patentNo": "",
+      "applicationNo": "",
+      "applicationDate": "",
+      "registrationNo": "",
+      "registrationDate": "",
+      "status": "",
+      "authors": "",
+      "journal": "National Materials",
+      "volumePages": "accepted",
+      "publisher": "",
+      "isbn": "",
+      "publicationDate": ""
+    },
+    {
       "id": "30",
       "number": 30,
       "year": 2026,
@@ -76,11 +99,17 @@
       "kind": "patent",
       "title": "딥러닝 기반 다결정 소재의 결정 구조 및 배향 자동 맵핑법",
       "titleEn": "Deep learning-based automated mapping of polycrystalline crystal structure and orientation",
+      "link": "https://www.npsm-kps.org/journal/view.html?volume=72&number=11&spage=812&year=2022",
       "region": "Korea",
       "inventors": "김영민, 이은하, 정명호, 김영훈, 양상혁",
       "applicationNo": "10-2022-0060095",
       "applicationDate": "May 17, 2022",
-      "status": "Applied"
+      "registrationNo": "",
+      "registrationDate": "",
+      "status": "Applied",
+      "authors": "Su Jae Kim, Young-Hoon Kim, Young-Min Kim, Se-Young Jeong",
+      "journal": "New Physics: Sae Mulli",
+      "volumePages": "72, 812-820"
     },
     {
       "id": "26",
@@ -90,14 +119,18 @@
       "title": "Grain Boundaries and Twin Boundaries in Cu(111) Thin Films",
       "titleEn": "",
       "link": "https://www.npsm-kps.org/journal/view.html?volume=72&number=11&spage=812&year=2022",
+      "region": "Korea",
       "inventors": "",
+      "patentNo": "",
       "applicationNo": "",
       "applicationDate": "",
       "registrationNo": "",
       "registrationDate": "",
+      "status": "Granted",
       "authors": "Su Jae Kim, Young-Hoon Kim, Young-Min Kim, Se-Young Jeong",
       "journal": "New Physics: Sae Mulli",
-      "volumePages": "72, 812-820"
+      "volumePages": "72, 812-820",
+      "publisher": ""
     },
     {
       "id": "25",
@@ -127,11 +160,15 @@
       "kind": "patent",
       "title": "포스포린-니켈 인화물 복합체 및 이의 제조방법",
       "titleEn": "Phosphorin-nickel phosphide complex and manufacturing method",
+      "link": "https://www.e-asct.org/journal/view.html?doi=10.5757/ASCT.2021.30.2.45",
       "region": "Korea",
       "inventors": "박호석, 박재민, 강민수, 박태호, 고영훈, 김영민, 장우성, 나카니베즈, 푸리타",
       "applicationNo": "10-2021-0060412",
       "applicationDate": "May 11, 2021",
-      "status": "Applied"
+      "status": "Applied",
+      "authors": "Soo Ho Choi, Ji Hoon Choi, Chang Seok Oh, Gyeongtak Han, Hu Young Jeong, Young-Min Kim, Soo Min Kim, Ki Kang Kim",
+      "journal": "Applied Science and Convergence Technology",
+      "volumePages": "30(2), 165-168"
     },
     {
       "id": "23",
@@ -139,7 +176,15 @@
       "year": 2021,
       "kind": "non-sci",
       "title": "Universal transfer of 2D materials grown on Au substrate using sulfur intercalation",
+      "titleEn": "Atomic-level flexoelectric and piezoelectric effects via point defect generation",
       "link": "https://www.e-asct.org/journal/view.html?doi=10.5757/ASCT.2021.30.2.45",
+      "region": "Korea",
+      "inventors": "김윤석, 강승훈, 김세라, 양희준, 설대희, 김영민, 장우성, 이재광, 전세라",
+      "applicationNo": "10-2019-0073959",
+      "applicationDate": "June 21, 2019",
+      "registrationNo": "10-2220805",
+      "registrationDate": "February 22, 2021",
+      "status": "Granted",
       "authors": "Soo Ho Choi, Ji Hoon Choi, Chang Seok Oh, Gyeongtak Han, Hu Young Jeong, Young-Min Kim, Soo Min Kim, Ki Kang Kim",
       "journal": "Applied Science and Convergence Technology",
       "volumePages": "30(2), 165-168"
@@ -151,13 +196,20 @@
       "kind": "patent",
       "title": "점 결함 생성을 통한 원자 단위의 플렉소일렉트릭 효과 및 압전성 발현",
       "titleEn": "Atomic-level flexoelectric and piezoelectric effects via point defect generation",
+      "link": "",
       "region": "Korea",
       "inventors": "김윤석, 강승훈, 김세라, 양희준, 설대희, 김영민, 장우성, 이재광, 전세라",
       "applicationNo": "10-2019-0073959",
       "applicationDate": "June 21, 2019",
       "registrationNo": "10-2220805",
       "registrationDate": "February 22, 2021",
-      "status": "Granted"
+      "status": "Granted",
+      "authors": "",
+      "journal": "",
+      "volumePages": "",
+      "publisher": "",
+      "isbn": "",
+      "publicationDate": ""
     },
     {
       "id": "21",
@@ -169,6 +221,7 @@
       "link": "",
       "region": "Korea",
       "inventors": "김영민, 장우성, 이한길",
+      "patentNo": "",
       "applicationNo": "10-2019-0058530",
       "applicationDate": "May 20, 2019",
       "registrationNo": "10-2190605",
@@ -189,8 +242,12 @@
       "title": "투과전자현미경 기반 돌연경계의 원자레벨 구조-화학 분석",
       "titleEn": "Atomic-level TEM analysis of grain boundaries",
       "link": "https://webzine.kps.or.kr/?p=5_view&idx=40",
+      "region": "Korea",
       "inventors": "",
       "patentNo": "",
+      "registrationNo": "10-2016156",
+      "registrationDate": "August 23, 2019",
+      "status": "Granted",
       "authors": "김영민",
       "journal": "물리학과 첨단기술",
       "volumePages": "July/August, 13-20"
@@ -206,7 +263,11 @@
       "inventors": "심재현, 김영민, 오상호",
       "registrationNo": "10-2016156",
       "registrationDate": "August 23, 2019",
-      "status": "Granted"
+      "status": "Granted",
+      "authors": "김양수, 김영민, 송호준, 조덕용 (역)",
+      "publisher": "전북대학교출판문화원",
+      "isbn": "979-11-6372-043-0",
+      "publicationDate": "September 30, 2019"
     },
     {
       "id": "18",
@@ -215,7 +276,10 @@
       "kind": "book",
       "title": "신판 처음배우는 전자상태 계산: DV-Xa 분자궤도법 입문",
       "titleEn": "Introduction to electronic state calculation (DV-Xα molecular orbital method) — translated",
+      "link": "http://www.ceramics.or.kr/ceramist/journal_view.php?pg=1&cd=&ty=&jn=&bn=&au=&ti=&su=&kw=&sd=&ed=&jc=594a1b598c2a6",
       "authors": "김양수, 김영민, 송호준, 조덕용 (역)",
+      "journal": "Ceramist",
+      "volumePages": "20(2), 66-73",
       "publisher": "전북대학교출판문화원",
       "isbn": "979-11-6372-043-0",
       "publicationDate": "September 30, 2019"
@@ -249,10 +313,20 @@
       "year": 2009,
       "kind": "non-sci",
       "title": "Cross-sectional TEM specimen preparation of GaN-based thinfilm materials using alumina dummy filler",
+      "titleEn": "",
       "link": "http://www.koreascience.or.kr/article/ArticleFullRecord.jsp?cn=JJHMBC_2009_v39n3_277",
+      "inventors": "",
+      "patentNo": "",
+      "applicationNo": "",
+      "applicationDate": "",
+      "registrationNo": "",
+      "registrationDate": "",
       "authors": "Sang Ho Oh, Joo-Hyoung Choi, Kyung Song, Jong-Man Jeung, Jin-Gyu Kim, In Keun Yu, Suk Jae Yoo, Young-Min Kim",
       "journal": "Korean J. Electron Microsc.",
-      "volumePages": "39, 277"
+      "volumePages": "39, 277",
+      "publisher": "",
+      "isbn": "",
+      "publicationDate": ""
     },
     {
       "id": "14",
@@ -386,6 +460,7 @@
       "year": 2007,
       "kind": "non-sci",
       "title": "Measurement of spherical aberration coefficient of the objective lens in KBSI-HVEM",
+      "titleEn": "",
       "link": "http://www.koreascience.or.kr/article/ArticleFullRecord.jsp?cn=JJHMBC_2007_v37n2_111",
       "inventors": "",
       "patentNo": "",
@@ -395,7 +470,10 @@
       "registrationDate": "",
       "authors": "Young-Min Kim, Hyo-Sik Shim, Youn-Joong Kim",
       "journal": "Korean J. Electron Microsc.",
-      "volumePages": "37, 111"
+      "volumePages": "37, 111",
+      "publisher": "",
+      "isbn": "",
+      "publicationDate": ""
     },
     {
       "id": "7",
