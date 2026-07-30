@@ -254,7 +254,7 @@ collections:
             widget: list
             add_to_top: true
             collapsed: true
-            summary: '{{fields.start}} · {{fields.title}}'
+            summary: '{{fields.years}} · {{fields.title}}'
             hint: '입력 순서와 무관하게 시작일(Start) 최신순으로 사이트가 자동 정렬한다.'
             fields:
               - name: start
