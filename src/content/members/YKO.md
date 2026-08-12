@@ -1,6 +1,6 @@
 ---
 section: phd
-startDate: 2026-03
+startDate: 2026-09
 nameKo: 오윤기
 nameEn: Yoonki Oh
 position: ''
