@@ -1,6 +1,21 @@
 {
   "items": [
     {
+      "id": "237",
+      "number": 237,
+      "year": 2026,
+      "lead": true,
+      "authors": "Hojin Lee†, Joonbong Lee†, Jinho Byun†, Sang-Hyeok Yang†, Ayoung Cho, Sangwoo Lee, Dae Haa Ryu, Hyunbin Chung, Hee Seo Yun, Moon Seop Choi, Yesul Choi, Sungkyun Park, Min-Hyung Jung, Dongwon Lee, Yoon-Uk Heo, Hu Young Jeong, Hongseok Kim,  Shinhyeong Lee, Yunseok Kim, Young-Min Kim*, Jaekwang Lee*, Taekjib Choi*",
+      "title": "Interface-engineered hybrid ferroelectric tunnel junctions exhibiting intrinsic nonlinearity and self-rectification via interfacial reconstruction",
+      "journal": "Advanced Functional Materials",
+      "volumePages": "accepted",
+      "doi": "",
+      "themes": [
+        "2d-materials-vdw",
+        "thin-film-growth"
+      ]
+    },
+    {
       "id": "236",
       "number": 236,
       "year": 2026,
@@ -74,7 +89,8 @@
       "title": "Ultrafast switching and high-endurance nonvolatile memory enabled by intrinsic switchable polarization in semiconducting janus monolayers",
       "journal": "Nature Communications",
       "volumePages": "17, 6644",
-      "doi": "https://doi.org/10.1038/s41467-026-73279-7"
+      "doi": "https://doi.org/10.1038/s41467-026-73279-7",
+      "themes": []
     },
     {
       "id": "230",
@@ -113,7 +129,8 @@
       "title": "Role of the orthorhombic phase in endurance degradation of Hf0.5Zr0.5O2 memristors",
       "journal": "Journal of Materiomics",
       "volumePages": "12(3), 101212",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "227",
@@ -124,7 +141,8 @@
       "title": "Ballistic transport in nanodevices based on single-crystalline Cu thin films",
       "journal": "Nature Communications",
       "volumePages": "17(1), 3602",
-      "doi": "https://doi.org/10.1038/s41467-026-70252-2"
+      "doi": "https://doi.org/10.1038/s41467-026-70252-2",
+      "themes": []
     },
     {
       "id": "226",
@@ -135,7 +153,8 @@
       "title": "Vacancy cluster-mediated epitaxial layer-by-layer growth of van der Waals heterostructures",
       "journal": "ACS Nano",
       "volumePages": "20(8), 7058-7068",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "225",
@@ -146,7 +165,8 @@
       "title": "Seed-assisted substitutional doping of the late 3d-transition metals in transition metal dichalcogenides",
       "journal": "Advanced Functional Materials",
       "volumePages": "36(36), e31464",
-      "doi": "https://advanced.onlinelibrary.wiley.com/doi/10.1002/adfm.202531464"
+      "doi": "https://advanced.onlinelibrary.wiley.com/doi/10.1002/adfm.202531464",
+      "themes": []
     },
     {
       "id": "224",
@@ -157,7 +177,8 @@
       "title": "Bottom-up synthesized B3N3-doped amorphous carbon monolayer",
       "journal": "Small Structures",
       "volumePages": "7(1), e202500742",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "223",
@@ -168,7 +189,8 @@
       "title": "Homoepitaxy-like heteroepitaxy via monolayer interface achieves grain-boundary-free ultraflat silver thin films",
       "journal": "Reports on Progress in Physics",
       "volumePages": "89(2), 028002",
-      "doi": "https://iopscience.iop.org/article/10.1088/1361-6633/ae3e3d"
+      "doi": "https://iopscience.iop.org/article/10.1088/1361-6633/ae3e3d",
+      "themes": []
     },
     {
       "id": "222",
@@ -179,7 +201,8 @@
       "title": "Two-dimensional metal-insulator transition in ultrathin VO2 nanosheets via remote van der Waals epitaxy",
       "journal": "Nano Letters",
       "volumePages": "26(4), 1261-1266",
-      "doi": "https://pubs.acs.org/doi/10.1021/acs.nanolett.5c05107"
+      "doi": "https://pubs.acs.org/doi/10.1021/acs.nanolett.5c05107",
+      "themes": []
     },
     {
       "id": "221",
@@ -190,7 +213,8 @@
       "title": "Phase-selective growth of violet phosphorus crystals via Sn-Bi flux",
       "journal": "ACS Nano",
       "volumePages": "19(44), 38499-38508",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "220",
@@ -201,7 +225,8 @@
       "title": "Role of citric acid in ultrasonically assisted hydroxyapatite@Fe3O4 functional nanohybrid formation: A detailed characterization study",
       "journal": "Journal of Science: Advanced Materials and Devices",
       "volumePages": "10(4), 101019",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "219",
@@ -212,7 +237,8 @@
       "title": "Towards atomic-scale control over structural modulations in quasi-1D chalcogenides for colossal optical anisotropy",
       "journal": "ACS Nano",
       "volumePages": "19(43), 37572-37582",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "218",
@@ -223,7 +249,8 @@
       "title": "Electric field-induced anomalous structural dynamics of nanodomains in BaTiO3-based relaxor ferroelectric thin films",
       "journal": "Materials Today",
       "volumePages": "90, 23-240",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "217",
@@ -233,7 +260,9 @@
       "authors": "Siyuan Ren, Kyung-Ryeol Park, Binod Regmi, Wooseon Choi, Yun Seong Cho, Seon Je Kim, Heechae Choi, Young-Min Kim, Joohoon Kang*, Hyuksu Han*, Seong-Gon Kim*, Sung Wng Kim*",
       "title": "Ultrastable one-dimensional Ti2S electride support for an efficient and durable bifunctional electrocatalyst",
       "journal": "Carbon Energy",
-      "volumePages": "7(10), e70070"
+      "volumePages": "7(10), e70070",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "216",
@@ -258,7 +287,8 @@
       "title": "Integrated probing of cycling-induced degradation of multi-component electrode in hydrogen fuel cells via machine learning-empowered spectroscopic imaging",
       "journal": "Applied Catalysis B: Environment and Energy",
       "volumePages": "382, 125911 (2026)",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S092633732500894X"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S092633732500894X",
+      "themes": []
     },
     {
       "id": "214",
@@ -269,7 +299,8 @@
       "title": "In situ study of visible light-activated photocatalytic conversion reaction enhancement of biomass using a magnetic heterostructure",
       "journal": "Materials Horizons",
       "volumePages": "12(23), 10270-10280",
-      "doi": "https://doi.org/10.1039/D5MH01147G"
+      "doi": "https://doi.org/10.1039/D5MH01147G",
+      "themes": []
     },
     {
       "id": "213",
@@ -279,7 +310,9 @@
       "authors": "Minseok Ko, Mrinal Kanti Kabiraz, Yuseong Heo, Daehee Yang, Yeongseop Lee, Sang Hoon Joo, Young-Min Kim, Sang-Il Choi*, Won Seok Seo*",
       "title": "Synthesis and characterization of ultra-small octahedral PtNiCo skeletons with high activity for oxygen reduction reaction",
       "journal": "Chemical Communications",
-      "volumePages": "61(65), 12195-12198"
+      "volumePages": "61(65), 12195-12198",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "212",
@@ -289,7 +322,9 @@
       "authors": "Yangjin Lee†, Linxuan Li†, Weihan Zhang, Uje Choi, Kihyun Lee, Young-Min Kim, Wei Ji*, Wu Zhou*, Kwanpyo Kim*, Alex Zettl*",
       "title": "Robust high-spin state in one-dimensional CrX2 (X=Cl, Br, I) at the single-chain limit",
       "journal": "Journal of the American Chemical Society",
-      "volumePages": "147(30), 26776-26785"
+      "volumePages": "147(30), 26776-26785",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "211",
@@ -300,7 +335,8 @@
       "title": "Enhancing the multifunctional photocatalytic activity of sustainable magnetic nanoparticles",
       "journal": "Small Structures",
       "volumePages": "6(9), 2500123",
-      "doi": "https://doi.org/10.1002/sstr.202500123"
+      "doi": "https://doi.org/10.1002/sstr.202500123",
+      "themes": []
     },
     {
       "id": "210",
@@ -311,7 +347,8 @@
       "title": "Giant modulation of interlayer coupling in twisted bilayer ReS2",
       "journal": "Advanced Science",
       "volumePages": "12(23), 2500411",
-      "doi": "https://doi.org/10.1002/advs.202500411"
+      "doi": "https://doi.org/10.1002/advs.202500411",
+      "themes": []
     },
     {
       "id": "209",
@@ -322,7 +359,8 @@
       "title": "Enhancing non-enzymatic glucose detection through cobalt-substituted Hafnia",
       "journal": "Advanced Science",
       "volumePages": "12(15), 2408687",
-      "doi": "https://doi.org/10.1002/advs.202408687"
+      "doi": "https://doi.org/10.1002/advs.202408687",
+      "themes": []
     },
     {
       "id": "208",
@@ -347,7 +385,8 @@
       "title": "An impermeable copper surface monolayer with high-temperature oxidation resistance",
       "journal": "Nature Communications",
       "volumePages": "16, 1462",
-      "doi": "https://www.nature.com/articles/s41467-025-56709-w"
+      "doi": "https://www.nature.com/articles/s41467-025-56709-w",
+      "themes": []
     },
     {
       "id": "206",
@@ -358,7 +397,8 @@
       "title": "Sparse section imaging-based deep learning electron tomography of porous carbon supports in proton exchange membrane fuel cells",
       "journal": "Journal of Energy Chemistry",
       "volumePages": "104, 795-806",
-      "doi": "https://doi.org/10.1016/j.jechem.2025.01.018"
+      "doi": "https://doi.org/10.1016/j.jechem.2025.01.018",
+      "themes": []
     },
     {
       "id": "205",
@@ -369,7 +409,8 @@
       "title": "Ion-induced phase changes in 2D MoTe2 films for neuromorphic synaptic device applications",
       "journal": "ACS Nano",
       "volumePages": "19(2), 2529-2530",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "204",
@@ -380,7 +421,8 @@
       "title": "Observation of linear resistance at low temperatures in hole-doped degenerate spin-valley semiconductors",
       "journal": "Nano Letters",
       "volumePages": "24(48), 15308-15315",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "203",
@@ -391,7 +433,8 @@
       "title": "Defect induced polar distortion in SrMnO3 thin films",
       "journal": "Applied Surface Science",
       "volumePages": "683, 161802 (2025)",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "202",
@@ -402,7 +445,8 @@
       "title": "Oxygen vacancy-induced directional ordering of Li-ion pathways for enhanced ion-conducting solid electrolytes",
       "journal": "ACS Energy Letters",
       "volumePages": "9(11), 5606-5615",
-      "doi": "https://pubs.acs.org/doi/10.1021/acsenergylett.4c02078?goto=supporting-info"
+      "doi": "https://pubs.acs.org/doi/10.1021/acsenergylett.4c02078?goto=supporting-info",
+      "themes": []
     },
     {
       "id": "201",
@@ -413,7 +457,8 @@
       "title": "Interfacial contact-driven enhanced environmental photocatalysis of CdS-loaded OH-functionalized carbon nanotubes with low biotoxicity",
       "journal": "Applied Surface Science",
       "volumePages": "679, 161197 (2025)",
-      "doi": "https://linkinghub.elsevier.com/retrieve/pii/S0169433224019111"
+      "doi": "https://linkinghub.elsevier.com/retrieve/pii/S0169433224019111",
+      "themes": []
     },
     {
       "id": "200",
@@ -424,7 +469,8 @@
       "title": "Artifact-free sample preparation of metal thin films using Xe plasma-focused ion beam milling for atomic resolution and in situ biasing analyses",
       "journal": "Materials Characterization",
       "volumePages": "216, 114260",
-      "doi": "https://doi.org/10.1016/j.matchar.2024.114260"
+      "doi": "https://doi.org/10.1016/j.matchar.2024.114260",
+      "themes": []
     },
     {
       "id": "199",
@@ -435,7 +481,8 @@
       "title": "Stray light in 3D porous nanostructures of single-crystalline copper film",
       "journal": "Small Science",
       "volumePages": "4(11), 2400174",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "198",
@@ -446,7 +493,8 @@
       "title": "Artificial Nociceptor Based on Interface Engineered Ferroelectric Volatile Memristor",
       "journal": "Applied Materials Today",
       "volumePages": "39, 102346",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "197",
@@ -457,7 +505,8 @@
       "title": "Multiphase cooperation for multilevel strain accommodation in a single-crystalline BiFeO3 thin film",
       "journal": "Chinese Physics B",
       "volumePages": "33(9), 096805",
-      "doi": "https://cpb.iphy.ac.cn/EN/10.1088/1674-1056/ad62e0"
+      "doi": "https://cpb.iphy.ac.cn/EN/10.1088/1674-1056/ad62e0",
+      "themes": []
     },
     {
       "id": "196",
@@ -468,7 +517,8 @@
       "title": "Hole-carrier-dominant in 2D single-crystal copper",
       "journal": "Advanced Materials",
       "volumePages": "36(36), 2403783",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "195",
@@ -479,7 +529,8 @@
       "title": "Uneven strain relaxation in formamidinium lead triiodide (FAPbI3) films upon aging",
       "journal": "ACS Energy Letters",
       "volumePages": "9(7), 3618-3627",
-      "doi": "https://pubs.acs.org/doi/10.1021/acsenergylett.4c01233"
+      "doi": "https://pubs.acs.org/doi/10.1021/acsenergylett.4c01233",
+      "themes": []
     },
     {
       "id": "194",
@@ -490,7 +541,8 @@
       "title": "Machine-learning-empowered identification of initial growth modes for 2D transition metal dichalcogenide thin films",
       "journal": "Applied Surface Science",
       "volumePages": "669, 160547",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "193",
@@ -501,7 +553,8 @@
       "title": "Dimensionality engineering of magnetic anisotropy from the anomalous hall effect in synthetic SrRuO3 crystals",
       "journal": "Nano Letters",
       "volumePages": "24(26), 7979-7986",
-      "doi": "https://pubs.acs.org/doi/10.1021/acs.nanolett.4c01536"
+      "doi": "https://pubs.acs.org/doi/10.1021/acs.nanolett.4c01536",
+      "themes": []
     },
     {
       "id": "192",
@@ -512,7 +565,8 @@
       "title": "Symmetry engineering of epitaxial Hf0.5Zr0.5O2 ultrathin films",
       "journal": "ACS Applied Materials & Interfaces",
       "volumePages": "16(21), 27532-27540",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "191",
@@ -522,7 +576,9 @@
       "authors": "Jinsil Lee, Yonghun Shin, Taeyun Kim, Wooseon Choi, Min-Hyoung Jung, Young-Min Kim, Kyung Joong Yoon, Hu Young Jeong, Donghwa Lee*, Jong Hoon Joo*",
       "title": "Phase stability of perovskite oxide electrodes under operating condition in solid oxide fuel cell",
       "journal": "Chemistry of Materials",
-      "volumePages": "36(6), 2933-2943"
+      "volumePages": "36(6), 2933-2943",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "190",
@@ -532,7 +588,9 @@
       "authors": "Dongyeun Won, Do Hoon Kiem, Woohyun Cho, Sang-Hyeok Yang, Young-Hoon Kim, Young-Min Kim, Suyeon Cho*, Myung Joon Han*, Heejun Yang*",
       "title": "Polymorphic Kondo effects driven by spin lattice coupling in VTe2",
       "journal": "Advanced Functional Materials",
-      "volumePages": "34(22), 2313180"
+      "volumePages": "34(22), 2313180",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "189",
@@ -543,7 +601,8 @@
       "title": "Universal platform for robust 2D dual atom catalysts with superior hydrogen evolution in wide pH media",
       "journal": "Small",
       "volumePages": "20(22), 2308672",
-      "doi": "https://onlinelibrary.wiley.com/doi/abs/10.1002/smll.202308672"
+      "doi": "https://onlinelibrary.wiley.com/doi/abs/10.1002/smll.202308672",
+      "themes": []
     },
     {
       "id": "188",
@@ -554,7 +613,8 @@
       "title": "Is chemical vapor deposition of monolayer WSe2 comparable to other synthetic routes?",
       "journal": "APL Materials",
       "volumePages": "11, 111124",
-      "doi": "https://pubs.aip.org/aip/apm/article/11/11/111124/2923354/Is-chemical-vapor-deposition-of-monolayer-WSe2"
+      "doi": "https://pubs.aip.org/aip/apm/article/11/11/111124/2923354/Is-chemical-vapor-deposition-of-monolayer-WSe2",
+      "themes": []
     },
     {
       "id": "187",
@@ -580,7 +640,8 @@
       "title": "An Aqueous Route to Oxygen-Deficient Wake-Up-Free La-Doped HfO2 Ferroelectrics for Negative Capacitance Field Effect Transistors",
       "journal": "ACS Nano",
       "volumePages": "17(19), 19076-19086",
-      "doi": "https://pubs.acs.org/doi/10.1021/acsnano.3c04983"
+      "doi": "https://pubs.acs.org/doi/10.1021/acsnano.3c04983",
+      "themes": []
     },
     {
       "id": "185",
@@ -591,7 +652,8 @@
       "title": "Self-oxidation resistance of the curved surface of achromatic copper",
       "journal": "Advanced Materials",
       "volumePages": "35(42), 2210564",
-      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/adma.202210564"
+      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/adma.202210564",
+      "themes": []
     },
     {
       "id": "184",
@@ -601,7 +663,9 @@
       "authors": "Erbing Hua, Seunggun Choi, Siyuan Ren, Sungjun Kim, Ghulam Ali, Seon Je Kim, Woo-Sung Jang, Soyun Joo, Jingshu Zhang, Seulgi Ji, Yun Seong Cho, Joohoon Kang, Taeseup Song, Seungbum Hong, Heechae Choi, Young-Min Kim, Hyuksu Han*, Sung Wng Kim*",
       "title": "Negatively charged platinum nanoparticles on dititanium oxide electride for ultra-durable electrocatalytic oxygen reduction",
       "journal": "Energy and Environmental Science",
-      "volumePages": "16, 4464-4473"
+      "volumePages": "16, 4464-4473",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "183",
@@ -611,7 +675,9 @@
       "authors": "Krishna P. Dhakal, Eunji Lee, Tran Viet Anh, Ganesh Ghimire, Wooseon Choi, Young-Min Kim, Dinh Loc Duong, Jeongyong Kim*",
       "title": "Investigation of exciton states of ReS2 by temperature- and polarization-dependent photoluminescence and oxygen plasma treatment",
       "journal": "Applied Surface Science",
-      "volumePages": "638, 158093"
+      "volumePages": "638, 158093",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "182",
@@ -622,7 +688,8 @@
       "title": "Freestanding oxide membranes for epitaxial ferroelectric heterojunctions",
       "journal": "ACS Nano",
       "volumePages": "17(14), 13510-13521",
-      "doi": "https://pubs.acs.org/doi/10.1021/acsnano.3c01974"
+      "doi": "https://pubs.acs.org/doi/10.1021/acsnano.3c01974",
+      "themes": []
     },
     {
       "id": "181",
@@ -633,7 +700,8 @@
       "title": "Nanoscale patterning on layered MoS2 with stacking-dependent morphologies and optical tunning for phototransistor applications",
       "journal": "Materials Today Nano",
       "volumePages": "23, 100367",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2588842023000664"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2588842023000664",
+      "themes": []
     },
     {
       "id": "180",
@@ -644,7 +712,8 @@
       "title": "Deep learning morphological distribution analysis of metal alloy catalysts in proton exchange membrane fuel cells",
       "journal": "Materials Today Energy",
       "volumePages": "36, 101348",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2468606923001041"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2468606923001041",
+      "themes": []
     },
     {
       "id": "179",
@@ -655,7 +724,8 @@
       "title": "Fine-tuned synthesis for reducing residual lithium in Ni-rich cathode materials for lithium ion batteries",
       "journal": "ACS Applied Energy Materials",
       "volumePages": "6(11), 5952-5958",
-      "doi": "https://pubs.acs.org/doi/10.1021/acsaem.3c00400"
+      "doi": "https://pubs.acs.org/doi/10.1021/acsaem.3c00400",
+      "themes": []
     },
     {
       "id": "178",
@@ -666,7 +736,8 @@
       "title": "Se-vacancy healing with substitutional oxygen in WSe2 for high mobility p-type field-effect transistors",
       "journal": "ACS Nano",
       "volumePages": "17(12), 11279-11289",
-      "doi": "https://pubs.acs.org/doi/abs/10.1021/acsnano.2c11567"
+      "doi": "https://pubs.acs.org/doi/abs/10.1021/acsnano.2c11567",
+      "themes": []
     },
     {
       "id": "177",
@@ -677,7 +748,8 @@
       "title": "Improving electrocatalytic activity of MoO3 for the oxygen evolution reaction by incorporation of Li ions",
       "journal": "ACS Materials Letters",
       "volumePages": "5, 1196-1201",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "176",
@@ -688,7 +760,8 @@
       "title": "Zn-ion transporting, in situ formed robust solid electrolyte interphase for extremely stable zinc metal anodes over a wide-temperature range",
       "journal": "ACS Energy Letters",
       "volumePages": "8(3), 1613-1625",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "175",
@@ -698,7 +771,9 @@
       "authors": "Hee Jin Kim, Eunseo Hong, Yonghoon Hong, Jeonghyeon Kim, Mrinal Kanti Kabiraz, Young-Min Kim, Hangil Lee*, Won Seok Seo*, Sang-Il Choi*",
       "title": "Surface distortion of FeRu nanoparticles improves hydrogen evolution reaction performance in alkaline media",
       "journal": "Nanoscale",
-      "volumePages": "15, 5816-5824"
+      "volumePages": "15, 5816-5824",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "174",
@@ -708,7 +783,9 @@
       "authors": "Nguyen Xuan Duong, Ji-Soo Jang, Min-Hyoung Jung, Jong-Seong Bae, Chang Won Ahn, Jong Sung Jin, Kyuwook Ihm, Gyehyeon Kim, So Yeon Lim, Jongmin Lee, Dang Duc Dung, Soonil Lee, Young-Min Kim, Sanghan Lee, Sang Mo Yang, Changhee Sohn, Ill Won Kim, Hu Young Jeong, Seung-Hyub Baek, Tae Heon Kim*",
       "title": "Ultrahigh dielectric permittivity in oxide ceramics by hydrogenation",
       "journal": "Science Advances",
-      "volumePages": "9(8), eadd8328"
+      "volumePages": "9(8), eadd8328",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "173",
@@ -719,7 +796,8 @@
       "title": "Machine-learning-assisted analysis of transition metal dichalcogenide thin-film growth",
       "journal": "Nano Convergence",
       "volumePages": "10, 10",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "172",
@@ -730,7 +808,8 @@
       "title": "Coherent consolidation of trillions of nucleations for mono-atom step-level flat surfaces",
       "journal": "Nature Communications",
       "volumePages": "14, 685",
-      "doi": "https://www.nature.com/articles/s41467-023-36301-w"
+      "doi": "https://www.nature.com/articles/s41467-023-36301-w",
+      "themes": []
     },
     {
       "id": "171",
@@ -741,7 +820,8 @@
       "title": "Chemical analysis of carbonaceous particles inside Cu wire molten by electrical arcing",
       "journal": "Carbon",
       "volumePages": "204, 70-75",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "170",
@@ -752,7 +832,8 @@
       "title": "Ni-rich cathode material with isolated porous layer hindering crack propagation under 4.5 V high cut-off voltage cycling",
       "journal": "Chemical Engineering Journal",
       "volumePages": "455, 140578",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S1385894722060582"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S1385894722060582",
+      "themes": []
     },
     {
       "id": "169",
@@ -763,7 +844,8 @@
       "title": "1T′ RexMo1-xS2–2H MoS2 lateral heterojunction for enhanced hydrogen evolution reaction performance",
       "journal": "Advanced Functional Materials",
       "volumePages": "33(3), 2209572",
-      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/adfm.202209572"
+      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/adfm.202209572",
+      "themes": []
     },
     {
       "id": "168",
@@ -774,7 +856,8 @@
       "title": "Boosted heterogeneous catalysis by surface-accumulated excess electrons of non-oxidized bare copper nanoparticles on electride support",
       "journal": "Advanced Science",
       "volumePages": "10(2), 2204248",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "167",
@@ -785,7 +868,8 @@
       "title": "Electrical transport behaviors of Ni layer on carbon fiber",
       "journal": "Physica E",
       "volumePages": "147, 115567",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "166",
@@ -796,7 +880,8 @@
       "title": "Enhanced selective photocatalytic oxidation of a bio-derived platform chemical with vacancy-induced core-shell anatase TiO2 nanoparticles",
       "journal": "Applied Catalysis B-Environmental",
       "volumePages": "322, 122140",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S0926337322010815"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S0926337322010815",
+      "themes": []
     },
     {
       "id": "165",
@@ -806,7 +891,9 @@
       "authors": "Seok Joon Yun, Soo Ho Choi, Ji-Won Kim, Duhee Yoon, Byeong Wook Cho, Yo Seob Won, Jae Woo Kim, Jina Lee, Yong In Kim, Young-Min Kim, Balakrishnan Kirubasankar, Soo Min Kim, Ki Kang Kim*, Young Hee Lee*",
       "title": "Internal thermal stress-driven phase transformation in van der Waals layered materials",
       "journal": "ACS Nano",
-      "volumePages": "16(10), 17033-17040"
+      "volumePages": "16(10), 17033-17040",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "164",
@@ -816,7 +903,9 @@
       "authors": "Jun Han Lee, Nguyen Xuan Duong, Min-Hyoung Jung, Junhyung Kim, Ahyoung Kim, Gye-Hyeon Kim, Byeong-Gwan Cho, Hyun-Jae Lee, Daehwan Park, Young-Min Kim, Tae Kwon Song, Jun Hee Lee, Tae-Yeong Koo, Changhee Sohn, Sang Mo Yang, Kibog Park, Hu Young Jeong, Tae Heon Kim, Yoon Seok Oh*",
       "title": "Reversibly controlled ternary polar states and ferroelectric bias promoted by boosting square-tensile-strain",
       "journal": "Advanced Materials",
-      "volumePages": "34(42), 2205825"
+      "volumePages": "34(42), 2205825",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "163",
@@ -826,7 +915,9 @@
       "authors": "Chanwoo Lee, Byeong Geun Jeong, Sung Hyuk Kim, Dong Hyeon Kim, Seok Joon Yun, Wooseon Choi, Sung-Jin An, Dongki Lee, Young-Min Kim, Ki Kang Kim, Seung Mi Lee*, Mun Seok Jeong*",
       "title": "Investigating heterogeneous defects in single-crystalline WS2 via tip-enhanced Raman spectroscopy",
       "journal": "npj 2D materials and applications",
-      "volumePages": "6, 67"
+      "volumePages": "6, 67",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "162",
@@ -837,7 +928,8 @@
       "title": "Segmented tomographic evaluation of structural degradation of carbon support in proton exchange membrane fuel cells",
       "journal": "Journal of Energy Chemistry",
       "volumePages": "74, 359-367",
-      "doi": "https://www.sciencedirect.com/science/article/pii/S2095495622004132?via%3Dihub"
+      "doi": "https://www.sciencedirect.com/science/article/pii/S2095495622004132?via%3Dihub",
+      "themes": []
     },
     {
       "id": "161",
@@ -848,7 +940,8 @@
       "title": "Non-oxidized bare metal nanoparticles in air: A rational approach for large-scale synthesis via wet chemical process",
       "journal": "Advanced Science",
       "volumePages": "9(26), 2201756",
-      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/advs.202201756"
+      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/advs.202201756",
+      "themes": []
     },
     {
       "id": "160",
@@ -858,7 +951,9 @@
       "authors": "Joseph Kojo Baidoo, Soo Ho Choi, Frederick Osei-Tutu Agyapong-Fordjour, Stephen Boandoh, Seok Joon Yun, Laud Anim Adofo, Andrew Ben-Smith, Yong In Kim, Jeong Won Jin, Min-Hyoung Jung, Hu Young Jeong, Young-Min Kim, Young Hee Lee*, Soo Min Kim*, Ki Kang Kim*",
       "title": "Sequential growth of vertical transition metal dichalcogenide heterostructures on rollable aluminum foil",
       "journal": "ACS Nano",
-      "volumePages": "16(6), 8851-8859"
+      "volumePages": "16(6), 8851-8859",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "159",
@@ -868,7 +963,9 @@
       "authors": "Arindam Bala, Anamika Sen, Young-Hoon Kim, Young-Min Kim, Srinivas Gandla, Heekyeong Park*, Sunkook Kim*",
       "title": "Large-area MoS2 nanosheets with triangular nanopore array as active and robust electrocatalysts for hydrogen evolution",
       "journal": "The Journal of Physical Chemistry C",
-      "volumePages": "126(23), 9696-9703"
+      "volumePages": "126(23), 9696-9703",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "158",
@@ -878,7 +975,9 @@
       "authors": "Jihyung Seo, Yongchul Kim, Junghyun Lee, Eunbin Son, Min-Hyoung Jung, Young-Min Kim, Hu Young Jeong*, Geunsik Lee*, Hyesung Park*",
       "title": "Single-atom vanadium-doped 2D semiconductor platform for attomolar-level molecular sensing",
       "journal": "Journal of Materials Chemistry A",
-      "volumePages": "10(25), 13298-13304"
+      "volumePages": "10(25), 13298-13304",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "157",
@@ -888,7 +987,9 @@
       "authors": "Kyeong-Ho Kim, Kyung-Hwan Kim, Wooseon Choi, Young-Min Kim, Seong-Hyeon Hong, Yun-Hyuk Choi",
       "title": "Mapping the electrocatalytic water splitting activity of VO2 across its insulator-to-metal phase transition",
       "journal": "Nanoscale",
-      "volumePages": "14(23), 8281-8290"
+      "volumePages": "14(23), 8281-8290",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "156",
@@ -898,7 +999,9 @@
       "authors": "Xinghui Liu, Soo Min Cho, Shiru Lin, Zhongfang Chen, Wooseon Choi, Young-Min Kim, Eunbhin Yun, Eun Hee Baek, Do Hyun Ryu*, Hyoyoung Lee*",
       "title": "Constructing two-dimensional holey-graphyne with unusual annulative π-extension",
       "journal": "Matter",
-      "volumePages": "5, 1-13"
+      "volumePages": "5, 1-13",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "155",
@@ -909,7 +1012,8 @@
       "title": "Highly enhanced ferroelectricity in HfO2-based ferroelectric thin film by light ion bombardment",
       "journal": "Science",
       "volumePages": "376(6594), 731-738",
-      "doi": "https://www.science.org/stoken/author-tokens/ST-486/full"
+      "doi": "https://www.science.org/stoken/author-tokens/ST-486/full",
+      "themes": []
     },
     {
       "id": "154",
@@ -920,7 +1024,8 @@
       "title": "Hybrid deep learning crystallographic mapping of polymorphic phases in polycrystalline Hf0.5Zr0.5O2 thin films",
       "journal": "Small",
       "volumePages": "18(18), 2107620",
-      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/smll.202107620"
+      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/smll.202107620",
+      "themes": []
     },
     {
       "id": "153",
@@ -931,7 +1036,8 @@
       "title": "Flat-surface-assisted and self-regulated oxidation resistance of Cu(111)",
       "journal": "Nature",
       "volumePages": "603(7901), 434-438",
-      "doi": "https://www.nature.com/articles/s41586-021-04375-5"
+      "doi": "https://www.nature.com/articles/s41586-021-04375-5",
+      "themes": []
     },
     {
       "id": "152",
@@ -941,7 +1047,9 @@
       "authors": "Laud Anim Adofo, Hyung Jin Kim, Frederick Osei-Tutu Agyapong-Fordjour, Huong Thi Thanh Nguyen, Jeong Won Jin, Yong In Kim, Seon Je Kim, Jung Ho Kim, Stephen Boandoh, Soo Ho Choi, Su Jin Lee, Seok Joon Yun, Young-Min Kim, Soo Min Kim*, Young-Kyu Han*, Ki Kang Kim*",
       "title": "Hydrogen evolution reaction catalyst with high catalytic activity by interplay between organic molecules and transition metal dichalcogenide monolayers",
       "journal": "Materials Today Energy",
-      "volumePages": "25, 100976"
+      "volumePages": "25, 100976",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "151",
@@ -951,7 +1059,9 @@
       "authors": "Se Hwang Kang, Dinesh Thapa, Binod Regmi, Siyuan Ren, Young-Min Kim, Seong-Gon Kim*, Sung Wng Kim*",
       "title": "Chemically stable low-dimensional electrides in transition metal-rich monochalcogenides: theoretical and experimental explorations",
       "journal": "Journal of the American Chemical Society",
-      "volumePages": "144(10), 4496-4506"
+      "volumePages": "144(10), 4496-4506",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "150",
@@ -962,7 +1072,8 @@
       "title": "Non-oxidized bare copper nanoparticles with surface excess electrons in air",
       "journal": "Nature Nanotechnology",
       "volumePages": "17(3), 285-291",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "149",
@@ -973,7 +1084,8 @@
       "title": "Unconventional interlayer exchange coupling via chiral phonons in synthetic magnetic oxide heterostructures",
       "journal": "Science Advances",
       "volumePages": "8(4), eabm4005",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "148",
@@ -984,7 +1096,8 @@
       "title": "Modulating the ferroelectricity of hafnium zirconium oxide ultrathin films via interface engineering to control the oxygen vacancy distribution",
       "journal": "Advanced Materials Interfaces",
       "volumePages": "9(7), 2101647",
-      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/admi.202101647"
+      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/admi.202101647",
+      "themes": []
     },
     {
       "id": "147",
@@ -995,7 +1108,8 @@
       "title": "Site-selective doping mechanisms for the enhanced photocatalytic activity of tin oxide nanoparticles",
       "journal": "Applied Catalysis B-Environmental",
       "volumePages": "305, 121083",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S0926337322000236"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S0926337322000236",
+      "themes": []
     },
     {
       "id": "146",
@@ -1006,7 +1120,8 @@
       "title": "Galvanically replaced artificial interfacial layer for highly reversible zinc metal anodes",
       "journal": "Applied Physics Reviews",
       "volumePages": "9, 011401",
-      "doi": "https://aip.scitation.org/doi/10.1063/5.0074327"
+      "doi": "https://aip.scitation.org/doi/10.1063/5.0074327",
+      "themes": []
     },
     {
       "id": "145",
@@ -1016,7 +1131,9 @@
       "authors": "Seok Joon Yun†, Byeong Wook Cho†, Thapa Dinesh, Dae Hee Yang, Yong In Kim, Jeong Won Jin, Sang-Hyeok Yang, Tuan Dung Nguyen, Young-Min Kim, Ki Kang Kim, Dinh Loc Duong*, Seong-Gon Kim*, Young Hee Lee*",
       "title": "Escalating ferromagnetic order via Se-vacancy near vanadium in WSe2 monolayer",
       "journal": "Advanced Materials",
-      "volumePages": "34(10), 2106551"
+      "volumePages": "34(10), 2106551",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "144",
@@ -1026,7 +1143,9 @@
       "authors": "Lan-Anh T. Nguyen, Krishna P. Dhakal, Yuhan Lee, Wooseon Choi, Tuan Dung Nguyen, Cheungyun Hong, Dinh Hoa Luong, Young-Min Kim, Jeongyong Kim, Myeongwon Lee, Taeyoung Choi, Andreas J. Heinrich, Ji-Hee Kim*, Donghun Lee*, Dinh Loc Duong*, Young Hee Lee*",
       "title": "Spin-selective hole-exciton coupling in a V-doped WSe2 ferromagnetic semiconductor at room temperature",
       "journal": "ACS Nano",
-      "volumePages": "15(12), 20267-20277"
+      "volumePages": "15(12), 20267-20277",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "143",
@@ -1037,7 +1156,8 @@
       "title": "Optimal synthesis and application of Si-Ti-Al ternary alloy as an anode material for lithium ion battery",
       "journal": "Materials",
       "volumePages": "14(22), 6912",
-      "doi": "https://www.mdpi.com/1996-1944/14/22/6912/htm"
+      "doi": "https://www.mdpi.com/1996-1944/14/22/6912/htm",
+      "themes": []
     },
     {
       "id": "142",
@@ -1048,7 +1168,8 @@
       "title": "Gate-tunable magnetism via resonant Se-vacancy levels in WSe2",
       "journal": "Advanced Science",
       "volumePages": "8(24), 2102911",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "141",
@@ -1059,7 +1180,8 @@
       "title": "Contribution of the sub-surface to electrocatalytic activity in atomically precise La0.7Sr0.3MnO3 heterostructures",
       "journal": "Small",
       "volumePages": "17(49), 2103632",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "140",
@@ -1070,7 +1192,8 @@
       "title": "Anomalous electronic and protonic conductivity of 2D titanium oxide and low-temperature power generation using its protonic conduction",
       "journal": "Advanced Materials Interfaces",
       "volumePages": "8(20), 2101156",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "139",
@@ -1081,7 +1204,8 @@
       "title": "Nano-patterning on multilayer MoS2 via block copolymer lithography for highly sensitive and responsive phototransistors",
       "journal": "Communications Materials",
       "volumePages": "2(1), 94",
-      "doi": "https://www.nature.com/articles/s43246-021-00197-0"
+      "doi": "https://www.nature.com/articles/s43246-021-00197-0",
+      "themes": []
     },
     {
       "id": "138",
@@ -1091,7 +1215,9 @@
       "authors": "Hanhwi Jang, Jong Ho Park, Ho Seong Lee, Byungki Ryu, Su-Dong Park, Hyeon-Ah Ju, Sang-Hyeok Yang, Young-Min Kim, Woo Hyun Nam, Heng Wang, James Male, G. Jeffrey Snyder, Minjoon Kim, Yeon Sik Jung*, Min-Wook Oh*",
       "title": "Regulating Te vacancies through dopant balancing via excess Ag enables rebounding power factor and high thermoelectric performance in p-type PbTe",
       "journal": "Advanced Science",
-      "volumePages": "8(20), 2100895"
+      "volumePages": "8(20), 2100895",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "137",
@@ -1102,7 +1228,8 @@
       "title": "Doping-mediated lattice-engineering of monolayer ReS2 for modulating in-plane anisotropy of optical and transport properties",
       "journal": "ACS Nano",
       "volumePages": "15(8), 13770-13780",
-      "doi": "https://pubs.acs.org/doi/10.1021/acsnano.1c05316"
+      "doi": "https://pubs.acs.org/doi/10.1021/acsnano.1c05316",
+      "themes": []
     },
     {
       "id": "136",
@@ -1113,7 +1240,8 @@
       "title": "Unusual high ion conductivity in large-scale patternable two-dimensional MoS2 film",
       "journal": "ACS Nano",
       "volumePages": "15(7), 12267-12275",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "135",
@@ -1124,7 +1252,8 @@
       "title": "(111)-oriented Sn-doped BaTiO3 epitaxial thin films for ultrahigh energy density capacitors",
       "journal": "Ceramics International",
       "volumePages": "47(19), 26856-26862",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "134",
@@ -1135,7 +1264,8 @@
       "title": "Cumulative defect structures for experimentally-attainable low thermal conductivity in thermoelectric (Bi,Sb)2Te3 alloys",
       "journal": "Materials Today Energy",
       "volumePages": "21, 100795",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S246860692100160X"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S246860692100160X",
+      "themes": []
     },
     {
       "id": "133",
@@ -1146,7 +1276,8 @@
       "title": "Hidden role of intrinsic Sb-rich nano-precipitates for high-performance Bi2-XSbXTe3 thermoelectric alloys",
       "journal": "Acta Materialia",
       "volumePages": "215, 117058",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S1359645421004389"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S1359645421004389",
+      "themes": []
     },
     {
       "id": "132",
@@ -1157,7 +1288,8 @@
       "title": "High-performance bismuth antimony telluride thermoelectric membrane on curved and flexible supports",
       "journal": "ACS Energy Letters",
       "volumePages": "6(7), 2378-2385",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "131",
@@ -1168,7 +1300,8 @@
       "title": "Deep learning-assisted quantification of atomic dopants and defects in 2D materials",
       "journal": "Advanced Science",
       "volumePages": "8(16), 2101099",
-      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/advs.202101099"
+      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/advs.202101099",
+      "themes": []
     },
     {
       "id": "130",
@@ -1179,7 +1312,8 @@
       "title": "Substitutional VSn nanodispersed in MoS2 film for Pt-scalable catalyst",
       "journal": "Advanced Science",
       "volumePages": "8(16), 2003709",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "129",
@@ -1189,7 +1323,9 @@
       "authors": "Houcine Bouzid, R. C. Sahoo, Seok Joon Yun, Kirandeep Singh, Youngjo Jin, Jinbao Jiang, Duhee Yoon, Hyun Yong Song, Wooseon Choi, Young-Min Kim, Young Hee Lee*",
       "title": "Multiple magnetic phases in van der Waals Mn-doped SnS2 semiconductor",
       "journal": "Advanced Functional Materials",
-      "volumePages": "31(29), 2102560"
+      "volumePages": "31(29), 2102560",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "128",
@@ -1199,7 +1335,9 @@
       "authors": "Hayoung Ko, Soo Ho Choi, Jungmo Kim, Yong In Kim, Young-Hoon Kim, Laud Anim Adofo, Min-Hyoung Jung, Young-Min Kim, Mun Seok Jeong, Ki Kang Kim, Soo Min Kim*",
       "title": "Toward non-gas-permeable hBN film growth on smooth Fe surface",
       "journal": "2D Materials",
-      "volumePages": "8(3), 034003"
+      "volumePages": "8(3), 034003",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "127",
@@ -1209,7 +1347,9 @@
       "authors": "Bumsub Song, Seok Joon Yun, Jinbao Jiang, José Avila, Kory Beach, Wooseon Choi, Young-Min Kim, Duhee Yoon, Humberto Terrones, Young Jae Song, Maria C. Asensio, Dinh Loc Duong*, Young Hee Lee*",
       "title": "Evidence of itinerant holes for long-range magnetic order in the tungsten diselenide semiconductor with vanadium dopants",
       "journal": "Physical Review B",
-      "volumePages": "103, 094432"
+      "volumePages": "103, 094432",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "126",
@@ -1219,7 +1359,9 @@
       "authors": "Changhee Sohn, Xiang Gao, Rama K. Vasudevan, Sabine M. Neumayer, Nina Balke, Jong Mok Ok, Dongkyu Lee, Elizabeth Skoropata, Hu Young Jeong, Young-Min Kim, Ho Nyung Lee*",
       "title": "Strain-driven autonomous control of cation distribution for artificial ferroelectrics",
       "journal": "Science Advances",
-      "volumePages": "7(18), eabd7394"
+      "volumePages": "7(18), eabd7394",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "125",
@@ -1230,7 +1372,8 @@
       "title": "Cooperative evolution of polar distortion and nonpolar rotation of oxygen octahedra in oxide heterostructures",
       "journal": "Science Advances",
       "volumePages": "7(17), eabe9053",
-      "doi": "https://advances.sciencemag.org/content/7/17/eabe9053"
+      "doi": "https://advances.sciencemag.org/content/7/17/eabe9053",
+      "themes": []
     },
     {
       "id": "124",
@@ -1240,7 +1383,9 @@
       "authors": "Soo Ho Choi, Hyung-Jin Kim, Bumsub Song, Yong In Kim, Gyeongtak Han, Hayoung Ko, Stephen Boandoh, Ji Hoon Choi, Chang Seok Oh, Hyun Je Cho, Jeong Won Jin, Seok Joon Yun, Bong Gyu Shin, Hu Young Jeong, Young-Min Kim, Young-Kyu Han*, Young Hee Lee*, Soo Min Kim*, Ki Kang Kim*",
       "title": "Epitaxial single-crystal growth of transition metal dichalcogenide monolayers via atomic sawtooth Au surface",
       "journal": "Advanced Materials",
-      "volumePages": "33(15), 2006601"
+      "volumePages": "33(15), 2006601",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "123",
@@ -1250,7 +1395,9 @@
       "authors": "Su Jae Kim†, Seonghoon Kim†, Jegon Lee†, Yongjae Jo, Yu-Seong Seo, Myounghoon Lee, Yousil Lee, Chae Ryong Cho, Jong-pil Kim, Miyeon Cheon, Jungseek Hwang, Yong In Kim, Young-Hoon Kim, Young-Min Kim, Aloysius Soon, Myunghwan Choi, Woo Seok Choi*, Se-Young Jeong*, Young Hee Lee*",
       "title": "Color of copper/copper oxide",
       "journal": "Advanced Materials",
-      "volumePages": "33(15), 2007345"
+      "volumePages": "33(15), 2007345",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "122",
@@ -1261,7 +1408,8 @@
       "title": "Crystallographic orientation analysis of nanocrystalline tungsten thin film using TEM precession electron diffraction and SEM transmission Kikuchi diffraction",
       "journal": "Microscopy and Microanalysis",
       "volumePages": "27(2), 237-249",
-      "doi": "https://www.cambridge.org/core/journals/microscopy-and-microanalysis/article/abs/crystallographic-orientation-analysis-of-nanocrystalline-tungsten-thin-film-using-tem-precession-electron-diffraction-and-sem-transmission-kikuchi-diffraction/ACB7C92729D3252042EA9989B8CDACD0"
+      "doi": "https://www.cambridge.org/core/journals/microscopy-and-microanalysis/article/abs/crystallographic-orientation-analysis-of-nanocrystalline-tungsten-thin-film-using-tem-precession-electron-diffraction-and-sem-transmission-kikuchi-diffraction/ACB7C92729D3252042EA9989B8CDACD0",
+      "themes": []
     },
     {
       "id": "121",
@@ -1272,7 +1420,8 @@
       "title": "Atomic-scale chemical mapping of copper dopants in Bi2Te2.7Se0.3 thermoelectric alloy",
       "journal": "Materials Today Physics",
       "volumePages": "17, 100347",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2542529321000080"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2542529321000080",
+      "themes": []
     },
     {
       "id": "120",
@@ -1283,7 +1432,8 @@
       "title": "Utilization of electron-beam irradiation under atomic-scale chemical mapping for evaluating the cycling performance of lithium transition metal oxide cathodes",
       "journal": "Journal of Materials Chemistry A",
       "volumePages": "9, 2429-2437",
-      "doi": "https://pubs.rsc.org/en/content/articlelanding/2021/ta/d0ta10415a"
+      "doi": "https://pubs.rsc.org/en/content/articlelanding/2021/ta/d0ta10415a",
+      "themes": []
     },
     {
       "id": "119",
@@ -1294,7 +1444,8 @@
       "title": "Impact of local separation on the structural and electrochemical behaviors in Li2MoO3-LiCrO2 disordered rock-salt cathode material",
       "journal": "Advanced Energy Materials",
       "volumePages": "11(3), 2002958",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "118",
@@ -1305,7 +1456,8 @@
       "title": "Lifshitz transition and non-Fermi liquid behavior in highly doped semimetals",
       "journal": "Advanced Materials",
       "volumePages": "33(1), 2005742",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "117",
@@ -1316,7 +1468,8 @@
       "title": "Atomic-scale identification of invisible cation vacancies at an oxide homointerface",
       "journal": "Materials Today Physics",
       "volumePages": "16, 100302",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2542529320301267"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2542529320301267",
+      "themes": []
     },
     {
       "id": "116",
@@ -1327,7 +1480,8 @@
       "title": "Selective patterning of out-of-plane piezoelectricity in MoTe2 via focused ion beam",
       "journal": "Nano Energy",
       "volumePages": "79, 105451",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "115",
@@ -1338,7 +1492,8 @@
       "title": "Multiscale probing of the defect-induced variation of oxygen vacancies on the photocatalytic activity of doped ZnO nanoparticles",
       "journal": "Journal of Materials Chemistry A",
       "volumePages": "8(47), 25345-25354",
-      "doi": "https://pubs.rsc.org/en/content/articlelanding/2020/ta/d0ta08367d"
+      "doi": "https://pubs.rsc.org/en/content/articlelanding/2020/ta/d0ta08367d",
+      "themes": []
     },
     {
       "id": "114",
@@ -1349,7 +1504,8 @@
       "title": "Probing one-dimensional oxygen vacancy channels driven by cation-anion double ordering in perovskites",
       "journal": "Nano Letters",
       "volumePages": "20(11), 8353-8359",
-      "doi": "https://pubs.acs.org/doi/10.1021/acs.nanolett.0c03516"
+      "doi": "https://pubs.acs.org/doi/10.1021/acs.nanolett.0c03516",
+      "themes": []
     },
     {
       "id": "113",
@@ -1359,7 +1515,9 @@
       "authors": "Van Luan Nguyen, Dinh Loc Duong, Sang Hyub Lee, José Avila, Gyeongtak Han, Young-Min Kim, Maria C. Asensio*, Se-Young Jeong*, Young Hee Lee*",
       "title": "Layer-controlled single-crystalline graphene film with stacking order via Cu-Si alloy formation",
       "journal": "Nature Nanotechnology",
-      "volumePages": "15, 861-867"
+      "volumePages": "15, 861-867",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "112",
@@ -1369,7 +1527,9 @@
       "authors": "Sehwan Park, Seok Joon Yun, Yong In Kim, Jung Ho Kim, Young-Min Kim, Ki Kang Kim, Young Hee Lee*",
       "title": "Tailoring domain morphology in monolayer NbSe2 and WxNb1-xSe2 heterostructures",
       "journal": "ACS Nano",
-      "volumePages": "14, 8784-8792"
+      "volumePages": "14, 8784-8792",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "111",
@@ -1379,7 +1539,9 @@
       "authors": "Seung Gyo Jeong, Gyeongtak Han, Sehwan Song, Taewon Min, Ahmed Yousef Mohamed, Sungkyun Park, Jaekwang Lee, Hu Young Jeong, Young-Min Kim, Deok-Yong Cho, Woo Seok Choi*",
       "title": "Propagation control of octahedral tilt in SrRuO3 via artificial heterostructuring",
       "journal": "Advanced Science",
-      "volumePages": "7(16), 2001643"
+      "volumePages": "7(16), 2001643",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "110",
@@ -1390,7 +1552,8 @@
       "title": "Water- and acid-stable self-passivated dihafnium sulfide electride and its persistent electrocatalytic reaction",
       "journal": "Science Advances",
       "volumePages": "6(23), eaba7461",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "109",
@@ -1401,7 +1564,8 @@
       "title": "Monodispersed SnS nanoparticles anchored on carbon nanotubes for high-retention sodium ion storage",
       "journal": "Journal of Materials Chemistry A",
       "volumePages": "8, 7861-7869",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "108",
@@ -1412,7 +1576,8 @@
       "title": "Role of Anionic Vacancy for Active Hydrogen Evolution in WTe2",
       "journal": "Applied Surface Science",
       "volumePages": "515, 145972",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "107",
@@ -1423,7 +1588,8 @@
       "title": "Ferromagnetic order at room temperature in mololayer WSe2 semiconductor via vanadium dopant",
       "journal": "Advanced Science",
       "volumePages": "7(9), 1903076",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "106",
@@ -1434,7 +1600,8 @@
       "title": "Improved polaronic transport under a strong Mott-Hubbard interaction in Cu-substituted NiO",
       "journal": "Inorganic Chemistry Frontiers",
       "volumePages": "7, 853-858",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "105",
@@ -1445,7 +1612,8 @@
       "title": "Ultralow switching voltage slope based on two-dimensional materials for integrated memory and neuromorphic applications",
       "journal": "Nano Energy",
       "volumePages": "69, 104472",
-      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2211285520300288?via%3Dihub"
+      "doi": "https://www.sciencedirect.com/science/article/abs/pii/S2211285520300288?via%3Dihub",
+      "themes": []
     },
     {
       "id": "104",
@@ -1456,7 +1624,8 @@
       "title": "Phase instability amid dimensional crossover in artificial oxide crystal",
       "journal": "Physical Review Letters",
       "volumePages": "124, 026401",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "103",
@@ -1467,7 +1636,8 @@
       "title": "Tuning of aluminum concentration distribution in high nickel cathode particles for lithium ion batteries",
       "journal": "Journal of Alloys and Compounds",
       "volumePages": "816, 152677",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "102",
@@ -1478,7 +1648,8 @@
       "title": "Controlling surface oxygen vacancies in Fe-doped TiO2 anatase nanoparticles for superior photocatalytic activities",
       "journal": "Applied Surface Science",
       "volumePages": "507, 144916",
-      "doi": "https://www.sciencedirect.com/science/article/pii/S016943321933733X?via%3Dihub"
+      "doi": "https://www.sciencedirect.com/science/article/pii/S016943321933733X?via%3Dihub",
+      "themes": []
     },
     {
       "id": "101",
@@ -1489,7 +1660,8 @@
       "title": "In-situ observation of the effect of accelerating voltage on electron beam damage of layered cathode materials for lithium ion batteries",
       "journal": "ACS Applied Materials & Interfaces",
       "volumePages": "11(47), 44293-44299",
-      "doi": "https://pubs.acs.org/doi/10.1021/acsami.9b15608"
+      "doi": "https://pubs.acs.org/doi/10.1021/acsami.9b15608",
+      "themes": []
     },
     {
       "id": "100",
@@ -1500,7 +1672,8 @@
       "title": "Phase-selective disordered anatase/ordered rutile interface system for visible-light-driven, metal-free CO2 reduction",
       "journal": "ACS Applied Materials & Interfaces",
       "volumePages": "11(39), 35693-35701",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "99",
@@ -1511,7 +1684,8 @@
       "title": "Critical role of atomic-scale defect disorders for high-performance nanostructured half-Heusler thermoelectric alloys and their thermal stability",
       "journal": "Acta Materialia",
       "volumePages": "180, 97-104",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "98",
@@ -1522,7 +1696,8 @@
       "title": "Flexoelectric healing of intrinsically more conductive nanochannels in NdNiO3 thin films",
       "journal": "Applied Surface Science",
       "volumePages": "497, 143727",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "97",
@@ -1533,7 +1708,8 @@
       "title": "Triggered Reversible Phase Transformation between Layered and Spinel Structure via Intercalated Hetero Species in Mn-based layered compounds",
       "journal": "Nature Communications",
       "volumePages": "10, 3385",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "96",
@@ -1544,7 +1720,8 @@
       "title": "Confined polaronic transport in (LaFeO3)n/(SrFeO3) superlattices",
       "journal": "APL Materials",
       "volumePages": "7, 071117",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "95",
@@ -1555,7 +1732,8 @@
       "title": "Tunable negative differential resistance in van der Waals heterostructures at room temperature by tailoring interface",
       "journal": "ACS Nano",
       "volumePages": "13(7), 8193-8201",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "94",
@@ -1566,7 +1744,8 @@
       "title": "Self-selective van der Waals heterostructures for large-scale memory array",
       "journal": "Nature Communications",
       "volumePages": "10, 3161",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "93",
@@ -1577,7 +1756,8 @@
       "title": "In-situ coalesced vacancies on MoSe2 mimicking noble metal: Unprecedented Tafel reaction in hydrogen evolution",
       "journal": "Nano Energy",
       "volumePages": "63, 103846",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "92",
@@ -1588,7 +1768,8 @@
       "title": "Effect of manganese dopants on defects, nano-strain, and photovoltaic performance of Mn-CdS/CdSe nanocomposite-sensitized ZnO nanowire solar cells",
       "journal": "Composites Science and Technology",
       "volumePages": "179, 79-87",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "91",
@@ -1599,7 +1780,8 @@
       "title": "Direct observation of electrically degenerate interface layer in GaN/sapphire heterostructure",
       "journal": "Nanoscale",
       "volumePages": "11, 8281-8292",
-      "doi": "https://pubs.rsc.org/en/content/articlelanding/2019/nr/c9nr01803d"
+      "doi": "https://pubs.rsc.org/en/content/articlelanding/2019/nr/c9nr01803d",
+      "themes": []
     },
     {
       "id": "90",
@@ -1610,7 +1792,8 @@
       "title": "Atomic-scale symmetry breaking for out-of-plane piezoelectricity in two-dimensional transition metal dichalcogenides",
       "journal": "Nano Energy",
       "volumePages": "58, 57-62",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "89",
@@ -1621,7 +1804,8 @@
       "title": "Hierarchically structured core-shell design of a lithium transition-metal oxide cathode material for excellent electrochemical performance",
       "journal": "ACS Applied Materials & Interfaces",
       "volumePages": "11(4), 4017-4027",
-      "doi": "https://pubs.acs.org/doi/10.1021/acsami.8b19902"
+      "doi": "https://pubs.acs.org/doi/10.1021/acsami.8b19902",
+      "themes": []
     },
     {
       "id": "88",
@@ -1632,7 +1816,8 @@
       "title": "Wafer-scale van der Waals heterostructures with ultraclean interfaces via the aid of viscoelastic polymer",
       "journal": "ACS Applied Materials & Interfaces",
       "volumePages": "11(1), 1579-1586",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "87",
@@ -1643,7 +1828,8 @@
       "title": "Ferroelectric polarization rotation in order-disorder-type LiNbO3 thin films",
       "journal": "ACS Applied Materials & Interfaces",
       "volumePages": "10, 41471-41478",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "86",
@@ -1654,7 +1840,8 @@
       "title": "Inorganic molecular chain Nb2Se9: Synthesis of bulk crystal and one-atom-thick level exfoliation",
       "journal": "Physica Status Solidi-Rapid Res. Lett.",
       "volumePages": "1800451",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "85",
@@ -1665,7 +1852,8 @@
       "title": "Wafer-scale single-crystal hexagonal boron nitride film via self-collimated grain formation",
       "journal": "Science",
       "volumePages": "362, 817-821",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "84",
@@ -1675,7 +1863,9 @@
       "authors": "Sudong Chae, Seung Bae Oh, Akhtar J. Siddiqa, Kyung Hwan Choi, Weon-Gyu Lee, Woo-Sung Jang, Joo Song Lee, Young-Min Kim, Joonsuk Huh, Soo Min Kim*, Jae-Young Choi*",
       "title": "Highly concentrated single-chain atomic crystal LiMo3Se3 solution using ion-exchange chromatography",
       "journal": "Chemical Communications",
-      "volumePages": "54, 12503-12506"
+      "volumePages": "54, 12503-12506",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "83",
@@ -1685,7 +1875,9 @@
       "authors": "Seungbae Oh, Sudong Chae, Bum Jun Kim, Kyung Hwan Choi, Woo-Sung Jang, Jimin Jang, Yasmin Hussain, Dong Kyu Lee, Young-Min Kim, Hak Ki Yu*, Jae-Young Choi*",
       "title": "Synthesis of One-dimensional Atomic Crystal of Vanadium Selenide (V2Se9)",
       "journal": "RSC Advances",
-      "volumePages": "8, 33980-33984"
+      "volumePages": "8, 33980-33984",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "82",
@@ -1695,7 +1887,9 @@
       "authors": "Sudong Chae, Akhtar J. Siddiqa, Seungbae Oh, Bum Jun Kim, Kyung Hwan Choi, Woo-Sung Jang, Young-Min Kim, Hak Ki Yu*, Jae-Young Choi*",
       "title": "Isolation of Nb2Se9 molecular chain from bulk one-dimensional crystal by liquid exfoliation",
       "journal": "Nanomaterials",
-      "volumePages": "8(10), 794"
+      "volumePages": "8(10), 794",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "81",
@@ -1705,7 +1899,9 @@
       "authors": "H.J. Chang, S.Y. Kim, W.-J. Moon, Y.-M. Kim, E.S. Park*, D.H. Kim*",
       "title": "Probing structural changes during ductile fracture in metallic glasses via in situ straining inside a MeV electron microscope",
       "journal": "Intermetallics",
-      "volumePages": "102, 94-100"
+      "volumePages": "102, 94-100",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "80",
@@ -1716,7 +1912,8 @@
       "title": "Highly fluidic liquid at homointerface generates grain boundary dislocation arrays for high-performance bulk thermoelectrics",
       "journal": "Acta Materialia",
       "volumePages": "159, 266-275",
-      "doi": "https://www.sciencedirect.com/science/article/pii/S1359645418306645"
+      "doi": "https://www.sciencedirect.com/science/article/pii/S1359645418306645",
+      "themes": []
     },
     {
       "id": "79",
@@ -1727,7 +1924,8 @@
       "title": "Implications of cation-disordered grain boundary on the electrochemical performance of LiNi0.5Co0.2Mn0.3O2 cathode material for lithium ion batteries",
       "journal": "Journal of Materials Chemistry A",
       "volumePages": "6, 16111-16120",
-      "doi": "https://pubs.rsc.org/en/content/articlelanding/2018/ta/c8ta04731f"
+      "doi": "https://pubs.rsc.org/en/content/articlelanding/2018/ta/c8ta04731f",
+      "themes": []
     },
     {
       "id": "78",
@@ -1738,7 +1936,8 @@
       "title": "Atomic Observation of Filling Vacancies in Monolayer Transition Metal Sulfides by Chemically Sourced Sulfur Atoms",
       "journal": "Nano Letters",
       "volumePages": "18(7), 4523-4530",
-      "doi": "https://pubs.acs.org/doi/abs/10.1021/acs.nanolett.8b01714"
+      "doi": "https://pubs.acs.org/doi/abs/10.1021/acs.nanolett.8b01714",
+      "themes": []
     },
     {
       "id": "77",
@@ -1749,7 +1948,8 @@
       "title": "Direct growth of doping controlled monolayer WSe2 by selenium-phosphorus substitution",
       "journal": "Nanoscale",
       "volumePages": "10, 11397-11402",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "76",
@@ -1760,7 +1960,8 @@
       "title": "Material structure, properties, and dynamics through scanning transmission electron microscopy",
       "journal": "Journal of Analytical Science and Technology",
       "volumePages": "9, 11",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "75",
@@ -1771,7 +1972,8 @@
       "title": "Correlation between geometrically-induced oxygen octahedral tilts and multiferroic behaviors in BiFeO3 films",
       "journal": "Advanced Functional Materials",
       "volumePages": "28(19), 1800839",
-      "doi": "https://onlinelibrary.wiley.com/doi/full/10.1002/adfm.201800839"
+      "doi": "https://onlinelibrary.wiley.com/doi/full/10.1002/adfm.201800839",
+      "themes": []
     },
     {
       "id": "74",
@@ -1782,7 +1984,8 @@
       "title": "Direct imaging of the electron liquid at oxide interfaces",
       "journal": "Nature Nanotechnology",
       "volumePages": "13, 198-203",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "73",
@@ -1793,7 +1996,8 @@
       "title": "Strain-induced indium clustering in non-polar a-plane InGaN quantum wells",
       "journal": "Acta Materialia",
       "volumePages": "145, 109-122",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "72",
@@ -1804,7 +2008,8 @@
       "title": "Simple and efficient synthesis of nanograin structured single phase filled skutterudite for high thermoelectric performance",
       "journal": "Acta Materialia",
       "volumePages": "142, 8-17",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "71",
@@ -1815,7 +2020,8 @@
       "title": "Te monolayer-driven spontaneous van der Waals epitaxy of two-dimensional pnictogen chalcogenide film on sapphire",
       "journal": "Nano Letters",
       "volumePages": "17, 6140-6145",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "70",
@@ -1826,7 +2032,8 @@
       "title": "Direct observation of inherent atomic-scale defect disorders responsible for high thermoelectric performance of Ti1-xHfxNiSn1-ySby half-Heusler alloys",
       "journal": "Advanced Materials",
       "volumePages": "29, 1702091",
-      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/adma.201702091/full"
+      "doi": "https://onlinelibrary.wiley.com/doi/10.1002/adma.201702091/full",
+      "themes": []
     },
     {
       "id": "69",
@@ -1837,7 +2044,8 @@
       "title": "In Situ Observation of Oxygen Vacancy Dynamics and Ordering in the Epitaxial LaCoO3 System",
       "journal": "ACS Nano",
       "volumePages": "11(7), 6942-6949",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "68",
@@ -1848,7 +2056,8 @@
       "title": "Quantitative comparison of bright field and annular bright field imaging modes for characterization of oxygen octahedral tilts",
       "journal": "Ultramicroscopy",
       "volumePages": "181, 1-7",
-      "doi": "https://www.sciencedirect.com/science/article/pii/S0304399117300682"
+      "doi": "https://www.sciencedirect.com/science/article/pii/S0304399117300682",
+      "themes": []
     },
     {
       "id": "67",
@@ -1859,7 +2068,8 @@
       "title": "Active hydrogen evolution through lattice distortion in semimetallic MoTe2",
       "journal": "2D Materials",
       "volumePages": "4, 025061",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "66",
@@ -1870,7 +2080,8 @@
       "title": "Stabilization of a Ga adlayer structure with the zincblende stacking sequence in the GaN(000-1) surface at the nanoscale",
       "journal": "Nanoscale",
       "volumePages": "9, 2596-2602",
-      "doi": "https://pubs.rsc.org/en/content/articlelanding/2017/nr/c6nr07118j"
+      "doi": "https://pubs.rsc.org/en/content/articlelanding/2017/nr/c6nr07118j",
+      "themes": []
     },
     {
       "id": "65",
@@ -1881,7 +2092,8 @@
       "title": "In situ TEM Observation on the interface-type resistive switching by electrochemical redox reactions at a TiN/PCMO interface",
       "journal": "Nanoscale",
       "volumePages": "9, 582-593",
-      "doi": "https://pubs.rsc.org/en/content/articlelanding/2017/nr/c6nr06293h"
+      "doi": "https://pubs.rsc.org/en/content/articlelanding/2017/nr/c6nr06293h",
+      "themes": []
     },
     {
       "id": "64",
@@ -1892,7 +2104,8 @@
       "title": "Enhanced electrocatalytic activity via phase transitions in strongly correlated SrRuO3 thin films",
       "journal": "Energy & Environmental Science",
       "volumePages": "10, 924-930",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "63",
@@ -1903,7 +2116,8 @@
       "title": "Reduced graphene oxide-wrapped nickel-rich cathode materials for lithium ion batteries",
       "journal": "ACS Applied Materials & Interfaces",
       "volumePages": "9(22), 18720-18729",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "62",
@@ -1914,7 +2128,8 @@
       "title": "Facile synthesis of fully ordered L10-FePt nanoparticles with controlled Pt shell thicknesses for electrocatalysis",
       "journal": "Nano Research",
       "volumePages": "10(8), 2866-2880",
-      "doi": "https://link.springer.com/article/10.1007/s12274-017-1495-5"
+      "doi": "https://link.springer.com/article/10.1007/s12274-017-1495-5",
+      "themes": []
     },
     {
       "id": "61",
@@ -1925,7 +2140,8 @@
       "title": "Depth resolved lattice-charge coupling in epitaxial BiFeO3 thin film",
       "journal": "Scientific Reports",
       "volumePages": "6, 38724",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "60",
@@ -1936,7 +2152,8 @@
       "title": "Influence of defects, nanoscale strain on the photovoltaic properties of CdS/CdSe nanocomposite co-sensitized ZnO nanowire solar cells",
       "journal": "Electrochimica Acta",
       "volumePages": "220, 500-510",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "59",
@@ -1947,7 +2164,8 @@
       "title": "Highly durable supportless Pt hollow spheres designed for enhanced oxygen transport in cathode catalyst layers of proton exchange membrane fuel cells",
       "journal": "ACS Applied Materials & Interfaces",
       "volumePages": "8(41), 27730-27739",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "58",
@@ -1958,7 +2176,8 @@
       "title": "Enhanced Thermoelectric performance of PEDOT:PSS/PANI-CSA polymer multilayer structures",
       "journal": "Energy & Environmental Science",
       "volumePages": "9, 2806",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "57",
@@ -1969,7 +2188,8 @@
       "title": "Towards spin-polarized two-dimensional electron gas at a surface of an antiferromagnetic insulating oxide",
       "journal": "Physical Review B",
       "volumePages": "94, 045123",
-      "doi": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.94.045123"
+      "doi": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.94.045123",
+      "themes": []
     },
     {
       "id": "56",
@@ -1980,7 +2200,8 @@
       "title": "Migration mechanism of a GaN bicrystalline grain boundary as a model system",
       "journal": "Scientific Reports",
       "volumePages": "6, 264933",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "55",
@@ -1991,7 +2212,8 @@
       "title": "Unexpected orbital magnetism in Bi-rich Bi2Se3 nanoplatelets",
       "journal": "NPG Asia Materials",
       "volumePages": "8, e271",
-      "doi": ""
+      "doi": "",
+      "themes": []
     },
     {
       "id": "54",
@@ -2001,7 +2223,9 @@
       "authors": "Ji Hoon Jeon, Ho-Young Joo, Young-Min Kim, Duk Hyun Lee, Jin-Soo Kim, Yeon Soo Kim, Taekjib Choi*, Bae Ho Park*",
       "title": "Selector-free resistive switching memory cell based on BiFeO3 nano-island showing high resistance ratio and nonlinearity factor",
       "journal": "Scientific Reports",
-      "volumePages": "6, 23299"
+      "volumePages": "6, 23299",
+      "doi": "",
+      "themes": []
     },
     {
       "id": "53",
@@ -2011,7 +2235,9 @@
       "authors": "Yoon Ah Shin, Sheng Yin, Xiaoyan Li, Subin Lee, Sungmin Moon, Jiwon Jeong, Minhyug Kwon, Seung Jo Yoo, Young-Min Kim, Teng Zhang, Huajian Gao*, Sang Ho Oh*",
       "title": "Nanotwin-governed toughening mechanism in hierarchically structured biological materials",
       "journal": "Nature Communications",
-      "volumePages": "7, 10772"
+      "volumePages": "7, 10772",
+      "doi": "",
+      "themes": []
     }
   ]
 }
