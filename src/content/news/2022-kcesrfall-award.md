@@ -10,5 +10,8 @@ media:
   - image: /gallery-media/2022-kcers-fall-4.jpg
     youtube: ''
     alt: ''
+  - image: /gallery-media/2022-kcers-fall-3.jpg
+    youtube: ''
+    alt: ''
 featured: false
 ---
