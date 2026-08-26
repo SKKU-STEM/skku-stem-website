@@ -7,6 +7,9 @@ headline: Two awards at the 9th BK DOES Thesis Competition
 summary: Young-Hoon Kim received the Grand Prize (oral) and Min-Hyoung Jung received the Excellence Award (poster) at the 9th BK Department of Energy Science Thesis Competition in Suwon.
 links: []
 media:
+  - image: /gallery-media/2024-bk-thesis-2.jpg
+    youtube: ''
+    alt: ''
   - image: /gallery-media/2024-bk-thesis-3.jpg
     youtube: ''
     alt: ''
