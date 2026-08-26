@@ -10,7 +10,13 @@ media:
   - image: /gallery-media/2022-ksm-spring-4.jpg
     youtube: ''
     alt: ''
+  - image: /gallery-media/2022-ksm-spring-2.jpg
+    youtube: ''
+    alt: ''
   - image: /gallery-media/2022-ksm-spring-3.jpg
+    youtube: ''
+    alt: ''
+  - image: /gallery-media/2022-ksm-spring-1.jpg
     youtube: ''
     alt: ''
 featured: true
