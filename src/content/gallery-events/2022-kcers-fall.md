@@ -9,6 +9,9 @@ participants: ''
 awards: 'PACRIM award (제 2022-143호, ₩1,000,000): Young-Hoon Kim (Oral presentation)'
 media:
   - image: /gallery-media/2022-kcers-fall-1.jpg
+    youtube: ''
+    alt: ''
   - image: /gallery-media/2022-kcers-fall-2.jpg
-  - image: /gallery-media/2022-kcers-fall-3.jpg
+    youtube: ''
+    alt: ''
 ---
