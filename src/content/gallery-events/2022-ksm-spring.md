@@ -8,8 +8,10 @@ location: Daegu, Korea
 participants: 'Oral presentations: 최우선 (MS4-15), 장우성 (MS5-12), 양상혁 (MS3-13), 김영훈 (MS3-15), 홍정아 (MS2-11), 김선제 (MS4-14) · Special session 6: Prof. Young-Min Kim'
 awards: 'Excellence awards (KSM2022-179, KSM2022-181): 김영훈 (Young-Hoon Kim), 최우선 (Wooseon Choi)'
 media:
-  - image: /gallery-media/2022-ksm-spring-1.jpg
-  - image: /gallery-media/2022-ksm-spring-2.jpg
   - image: /gallery-media/2022-ksm-spring-5.jpg
+    youtube: ''
+    alt: ''
   - image: /gallery-media/2022-ksm-spring-6.jpg
+    youtube: ''
+    alt: ''
 ---
