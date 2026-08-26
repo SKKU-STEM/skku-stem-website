@@ -248,5 +248,5 @@
 - [x] 스텁 KV 단위 검증 12건 전부 통과(시드/누적/손상값 복구/503/405/no-store)
 - [x] `npm run check` 0/0/0 / `npm run build` 통과. dist에 `counterapi` 0건, `/api/visits` 11페이지
 - [x] `docs/visitor-counter-kv-setup.md` — 대시보드 KV 생성·바인딩 절차 문서화
-- [ ] (사용자) Cloudflare 대시보드에서 KV 인스턴스 생성 + Pages 프로젝트에 `VISITS` 바인딩(Production/Preview)
-- [ ] (배포) 사용자 승인 후 push → `curl https://skkustem.org/api/visits` 로 확인
+- [x] (사용자) Cloudflare KV 인스턴스 `skku-stem-visits` 생성 + Pages 프로젝트에 `VISITS` 바인딩 완료
+- [x] (배포) 619b813 push 완료(CMS 편집 22건 위로 rebase). 라이브 검증 — GET 2379(시드) / POST 2380(KV 쓰기) / GET 2380(영속) / DELETE 405 / HTML에 `/api/visits`

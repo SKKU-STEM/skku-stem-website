@@ -365,3 +365,4 @@ Publications에 이어 헤더 + Education/Experience/Honors/Contact 구현. 두 
 - **바인딩이 선행 조건.** 대시보드에서 KV 네임스페이스를 만들어 Pages 프로젝트에 변수명 `VISITS` 로(Production+Preview) 붙여야 동작한다. 안 붙이면 `503` + 콘솔 경고. 절차는 `docs/visitor-counter-kv-setup.md`.
 - 검증: 스텁 KV 단위 테스트 12건 PASS, `npm run check` 0/0/0, `npm run build` 통과, dist에 `counterapi` 0건 / `/api/visits` 11페이지. 테스트 스크립트는 일회성이라 scratchpad에만 두고 리포에 안 넣음.
 - 미배포 — 사용자 승인 후 push.
+- **배포 완료(2026-08-26).** `619b813` — 원격 CMS 편집 22건(News 15 신규·Member 6·Publications) 위로 rebase 후 push. 겹치는 파일 없어 충돌 없음. 라이브 검증: `GET /api/visits` → 2379(시드, 키 미생성 상태에서 쓰기 없음), `POST` → 2380(KV 쓰기 성공), 재 `GET` → 2380(영속), `DELETE` → 405, 라이브 HTML에 `counterapi` 0건 / `/api/visits` 참조. **검증용 POST 1회가 실제 카운트에 포함되어 현재 2380에서 출발한다.**
