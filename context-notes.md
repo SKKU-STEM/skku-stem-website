@@ -353,3 +353,15 @@ Publications에 이어 헤더 + Education/Experience/Honors/Contact 구현. 두 
 - **CMS 정합화.** research-highlights image 위젯 media_folder `/public/research` → `/src/assets/research`(hero/members와 동일 패턴, public_folder `/research` 유지) → 향후 CMS 업로드가 최적화 경로로 해석됨. research-themes 동일 필드도 정합화했으나 **테마 카드는 이미지를 렌더링하지 않는 dead 필드**(6개 항목 모두 image 빈 값). 193행 노트("research-highlights.image media_folder /public/research…")는 이 개편으로 무효.
 - 검증: `npm run check` 0/0/0, `npm run build` 통과(11 pages + pagefind). dist/index.html 홈 하이라이트 2건(ACS Nano·구리 / RoPP·은박막)+최적화 webp, dist/research/index.html 구리 figure webp 확인. 서브에이전트 주도(태스크별 리뷰 + opus 전체 리뷰 merge-ready).
 - 미배포 — 사용자 승인 후 push(main 병합 3816ecf까지).
+
+## 방문자 카운터 자체 호스팅 전환 (2026-08-26)
+
+- **"멈춘 카운터"의 정체는 캐시 고착.** 사용자가 본 `02379`는 서버 값이 아니라 본인 브라우저 `localStorage['skku-stem-visitor-count']` 에 남은 마지막 성공값. `api.counterapi.dev/v1` 이 서비스 종료(`{"code":"410","deprecated":true}`)됐는데 클라이언트가 `if (!res.ok) return;` 로 조용히 빠져나가면서, 캐시가 있는 사람에게만 옛날 숫자가 계속 보였다. **캐시 없는 신규 방문자는 idle placeholder `– – – – –` 만 봤다** — 즉 멈춘 게 아니라 완전히 죽은 상태였다.
+- **교훈 = 조용한 실패 금지.** `!res.ok` 를 아무 로그 없이 return하면 외부 API가 죽어도 몇 달간 아무도 모른다. 새 코드는 실패 시 `console.warn` 으로 상태코드를 남긴다. 이게 이번 건의 진짜 재발 방지책이다.
+- **v1 → v2 이관 불가.** `api.counterapi.dev/v2/skku-stem/site-visits` 는 `404 Workspace not found`. v1 네임스페이스는 v2 워크스페이스로 승계되지 않았고 v2는 가입+API 키가 필요하다. 누적 2379는 CounterAPI 쪽에서 복구 불가 → **코드에 `SEED = 2379` 로 박아 이어간다.**
+- **서드파티 대신 Cloudflare KV.** 이미 `functions/oauth/*` 로 Pages Functions를 쓰고 있어서 추가 가입·키 노출 없이 붙는다. `functions/api/visits.js` 하나, 키 `site-visits` 하나. 서비스 종료 리스크를 제거한 게 핵심 이득.
+- **GET/POST 분리.** 증가는 `POST`, 조회는 `GET`. 부작용 있는 GET은 크롤러·prefetch가 건드리면 그대로 부풀기 때문. 덤으로 세션 두 번째 페이지부터는 GET으로 최신값을 보여줘서, 기존의 "세션 내내 캐시값 고정" 동작도 같이 해소됐다. Pages Functions는 `onRequestGet`/`onRequestPost` 가 `onRequest` 보다 우선하므로 `onRequest` 는 405 fallback으로 안전하다(문서 확인).
+- **KV의 감수 지점.** read-modify-write라 동시 방문 시 쓰기 유실 가능. 무료 한도는 쓰기 1,000/일(세션당 1회라 여유). 정확한 트래픽 통계는 Cloudflare Web Analytics 몫이고 이건 장식용 카운터라는 전제.
+- **바인딩이 선행 조건.** 대시보드에서 KV 네임스페이스를 만들어 Pages 프로젝트에 변수명 `VISITS` 로(Production+Preview) 붙여야 동작한다. 안 붙이면 `503` + 콘솔 경고. 절차는 `docs/visitor-counter-kv-setup.md`.
+- 검증: 스텁 KV 단위 테스트 12건 PASS, `npm run check` 0/0/0, `npm run build` 통과, dist에 `counterapi` 0건 / `/api/visits` 11페이지. 테스트 스크립트는 일회성이라 scratchpad에만 두고 리포에 안 넣음.
+- 미배포 — 사용자 승인 후 push.

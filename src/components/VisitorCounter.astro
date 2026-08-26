@@ -1,5 +1,5 @@
 ---
-// 푸터 좌측 디지털 odometer 방문자 카운터 — CounterAPI v1 사용, 세션당 1회만 increment
+// 푸터 좌측 디지털 odometer 방문자 카운터 — /api/visits(Cloudflare KV) 사용, 세션당 1회만 increment
 ---
 
 <div class="visitor-counter" aria-label="Site visitor count">
@@ -70,11 +70,9 @@
 </style>
 
 <script>
-  const NAMESPACE = 'skku-stem';
-  const COUNTER = 'site-visits';
+  const ENDPOINT = '/api/visits';
   const SESSION_KEY = 'skku-stem-visitor-counted';
   const CACHE_KEY = 'skku-stem-visitor-count';
-  const BASE = 'https://api.counterapi.dev/v1';
   const MIN_DIGITS = 5;
 
   function renderDigits(n: number) {
@@ -114,28 +112,40 @@
     const cached = readCache();
     if (cached !== null) renderDigits(cached);
 
-    // 세션당 1회만 increment — 그 외에는 캐시값만 사용 (read 엔드포인트는 429)
-    const shouldIncrement =
-      typeof sessionStorage !== 'undefined' &&
-      !sessionStorage.getItem(SESSION_KEY);
-    if (!shouldIncrement) return;
+    // 세션당 1회만 increment — 그 외 페이지 이동에서는 조회만 해서 최신값을 보여준다
+    let counted = true;
+    try {
+      counted = sessionStorage.getItem(SESSION_KEY) !== null;
+    } catch {
+      /* private 모드 등에서 sessionStorage 접근 실패 시 조회만 */
+    }
 
     try {
-      const res = await fetch(`${BASE}/${NAMESPACE}/${COUNTER}/up`, {
+      const res = await fetch(ENDPOINT, {
+        method: counted ? 'GET' : 'POST',
         cache: 'no-store',
       });
-      if (!res.ok) return;
-      const json = (await res.json()) as { count?: number };
-      const count = typeof json?.count === 'number' ? json.count : 0;
-      try {
-        sessionStorage.setItem(SESSION_KEY, '1');
-      } catch {
-        /* private 모드 등에서 setItem 실패 시 무시 */
+      if (!res.ok) {
+        // 조용히 실패하면 캐시값이 그대로 굳어 "멈춘 카운터"가 된다. 반드시 남긴다.
+        console.warn(`[visitor-counter] ${ENDPOINT} responded ${res.status}`);
+        return;
       }
-      writeCache(count);
-      renderDigits(count);
-    } catch {
-      /* 네트워크/CORS 실패 시 캐시값 또는 idle placeholder 유지 */
+      const json = (await res.json()) as { count?: number };
+      if (typeof json?.count !== 'number') {
+        console.warn('[visitor-counter] unexpected response payload', json);
+        return;
+      }
+      if (!counted) {
+        try {
+          sessionStorage.setItem(SESSION_KEY, '1');
+        } catch {
+          /* private 모드 등에서 setItem 실패 시 무시 */
+        }
+      }
+      writeCache(json.count);
+      renderDigits(json.count);
+    } catch (err) {
+      console.warn('[visitor-counter] request failed', err);
     }
   }
 

@@ -238,3 +238,15 @@
 - [x] `npm run check` 0/0/0 / `npm run build` 통과. dist에서 홈 2건(구리·은박막)+이미지, /research 구리 그림 확인
 - [x] main 병합(3816ecf). 스펙·계획: `docs/superpowers/specs|plans/2026-07-14-home-research-highlights-auto*`
 - [ ] (배포) 사용자 승인 후 push
+
+## 14. 방문자 카운터 자체 호스팅 전환 (2026-08-26)
+
+- [x] 근본 원인 확인 — `api.counterapi.dev/v1` 서비스 종료(`410 Gone`), v2 워크스페이스 `skku-stem` 미존재(`404`)
+- [x] 증상 규명 — `if (!res.ok) return;` 로 실패를 삼켜 `localStorage` 캐시값 2379가 고착. 신규 방문자는 `– – – – –`
+- [x] `functions/api/visits.js` 신설 — KV 바인딩 `VISITS`, 키 `site-visits`, `SEED = 2379`, GET 조회 / POST 증가 / 그 외 405 / 바인딩 없으면 503
+- [x] `src/components/VisitorCounter.astro` — 엔드포인트를 `/api/visits` 로 교체. 세션 첫 방문 POST, 이후 GET(매 페이지에서 최신값 표시). 실패 시 `console.warn` 으로 재발 시 조용히 묻히지 않게
+- [x] 스텁 KV 단위 검증 12건 전부 통과(시드/누적/손상값 복구/503/405/no-store)
+- [x] `npm run check` 0/0/0 / `npm run build` 통과. dist에 `counterapi` 0건, `/api/visits` 11페이지
+- [x] `docs/visitor-counter-kv-setup.md` — 대시보드 KV 생성·바인딩 절차 문서화
+- [ ] (사용자) Cloudflare 대시보드에서 KV 인스턴스 생성 + Pages 프로젝트에 `VISITS` 바인딩(Production/Preview)
+- [ ] (배포) 사용자 승인 후 push → `curl https://skkustem.org/api/visits` 로 확인
