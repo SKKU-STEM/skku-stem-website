@@ -10,10 +10,19 @@ media:
   - image: /gallery-media/2021-kcers-fall-2.jpg
     youtube: ''
     alt: ''
+  - image: /gallery-media/2021-kcers-fall-1.jpg
+    youtube: ''
+    alt: ''
   - image: /gallery-media/2021-kcers-fall-5.jpg
     youtube: ''
     alt: ''
+  - image: /gallery-media/2021-kcers-fall-3.jpg
+    youtube: ''
+    alt: ''
   - image: /gallery-media/2021-kcers-fall-6.jpg
+    youtube: ''
+    alt: ''
+  - image: /gallery-media/2021-kcers-fall-4.jpg
     youtube: ''
     alt: ''
 featured: true
