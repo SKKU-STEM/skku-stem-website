@@ -10,5 +10,8 @@ media:
   - image: /gallery-media/2022-samsung-humantech-3.jpg
     youtube: ''
     alt: ''
+  - image: /gallery-media/2022-samsung-humantech-1.jpg
+    youtube: ''
+    alt: ''
 featured: false
 ---
