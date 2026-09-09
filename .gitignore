@@ -32,3 +32,9 @@ Thumbs.db
 # OS
 *.swp
 lighthouse-reports/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
