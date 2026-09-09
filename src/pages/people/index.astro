@@ -12,22 +12,16 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import piPortrait from '@/assets/members/YMK.jpg';
 import piProfile from '@content/pi/profile.json';
+import { cohortTerm, nowInKst } from '@/utils/academicTerm';
 
 const allMembers = (await getCollection('members')).map((e) => e.data);
 
-// 연차·기수는 빌드 시점 기준으로 계산 (재배포할 때마다 갱신).
-const NOW = new Date();
+// 연차·기수는 빌드 시점(KST) 기준으로 계산. 3월·9월 학기 경계에 값이 실제로 올라가려면
+// 그 시점에 재배포가 있어야 하며, .github/workflows/scheduled-rebuild.yml이 매월 1일 이를 건다.
+const NOW = nowInKst();
 
 // 연차: 입학연도를 1년차로 카운트.
 const yearsEnrolled = (start: Date) => NOW.getUTCFullYear() - start.getUTCFullYear() + 1;
-
-// 기수: 입학을 1기로, 입학 후 6개월마다 +1.
-const cohortTerm = (start: Date) => {
-  const months =
-    (NOW.getUTCFullYear() - start.getUTCFullYear()) * 12 +
-    (NOW.getUTCMonth() - start.getUTCMonth());
-  return Math.floor(Math.max(0, months) / 6) + 1;
-};
 
 // 현 멤버: 입학일 오름차순(시니어 먼저), 같은 시점은 이름순.
 const byStart = (
@@ -425,7 +419,7 @@ const alumni = allMembers
                       )}
                       {m.startDate && (
                         <span class="rounded bg-ink/[0.06] text-ink/70 font-mono text-[10px] tracking-wider px-1.5 py-0.5 tabular-nums">
-                          {cohortTerm(m.startDate)}기
+                          {cohortTerm(m.startDate, NOW)}기
                         </span>
                       )}
                       {m.industry && (
@@ -513,7 +507,7 @@ const alumni = allMembers
                       )}
                       {m.startDate && (
                         <span class="rounded bg-ink/[0.06] text-ink/70 font-mono text-[10px] tracking-wider px-1.5 py-0.5 tabular-nums">
-                          {cohortTerm(m.startDate)}기
+                          {cohortTerm(m.startDate, NOW)}기
                         </span>
                       )}
                       {m.industry && (
@@ -601,7 +595,7 @@ const alumni = allMembers
                       )}
                       {m.startDate && (
                         <span class="rounded bg-ink/[0.06] text-ink/70 font-mono text-[10px] tracking-wider px-1.5 py-0.5 tabular-nums">
-                          {cohortTerm(m.startDate)}기
+                          {cohortTerm(m.startDate, NOW)}기
                         </span>
                       )}
                       {m.industry && (
