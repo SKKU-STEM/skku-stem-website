@@ -1,10 +1,20 @@
-// 학사 일정(3월 1학기 / 9월 2학기) 기준으로 멤버 기수를 계산하는 유틸
+// 학사 일정(3월 1학기 / 9월 2학기) 기준으로 멤버 기수·연차를 계산하는 유틸
 // 빌드 서버가 UTC로 돌아도 학기 경계는 KST로 판정한다.
 
 const KST_OFFSET_MS = 9 * 60 * 60 * 1000;
 
 /** 지금 시각을 KST 달력 날짜로 (UTC getter로 읽으면 KST 연·월이 나온다). */
 export const nowInKst = (): Date => new Date(Date.now() + KST_OFFSET_MS);
+
+/** 학년도. 3월에 시작해 이듬해 2월에 끝나므로 1~2월은 전년도 학년도. */
+const academicYear = (d: Date): number => {
+  const year = d.getUTCFullYear();
+  return d.getUTCMonth() + 1 >= 3 ? year : year - 1;
+};
+
+/** 연차: 입학 학년도가 1년차, 이후 3월마다 +1. */
+export const yearsEnrolled = (start: Date, now: Date): number =>
+  Math.max(0, academicYear(now) - academicYear(start)) + 1;
 
 /** 학기 일련번호. 3~8월은 그 해 1학기, 9~12월과 이듬해 1~2월은 그 해 2학기. */
 const termIndex = (d: Date): number => {

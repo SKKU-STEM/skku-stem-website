@@ -264,3 +264,5 @@
 - [x] `gh auth refresh -s workflow` — 워크플로 파일 push에 `workflow` 스코프 필요(기존 토큰에 없어 1차 push 거부됨)
 - [x] (배포) `e92f241`(계산식) + `8c6c559`(워크플로) push 완료. CMS 커밋 34건 위로 rebase, 겹치는 파일 없음
 - [x] end-to-end 검증 — Actions 수동 실행(run 34330017963) 성공, 배포 훅 응답 `{"success":true,"status":"queued"}`
+- [x] 연차도 학사 기준으로 전환(2026-09-09 추가 요청) — `academicYear()` 신설, `yearsEnrolled(start, now)`를 학년도(3월~익년 2월) 차이로 계산. 페이지 로컬 함수 제거 후 유틸 import, 호출부 3곳 수정
+- [x] 연차/기수 합동 경계 검증 13건 통과. `check` 0/0/0 / `typecheck` / `build` 통과, dist `1·2·4·6년차` (9월엔 신·구 동일, 차이는 1~2월)
