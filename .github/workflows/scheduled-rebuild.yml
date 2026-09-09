@@ -1,0 +1,23 @@
+# 학기 경계(3월·9월)에 People 기수/연차가 자동으로 올라가도록 Cloudflare Pages를 주기 재배포한다.
+# 값 자체는 빌드 시점 기준으로 계산되므로, 재배포가 없으면 화면이 갱신되지 않는다.
+name: Scheduled rebuild
+
+on:
+  schedule:
+    # 매월 1일 00:00 UTC = 09:00 KST. 3월·9월만 걸면 한 번 밀렸을 때 6개월을 기다려야 한다.
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+jobs:
+  deploy-hook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloudflare Pages 배포 훅 호출
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "::error::CLOUDFLARE_PAGES_DEPLOY_HOOK 시크릿이 없습니다."
+            exit 1
+          fi
+          curl --fail --silent --show-error -X POST "$DEPLOY_HOOK_URL"

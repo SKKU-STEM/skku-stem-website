@@ -250,3 +250,15 @@
 - [x] `docs/visitor-counter-kv-setup.md` — 대시보드 KV 생성·바인딩 절차 문서화
 - [x] (사용자) Cloudflare KV 인스턴스 `skku-stem-visits` 생성 + Pages 프로젝트에 `VISITS` 바인딩 완료
 - [x] (배포) 619b813 push 완료(CMS 편집 22건 위로 rebase). 라이브 검증 — GET 2379(시드) / POST 2380(KV 쓰기) / GET 2380(영속) / DELETE 405 / HTML에 `/api/visits`
+
+## 15. People 기수 학기 자동 반영 (2026-09-09)
+
+- [x] 근본 원인 확인 — 기수는 `people/index.astro`의 `new Date()`로 **빌드 시점 고정**. 마지막 배포가 2026-08-26이라 9/1 학기 경계 이후 재빌드가 없었음(라이브 `1·3·6·7·11기`)
+- [x] 계산식 약점 규명 — 기존 `floor(입학 후 개월수/6)+1`은 **개인 입학월 기준** 6개월 주기. 현재 데이터는 전원 3월/9월 입학이라 우연히 일치하지만 CMS에 `2025-04` 같은 값이 들어오면 학기 경계와 어긋남
+- [x] `src/utils/academicTerm.ts` 신설 — `nowInKst()`(빌드 서버 UTC 보정) + `cohortTerm(start, now)`를 **절대 학기 경계**(3~8월=1학기, 9~익년 2월=2학기)로 계산
+- [x] `src/pages/people/index.astro` — 로컬 `cohortTerm` 제거, 유틸 import. `NOW = nowInKst()`. 호출부 3곳 `cohortTerm(m.startDate, NOW)`
+- [x] 경계 단위 검증 13건 전부 통과(8월↔9월 전환, 1~2월은 직전 2학기, 미래 입학 1기 하한, 학기 중간 입학)
+- [x] `.github/workflows/scheduled-rebuild.yml` 신설 — 매월 1일 00:00 UTC(=09:00 KST) + `workflow_dispatch`. `CLOUDFLARE_PAGES_DEPLOY_HOOK` 시크릿으로 Pages 배포 훅 POST, 시크릿 없으면 명시적 실패
+- [x] `npm run check` 0/0/0 / `npm run typecheck` / `npm run build` 통과. dist 기수 `1·2·4·7·8·12기`로 정정 확인
+- [ ] (사용자) Cloudflare Pages Deploy Hook 생성 + GitHub Secret `CLOUDFLARE_PAGES_DEPLOY_HOOK` 등록
+- [ ] (배포) 사용자 승인 후 push
