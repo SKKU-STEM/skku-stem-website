@@ -342,10 +342,7 @@ Publications에 이어 헤더 + Education/Experience/Honors/Contact 구현. 두 
   - **가독성**: 입자 alpha 매우 낮게(top 0.18, 세로 falloff 0.62로 bio 영역은 ~0.06), 반경 1.6. 텍스트는 `<div class="relative">`로 감싸 캔버스(z auto positioned, DOM 먼저) 위에 그려지게 함(둘 다 positioned면 후순위 DOM이 위).
   - IntersectionObserver(off-screen rAF 정지) + ResizeObserver(debounce 150ms로 backing store 재생성). reduced-motion 정적 1프레임·포인터 비활성. dpr 캡 2.
 - **검증**: check 0/0/0, build 통과(11 pages). CDP(headless Edge + `Input.dispatchMouseEvent`로 실제 마우스 이동)로 헤더 프로브 전/후 캡처 — off는 미세 입자, on은 프로브 링+국소 밝아짐 + 텍스트 가독성 OK 확인. 4글리프도 스크롤 캡처로 렌더 확인. 검증 스크립트(`scripts/_verify5.mjs`, `_hover-check.mjs`)는 일회성이라 삭제.
-- **라이브는 내 push 전에 이미 고쳐져 있었다.** 원격에 CMS 커밋 34건이 오늘 16:26~16:28에 올라와 있었고, 그 push가 건 재빌드가 9월 날짜로 기수를 다시 계산했다. 세션 시작 때 본 `1·3·6·7·11기`는 그 빌드가 끝나기 전 값이었다. 갤러리 사진 업로드가 우연히 증상을 지운 셈인데, 이게 오히려 진단을 증명한다 — 계산식은 원래도 9월 값을 낼 수 있었고 문제는 **경계를 넘는 동안 아무도 push하지 않는 것**뿐이었다. 현재 데이터는 전원 3/9월 입학이라 신·구 계산식 출력이 같아 화면만으로는 어느 쪽이 배포됐는지 구분 불가.
-- **워크플로 파일 push에는 `workflow` 스코프가 별도로 필요하다.** 1차 push가 `refusing to allow an OAuth App to create or update workflow ... without workflow scope`로 거부됐다. `repo` 스코프만으로는 `.github/workflows/` 아래를 못 건드린다. `gh auth refresh -h github.com -s workflow`(device flow, 브라우저 인증)로 해결. 계산식 커밋만 먼저 부분 push해 라이브를 먼저 확보하고 워크플로는 뒤따라 올렸다.
-- 검증: Actions 수동 실행(run 34330017963) 2초 성공, 배포 훅이 `{"result":{"build_uuid":"56b611d3-...","status":"queued"},"success":true}` 반환 — GitHub → Cloudflare 경로가 실제로 연결됨을 확인.
-- 배포 완료 — `e92f241`(계산식) / `8c6c559`(워크플로).
+- 미배포 — 사용자 승인 후 push.
 
 ## Home Research highlights 자동 게시 개편 (2026-07-14)
 
@@ -367,10 +364,7 @@ Publications에 이어 헤더 + Education/Experience/Honors/Contact 구현. 두 
 - **KV의 감수 지점.** read-modify-write라 동시 방문 시 쓰기 유실 가능. 무료 한도는 쓰기 1,000/일(세션당 1회라 여유). 정확한 트래픽 통계는 Cloudflare Web Analytics 몫이고 이건 장식용 카운터라는 전제.
 - **바인딩이 선행 조건.** 대시보드에서 KV 네임스페이스를 만들어 Pages 프로젝트에 변수명 `VISITS` 로(Production+Preview) 붙여야 동작한다. 안 붙이면 `503` + 콘솔 경고. 절차는 `docs/visitor-counter-kv-setup.md`.
 - 검증: 스텁 KV 단위 테스트 12건 PASS, `npm run check` 0/0/0, `npm run build` 통과, dist에 `counterapi` 0건 / `/api/visits` 11페이지. 테스트 스크립트는 일회성이라 scratchpad에만 두고 리포에 안 넣음.
-- **라이브는 내 push 전에 이미 고쳐져 있었다.** 원격에 CMS 커밋 34건이 오늘 16:26~16:28에 올라와 있었고, 그 push가 건 재빌드가 9월 날짜로 기수를 다시 계산했다. 세션 시작 때 본 `1·3·6·7·11기`는 그 빌드가 끝나기 전 값이었다. 갤러리 사진 업로드가 우연히 증상을 지운 셈인데, 이게 오히려 진단을 증명한다 — 계산식은 원래도 9월 값을 낼 수 있었고 문제는 **경계를 넘는 동안 아무도 push하지 않는 것**뿐이었다. 현재 데이터는 전원 3/9월 입학이라 신·구 계산식 출력이 같아 화면만으로는 어느 쪽이 배포됐는지 구분 불가.
-- **워크플로 파일 push에는 `workflow` 스코프가 별도로 필요하다.** 1차 push가 `refusing to allow an OAuth App to create or update workflow ... without workflow scope`로 거부됐다. `repo` 스코프만으로는 `.github/workflows/` 아래를 못 건드린다. `gh auth refresh -h github.com -s workflow`(device flow, 브라우저 인증)로 해결. 계산식 커밋만 먼저 부분 push해 라이브를 먼저 확보하고 워크플로는 뒤따라 올렸다.
-- 검증: Actions 수동 실행(run 34330017963) 2초 성공, 배포 훅이 `{"result":{"build_uuid":"56b611d3-...","status":"queued"},"success":true}` 반환 — GitHub → Cloudflare 경로가 실제로 연결됨을 확인.
-- 배포 완료 — `e92f241`(계산식) / `8c6c559`(워크플로).
+- 미배포 — 사용자 승인 후 push.
 - **배포 완료(2026-08-26).** `619b813` — 원격 CMS 편집 22건(News 15 신규·Member 6·Publications) 위로 rebase 후 push. 겹치는 파일 없어 충돌 없음. 라이브 검증: `GET /api/visits` → 2379(시드, 키 미생성 상태에서 쓰기 없음), `POST` → 2380(KV 쓰기 성공), 재 `GET` → 2380(영속), `DELETE` → 405, 라이브 HTML에 `counterapi` 0건 / `/api/visits` 참조. **검증용 POST 1회가 실제 카운트에 포함되어 현재 2380에서 출발한다.**
 
 ## People 기수 학기 자동 반영 (2026-09-09)
