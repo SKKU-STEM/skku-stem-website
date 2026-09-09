@@ -260,5 +260,7 @@
 - [x] 경계 단위 검증 13건 전부 통과(8월↔9월 전환, 1~2월은 직전 2학기, 미래 입학 1기 하한, 학기 중간 입학)
 - [x] `.github/workflows/scheduled-rebuild.yml` 신설 — 매월 1일 00:00 UTC(=09:00 KST) + `workflow_dispatch`. `CLOUDFLARE_PAGES_DEPLOY_HOOK` 시크릿으로 Pages 배포 훅 POST, 시크릿 없으면 명시적 실패
 - [x] `npm run check` 0/0/0 / `npm run typecheck` / `npm run build` 통과. dist 기수 `1·2·4·7·8·12기`로 정정 확인
-- [ ] (사용자) Cloudflare Pages Deploy Hook 생성 + GitHub Secret `CLOUDFLARE_PAGES_DEPLOY_HOOK` 등록
-- [ ] (배포) 사용자 승인 후 push
+- [x] (사용자) Cloudflare Pages Deploy Hook 생성 + GitHub Secret `CLOUDFLARE_PAGES_DEPLOY_HOOK` 등록 완료
+- [x] `gh auth refresh -s workflow` — 워크플로 파일 push에 `workflow` 스코프 필요(기존 토큰에 없어 1차 push 거부됨)
+- [x] (배포) `e92f241`(계산식) + `8c6c559`(워크플로) push 완료. CMS 커밋 34건 위로 rebase, 겹치는 파일 없음
+- [x] end-to-end 검증 — Actions 수동 실행(run 34330017963) 성공, 배포 훅 응답 `{"success":true,"status":"queued"}`
