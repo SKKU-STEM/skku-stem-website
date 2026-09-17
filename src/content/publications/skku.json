@@ -20,10 +20,10 @@
       "year": 2026,
       "lead": true,
       "authors": "Hojin Lee†, Joonbong Lee†, Jinho Byun†, Sang-Hyeok Yang†, Ayoung Cho, Sangwoo Lee, Dae Haa Ryu, Hyunbin Chung, Hee Seo Yun, Moon Seop Choi, Yesul Choi, Sungkyun Park, Min-Hyung Jung, Dongwon Lee, Yoon-Uk Heo, Hu Young Jeong, Hongseok Kim,  Shinhyeong Lee, Yunseok Kim, Young-Min Kim*, Jaekwang Lee*, Taekjib Choi*",
-      "title": "Interface-engineered hybrid ferroelectric tunnel junctions exhibiting intrinsic nonlinearity and self-rectification via interfacial reconstruction",
+      "title": "Hybrid ferroelectric tunnel junctions with intrinsic nonlinearity and self-rectification via interfacial reconstruction",
       "journal": "Advanced Functional Materials",
-      "volumePages": "accepted",
-      "doi": "",
+      "volumePages": "e78527",
+      "doi": "https://doi.org/10.1002/adfm.78527",
       "themes": [
         "2d-materials-vdw",
         "thin-film-growth"
