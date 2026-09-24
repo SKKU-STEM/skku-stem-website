@@ -29,6 +29,12 @@
   ],
   "experience": [
     {
+      "start": "2026-01",
+      "years": "Jan. 2026 - present",
+      "title": "Department Head",
+      "institution": "Department of Energy Science, Sungkyunkwan University, Korea"
+    },
+    {
       "start": "2025-03",
       "years": "Mar. 2025 – present",
       "title": "Professor",
@@ -111,36 +117,44 @@
     {
       "year": "2009",
       "title": "President’s award for research excellence in KBSI",
-      "cert": "2009-106"
+      "cert": "2009-106",
+      "url": ""
     },
     {
       "year": "2008",
       "title": "President’s award for research excellence in KBSI",
-      "cert": "2008-187"
+      "cert": "2008-187",
+      "url": ""
     },
     {
       "year": "2007",
       "title": "President’s award for research excellence in KBSI",
-      "cert": "2007-9"
+      "cert": "2007-9",
+      "url": ""
     },
     {
       "year": "2006",
-      "title": "President’s award for the best staff of the year in KBSI"
+      "title": "President’s award for the best staff of the year in KBSI",
+      "cert": "",
+      "url": ""
     },
     {
       "year": "2006",
       "title": "President’s award for research excellence in KBSI",
-      "cert": "2006-33"
+      "cert": "2006-33",
+      "url": ""
     },
     {
       "year": "2004",
       "title": "President’s award by KRCF (Korea Research Council of Fundamental Science & Technology)",
-      "cert": "04-02-01"
+      "cert": "04-02-01",
+      "url": ""
     },
     {
       "year": "2004",
       "title": "Minister’s award by the Ministry of Science and Technology",
-      "cert": "9599"
+      "cert": "9599",
+      "url": ""
     }
   ],
   "contact": {
