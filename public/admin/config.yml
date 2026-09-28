@@ -50,7 +50,7 @@ collections:
                 choose_url: false
                 hint: 'src/assets/hero/에 업로드되며 경로는 /hero/<filename>으로 저장된다. 4:3 비율, 1600×1200px 이상 권장 (첫 장이 LCP 이미지).'
               - { name: alt, label: Alt text (스크린리더/SEO), widget: string }
-              - { name: caption, label: Caption (사진 아래 작은 설명, 선택), widget: string, required: false }
+              - { name: caption, label: 'Caption (사진 아래 작은 설명, 선택)', widget: string, required: false }
 
       - file: src/content/home/recruiting.json
         name: recruiting
@@ -163,7 +163,7 @@ collections:
                 widget: select
                 options: [non-sci, patent, book]
               - { name: title, label: Title (KR or EN), widget: subsup, hint: '화학식 숫자 첨자(VO2, MoS2 등)는 사이트에서 자동 변환된다. 자동으로 안 되는 부분만 글자를 선택하고 X₂/X² 버튼(Ctrl+= / Ctrl+Shift+=)을 누른다. 입력창 밑 사이트 표시 칸이 실제 사이트와 똑같이 보여준다.' }
-              - { name: titleEn, label: Title (EN, optional duplicate), widget: subsup, required: false, hint: '화학식 숫자 첨자(VO2, MoS2 등)는 사이트에서 자동 변환된다. 자동으로 안 되는 부분만 글자를 선택하고 X₂/X² 버튼(Ctrl+= / Ctrl+Shift+=)을 누른다. 입력창 밑 사이트 표시 칸이 실제 사이트와 똑같이 보여준다.' }
+              - { name: titleEn, label: 'Title (EN, optional duplicate)', widget: subsup, required: false, hint: '화학식 숫자 첨자(VO2, MoS2 등)는 사이트에서 자동 변환된다. 자동으로 안 되는 부분만 글자를 선택하고 X₂/X² 버튼(Ctrl+= / Ctrl+Shift+=)을 누른다. 입력창 밑 사이트 표시 칸이 실제 사이트와 똑같이 보여준다.' }
               - { name: link, label: Link URL, widget: string, required: false }
               # patent 전용
               - name: region
@@ -287,7 +287,7 @@ collections:
               - { name: email, label: Email, widget: string }
               - { name: phone, label: Phone (선택), widget: string, required: false }
               - { name: orcid, label: 'ORCID (숫자만 — 예: 0000-0003-3220-9004)', widget: string, required: false }
-              - { name: office, label: Office 주소 (선택, 줄바꿈 가능), widget: text, required: false }
+              - { name: office, label: 'Office 주소 (선택, 줄바꿈 가능)', widget: text, required: false }
 
   # ===== News (folder, .md frontmatter-only) =====
   - name: news
@@ -308,14 +308,14 @@ collections:
         field: date
         direction: descending
     fields:
-      - { name: slug, label: Slug (파일명, kebab-case 권장), widget: string }
+      - { name: slug, label: 'Slug (파일명, kebab-case 권장)', widget: string }
       - name: date
         label: Date (달력 선택 — 최신순 자동 정렬에 사용)
         widget: datetime
         date_format: 'YYYY-MM-DD'
         time_format: false
         picker_utc: true
-      - { name: dateLabel, label: Date label (표시용, 선택), widget: string, required: false, hint: '비우면 위 날짜를 "February 10, 2026"처럼 표시. 기간/월만 표기가 필요할 때만 입력 — 예: "June 4–16, 2025", "February 2025".' }
+      - { name: dateLabel, label: 'Date label (표시용, 선택)', widget: string, required: false, hint: '비우면 위 날짜를 "February 10, 2026"처럼 표시. 기간/월만 표기가 필요할 때만 입력 — 예: "June 4–16, 2025", "February 2025".' }
       - name: category
         label: Category
         widget: select
@@ -420,7 +420,7 @@ collections:
     identifier_field: title
     summary: '[#{{order}}] {{title}}'
     fields:
-      - { name: order, label: Order (1..N, 위에서 아래 순), widget: number, value_type: int }
+      - { name: order, label: 'Order (1..N, 위에서 아래 순)', widget: number, value_type: int }
       - { name: slug, label: Slug (URL/파일명용 영문 ID), widget: string }
       - { name: title, label: Title, widget: string }
       - { name: subtitle, label: Subtitle (한 줄 부제), widget: string }
@@ -539,9 +539,9 @@ collections:
         date_format: 'YYYY-MM-DD'
         time_format: false
         picker_utc: true
-      - { name: dateLabel, label: Date label (표시용, 선택), widget: string, required: false, hint: '비우면 위 날짜를 "February 10, 2026"처럼 표시. 연도/월만 표기나 기간이 필요할 때만 입력 — 예: "2022", "Aug. 2022", "Nov. 3–5, 2021".' }
+      - { name: dateLabel, label: 'Date label (표시용, 선택)', widget: string, required: false, hint: '비우면 위 날짜를 "February 10, 2026"처럼 표시. 연도/월만 표기나 기간이 필요할 때만 입력 — 예: "2022", "Aug. 2022", "Nov. 3–5, 2021".' }
       - { name: title, label: Title, widget: string }
-      - { name: titleEn, label: Title (EN, optional), widget: string, required: false }
+      - { name: titleEn, label: 'Title (EN, optional)', widget: string, required: false }
       - { name: location, label: Location, widget: string, required: false }
       - { name: participants, label: Participants, widget: string, required: false }
       - { name: awards, label: Awards, widget: string, required: false }
