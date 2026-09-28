@@ -274,6 +274,8 @@
 - [x] 전 제목 old/new diff 전수 검토 + 단위 케이스 검증 — 단위 44건 PASS, 356개 입력 중 27건 변경 전부 의도대로(오탐 0)
 - [x] 자동 규칙으로 못 푸는 3건 데이터 수기 태그(#133 Bi2-XSbXTe3, (LaFeO3)n, #62 L10-FePt)
 - [x] JUMP 바 sticky(헤더 아래) + 연도 제목 오프셋/anchor scroll-margin 조정, 모바일 한 줄 가로 스크롤 — 1440/390px에서 위·아래 점프 6회 모두 연도 시작(136px) 착지
-- [ ] CMS 첨자 도구 — `public/admin/index.html` → `src/pages/admin/index.astro`, `registerFieldType`로 Title 필드에 첨자 버튼·단축키·실시간 미리보기(사이트와 동일 formatChemistry)
-- [ ] config.yml 논문 4개 컬렉션 Title 필드 위젯 교체, sitemap/pagefind에서 admin 제외
-- [ ] `npm run check` / `npm run build` 통과, 브라우저로 데스크톱·모바일 sticky 확인, test-repo 백엔드로 CMS 도구 확인
+- [x] CMS 첨자 도구 — `public/admin/index.html` → `src/pages/admin/index.astro`, `registerFieldType`로 Title 필드에 첨자 버튼·단축키·실시간 미리보기(사이트와 동일 formatChemistry). 편집 로직(`src/admin/subsupField.ts` toggleTag/clearTags) 단위 8건 PASS
+- [x] config.yml 논문 3개 컬렉션 4개 필드(SKKU·Pre-SKKU title, Non-SCI title·titleEn) `widget: subsup` 교체(PI Selected는 번호만 있어 제목 필드 없음), sitemap filter + `data-pagefind-ignore`로 admin 제외
+- [x] `npm run check` 0/0/0 / `typecheck` / `build` 통과(pagefind 11페이지 그대로, sitemap에 admin 없음). 브라우저로 데스크톱·모바일 sticky 확인, test-repo 백엔드로 dev·preview 양쪽에서 CMS 도구 확인(4필드 렌더·버튼·단축키·토글·지우기·라이트/다크)
+- [ ] (사용자) 배포 후 실제 GitHub 로그인 상태에서 기존 논문 제목 편집 확인
+- [ ] (배포) 사용자 승인 후 push

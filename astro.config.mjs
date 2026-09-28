@@ -26,7 +26,8 @@ const ogGeneration = () => ({
 
 export default defineConfig({
   site: 'https://skkustem.org',
-  integrations: [mdx(), sitemap(), ogGeneration()],
+  // /admin/(Sveltia CMS)은 공개 페이지가 아니므로 sitemap에서 제외
+  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/admin/') }), ogGeneration()],
   vite: {
     plugins: [
       tailwindcss(),

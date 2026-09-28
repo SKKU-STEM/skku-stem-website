@@ -1,0 +1,89 @@
+---
+// Sveltia CMS 관리자 셸 — /admin 진입 시 ./config.yml(public/admin)을 읽어 컬렉션 폼을 노출하고,
+// 논문 제목용 첨자 편집 필드(subsup)를 등록한다. 첨자 미리보기가 사이트와 같은 formatChemistry를
+// 쓰도록 public/ 정적 HTML 대신 Astro 페이지로 번들한다.
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Content Manager · SKKU-STEM</title>
+  </head>
+  <body data-pagefind-ignore="all">
+    <script>
+      import { registerSubSupField, type SveltiaGlobals } from '@/admin/subsupField';
+
+      const w = window as typeof window &
+        SveltiaGlobals & { CMS_MANUAL_INIT?: boolean; CMS: { init(): Promise<void> } };
+
+      // 커스텀 필드를 등록한 뒤 초기화해야 config.yml의 widget: subsup이 인식되므로 수동 초기화.
+      // Sveltia CMS는 외부 CDN에서 로드 — 이슈 시 버전 고정 (예: @sveltia/cms@0.222.1).
+      // URL을 상수로 두면 TS·Vite 모두 번들 대상이 아닌 런타임 import로 취급한다.
+      const SVELTIA_CMS_URL = 'https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js';
+      w.CMS_MANUAL_INIT = true;
+      import(/* @vite-ignore */ SVELTIA_CMS_URL).then(() => {
+        registerSubSupField(w);
+        w.CMS.init();
+      });
+    </script>
+
+    <style is:global>
+      /* subsup 필드 — Sveltia 테마 변수(--sui-*)를 따라 기본 입력창과 같은 모양(라이트/다크 모두).
+         변수가 없을 때를 위한 fallback은 currentColor 기반 */
+      .subsup-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .subsup-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .subsup-button {
+        font: inherit;
+        font-size: 13px;
+        padding: 4px 10px;
+        border: 1px solid var(--sui-control-border-color, color-mix(in srgb, currentColor 30%, transparent));
+        border-radius: 6px;
+        background: var(--sui-button-background-color, transparent);
+        color: inherit;
+        cursor: pointer;
+      }
+      .subsup-button:hover {
+        background: color-mix(in srgb, currentColor 10%, transparent);
+      }
+      .subsup-input {
+        box-sizing: border-box;
+        width: 100%;
+        font-family: var(--sui-textbox-font-family, inherit);
+        font-size: var(--sui-textbox-font-size, inherit);
+        line-height: 1.5;
+        padding: 8px 10px;
+        border: var(--sui-textbox-border-width, 1px) solid
+          var(--sui-textbox-border-color, color-mix(in srgb, currentColor 30%, transparent));
+        border-radius: var(--sui-textbox-border-radius, 6px);
+        background: var(--sui-textbox-background-color, transparent);
+        color: var(--sui-textbox-foreground-color, inherit);
+        resize: vertical;
+      }
+      .subsup-preview {
+        padding: 8px 10px;
+        border-radius: 6px;
+        background: color-mix(in srgb, currentColor 6%, transparent);
+        font-family: Georgia, 'Times New Roman', serif;
+        line-height: 1.5;
+      }
+      .subsup-preview-label {
+        display: block;
+        margin-bottom: 2px;
+        font: 11px/1.4 system-ui, sans-serif;
+        letter-spacing: 0.08em;
+        opacity: 0.6;
+      }
+    </style>
+  </body>
+</html>

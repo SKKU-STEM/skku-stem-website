@@ -96,7 +96,7 @@ collections:
               - { name: year, label: Year, widget: number, value_type: int }
               - { name: lead, label: Lead author group?, widget: boolean, default: false }
               - { name: authors, label: Authors, widget: text }
-              - { name: title, label: Title, widget: text }
+              - { name: title, label: Title, widget: subsup, hint: '화학식 숫자 첨자(VO2, MoS2 등)는 사이트에서 자동 변환된다. 자동으로 안 되는 부분만 글자를 선택하고 X₂/X² 버튼(Ctrl+= / Ctrl+Shift+=)을 누른다. 입력창 밑 사이트 표시 칸이 실제 사이트와 똑같이 보여준다.' }
               - { name: journal, label: Journal, widget: string }
               - { name: volumePages, label: Volume / pages, widget: string, required: false }
               - { name: doi, label: DOI URL, widget: string, required: false, hint: 'https://doi.org/...' }
@@ -134,7 +134,7 @@ collections:
               - { name: year, label: Year, widget: number, value_type: int }
               - { name: lead, label: Lead author group?, widget: boolean, default: false }
               - { name: authors, label: Authors, widget: text }
-              - { name: title, label: Title, widget: text }
+              - { name: title, label: Title, widget: subsup, hint: '화학식 숫자 첨자(VO2, MoS2 등)는 사이트에서 자동 변환된다. 자동으로 안 되는 부분만 글자를 선택하고 X₂/X² 버튼(Ctrl+= / Ctrl+Shift+=)을 누른다. 입력창 밑 사이트 표시 칸이 실제 사이트와 똑같이 보여준다.' }
               - { name: journal, label: Journal, widget: string }
               - { name: volumePages, label: Volume / pages, widget: string, required: false }
               - { name: doi, label: DOI URL, widget: string, required: false }
@@ -162,8 +162,8 @@ collections:
                 label: Kind
                 widget: select
                 options: [non-sci, patent, book]
-              - { name: title, label: Title (KR or EN), widget: text }
-              - { name: titleEn, label: Title (EN, optional duplicate), widget: text, required: false }
+              - { name: title, label: Title (KR or EN), widget: subsup, hint: '화학식 숫자 첨자(VO2, MoS2 등)는 사이트에서 자동 변환된다. 자동으로 안 되는 부분만 글자를 선택하고 X₂/X² 버튼(Ctrl+= / Ctrl+Shift+=)을 누른다. 입력창 밑 사이트 표시 칸이 실제 사이트와 똑같이 보여준다.' }
+              - { name: titleEn, label: Title (EN, optional duplicate), widget: subsup, required: false, hint: '화학식 숫자 첨자(VO2, MoS2 등)는 사이트에서 자동 변환된다. 자동으로 안 되는 부분만 글자를 선택하고 X₂/X² 버튼(Ctrl+= / Ctrl+Shift+=)을 누른다. 입력창 밑 사이트 표시 칸이 실제 사이트와 똑같이 보여준다.' }
               - { name: link, label: Link URL, widget: string, required: false }
               # patent 전용
               - name: region
