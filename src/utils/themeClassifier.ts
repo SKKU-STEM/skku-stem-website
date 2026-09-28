@@ -6,6 +6,7 @@
 // 사용 위치: src/pages/research.astro — 6개 테마 모달의 paper list 자동 산출.
 
 import type { CollectionEntry } from 'astro:content';
+import { stripTitleMarkup } from './chemistry';
 
 type SkkuPaper = CollectionEntry<'publications-skku'>['data'];
 
@@ -84,7 +85,7 @@ const paperOverrides: Record<number, ThemeSlug[]> = {
 export function classifyPaper(paper: SkkuPaper): string[] {
   if (paper.themes && paper.themes.length) return paper.themes;
   if (paperOverrides[paper.number]) return paperOverrides[paper.number];
-  const text = `${paper.title} ${paper.journal}`;
+  const text = `${stripTitleMarkup(paper.title)} ${paper.journal}`;
   return THEME_SLUGS.filter((slug) => themeKeywords[slug].test(text));
 }
 
