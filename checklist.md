@@ -277,7 +277,7 @@
 - [x] CMS 첨자 도구 — `public/admin/index.html` → `src/pages/admin/index.astro`, `registerFieldType`로 Title 필드에 첨자 버튼·단축키·실시간 미리보기(사이트와 동일 formatChemistry). 편집 로직(`src/admin/subsupField.ts` toggleTag/clearTags) 단위 8건 PASS
 - [x] config.yml 논문 3개 컬렉션 4개 필드(SKKU·Pre-SKKU title, Non-SCI title·titleEn) `widget: subsup` 교체(PI Selected는 번호만 있어 제목 필드 없음), sitemap filter + `data-pagefind-ignore`로 admin 제외
 - [x] `npm run check` 0/0/0 / `typecheck` / `build` 통과(pagefind 11페이지 그대로, sitemap에 admin 없음). 브라우저로 데스크톱·모바일 sticky 확인, test-repo 백엔드로 dev·preview 양쪽에서 CMS 도구 확인(4필드 렌더·버튼·단축키·토글·지우기·라이트/다크)
-- [ ] (사용자) 배포 후 실제 GitHub 로그인 상태에서 기존 논문 제목 편집 확인
+- [x] (사용자) 배포 후 실제 GitHub 로그인 상태에서 기존 논문 제목 편집 확인 — 2026-09-29 사용자 확인 완료
 - [x] (배포) `d7181a7..47689d2` 5커밋 push, 라이브 확인(첨자 6종·jump-bar·admin subsup 필드·config 4필드·sitemap admin 0건)
 - [x] config.yml 라벨 쉼표 잘림 8곳 따옴표 처리(`4f40f9e`) — js-yaml null 키 0건, CMS 경고 9→2, 폼 라벨 전체 표시 확인
 - [x] (배포) `4f40f9e` 라벨 수정 + checklist 커밋 push, 라이브 config null 키 0건·subsup 4필드 확인
