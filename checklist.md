@@ -273,7 +273,7 @@
 - [x] 명시 첨자 `<sub>`/`<sup>` 태그 화이트리스트 렌더링(그 외 HTML은 escape, 짝 안 맞는 태그 보정) + `stripTitleMarkup` 추가, themeClassifier에 적용
 - [x] 전 제목 old/new diff 전수 검토 + 단위 케이스 검증 — 단위 44건 PASS, 356개 입력 중 27건 변경 전부 의도대로(오탐 0)
 - [x] 자동 규칙으로 못 푸는 3건 데이터 수기 태그(#133 Bi2-XSbXTe3, (LaFeO3)n, #62 L10-FePt)
-- [ ] JUMP 바 sticky(헤더 아래) + 연도 제목 오프셋/anchor scroll-margin 조정, 모바일 한 줄 가로 스크롤
+- [x] JUMP 바 sticky(헤더 아래) + 연도 제목 오프셋/anchor scroll-margin 조정, 모바일 한 줄 가로 스크롤 — 1440/390px에서 위·아래 점프 6회 모두 연도 시작(136px) 착지
 - [ ] CMS 첨자 도구 — `public/admin/index.html` → `src/pages/admin/index.astro`, `registerFieldType`로 Title 필드에 첨자 버튼·단축키·실시간 미리보기(사이트와 동일 formatChemistry)
 - [ ] config.yml 논문 4개 컬렉션 Title 필드 위젯 교체, sitemap/pagefind에서 admin 제외
 - [ ] `npm run check` / `npm run build` 통과, 브라우저로 데스크톱·모바일 sticky 확인, test-repo 백엔드로 CMS 도구 확인

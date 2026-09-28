@@ -395,3 +395,9 @@ Publications에 이어 헤더 + Education/Experience/Honors/Contact 구현. 두 
 - **태그 정규화.** 속성 없는 `<sub>`/`<sup>`만 인정(대소문자 무관, 출력은 소문자). 짝 없는 닫는 태그는 버리고, 안 닫힌 태그는 끝에서 닫는다 — 제목 나머지가 통째로 첨자로 번지는 사고 방지. `<sub onclick=…>` 같은 건 escape.
 - **자동으로 못 푸는 3건은 데이터에 태그로.** #133 `Bi<sub>2-X</sub>Sb<sub>X</sub>Te3`(대문자 X 변수), (LaFeO3)`<sub>n</sub>`(n 변수), #62 `L1<sub>0</sub>`(Strukturbericht 표기 — 새 규칙만 적용하면 L<sub>10</sub>로 틀림). themeClassifier는 `stripTitleMarkup`으로 태그를 뗀 제목에 키워드 매칭.
 - 검증: 단위 44건 PASS. formatChemistry를 거치는 356개 문자열(논문 제목 4컬렉션 + research-themes/highlights) old/new 전수 diff에서 27건 변경, 전부 의도한 수정(오탐 0).
+- **JUMP 바와 목록을 한 section으로 합쳤다.** sticky는 부모 영역 안에서만 붙어 있으므로, JUMP 바가 혼자 든 section에 있으면 그 section이 화면을 벗어나는 순간 같이 사라진다. 합친 뒤 목록 위 여백은 기존 section-stack 간격(`--space-section`/`-md`)을 margin으로 재현.
+- **위치 수치.** 헤더 64px → JUMP 바 `top-16`(높이 약 53px, 하단 117px) → 연도 제목 `md:top-[8.5rem]`(136px, 바와 19px 간격 = 기존 헤더-제목 간격 16px과 비슷).
+- **anchor 착지 = 전역 scroll-padding + scroll-mt.** `html`에 이미 `scroll-padding-top: 5rem`(헤더)이 있어서 `scroll-mt`는 JUMP 바 몫(`scroll-mt-14`)만 더한다. 처음에 `scroll-mt-[8.5rem]`을 넣었더니 둘이 합쳐져 모바일에서 216px에 착지했다. 참고로 다른 페이지들의 `scroll-mt-20`도 같은 이유로 헤더 몫이 이중으로 들어가 있다(160px 착지, 이번 범위 밖이라 그대로 둠).
+- **anchor id를 sticky h2에서 연도 래퍼 div로 옮겼다.** 데스크톱에서 **위로** 점프(2017→2024)하면 h2는 136px에 보이는데 실제로는 2024 구간 1633px 안쪽(구간 끝)에 착지했다. 브라우저가 sticky 요소의 *현재* 위치(부모 끝에 밀려 붙은 자리)로 스크롤하기 때문. 기존엔 JUMP 바가 페이지 맨 위에서만 눌려 항상 아래로만 점프했으므로 드러나지 않던 문제. 다른 페이지(News·Gallery·Research·Before-SKKU·Non-SCI)도 같은 구조지만 JUMP 바가 sticky가 아니라 영향 없음.
+- **JUMP 바 배경은 불투명 `bg-cream`.** 헤더처럼 `/95 + backdrop-blur`로 하면 바 안팎 픽셀이 1/255 달라 좌우 끝에 미세한 경계가 생겼다. 바 옆으로 비칠 콘텐츠가 없어서 반투명의 이득이 없다.
+- **모바일은 한 줄 가로 스크롤(스크롤바 숨김).** 390px에서 연도 11개가 두세 줄로 접히면 sticky 바가 화면을 과하게 가린다. 페이지 가로 오버플로 없음(scrollWidth 375 = 뷰포트) 확인.
