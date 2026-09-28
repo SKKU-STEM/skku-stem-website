@@ -280,5 +280,5 @@
 - [ ] (사용자) 배포 후 실제 GitHub 로그인 상태에서 기존 논문 제목 편집 확인
 - [x] (배포) `d7181a7..47689d2` 5커밋 push, 라이브 확인(첨자 6종·jump-bar·admin subsup 필드·config 4필드·sitemap admin 0건)
 - [x] config.yml 라벨 쉼표 잘림 8곳 따옴표 처리(`4f40f9e`) — js-yaml null 키 0건, CMS 경고 9→2, 폼 라벨 전체 표시 확인
-- [ ] (배포) `4f40f9e` 라벨 수정 커밋 push — 사용자 승인 대기
-- [ ] (선택) research-themes `relatedHighlights`의 무효 옵션 `add_to_top`/`collapsed` 제거 시 남은 CMS 경고 2건 해소
+- [x] (배포) `4f40f9e` 라벨 수정 + checklist 커밋 push, 라이브 config null 키 0건·subsup 4필드 확인
+- [x] research-themes `relatedHighlights`의 무효 옵션 `add_to_top`/`collapsed` 제거 — 로컬 CMS 경고 0건
