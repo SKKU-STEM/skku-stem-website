@@ -266,3 +266,14 @@
 - [x] end-to-end 검증 — Actions 수동 실행(run 34330017963) 성공, 배포 훅 응답 `{"success":true,"status":"queued"}`
 - [x] 연차도 학사 기준으로 전환(2026-09-09 추가 요청) — `academicYear()` 신설, `yearsEnrolled(start, now)`를 학년도(3월~익년 2월) 차이로 계산. 페이지 로컬 함수 제거 후 유틸 import, 호출부 3곳 수정
 - [x] 연차/기수 합동 경계 검증 13건 통과. `check` 0/0/0 / `typecheck` / `build` 통과, dist `1·2·4·6년차` (9월엔 신·구 동일, 차이는 1~2월)
+
+## 16. Publications 첨자 수정 + CMS 첨자 도구 + JUMP 고정 (2026-09-29)
+
+- [x] 자동 첨자 규칙 수정(`chemistry.ts`) — 선행 대문자 1개 허용(VO2·WS2), 뒤 `-단어`/en dash/`(` 허용(B3N3-doped), 약어는 대문자 2연속·숫자 4자리 이상으로 차단
+- [x] 명시 첨자 `<sub>`/`<sup>` 태그 화이트리스트 렌더링(그 외 HTML은 escape, 짝 안 맞는 태그 보정) + `stripTitleMarkup` 추가, themeClassifier에 적용
+- [x] 전 제목 old/new diff 전수 검토 + 단위 케이스 검증 — 단위 44건 PASS, 356개 입력 중 27건 변경 전부 의도대로(오탐 0)
+- [x] 자동 규칙으로 못 푸는 3건 데이터 수기 태그(#133 Bi2-XSbXTe3, (LaFeO3)n, #62 L10-FePt)
+- [ ] JUMP 바 sticky(헤더 아래) + 연도 제목 오프셋/anchor scroll-margin 조정, 모바일 한 줄 가로 스크롤
+- [ ] CMS 첨자 도구 — `public/admin/index.html` → `src/pages/admin/index.astro`, `registerFieldType`로 Title 필드에 첨자 버튼·단축키·실시간 미리보기(사이트와 동일 formatChemistry)
+- [ ] config.yml 논문 4개 컬렉션 Title 필드 위젯 교체, sitemap/pagefind에서 admin 제외
+- [ ] `npm run check` / `npm run build` 통과, 브라우저로 데스크톱·모바일 sticky 확인, test-repo 백엔드로 CMS 도구 확인
