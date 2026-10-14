@@ -2,7 +2,7 @@
 section: phd
 startDate: 2025-03
 nameKo: 김태준
-nameEn: Tae-Joon Kim
+nameEn: Tae Joon Kim
 position: ''
 program: Integrated course
 industry: false
