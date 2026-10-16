@@ -685,6 +685,9 @@ const graphicAfter = Object.fromEntries(
       media.play().catch((e: DOMException) => {
         if (e.name === 'AbortError') return; // 재생 직후 닫거나 위치를 옮긴 경우 — 오류 아님
         setPlayingUi(false);
+        // 자동재생 차단(NotAllowedError)은 버튼으로 다시 누르면 되지만, 파일 오류는 알린다.
+        // WebKit은 preload="none"이어도 미리 불러와 error 이벤트가 모달을 열기 전에 지나가므로 여기서도 확인한다.
+        if (e.name !== 'NotAllowedError' || media.error) showError();
       });
     };
 
