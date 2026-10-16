@@ -177,6 +177,7 @@ const graphicAfter = Object.fromEntries(
 
   .nd-shell {
     position: relative;
+    word-break: keep-all; /* 한국어를 어절 단위로 줄바꿈 */
     height: 100%;
     display: grid;
     grid-template-columns: 17.5rem 1fr;
@@ -195,7 +196,8 @@ const graphicAfter = Object.fromEntries(
     justify-content: center;
     border-radius: var(--radius-md);
     color: color-mix(in oklab, var(--color-ink) 80%, transparent);
-    background: color-mix(in oklab, var(--color-cream) 85%, transparent);
+    background: var(--color-cream);
+    box-shadow: 0 0 0 1px var(--color-cream-300);
   }
   .nd-close:hover {
     color: var(--color-coral-700);
@@ -345,10 +347,8 @@ const graphicAfter = Object.fromEntries(
     outline-offset: -2px;
   }
   .nd-hint {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 600;
     color: color-mix(in oklab, var(--color-ink) 72%, transparent);
   }
   .nd-para {
@@ -603,16 +603,25 @@ const graphicAfter = Object.fromEntries(
       playLabel.textContent = playing ? '일시정지' : '재생';
     };
 
-    // 활성 문단(과 방금 나타난 그 문단의 그래픽)이 보이도록 스크롤러만 움직인다 — scrollIntoView는 바깥까지 끌어서 금지.
-    const autoScroll = (para: HTMLElement) => {
+    // 초점(문단 첫머리 → 문단 45% 지점부터는 그 문단의 그래픽)이 보이도록 스크롤러만 움직인다.
+    // scrollIntoView는 바깥 스크롤 조상까지 끌어서 쓰지 않는다.
+    const GRAPHIC_FOCUS_AT = 0.45;
+    let focusKey = '';
+    const autoScroll = (el: HTMLElement, isGraphic: boolean) => {
       if (Date.now() < userScrollUntil) return;
       const view = scroller.clientHeight;
-      let top = para.offsetTop - view / 4;
-      const next = para.nextElementSibling as HTMLElement | null;
-      if (next?.dataset.graphic && !next.classList.contains('is-hidden')) {
-        top = Math.min(Math.max(top, next.offsetTop + next.offsetHeight - view + 16), para.offsetTop - 8);
-      }
+      const top = isGraphic ? el.offsetTop - 16 : el.offsetTop - view / 5;
       scroller.scrollTo({ top: Math.max(0, top), behavior: reduced.matches ? 'auto' : 'smooth' });
+    };
+    const focusFor = (t: number, p: number) => {
+      const para = paras[p];
+      const graphic = para?.nextElementSibling as HTMLElement | null;
+      if (!graphic?.dataset.graphic || graphic.classList.contains('is-hidden')) return { key: `p${p}`, el: para, isGraphic: false };
+      const start = PARAGRAPHS[p].start;
+      const end = PARAGRAPHS[p + 1]?.start ?? duration;
+      return t >= start + (end - start) * GRAPHIC_FOCUS_AT
+        ? { key: `g${p}`, el: graphic, isGraphic: true }
+        : { key: `p${p}`, el: para, isGraphic: false };
     };
 
     const showGraphic = (el: HTMLElement) => {
@@ -629,7 +638,11 @@ const graphicAfter = Object.fromEntries(
       if (p !== curPara) {
         paras.forEach((el, i) => (i === p ? el.setAttribute('aria-current', 'true') : el.removeAttribute('aria-current')));
         curPara = p;
-        if (paras[p]) autoScroll(paras[p]);
+      }
+      const focus = focusFor(t, p);
+      if (focus.el && focus.key !== focusKey) {
+        focusKey = focus.key;
+        autoScroll(focus.el, focus.isGraphic);
       }
       if (ctaExpanded(t, ended)) cta.classList.add('is-open');
       if (!scrubbing) seek.value = String(t);
@@ -681,6 +694,7 @@ const graphicAfter = Object.fromEntries(
       if (media.readyState > 0) media.currentTime = 0;
       ended = false;
       curPara = -1;
+      focusKey = '';
       lastSec = -1;
       scrubbing = false;
       userScrollUntil = 0;
@@ -826,6 +840,7 @@ const graphicAfter = Object.fromEntries(
     dialog.querySelectorAll<HTMLButtonElement>('[data-seek]').forEach((btn) => {
       btn.addEventListener('click', () => {
         userScrollUntil = 0;
+        focusKey = '';
         seekTo(Number(btn.dataset.seek));
         if (media.paused) play();
       });
