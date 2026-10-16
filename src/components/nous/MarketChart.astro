@@ -1,0 +1,196 @@
+---
+// 노스 모달 문단 3용 글로벌 AI 반도체 시장 규모 막대 — KISDI Perspectives 2024 No.1 그림 4(원자료 Gartner 2024.4) 값
+const SOURCE_URL = 'https://www.kisdi.re.kr/bbs/view.do?bbsSn=114496&key=m2101113055776';
+
+// 백만 달러(원문) → 화면은 억 달러 반올림
+const DATA = [
+  { year: 2023, musd: 53662 },
+  { year: 2024, musd: 71252 },
+  { year: 2025, musd: 91955 },
+  { year: 2026, musd: 116269 },
+  { year: 2027, musd: 141397 },
+  { year: 2028, musd: 159022 },
+].map((d) => ({ ...d, eok: Math.round(d.musd / 100), actual: d.year === 2023 }));
+
+const max = Math.max(...DATA.map((d) => d.eok));
+const fmt = (n: number) => n.toLocaleString('ko-KR');
+// 값 라벨 위를 지나는 성장 곡선(0–100 좌표, 막대 영역 기준, 라벨 높이만큼 22 띄움)
+const curve = DATA.map((d, i) => `${((i + 0.5) / DATA.length) * 100},${100 - (d.eok / max) * 100 - 22}`).join(' ');
+---
+
+<figure class="mc-fig" lang="ko">
+  <h3 class="mc-title">글로벌 AI 반도체 시장 규모</h3>
+  <p class="mc-sub">2023→2028년 연평균 <strong>24.3%</strong> 성장 전망 <span class="mc-unit">(매출액 기준 · 단위 억 달러)</span></p>
+  <p class="sr-only">
+    글로벌 AI 반도체 시장 규모는 2023년 {fmt(DATA[0].eok)}억 달러(실적)에서 2024년 {fmt(DATA[1].eok)}억, 2025년
+    {fmt(DATA[2].eok)}억, 2026년 {fmt(DATA[3].eok)}억, 2027년 {fmt(DATA[4].eok)}억, 2028년 {fmt(DATA[5].eok)}억 달러로
+    연평균 24.3% 성장할 것으로 전망됩니다. 2024년 이후 값은 2024년 4월 시점의 전망치입니다.
+  </p>
+
+  <div class="mc-plot" aria-hidden="true">
+    <div class="mc-bars">
+      {DATA.map((d) => (
+        <div class="mc-col">
+          <span class="mc-val">{fmt(d.eok)}</span>
+          <span class:list={['mc-bar', d.actual ? 'mc-bar--actual' : 'mc-bar--proj']} style={`height:${(d.eok / max) * 100}%`} />
+        </div>
+      ))}
+      <svg class="mc-curve" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polyline points={curve} fill="none" vector-effect="non-scaling-stroke" />
+      </svg>
+      <span class="mc-badge">연평균 +24.3%</span>
+    </div>
+    <div class="mc-axis">
+      {DATA.map((d) => <span>{d.year}</span>)}
+    </div>
+    <div class="mc-legend">
+      <span class="mc-key"><i class="mc-bar--actual" />실적</span>
+      <span class="mc-key"><i class="mc-bar--proj" />전망(2024년 4월 시점)</span>
+    </div>
+  </div>
+
+  <figcaption class="mc-cap">
+    출처: 정보통신정책연구원(KISDI), KISDI Perspectives 2024 No.1(원자료 Gartner, 2024.4). 2024년 이후는 2024년 4월
+    시점의 전망치입니다.
+    <a href={SOURCE_URL} target="_blank" rel="noopener noreferrer">원문 보기</a>
+  </figcaption>
+</figure>
+
+<style>
+  .mc-fig {
+    border: 1px solid var(--color-cream-300);
+    border-radius: var(--radius-lg);
+    background: var(--color-cream-50);
+    padding: 1rem 1rem 0.85rem;
+  }
+  .mc-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1.35;
+    color: var(--color-ink);
+  }
+  .mc-sub {
+    margin-top: 0.15rem;
+    font-size: 0.8125rem;
+    color: color-mix(in oklab, var(--color-ink) 80%, transparent);
+  }
+  .mc-sub strong {
+    color: var(--color-coral-700);
+  }
+  .mc-unit {
+    font-size: 0.6875rem;
+    color: color-mix(in oklab, var(--color-ink) 70%, transparent);
+  }
+  .mc-plot {
+    margin-top: 1rem;
+  }
+  .mc-bars {
+    position: relative;
+    height: 10.5rem;
+    padding-top: 2.6rem; /* 값 라벨·곡선·배지 자리 */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.6rem;
+    align-items: end;
+    border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 35%, transparent);
+  }
+  .mc-col {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .mc-val {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink);
+  }
+  .mc-bar {
+    display: block;
+    width: 100%;
+    max-width: 2.6rem;
+    border-radius: 3px 3px 0 0;
+  }
+  .mc-bar--actual {
+    background: var(--color-coral-700);
+  }
+  .mc-bar--proj {
+    background: repeating-linear-gradient(
+      135deg,
+      var(--color-coral-600) 0 5px,
+      color-mix(in oklab, var(--color-coral-600) 78%, var(--color-cream)) 5px 8px
+    );
+  }
+  /* 곡선은 막대 영역(패딩 아래) 위에 겹친다 */
+  .mc-curve {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 2.6rem;
+    bottom: 0;
+    width: 100%;
+    height: calc(100% - 2.6rem);
+    overflow: visible;
+    pointer-events: none;
+  }
+  .mc-curve polyline {
+    stroke: var(--color-ink);
+    stroke-width: 1.4;
+    stroke-dasharray: 4 3;
+    opacity: 0.55;
+  }
+  .mc-badge {
+    position: absolute;
+    top: 0;
+    left: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-cream);
+    background: var(--color-coral-700);
+    border-radius: 999px;
+    padding: 0.15rem 0.55rem;
+  }
+  .mc-axis {
+    margin-top: 0.3rem;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.6rem;
+    text-align: center;
+    font-size: 0.6875rem;
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+  .mc-legend {
+    margin-top: 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    font-size: 0.6875rem;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+  .mc-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .mc-key i {
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 2px;
+  }
+  .mc-cap {
+    margin-top: 0.75rem;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    color: color-mix(in oklab, var(--color-ink) 70%, transparent);
+  }
+  .mc-cap a {
+    color: var(--color-coral-700);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>
