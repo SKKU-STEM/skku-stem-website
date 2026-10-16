@@ -1,0 +1,124 @@
+---
+// 메인 모집 섹션 오른쪽 아래 노스 소개 카드 — 카드 전체가 노스 모달을 여는 버튼
+import { Image } from 'astro:assets';
+import portrait from '@/assets/nous/portrait.jpg';
+import { NOUS, VOICE } from './nous';
+---
+
+<button type="button" class="nh lift-card" data-nous-open data-nous-card aria-haspopup="dialog">
+  <span class="nh-thumb">
+    <Image
+      src={portrait}
+      alt=""
+      widths={[240]}
+      sizes="80px"
+      format="webp"
+      loading="lazy"
+      class="nh-img"
+      data-nous-thumb
+    />
+    <span class="nh-ai" aria-hidden="true">AI</span>
+  </span>
+  <span class="nh-body">
+    <span class="nh-title">{NOUS.roleKo} {NOUS.nameKo}가 연구실을 소개합니다</span>
+    <span class="nh-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M11 5L6 9H3v6h3l5 4V5z" />
+        <path d="M15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13" />
+      </svg>
+      <span>연구실 소개 듣기</span>
+      <span class="sr-only">(영어 음성, {VOICE.spokenKo})</span>
+    </span>
+    <span aria-hidden="true" class="nh-dur">영어 음성 · 한국어 자막 · {VOICE.label}</span>
+  </span>
+</button>
+
+<style>
+  .nh {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem;
+    text-align: left;
+    border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in oklab, var(--color-cream-400) 60%, transparent);
+    background: color-mix(in oklab, var(--color-cream) 85%, transparent);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .nh:focus-visible {
+    outline: 2px solid var(--color-coral-700);
+    outline-offset: 2px;
+  }
+  .nh-thumb {
+    position: relative;
+    flex: none;
+    width: 5rem;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-cream-200);
+  }
+  .nh-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .nh-ai {
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--color-cream);
+    background: var(--color-coral-700);
+    border-radius: var(--radius-sm);
+    padding: 0.05rem 0.3rem;
+  }
+  .nh-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    min-width: 0;
+    word-break: keep-all;
+  }
+  .nh-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .nh-action {
+    align-self: flex-start;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.45rem;
+    min-height: 2.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-md);
+    background: var(--color-ink);
+    color: var(--color-cream);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+  }
+  .nh:hover .nh-action {
+    background: var(--color-ink-700);
+  }
+  .nh-action svg {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+  }
+  .nh-dur {
+    margin-top: -0.2rem;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in oklab, var(--color-ink) 72%, transparent);
+  }
+</style>
