@@ -282,3 +282,18 @@
 - [x] config.yml 라벨 쉼표 잘림 8곳 따옴표 처리(`4f40f9e`) — js-yaml null 키 0건, CMS 경고 9→2, 폼 라벨 전체 표시 확인
 - [x] (배포) `4f40f9e` 라벨 수정 + checklist 커밋 push, 라이브 config null 키 0건·subsup 4필드 확인
 - [x] research-themes `relatedHighlights`의 무효 옵션 `add_to_top`/`collapsed` 제거 — 로컬 CMS 경고 0건
+
+## 17. 노스(Nous) AI 연구보조원 카드 (2026-10-16~)
+
+설계 `docs/superpowers/specs/2026-10-16-nous-member-card-design.md` · 계획 `docs/superpowers/plans/2026-10-16-nous-member-card.md` · 원고 v2 `docs/nous-script-v2.md`. 브랜치 `feature/nous-card`(push 보류 — 음성 v2 재생성 후 배포).
+
+- [x] Task 1 — 포트레이트(워터마크)·음성 가공(79.2s 컷, 앞 0.3s, −18.8 LUFS)·엔벌로프 생성기
+- [ ] Task 2 — 노스·음성 데이터 모듈(`nous.ts`) + 단위 테스트
+- [ ] Task 3 — 진로 분류·집계(`careers.ts`) + 단위 테스트
+- [ ] Task 4 — 그래픽 3종(연구 지도·AI 반도체 시장 규모·진로)
+- [ ] Task 5 — 모달(음성·영한 자막·그래픽·CTA)
+- [ ] Task 6 — People "Lab Assistant" 카드
+- [ ] Task 7 — 메인 모집 섹션 카드
+- [ ] Task 8 — 전체 검증(테스트·check·build·Playwright·axe·Lighthouse)
+- [ ] (사용자) 원고 v2로 노스에게 음성 재생성 요청 → 받으면 교체 후 배포
+- [ ] (사용자) AI 표시 기준(「AI 기본법」 제31조)·ElevenLabs/Higgsfield 약관 확인, 언급 졸업생 고지, 이름 표기(노스/누스) 확정
