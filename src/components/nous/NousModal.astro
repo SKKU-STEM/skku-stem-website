@@ -1,0 +1,845 @@
+---
+// 노스 소개 모달 — 진입점([data-nous-open]) 클릭 시 사진이 떠오르고 음성·영한 자막·문단별 그래픽·상담 안내를 보여 준다(페이지당 1개)
+import { Image } from 'astro:assets';
+import portrait from '@/assets/nous/portrait.jpg';
+import { NOUS, PARAGRAPHS, VOICE, GRAPHIC_AT, formatClock, formatSpoken, mailtoHref, type GraphicId } from './nous';
+import ResearchMap from './ResearchMap.astro';
+import MarketChart from './MarketChart.astro';
+import CareersChart from './CareersChart.astro';
+
+// 문단 인덱스 → 그 문단 뒤에 놓을 그래픽
+const graphicAfter = Object.fromEntries(
+  (Object.entries(GRAPHIC_AT) as [GraphicId, number][]).map(([id, p]) => [p, id]),
+) as Record<number, GraphicId | undefined>;
+---
+
+<dialog
+  id="nous-dialog"
+  class="nd"
+  lang="ko"
+  aria-labelledby="nous-title"
+  aria-describedby="nous-disclosure"
+  data-pagefind-ignore
+>
+  <div class="nd-shell">
+    <button type="button" class="nd-close" data-nous-close aria-label="닫기">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+
+    <section class="nd-side">
+      <div class="nd-photo-wrap" data-nous-glow>
+        <Image
+          src={portrait}
+          alt="AI로 생성한 가상 인물 이미지 – 노스"
+          widths={[240, 480]}
+          sizes="(max-width: 767px) 112px, 240px"
+          format="webp"
+          loading="lazy"
+          class="nd-photo"
+          data-nous-target
+        />
+        <span class="nd-ai-chip" aria-hidden="true">AI</span>
+      </div>
+
+      <div class="nd-id">
+        <h2 id="nous-title" class="nd-name">
+          {NOUS.nameKo} · <span lang="en">{NOUS.nameEn}</span><span class="sr-only"> — {NOUS.roleKo}</span>
+        </h2>
+        <p class="nd-role">{NOUS.roleKo} · <span lang="en">{NOUS.roleEn}</span></p>
+
+        <div class="nd-controls">
+          <button type="button" class="nd-play" data-nous-play autofocus>
+            <svg class="nd-ico-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+            <svg class="nd-ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+            <span data-nous-play-label>재생</span>
+          </button>
+          <div class="nd-seek-row">
+            <input
+              type="range"
+              class="nd-seek"
+              data-nous-seek
+              min="0"
+              max={VOICE.duration}
+              step="1"
+              value="0"
+              aria-label="재생 위치"
+              aria-valuetext={`0분 0초 / ${VOICE.spokenKo}`}
+            />
+            <span class="nd-time" aria-hidden="true" data-nous-time>0:00 / {VOICE.label}</span>
+          </div>
+        </div>
+      </div>
+
+      <p id="nous-disclosure" class="nd-disclosure">
+        노스는 실제 연구실 구성원이 아닌 AI 연구보조원입니다. 사진과 음성은 AI로 만들었습니다.
+        <span lang="en" class="nd-disclosure-en">Nous is an AI assistant, not a real person. Portrait and voice are AI-generated.</span>
+      </p>
+      <p class="nd-error" role="alert" data-nous-error hidden></p>
+    </section>
+
+    <div class="nd-scroller" data-nous-scroller tabindex="0" role="region" aria-label="원고와 그래픽">
+      <p class="nd-hint">영어 음성 · 한국어 번역 자막</p>
+      {
+        PARAGRAPHS.map((p, i) => {
+          const g = graphicAfter[i];
+          return (
+            <Fragment>
+              <div class="nd-para" data-p={i}>
+                <button type="button" class="nd-ts" data-seek={p.start} aria-label={`${formatSpoken(p.start)}부터 듣기`}>
+                  {formatClock(p.start)}
+                </button>
+                <div class="nd-text">
+                  <p class="nd-en" lang="en">{p.en}</p>
+                  <p class="nd-ko">{p.ko}</p>
+                </div>
+              </div>
+              {g && (
+                <div class="nd-graphic is-hidden" data-graphic={g} inert>
+                  {g === 'research' && <ResearchMap />}
+                  {g === 'market' && <MarketChart />}
+                  {g === 'careers' && <CareersChart />}
+                </div>
+              )}
+            </Fragment>
+          );
+        })
+      }
+    </div>
+
+    <footer class="nd-foot">
+      <div class="nd-cta" data-nous-cta>
+        <div class="nd-cta-inner">
+          <p class="nd-cta-title">연구실 합류에 관심이 있으신가요?</p>
+          <p class="nd-cta-text">
+            김영민 교수님(Prof. Young-Min Kim)께 메일로 상담을 요청해 보세요. 궁금한 점은 무엇이든 편하게 물어보세요.
+          </p>
+        </div>
+      </div>
+      <a class="nd-mail" href={mailtoHref()}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 6h16c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2z" />
+          <path d="M22 8l-10 7L2 8" />
+        </svg>
+        <span>김영민 교수님께 상담 메일 보내기</span>
+        <span class="nd-mail-addr">youngmk@skku.edu</span>
+      </a>
+      <p class="sr-only" role="status" data-nous-status></p>
+    </footer>
+  </div>
+
+  <audio data-nous-media preload="none" src={VOICE.src}></audio>
+</dialog>
+
+<style>
+  /* 열려 있는 동안 배경 스크롤 잠금 — 스크롤바 자리는 유지해 가로 흔들림 방지 */
+  :global(html:has(#nous-dialog[open])) {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+  }
+
+  .nd {
+    padding: 0;
+    border: 0;
+    margin: auto;
+    width: min(62rem, 100vw - 2rem);
+    height: min(46rem, 100dvh - 2rem);
+    max-width: none;
+    max-height: none;
+    border-radius: var(--radius-xl);
+    background: var(--color-cream);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-lift);
+    overflow: hidden;
+  }
+  .nd[open] {
+    animation: nd-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .nd::backdrop {
+    background: rgb(20 20 19 / 0.55);
+    backdrop-filter: blur(2px);
+  }
+  .nd[open]::backdrop {
+    animation: nd-fade 0.28s ease-out;
+  }
+  @keyframes nd-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.985);
+    }
+  }
+  @keyframes nd-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .nd-shell {
+    position: relative;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 17.5rem 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .nd-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    z-index: 2;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    color: color-mix(in oklab, var(--color-ink) 80%, transparent);
+    background: color-mix(in oklab, var(--color-cream) 85%, transparent);
+  }
+  .nd-close:hover {
+    color: var(--color-coral-700);
+    background: var(--color-cream-200);
+  }
+  .nd-close svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  /* ── 좌 열(모바일에선 상단 바) ── */
+  .nd-side {
+    grid-row: 1;
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.75rem 1.5rem 1.25rem;
+    border-right: 1px solid var(--color-cream-300);
+    background: var(--color-cream-50);
+    overflow-y: auto;
+  }
+  .nd-photo-wrap {
+    --amp: 0;
+    position: relative;
+    width: 15rem;
+    max-width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-cream-200);
+    box-shadow:
+      0 0 0 calc(var(--amp) * 12px) rgb(204 120 92 / calc(0.1 + var(--amp) * 0.25)),
+      var(--shadow-lift);
+  }
+  .nd-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .nd-ai-chip {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-cream);
+    background: var(--color-coral-700);
+    border-radius: var(--radius-sm);
+    padding: 0.1rem 0.4rem;
+  }
+  .nd-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  .nd-role {
+    margin-top: 0.15rem;
+    font-size: 0.8125rem;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+  .nd-controls {
+    margin-top: 0.9rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .nd-play {
+    justify-self: start;
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1.1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-ink);
+    color: var(--color-cream);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .nd-play:hover {
+    background: var(--color-ink-700);
+  }
+  .nd-play svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  .nd-ico-pause,
+  .is-playing .nd-ico-play {
+    display: none;
+  }
+  .is-playing .nd-ico-pause {
+    display: block;
+  }
+  .nd-seek-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .nd-seek {
+    flex: 1;
+    min-width: 0;
+    height: 1.5rem;
+    accent-color: var(--color-coral-700);
+  }
+  .nd-time {
+    flex: none;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+  .nd-disclosure {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: color-mix(in oklab, var(--color-ink) 85%, transparent);
+    border-left: 3px solid var(--color-coral-700);
+    padding-left: 0.6rem;
+  }
+  .nd-disclosure-en {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    color: color-mix(in oklab, var(--color-ink) 72%, transparent);
+  }
+  .nd-error {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-coral-700);
+  }
+
+  /* ── 자막·그래픽 스크롤러 ── */
+  .nd-scroller {
+    grid-row: 1;
+    grid-column: 2;
+    position: relative; /* offsetTop 기준 */
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 1.75rem 1.75rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .nd-scroller:focus-visible {
+    outline: 2px solid var(--color-coral-700);
+    outline-offset: -2px;
+  }
+  .nd-hint {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--color-ink) 72%, transparent);
+  }
+  .nd-para {
+    display: grid;
+    grid-template-columns: 2.75rem 1fr;
+    gap: 0.75rem;
+    padding-left: 0.6rem;
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  .nd-para[aria-current='true'] {
+    border-left-color: var(--color-coral);
+  }
+  .nd-ts {
+    align-self: start;
+    min-height: 1.75rem;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in oklab, var(--color-ink) 72%, transparent);
+    border-radius: var(--radius-sm);
+    padding: 0.15rem 0.3rem;
+  }
+  .nd-ts:hover {
+    color: var(--color-coral-700);
+    background: var(--color-cream-200);
+  }
+  .nd-en {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: color-mix(in oklab, var(--color-ink) 65%, transparent);
+    transition: color 0.3s ease;
+  }
+  .nd-ko {
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: color-mix(in oklab, var(--color-ink) 65%, transparent);
+    transition: color 0.3s ease;
+  }
+  .nd-para[aria-current='true'] .nd-en {
+    color: var(--color-ink);
+  }
+  .nd-para[aria-current='true'] .nd-ko {
+    color: color-mix(in oklab, var(--color-ink) 85%, transparent);
+  }
+  .nd-graphic {
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease,
+      visibility 0.5s;
+  }
+  .nd-graphic.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+  }
+
+  /* ── 하단 바: CTA + 메일 ── */
+  .nd-foot {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--color-cream-300);
+    background: var(--color-cream-50);
+    padding: 0.75rem 1.5rem;
+  }
+  .nd-cta {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+      grid-template-rows 0.4s ease,
+      visibility 0.4s;
+  }
+  .nd-cta.is-open {
+    grid-template-rows: 1fr;
+    visibility: visible;
+  }
+  .nd-cta-inner {
+    overflow: hidden;
+  }
+  .nd-cta-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--color-coral-700);
+  }
+  .nd-cta-text {
+    margin: 0.15rem 0 0.6rem;
+    font-size: 0.875rem;
+    color: color-mix(in oklab, var(--color-ink) 85%, transparent);
+  }
+  .nd-mail {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.6rem;
+    min-height: 2.75rem;
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-ink);
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .nd-mail svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    flex: none;
+  }
+  .nd-mail-addr {
+    font-weight: 400;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+  .nd-mail:hover,
+  .nd-cta.is-open + .nd-mail {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+  .nd-mail:hover .nd-mail-addr,
+  .nd-cta.is-open + .nd-mail .nd-mail-addr {
+    color: color-mix(in oklab, var(--color-cream) 85%, transparent);
+  }
+
+  /* ── 모바일: 풀스크린 시트, 상단 바 / 스크롤 / 하단 바 ── */
+  @media (max-width: 767px) {
+    .nd {
+      width: 100vw;
+      height: 100dvh;
+      margin: 0;
+      border-radius: 0;
+    }
+    .nd-shell {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+    }
+    .nd-side {
+      grid-row: 1;
+      grid-column: 1;
+      display: grid;
+      grid-template-columns: 7rem 1fr;
+      gap: 0.6rem 0.9rem;
+      padding: 0.9rem 1rem 0.8rem;
+      border-right: 0;
+      border-bottom: 1px solid var(--color-cream-300);
+      overflow: visible;
+    }
+    .nd-photo-wrap {
+      width: 7rem;
+    }
+    .nd-id {
+      padding-right: 2.5rem; /* 닫기 버튼 자리 */
+    }
+    .nd-name {
+      font-size: 1.25rem;
+    }
+    .nd-controls {
+      margin-top: 0.6rem;
+    }
+    .nd-disclosure,
+    .nd-error {
+      grid-column: 1 / -1;
+    }
+    .nd-disclosure {
+      font-size: 0.75rem;
+    }
+    .nd-disclosure-en {
+      font-size: 0.6875rem;
+    }
+    .nd-scroller {
+      grid-row: 2;
+      grid-column: 1;
+      padding: 1rem 1rem 1.5rem;
+    }
+    .nd-para {
+      grid-template-columns: 2.5rem 1fr;
+      gap: 0.5rem;
+      padding-left: 0.4rem;
+    }
+    .nd-foot {
+      grid-row: 3;
+      padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom));
+    }
+    .nd-mail {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nd[open],
+    .nd[open]::backdrop {
+      animation: none;
+    }
+    .nd-graphic,
+    .nd-cta,
+    .nd-en,
+    .nd-ko,
+    .nd-para {
+      transition: none;
+    }
+    .nd-graphic.is-hidden {
+      transform: none;
+    }
+    /* 진폭 글로우 대신 재생 중 정적 테두리로 '말하는 중' 표시 */
+    .is-playing .nd-photo-wrap {
+      outline: 2px solid var(--color-coral);
+      outline-offset: 3px;
+    }
+  }
+</style>
+
+<script>
+  import { PARAGRAPHS, VOICE, activeParagraph, ampAt, ctaExpanded, formatClock, formatSpoken, visibleGraphics } from './nous';
+  import { ENVELOPE } from './envelope';
+
+  const dialog = document.getElementById('nous-dialog') as HTMLDialogElement | null;
+
+  if (dialog) {
+    const q = <T extends Element>(sel: string) => dialog.querySelector<T>(sel)!;
+    const shell = q<HTMLElement>('.nd-shell');
+    const media = q<HTMLMediaElement>('[data-nous-media]');
+    const playBtn = q<HTMLButtonElement>('[data-nous-play]');
+    const playLabel = q<HTMLElement>('[data-nous-play-label]');
+    const seek = q<HTMLInputElement>('[data-nous-seek]');
+    const timeText = q<HTMLElement>('[data-nous-time]');
+    const scroller = q<HTMLElement>('[data-nous-scroller]');
+    const glow = q<HTMLElement>('[data-nous-glow]');
+    const target = q<HTMLImageElement>('[data-nous-target]');
+    const cta = q<HTMLElement>('[data-nous-cta]');
+    const statusEl = q<HTMLElement>('[data-nous-status]');
+    const errorEl = q<HTMLElement>('[data-nous-error]');
+    const paras = [...dialog.querySelectorAll<HTMLElement>('[data-p]')];
+    const graphics = new Map(
+      [...dialog.querySelectorAll<HTMLElement>('[data-graphic]')].map((el) => [el.dataset.graphic!, el]),
+    );
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let lastTrigger: HTMLElement | null = null;
+    let raf = 0;
+    let curPara = -1;
+    let ended = false;
+    let amp = 0;
+    let scrubbing = false;
+    let lastSec = -1;
+    let userScrollUntil = 0;
+    let duration: number = VOICE.duration;
+
+    const setPlayingUi = (playing: boolean) => {
+      shell.classList.toggle('is-playing', playing);
+      playLabel.textContent = playing ? '일시정지' : '재생';
+    };
+
+    // 활성 문단(과 방금 나타난 그 문단의 그래픽)이 보이도록 스크롤러만 움직인다 — scrollIntoView는 바깥까지 끌어서 금지.
+    const autoScroll = (para: HTMLElement) => {
+      if (Date.now() < userScrollUntil) return;
+      const view = scroller.clientHeight;
+      let top = para.offsetTop - view / 4;
+      const next = para.nextElementSibling as HTMLElement | null;
+      if (next?.dataset.graphic && !next.classList.contains('is-hidden')) {
+        top = Math.min(Math.max(top, next.offsetTop + next.offsetHeight - view + 16), para.offsetTop - 8);
+      }
+      scroller.scrollTo({ top: Math.max(0, top), behavior: reduced.matches ? 'auto' : 'smooth' });
+    };
+
+    const showGraphic = (el: HTMLElement) => {
+      el.classList.remove('is-hidden');
+      el.inert = false;
+    };
+
+    const update = (t: number) => {
+      for (const id of visibleGraphics(t)) {
+        const el = graphics.get(id);
+        if (el?.classList.contains('is-hidden')) showGraphic(el);
+      }
+      const p = activeParagraph(t);
+      if (p !== curPara) {
+        paras.forEach((el, i) => (i === p ? el.setAttribute('aria-current', 'true') : el.removeAttribute('aria-current')));
+        curPara = p;
+        if (paras[p]) autoScroll(paras[p]);
+      }
+      if (ctaExpanded(t, ended)) cta.classList.add('is-open');
+      if (!scrubbing) seek.value = String(t);
+      const sec = Math.floor(t);
+      if (sec !== lastSec) {
+        lastSec = sec;
+        seek.setAttribute('aria-valuetext', `${formatSpoken(t)} / ${formatSpoken(duration)}`);
+        timeText.textContent = `${formatClock(t)} / ${formatClock(duration)}`;
+      }
+    };
+
+    // 재생 중 프레임마다: 자막·그래픽·CTA 판정 + 엔벌로프로 글로우 세기(빠른 attack, 느린 release)
+    const tick = () => {
+      const t = media.currentTime;
+      update(t);
+      if (!reduced.matches) {
+        const goal = ampAt(ENVELOPE.levels, ENVELOPE.fps, t);
+        amp = goal > amp ? goal : Math.max(goal, amp * 0.82);
+        glow.style.setProperty('--amp', amp.toFixed(3));
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    const stopTick = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      amp = 0;
+      glow.style.setProperty('--amp', '0');
+    };
+
+    const showError = () => {
+      errorEl.hidden = false;
+      errorEl.textContent = '';
+      requestAnimationFrame(() => {
+        errorEl.textContent = '음성을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
+      });
+    };
+
+    const play = () => {
+      errorEl.hidden = true;
+      media.play().catch((e: DOMException) => {
+        if (e.name === 'AbortError') return; // 재생 직후 닫거나 위치를 옮긴 경우 — 오류 아님
+        setPlayingUi(false);
+      });
+    };
+
+    const reset = () => {
+      stopTick();
+      media.pause();
+      if (media.readyState > 0) media.currentTime = 0;
+      ended = false;
+      curPara = -1;
+      lastSec = -1;
+      scrubbing = false;
+      userScrollUntil = 0;
+      graphics.forEach((el) => {
+        el.classList.add('is-hidden');
+        el.inert = true;
+      });
+      cta.classList.remove('is-open');
+      statusEl.textContent = '';
+      errorEl.hidden = true;
+      setPlayingUi(false);
+      scroller.scrollTop = 0;
+      update(0);
+    };
+
+    // 썸네일 자리에서 모달 사진 자리로 떠오르는 FLIP — 이미 받은 썸네일 이미지로 고스트를 만든다.
+    const flip = (from: DOMRect, thumb: Element | null) => {
+      if (reduced.matches || !(thumb instanceof HTMLImageElement) || !from.width) return;
+      const to = target.getBoundingClientRect();
+      if (!to.width) return;
+      const ghost = document.createElement('img');
+      ghost.src = thumb.currentSrc || thumb.src;
+      ghost.alt = '';
+      ghost.dataset.nousGhost = '';
+      ghost.style.cssText = `position:fixed;left:${to.left}px;top:${to.top}px;width:${to.width}px;height:${to.height}px;object-fit:cover;border-radius:12px;z-index:5;pointer-events:none;transform-origin:0 0;`;
+      dialog.append(ghost);
+      target.style.opacity = '0';
+      const anim = ghost.animate(
+        [
+          {
+            transform: `translate(${from.left - to.left}px, ${from.top - to.top}px) scale(${from.width / to.width}, ${from.height / to.height})`,
+            boxShadow: '0 0 0 rgba(20,20,19,0)',
+          },
+          { transform: 'none', boxShadow: '0 18px 40px rgba(20,20,19,0.28)' },
+        ],
+        { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)' },
+      );
+      anim.finished
+        .catch(() => {})
+        .finally(() => {
+          target.style.opacity = '';
+          ghost.remove();
+        });
+    };
+
+    const pauseOtherMedia = () => {
+      document.querySelectorAll<HTMLMediaElement>('audio, video').forEach((m) => {
+        if (m !== media && !m.paused && !m.muted) m.pause();
+      });
+    };
+
+    const open = (trigger: HTMLElement) => {
+      lastTrigger = trigger;
+      reset();
+      play(); // 사용자 클릭 직후 동기 호출 — iOS 자동재생 제스처 유지
+      pauseOtherMedia();
+      const thumb = trigger.closest('[data-nous-card]')?.querySelector('[data-nous-thumb]') ?? null;
+      const from = (thumb ?? trigger).getBoundingClientRect(); // showModal(스크롤 잠금) 전에 잰다
+      dialog.showModal();
+      flip(from, thumb);
+    };
+
+    document.addEventListener('click', (e) => {
+      const trigger = (e.target as Element | null)?.closest<HTMLElement>('[data-nous-open]');
+      if (!trigger) return;
+      e.preventDefault();
+      open(trigger);
+    });
+
+    // 닫기 정리는 close 이벤트 한 곳 — X·백드롭·Esc·뒤로가기 모두 여기로 온다.
+    dialog.addEventListener('close', () => {
+      reset();
+      dialog.querySelectorAll('[data-nous-ghost]').forEach((g) => g.remove());
+      target.style.opacity = '';
+      lastTrigger?.focus();
+    });
+    q<HTMLButtonElement>('[data-nous-close]').addEventListener('click', () => dialog.close());
+    let downOnBackdrop = false;
+    dialog.addEventListener('pointerdown', (e) => {
+      downOnBackdrop = e.target === dialog;
+    });
+    dialog.addEventListener('click', (e) => {
+      if (downOnBackdrop && e.target === dialog) dialog.close();
+    });
+
+    playBtn.addEventListener('click', () => (media.paused ? play() : media.pause()));
+
+    media.addEventListener('play', () => {
+      ended = false;
+      setPlayingUi(true);
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+    media.addEventListener('pause', () => {
+      setPlayingUi(false);
+      stopTick();
+      update(media.currentTime);
+    });
+    media.addEventListener('ended', () => {
+      ended = true;
+      setPlayingUi(false);
+      stopTick();
+      update(media.currentTime);
+      statusEl.textContent = '재생이 끝났습니다. 아래에 상담 안내가 있습니다.';
+    });
+    media.addEventListener('loadedmetadata', () => {
+      if (Number.isFinite(media.duration)) {
+        duration = media.duration;
+        seek.max = String(duration);
+        lastSec = -1;
+        update(media.currentTime);
+      }
+    });
+    media.addEventListener('seeked', () => {
+      if (media.paused) update(media.currentTime);
+    });
+    media.addEventListener('error', showError);
+
+    const seekTo = (t: number) => {
+      const v = Math.min(Math.max(t, 0), duration);
+      media.currentTime = v;
+      update(v);
+    };
+    seek.addEventListener('pointerdown', () => (scrubbing = true));
+    seek.addEventListener('input', () => seekTo(Number(seek.value)));
+    seek.addEventListener('change', () => (scrubbing = false));
+    seek.addEventListener('keydown', (e) => {
+      const t = media.currentTime;
+      const to: Record<string, number> = {
+        ArrowLeft: t - 5,
+        ArrowDown: t - 5,
+        ArrowRight: t + 5,
+        ArrowUp: t + 5,
+        PageDown: t - 10,
+        PageUp: t + 10,
+        Home: 0,
+        End: duration,
+      };
+      if (!(e.key in to)) return;
+      e.preventDefault();
+      seekTo(to[e.key]);
+    });
+
+    dialog.querySelectorAll<HTMLButtonElement>('[data-seek]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        userScrollUntil = 0;
+        seekTo(Number(btn.dataset.seek));
+        if (media.paused) play();
+      });
+    });
+
+    // 사용자가 스크롤러를 직접 움직이면 5초간 자동 스크롤을 멈춘다.
+    const holdAutoScroll = () => (userScrollUntil = Date.now() + 5000);
+    scroller.addEventListener('wheel', holdAutoScroll, { passive: true });
+    scroller.addEventListener('touchstart', holdAutoScroll, { passive: true });
+    scroller.addEventListener('keydown', (e) => {
+      if (e.target === scroller) holdAutoScroll();
+    });
+
+    // 문단 수가 바뀌면(음성 교체 시) 판정과 DOM이 어긋나지 않게 확인
+    if (paras.length !== PARAGRAPHS.length) console.warn('[nous] 문단 DOM 수와 데이터 수가 다릅니다');
+  }
+</script>
