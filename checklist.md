@@ -299,6 +299,8 @@
   - Playwright Chromium·WebKit × 1280·390 × /·/people/ 198건 중 196건 통과. 실패 2건은 WebKit 390 메인 히어로 h1 가로 넘침(410/390) — **라이브에서도 재현되는 기존 문제**
   - axe: 노스 카드·모달 요소 위반 0건(닫힘·0초·끝 세 상태). 기존 요소 대비 위반은 별도 기록
   - Lighthouse(모바일): a11y 91·SEO 100 — 라이브와 같은 값·같은 실패 항목(color-contrast, target-size, 기존). perf 메인 90(라이브 92), People 93(라이브 85)
+- [x] 최종 리뷰(Opus) — Important 5 + 실제 폰 높이 1건 수정, 재현 검사 15건 RED→GREEN, 전체 198/198
+- [ ] (사소, 보류) 자동재생 거부 안내 문구 · 성장 곡선 화살촉 · 데스크톱 닫기 버튼 겹침 · 모달 사진 크로스페이드 · CTA inert
 - [ ] (범위 밖, 기존) WebKit 390 메인 히어로 가로 넘침, 기존 대비 미달(Recent papers 연도 `text-ink/55`, 헤더 현재 메뉴 코랄, Alumni 제목, 산학 칩)과 target-size
 - [ ] (사용자) 원고 v2로 노스에게 음성 재생성 요청 → 받으면 교체 후 배포
 - [ ] (사용자) AI 표시 기준(「AI 기본법」 제31조)·ElevenLabs/Higgsfield 약관 확인, 언급 졸업생 고지, 이름 표기(노스/누스) 확정
