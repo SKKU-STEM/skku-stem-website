@@ -433,3 +433,10 @@ Publications에 이어 헤더 + Education/Experience/Honors/Contact 구현. 두 
 - **배포 보류.** 브랜치 `feature/nous-card`, push 안 함. 음성 v2(`docs/nous-script-v2.md`)를 노스가 재생성하면: ① Task 1 Step 2 가공 명령 → ② faster-whisper로 문단 시각 → ③ `nous.ts`의 VOICE·PARAGRAPHS(영·한) 교체 → ④ `node scripts/nous-envelope.mjs` → ⑤ 테스트의 시각 경계값 갱신 → main 병합·push.
 - **최종 리뷰(Opus, 2026-10-17) — 6건 수정.** ① 재열기 시 자막 영역이 중간에 머묾: `reset()`이 닫힌(display:none) 대화상자에서 돌아 `scrollTop=0`이 먹히지 않음 → `showModal()` 뒤에 다시 맞춤. ② 슬라이더 손잡이를 누르기만 하면 `change`가 없어 막대가 멈춤 → window `pointerup`/`pointercancel`에서도 해제. ③ 여는 애니메이션의 `transform`이 `position:fixed` 고스트의 기준을 대화상자로 바꿔 출발점이 140px 어긋나고 끝에서 튐 → 여는 애니메이션은 opacity만. ④ 로드 실패한 미디어는 `play()`만으로 다시 받지 않음 → `media.error`면 `load()` 후 재생. ⑤ 데스크톱에서 45% 규칙이 자막을 밀어냄 → 문단 머리~그래픽 끝이 한 화면에 들어가면 문단 기준 유지, 안 들어갈 때만 그래픽 전환. ⑥ 실제 폰 보이는 높이(390×664, 주소창 제외)에서 가운데 영역 313px → 사진 5rem·고지문 한 문단·메일 버튼 한 줄·시장 그래픽 컨테이너 쿼리로 축소, 45s에 그래픽 전체 표시. 검사 `scratchpad/pw/fixes.mjs` 15건 RED→GREEN, 전체 198/198.
 - **보류한 사소한 지적(다음에 손볼 것).** 자동재생 거부 시 안내 문구 없음(재생 버튼만), 시장 성장 곡선에 화살촉 없음, 데스크톱 닫기 버튼이 스크롤된 내용 모서리를 가림, 모달 사진 lazy라 느린 망에서 고스트 뒤 잠깐 빈 칸 가능(크로스페이드 없음), CTA 래퍼 `inert` 없음(텍스트뿐이라 영향 없음).
+
+### 17-B. 말하는 영상·새 목소리 (2026-10-17)
+- **목소리 = ElevenLabs "Taehyung"(m3gJBS8OofDJfycyA2Ip), 모델 eleven_v4, seed 42.** 기존 "Chris"는 원래 한국어용 젊은 남성 보이스지만 영어로 읽으면 무겁게 들려 사용자가 "중년 남성"으로 느낌. 한·영 샘플 3개 중 사용자가 고름.
+- **문단별로 따로 생성해 0.8초 쉼으로 이음.** v3·v4는 `<break>` 태그를 보장하지 않고, 따로 만들면 문단 시작 시각이 받아쓰기 없이 정확히 나온다. 영상도 30초 이하 조각으로 나눠 만들어야 해서 문단 경계가 자르는 자리가 된다. `previous_text`/`next_text`로 문단 사이 억양을 이음.
+- **한국어 낭독판은 번역 자막과 다르다.** 기관 약칭은 들리는 대로(키스트·카이스트·한국표준과학연구원), 이메일은 "영, 엠, 케이, 골뱅이, 에스, 케이, 케이, 유, 닷, 에듀". 자막은 원래 표기(KIST·KRISS·youngmk@skku.edu)를 쓴다.
+- **받아쓰기 검사 함정.** faster-whisper small이 ko 문단 3 끝에 없는 문장을 지어냄(`condition_on_previous_text` 환각). 시각 출력으로 오디오는 27.16초에서 끝남을 확인. "총매·NEM 리서치" 같은 오인식도 모델 쪽일 가능성이 커 사람 귀로 확인받기로 함.
+- **Higgsfield는 웹 구독과 API가 별도 결제.** 사용자는 Starter 구독 크레딧을 쓰기로 함 → Higgsfield MCP(`https://mcp.higgsfield.ai/mcp`, OAuth) 경로. API SDK 예제는 남겨 두되 잔액 0이라 미검증. Seedance 2.5 text-to-video는 이미지·음성 입력이 없어 립싱크에 못 씀.

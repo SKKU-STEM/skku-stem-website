@@ -304,3 +304,12 @@
 - [ ] (범위 밖, 기존) WebKit 390 메인 히어로 가로 넘침, 기존 대비 미달(Recent papers 연도 `text-ink/55`, 헤더 현재 메뉴 코랄, Alumni 제목, 산학 칩)과 target-size
 - [ ] (사용자) 원고 v2로 노스에게 음성 재생성 요청 → 받으면 교체 후 배포
 - [ ] (사용자) AI 표시 기준(「AI 기본법」 제31조)·ElevenLabs/Higgsfield 약관 확인, 언급 졸업생 고지, 이름 표기(노스/누스) 확정
+
+### 17-B. 노스 말하는 영상 + 20대 목소리 + 한국어 기본/영어 선택 (2026-10-17~)
+- [x] ElevenLabs(Pro)·Higgsfield 키를 `.env.local`(Git 제외)에 저장 — `ELEVENLABS_API_KEY`, `HF_CREDENTIALS`
+- [x] Higgsfield 공식 SDK(`@higgsfield/client`) + Seedance 2.5 예제 `npm run higgsfield:example` — 실행 결과 API 잔액 0으로 403 "Not enough credits"(인증은 통과). API 잔액은 웹 구독과 별도(최소 5달러 충전)
+- [x] 목소리 후보 3개(Taehyung·Taemin·Min-joon) 한·영 샘플 → **Taehyung** 확정
+- [x] 원고 v2 한국어 낭독판 작성, eleven_v4로 문단별 생성(한 92.2초, 영 84.1초, −18 LUFS)
+- [ ] (사용자) 낭독 음성 청취 확인 — 촉매·램리서치·세메스·이메일 발음
+- [ ] Higgsfield MCP(`claude mcp add` 완료) 로그인 → 크레딧·립싱크 비용 조회 → 사용자 승인 후 영상 생성
+- [ ] 화면: 사진 자리에 말하는 영상, 기본 한국어·EN 선택 시 영어(음성·자막·그래픽 시각 언어별)
