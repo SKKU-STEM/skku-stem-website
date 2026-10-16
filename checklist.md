@@ -288,12 +288,17 @@
 설계 `docs/superpowers/specs/2026-10-16-nous-member-card-design.md` · 계획 `docs/superpowers/plans/2026-10-16-nous-member-card.md` · 원고 v2 `docs/nous-script-v2.md`. 브랜치 `feature/nous-card`(push 보류 — 음성 v2 재생성 후 배포).
 
 - [x] Task 1 — 포트레이트(워터마크)·음성 가공(79.2s 컷, 앞 0.3s, −18.8 LUFS)·엔벌로프 생성기
-- [ ] Task 2 — 노스·음성 데이터 모듈(`nous.ts`) + 단위 테스트
-- [ ] Task 3 — 진로 분류·집계(`careers.ts`) + 단위 테스트
-- [ ] Task 4 — 그래픽 3종(연구 지도·AI 반도체 시장 규모·진로)
-- [ ] Task 5 — 모달(음성·영한 자막·그래픽·CTA)
-- [ ] Task 6 — People "Lab Assistant" 카드
-- [ ] Task 7 — 메인 모집 섹션 카드
-- [ ] Task 8 — 전체 검증(테스트·check·build·Playwright·axe·Lighthouse)
+- [x] Task 2 — 노스·음성 데이터 모듈(`nous.ts`) + 단위 테스트
+- [x] Task 3 — 진로 분류·집계(`careers.ts`) + 단위 테스트
+- [x] Task 4 — 그래픽 3종(연구 지도·AI 반도체 시장 규모·진로)
+- [x] Task 5 — 모달(음성·영한 자막·그래픽·CTA)
+- [x] Task 6 — People "Lab Assistant" 카드
+- [x] Task 7 — 메인 모집 섹션 카드
+- [x] Task 8 — 전체 검증(테스트·check·build·Playwright·axe·Lighthouse)
+  - 단위 12/12, `check` 0/0/0, build 통과(pagefind 11페이지 그대로, 두 페이지 모달 1개씩·`data-pagefind-ignore`)
+  - Playwright Chromium·WebKit × 1280·390 × /·/people/ 198건 중 196건 통과. 실패 2건은 WebKit 390 메인 히어로 h1 가로 넘침(410/390) — **라이브에서도 재현되는 기존 문제**
+  - axe: 노스 카드·모달 요소 위반 0건(닫힘·0초·끝 세 상태). 기존 요소 대비 위반은 별도 기록
+  - Lighthouse(모바일): a11y 91·SEO 100 — 라이브와 같은 값·같은 실패 항목(color-contrast, target-size, 기존). perf 메인 90(라이브 92), People 93(라이브 85)
+- [ ] (범위 밖, 기존) WebKit 390 메인 히어로 가로 넘침, 기존 대비 미달(Recent papers 연도 `text-ink/55`, 헤더 현재 메뉴 코랄, Alumni 제목, 산학 칩)과 target-size
 - [ ] (사용자) 원고 v2로 노스에게 음성 재생성 요청 → 받으면 교체 후 배포
 - [ ] (사용자) AI 표시 기준(「AI 기본법」 제31조)·ElevenLabs/Higgsfield 약관 확인, 언급 졸업생 고지, 이름 표기(노스/누스) 확정

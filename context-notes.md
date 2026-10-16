@@ -424,3 +424,10 @@ Publications에 이어 헤더 + Education/Experience/Honors/Contact 구현. 두 
 - **검사 구간 함정.** 처음 계획한 잔여음 검사(`-ss 78.9 -t 0.3`)는 원본에서도 무음인 구간이라 아무것도 거르지 못했다(음성 감사 지적). 컷 이후 끝까지(`-ss 79.3`)를 재고, 같은 검사를 원본(`-ss 79.0`)에 돌려 −6.8dB로 실패하는 것까지 확인해야 검사가 유효하다.
 - **말하는 모션 = 미리 계산한 엔벌로프.** 고정 펄스는 말 쉼(전체의 22%)에도 뛴다. Web Audio AnalyserNode는 iOS 무음 스위치·재연결 문제가 있어 대신 ffmpeg로 20fps RMS를 뽑아 상수로 둔다(`scripts/nous-envelope.mjs`). 양자화 범위는 처음 −50…−15dB로 했더니 정규화 음성에서 '9'가 25%로 포화돼 −50…−10dB로 넓힘.
 - **AI 표시.** 사진이 실사라 사진 위 `AI` 칩(세 곳 모두) + 이미지 파일 자체에 "AI-generated" 새김(퍼져도 남게) + 고지문 "실제 연구실 구성원이 아닌 AI 연구보조원". PNG 메타데이터에는 Higgsfield job id만 있고 C2PA는 없음.
+- **그래픽은 SVG 대신 HTML 막대 + 장식 SVG.** SVG 안 글자는 viewBox 비율로 줄어 모달 열(약 340px)에서 11px 아래로 떨어진다. 막대·라벨은 HTML/CSS로, 격자·화살표·성장 곡선만 SVG로 그렸다. 좁은 폭 전환은 뷰포트가 아니라 모달 열 폭이 기준이라 컨테이너 쿼리(`@container`)를 쓴다.
+- **자동 스크롤 초점 = 문단 첫머리 → 문단 45% 지점부터 그 문단의 그래픽.** 390px에서 문단 3(영·한 약 300px)과 시장 그래픽(약 390px)이 한 화면에 같이 들어가지 않아, 문단 시작에 맞추면 그래픽이 잘린다. 음성이 시장 이야기를 하는 문단 중반(약 42s)에 그래픽으로 넘어간다. 실측 45s에 그래픽 전체가 스크롤러 안.
+- **CTA는 링크 하나.** 하단 메일 버튼은 처음부터 있고, 문단 5(69.3s)·`ended`에 그 위로 안내 문구가 펼쳐지며 버튼이 채워진다. 같은 mailto를 두 번 두지 않아 Tab 정지도 하나.
+- **WebKit은 `preload="none"`이어도 src를 미리 받는다.** 그래서 음성 404의 `error` 이벤트가 모달을 열기 전에 지나가고, 열 때 초기화가 오류 문구를 지웠다. `play()` 거부가 NotAllowedError(자동재생 차단)가 아니거나 `media.error`가 있으면 오류 문구를 띄우게 고침. 또 Playwright `route`는 WebKit 미디어 요청을 가로채지 못하므로 404 검증은 `src`를 없는 경로로 바꿔서 한다.
+- **WebKit 390 메인 가로 넘침(410px)은 기존 문제.** 히어로 h1 열이 넘친다. 노스 변경이 없는 라이브(skkustem.org)에서도 같은 값으로 재현. 범위 밖이라 손대지 않음.
+- **Lighthouse a11y는 원래 91.** 계획의 "a11y 100 유지" 전제는 이미 깨져 있었다(라이브도 91, 같은 실패 항목 color-contrast·target-size). 노스 요소는 axe 위반 0건. 로컬 best-practices 96은 preview에 `/api/visits` 함수가 없어 생기는 콘솔 404.
+- **배포 보류.** 브랜치 `feature/nous-card`, push 안 함. 음성 v2(`docs/nous-script-v2.md`)를 노스가 재생성하면: ① Task 1 Step 2 가공 명령 → ② faster-whisper로 문단 시각 → ③ `nous.ts`의 VOICE·PARAGRAPHS(영·한) 교체 → ④ `node scripts/nous-envelope.mjs` → ⑤ 테스트의 시각 경계값 갱신 → main 병합·push.
