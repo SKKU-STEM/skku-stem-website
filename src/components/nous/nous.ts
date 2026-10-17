@@ -113,3 +113,19 @@ const MAIL_BODY = [
 export function mailtoHref(): string {
   return `mailto:youngmk@skku.edu?subject=${encodeURIComponent(MAIL_SUBJECT)}&body=${encodeURIComponent(MAIL_BODY)}`;
 }
+
+// 노스 공식 메일 — 교수님께 직접 말하기 어려운 학생 고민을 받는 학생 상담 전용 창구
+export const NOUS_MAIL = 'nous.stem@gmail.com';
+const NOUS_MAIL_SUBJECT = '[학생 상담] ';
+const NOUS_MAIL_BODY = [
+  '노스에게,',
+  '',
+  '(이름·학과·학년은 적고 싶을 때만 적어 주세요.)',
+  '',
+  '상담하고 싶은 내용:',
+  '',
+].join('\n');
+
+export function nousMailtoHref(): string {
+  return `mailto:${NOUS_MAIL}?subject=${encodeURIComponent(NOUS_MAIL_SUBJECT)}&body=${encodeURIComponent(NOUS_MAIL_BODY)}`;
+}

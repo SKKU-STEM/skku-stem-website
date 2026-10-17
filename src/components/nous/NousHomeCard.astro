@@ -1,12 +1,13 @@
 ---
-// 메인 모집 섹션 오른쪽 아래 노스 소개 카드 — 카드 전체가 노스 모달을 여는 버튼
+// 메인 모집 섹션 오른쪽 아래 노스 소개 카드 — 카드 전체가 노스 모달을 여는 버튼, 아래에 학생 상담 전용 노스 메일
 import { Image } from 'astro:assets';
 import portrait from '@/assets/nous/portrait.jpg';
-import { NOUS, VOICES, DEFAULT_LANG } from './nous';
+import { NOUS, NOUS_MAIL, VOICES, DEFAULT_LANG, nousMailtoHref } from './nous';
 
 const voice = VOICES[DEFAULT_LANG];
 ---
 
+<div class="nh-wrap">
 <button type="button" class="nh lift-card" data-nous-open data-nous-card aria-haspopup="dialog">
   <span class="nh-thumb">
     <Image
@@ -35,7 +36,25 @@ const voice = VOICES[DEFAULT_LANG];
   </span>
 </button>
 
+<p class="nh-mail">
+  <a href={nousMailtoHref()}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M4 6h16c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2z" />
+      <path d="M22 8l-10 7L2 8" />
+    </svg>
+    <span class="nh-mail-label">학생 상담 전용</span>
+    <span class="nh-mail-addr">{NOUS_MAIL}</span>
+  </a>
+  <span class="nh-mail-note">교수님께 직접 말하기 어려운 고민도 노스에게 편하게 보내 주세요.</span>
+</p>
+</div>
+
 <style>
+  .nh-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
   .nh {
     width: 100%;
     display: flex;
@@ -116,6 +135,47 @@ const voice = VOICES[DEFAULT_LANG];
     width: 1rem;
     height: 1rem;
     flex: none;
+  }
+  .nh-mail {
+    padding: 0 0.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    word-break: keep-all;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+  .nh-mail a {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.15rem 0.45rem;
+    min-height: 2.75rem;
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .nh-mail a:hover .nh-mail-addr {
+    color: var(--color-coral-700);
+  }
+  .nh-mail svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: none;
+    color: var(--color-coral-700);
+  }
+  .nh-mail-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-coral-700);
+  }
+  .nh-mail-addr {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--color-ink) 30%, transparent);
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+  .nh-mail-note {
+    display: block;
+    margin-top: -0.35rem;
   }
   .nh-dur {
     margin-top: -0.2rem;

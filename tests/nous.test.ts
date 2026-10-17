@@ -12,6 +12,8 @@ import {
   formatClock,
   formatSpoken,
   mailtoHref,
+  NOUS_MAIL,
+  nousMailtoHref,
   paragraphStart,
   visibleGraphics,
 } from '../src/components/nous/nous.ts';
@@ -100,6 +102,16 @@ test('mailto', () => {
   const h = mailtoHref();
   assert.ok(h.startsWith('mailto:youngmk@skku.edu?subject='));
   assert.ok(decodeURIComponent(h).includes('관심 과정(학부연구생 / 석박통합 / 석사 / 박사):'));
+});
+
+test('노스 학생 상담 메일 — 이름·학과는 선택', () => {
+  assert.equal(NOUS_MAIL, 'nous.stem@gmail.com');
+  const h = nousMailtoHref();
+  assert.ok(h.startsWith('mailto:nous.stem@gmail.com?subject='));
+  const d = decodeURIComponent(h);
+  assert.ok(d.includes('subject=[학생 상담]'));
+  assert.ok(d.includes('적고 싶을 때만'));
+  assert.equal(d.match(/@/g)?.length, 1); // 노스 메일 주소 하나만
 });
 
 // 2026-10-16 People Alumni 16명의 role·currentAffiliation 원문

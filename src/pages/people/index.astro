@@ -14,7 +14,7 @@ import piPortrait from '@/assets/members/YMK.jpg';
 import piProfile from '@content/pi/profile.json';
 import { cohortTerm, nowInKst, yearsEnrolled } from '@/utils/academicTerm';
 import NousModal from '@components/nous/NousModal.astro';
-import { NOUS, VOICES, DEFAULT_LANG } from '@components/nous/nous';
+import { NOUS, NOUS_MAIL, VOICES, DEFAULT_LANG, nousMailtoHref } from '@components/nous/nous';
 import nousPortrait from '@/assets/nous/portrait.jpg';
 
 const allMembers = (await getCollection('members')).map((e) => e.data);
@@ -345,6 +345,13 @@ const alumni = allMembers
                 aria-hidden="true">AI</span
               >
             </div>
+          </div>
+
+          <div class="relative z-[2] mt-5 space-y-1.5 text-xs text-ink/70">
+            <p>
+              <a href={nousMailtoHref()} class="hover:text-coral transition-colors break-all">{NOUS_MAIL}</a>
+            </p>
+            <p>Student counseling only · <span lang="ko">학생 상담 전용</span></p>
           </div>
 
           <button
