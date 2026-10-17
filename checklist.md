@@ -81,7 +81,7 @@
   - [x] `/publications/non-sci-patents` — 29 items mixed (Korean/US patents + non-SCI papers + book) (`src/data/publications-non-sci-patents.ts`)
   - [x] Lead authorship coral 강조 + DOI 링크. 각 데이터 파일 상단에 신규 항목 추가 절차 주석
   - [x] Sub-page 탭 nav, year jump nav, 좌측 sticky year column, compact 2-3 line entry
-  - [ ] **TODO(content)**: lead 휴리스틱(YK*)이 captured한 lead 분류를 PI가 검토 — 이전 사이트 청색 분류와 다른 항목은 데이터 파일에서 boolean 토글
+  - [x] **TODO(content)**: lead 분류 검토 — 기준 '교수님이 제1저자(공동 † 포함) 또는 교신저자(*)'를 사용자가 확인, 전체 238편(SKKU 186·이전 52)이 기준과 일치해 완결(2026-10-17). 바꿀 때는 CMS Publications 폼의 대표 저자 토글
   - [x] **TODO(content)**: 이전 사이트의 Presentations 페이지는 사용자 요청대로 마이그레이션 제외(결정 완료)
 
 ## Stage 4 — Polish
