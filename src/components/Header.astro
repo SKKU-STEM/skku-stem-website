@@ -60,7 +60,7 @@ const isCurrent = (href: string): boolean => {
                 href={item.href}
                 class:list={[
                   'transition-colors hover:text-coral',
-                  isCurrent(item.href) ? 'text-coral' : 'text-ink/80',
+                  isCurrent(item.href) ? 'text-coral-700' : 'text-ink/80',
                 ]}
                 aria-current={isCurrent(item.href) ? 'page' : undefined}
               >
@@ -120,7 +120,7 @@ const isCurrent = (href: string): boolean => {
             href={item.href}
             class:list={[
               'block py-3 text-base transition-colors hover:text-coral',
-              isCurrent(item.href) ? 'text-coral' : 'text-ink/80',
+              isCurrent(item.href) ? 'text-coral-700' : 'text-ink/80',
             ]}
             aria-current={isCurrent(item.href) ? 'page' : undefined}
           >

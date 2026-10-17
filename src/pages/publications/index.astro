@@ -150,7 +150,7 @@ const STACK = [...Array(SHEET_N)].map((_, i) => {
           papers across the full career ({grandMinYear}&ndash;{maxYear})
           <br />
           &mdash;{' '}
-          <span class="text-coral-400 font-medium tabular-nums">{grandLeadCount}</span>{' '}
+          <span class="text-coral-700 font-medium tabular-nums">{grandLeadCount}</span>{' '}
           lead authorship &amp;{' '}
           <span class="text-ink/85 tabular-nums">{grandCoCount}</span>{' '}
           co-authorship
@@ -159,7 +159,7 @@ const STACK = [...Array(SHEET_N)].map((_, i) => {
           <span class="font-mono tabular-nums text-ink">{total}</span> SCI papers
           since {minYear} at SKKU
           &mdash;{' '}
-          <span class="text-coral-400 font-medium tabular-nums">{leadCount}</span>{' '}
+          <span class="text-coral-700 font-medium tabular-nums">{leadCount}</span>{' '}
           lead authorship &amp;{' '}
           <span class="text-ink/85 tabular-nums">{coCount}</span>{' '}
           co-authorship
@@ -177,7 +177,7 @@ const STACK = [...Array(SHEET_N)].map((_, i) => {
           Sections
         </span>
         <span
-          class="inline-flex items-center px-4 py-2 border border-coral text-coral bg-coral/10 rounded-md text-sm font-medium"
+          class="inline-flex items-center px-4 py-2 border border-coral text-coral-700 bg-coral/10 rounded-md text-sm font-medium"
           aria-current="page"
         >
           SCI ({minYear}&ndash;{maxYear})
@@ -250,13 +250,13 @@ const STACK = [...Array(SHEET_N)].map((_, i) => {
                     <span
                       class:list={[
                         'font-mono text-sm tabular-nums text-right pt-0.5',
-                        p.lead ? 'text-coral-400 font-medium' : 'text-ink/65',
+                        p.lead ? 'text-coral-700 font-medium' : 'text-ink/65',
                       ]}
                     >
                       {p.number}
                     </span>
                     <div>
-                      <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-400 font-bold">
+                      <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700 font-bold">
                         {p.journal}
                         {p.volumePages && (
                           <span class="text-ink/65 normal-case font-normal ml-1.5">

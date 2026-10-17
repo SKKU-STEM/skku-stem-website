@@ -312,7 +312,7 @@ const alumni = allMembers
         AI 연구보조원 노스 — 사람 멤버와 같은 골격이되 사진 위 AI 칩과 소개 보기 버튼(카드 전체가 클릭 영역)으로 구분. */}
     <section class="container-page">
       <h2
-        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
+        class="font-mono text-xl sm:text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Lab Assistant
       </h2>
@@ -347,9 +347,9 @@ const alumni = allMembers
             </div>
           </div>
 
-          <div class="relative z-[2] mt-5 space-y-1.5 text-xs text-ink/70">
+          <div class="relative z-[2] mt-4 space-y-0 text-xs text-ink/70">
             <p>
-              <a href={nousMailtoHref()} class="hover:text-coral transition-colors break-all">{NOUS_MAIL}</a>
+              <a href={nousMailtoHref()} class="inline-block py-[5px] hover:text-coral transition-colors break-all">{NOUS_MAIL}</a>
             </p>
             <p>Student counseling only · <span lang="ko">학생 상담 전용</span></p>
             <p>Answered by Nous (AI); only serious matters go to the professor.</p>
@@ -376,7 +376,7 @@ const alumni = allMembers
     {/* ─────────────── Postdoctoral Researchers ─────────────── */}
     <section class="container-page">
       <h2
-        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
+        class="font-mono text-xl sm:text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Postdoctoral Researchers
         <span class="ml-2 text-ink/65 tabular-nums">{postdocs.length}</span>
@@ -418,11 +418,11 @@ const alumni = allMembers
                 />
               </div>
 
-              <div class="mt-5 space-y-1.5 text-xs text-ink/70">
+              <div class="mt-4 space-y-0 text-xs text-ink/70">
                 <p>
                   <a
                     href={`mailto:${m.email}`}
-                    class="hover:text-coral transition-colors break-all"
+                    class="inline-block py-[5px] hover:text-coral transition-colors break-all"
                   >
                     {m.email ?? ''}
                   </a>
@@ -432,7 +432,7 @@ const alumni = allMembers
                     href={`https://orcid.org/${m.orcid}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="hover:text-coral transition-colors"
+                    class="inline-block py-[5px] hover:text-coral transition-colors"
                   >
                     ORCID {m.orcid}
                   </a>
@@ -451,7 +451,7 @@ const alumni = allMembers
     {/* ─────────────── Ph.D. Candidates ─────────────── */}
     <section class="container-page">
       <h2
-        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
+        class="font-mono text-xl sm:text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Ph.D. Candidates
         <span class="ml-2 text-ink/65 tabular-nums">{phdCandidates.length}</span>
@@ -507,11 +507,11 @@ const alumni = allMembers
                 />
               </div>
 
-              <div class="mt-5 space-y-1.5 text-xs text-ink/70">
+              <div class="mt-4 space-y-0 text-xs text-ink/70">
                 <p>
                   <a
                     href={`mailto:${m.email}`}
-                    class="hover:text-coral transition-colors break-all"
+                    class="inline-block py-[5px] hover:text-coral transition-colors break-all"
                   >
                     {m.email ?? ''}
                   </a>
@@ -521,7 +521,7 @@ const alumni = allMembers
                     href={`https://orcid.org/${m.orcid}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="hover:text-coral transition-colors"
+                    class="inline-block py-[5px] hover:text-coral transition-colors"
                   >
                     ORCID {m.orcid}
                   </a>
@@ -539,7 +539,7 @@ const alumni = allMembers
     {/* ─────────────── Master course Students ─────────────── */}
     <section class="container-page">
       <h2
-        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
+        class="font-mono text-xl sm:text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Master course students
         <span class="ml-2 text-ink/65 tabular-nums">{masterStudents.length}</span>
@@ -595,11 +595,11 @@ const alumni = allMembers
                 />
               </div>
 
-              <div class="mt-5 space-y-1.5 text-xs text-ink/70">
+              <div class="mt-4 space-y-0 text-xs text-ink/70">
                 <p>
                   <a
                     href={`mailto:${m.email}`}
-                    class="hover:text-coral transition-colors break-all"
+                    class="inline-block py-[5px] hover:text-coral transition-colors break-all"
                   >
                     {m.email ?? ''}
                   </a>
@@ -609,7 +609,7 @@ const alumni = allMembers
                     href={`https://orcid.org/${m.orcid}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="hover:text-coral transition-colors"
+                    class="inline-block py-[5px] hover:text-coral transition-colors"
                   >
                     ORCID {m.orcid}
                   </a>
@@ -627,7 +627,7 @@ const alumni = allMembers
     {/* ─────────────── Undergraduate Students ─────────────── */}
     <section class="container-page">
       <h2
-        class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
+        class="font-mono text-xl sm:text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
       >
         Undergraduate Students
         <span class="ml-2 text-ink/65 tabular-nums">{undergrads.length}</span>
@@ -678,11 +678,11 @@ const alumni = allMembers
                 />
               </div>
 
-              <div class="mt-5 space-y-1.5 text-xs text-ink/70">
+              <div class="mt-4 space-y-0 text-xs text-ink/70">
                 <p>
                   <a
                     href={`mailto:${m.email}`}
-                    class="hover:text-coral transition-colors break-all"
+                    class="inline-block py-[5px] hover:text-coral transition-colors break-all"
                   >
                     {m.email ?? ''}
                   </a>
@@ -692,7 +692,7 @@ const alumni = allMembers
                     href={`https://orcid.org/${m.orcid}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="hover:text-coral transition-colors"
+                    class="inline-block py-[5px] hover:text-coral transition-colors"
                   >
                     ORCID {m.orcid}
                   </a>
@@ -712,7 +712,7 @@ const alumni = allMembers
     <section class="container-page">
       <div class="bg-cream-200 rounded-lg px-6 sm:px-8 md:px-10 py-10 md:py-12">
         <h2
-          class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
+          class="font-mono text-xl sm:text-2xl uppercase tracking-[0.16em] font-bold text-coral-600 pb-4 border-b border-ink/15"
         >
           Alumni
           <span class="ml-2 text-ink/65 tabular-nums">{alumni.length}</span>
@@ -748,12 +748,12 @@ const alumni = allMembers
               </div>
 
               {(a.email || a.orcid) && (
-                <div class="mt-4 pt-4 border-t border-ink/10 space-y-1 text-[11px] text-ink/70">
+                <div class="mt-3 pt-3 border-t border-ink/10 space-y-0 text-[11px] text-ink/70">
                   {a.email && (
                     <p>
                       <a
                         href={`mailto:${a.email}`}
-                        class="hover:text-coral transition-colors break-all"
+                        class="inline-block py-[5px] hover:text-coral transition-colors break-all"
                       >
                         {a.email}
                       </a>
@@ -765,7 +765,7 @@ const alumni = allMembers
                         href={`https://orcid.org/${a.orcid}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="hover:text-coral transition-colors"
+                        class="inline-block py-[5px] hover:text-coral transition-colors"
                       >
                         ORCID {a.orcid}
                       </a>

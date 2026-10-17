@@ -85,7 +85,7 @@ const bookCount = nonSciAndPatents.filter((i) => i.kind === 'book').length;
           Before SKKU (2000–2015)
         </a>
         <span
-          class="inline-flex items-center px-4 py-2 border border-coral text-coral bg-coral/10 rounded-md text-sm font-medium"
+          class="inline-flex items-center px-4 py-2 border border-coral text-coral-700 bg-coral/10 rounded-md text-sm font-medium"
           aria-current="page"
         >
           Non-SCI &amp; Patents
@@ -137,7 +137,7 @@ const bookCount = nonSciAndPatents.filter((i) => i.kind === 'book').length;
                     <div>
                       {/* header line: kind label + journal/region/publisher */}
                       {item.kind === 'non-sci' ? (
-                        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-400 font-bold">
+                        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700 font-bold">
                           {item.journal}
                           {item.volumePages && (
                             <span class="text-ink/65 normal-case font-normal ml-1.5">
@@ -146,7 +146,7 @@ const bookCount = nonSciAndPatents.filter((i) => i.kind === 'book').length;
                           )}
                         </p>
                       ) : item.kind === 'patent' ? (
-                        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-400 font-bold">
+                        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700 font-bold">
                           Patent
                           {item.region && (
                             <span class="ml-1.5">&middot; {item.region}</span>
@@ -158,7 +158,7 @@ const bookCount = nonSciAndPatents.filter((i) => i.kind === 'book').length;
                           )}
                         </p>
                       ) : (
-                        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-400 font-bold">
+                        <p class="font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700 font-bold">
                           Book
                           {item.publisher && (
                             <span class="text-ink/65 normal-case font-normal ml-1.5">

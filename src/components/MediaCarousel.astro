@@ -261,31 +261,39 @@ const multiple = slides.length > 1;
 
   .mc__dots {
     position: absolute;
-    bottom: 0.6rem;
+    bottom: 0.15rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.4rem;
     max-width: 90%;
   }
 
+  /* 누르는 칸은 24px(터치 최소 크기), 보이는 점은 그 가운데 ::before로 작게 그린다 */
   .mc__dot {
-    width: 0.45rem;
-    height: 0.45rem;
+    width: 1.5rem;
+    height: 1.5rem;
     padding: 0;
     border: 0;
+    background: transparent;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  .mc__dot::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
     border-radius: 9999px;
     background-color: color-mix(in oklab, var(--color-cream) 55%, transparent);
     box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-ink) 20%, transparent);
-    cursor: pointer;
     transition:
       background-color 0.2s ease,
       transform 0.2s ease;
   }
 
-  .mc__dot[aria-current='true'] {
+  .mc__dot[aria-current='true']::before {
     background-color: var(--color-coral);
     transform: scale(1.2);
   }

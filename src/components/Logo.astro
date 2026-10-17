@@ -27,11 +27,18 @@ const { class: className } = Astro.props;
   <span
     class="font-sans text-base sm:text-lg font-semibold tracking-tight whitespace-nowrap"
   >
-    SKKU-STEM <span class="font-normal">Laboratory</span>
+    SKKU-STEM <span class="logo-lab font-normal">Laboratory</span>
   </span>
 </span>
 
 <style>
+  /* 360px 미만(320px 폰)에서는 헤더 한 줄에 들어가도록 'Laboratory'를 뺀다 */
+  @media (max-width: 359.98px) {
+    .logo-lab {
+      display: none;
+    }
+  }
+
   /* 광축 — 중심 세로선, 위아래로 옅게 페이드. 항상 은은하게 비친다. */
   .logo-axis {
     position: absolute;
