@@ -35,8 +35,8 @@
 - [x] BaseLayout 리팩토링 — Header/Footer 분리, `min-h-dvh flex flex-col`로 footer 하단 고정
 - [x] 디자인 토큰 업데이트 — `--container-page` 1120px, `--container-prose` 720px, `container-page` 패딩 20/32px, `section-stack` 56/96px utility
 - [x] `astro check` 통과 (9 파일 / 0/0/0)
-- [ ] **TODO(content)**: Footer 외부 링크 4개의 실제 URL (학과 / 학교 / GitHub / ORCID)
-- [ ] **TODO(content)**: 진짜 로고 SVG (사용자가 추후 제공) → `src/assets/logo.svg` 교체
+- [x] **TODO(content)**: Footer 외부 링크 실제 URL — 학과·학교·GitHub 3개 연결(2026-10-17 점검). ORCID는 Footer가 아니라 멤버 카드·PI 페이지에 개별로 둠
+- [x] **TODO(content)**: 진짜 로고 — `public/logo.png` 심볼 마크를 `Logo.astro`가 코랄 마스크로 사용 중(2026-10-17 점검). `src/assets/logo.svg`(초기 자리표시)는 이제 아무 데서도 안 씀
 - [x] favicon.svg (`public/favicon.svg` + `favicon.png`)
 
 ## Stage 3 — Page content
@@ -58,19 +58,19 @@
   - [x] `src/components/PortraitBox.astro` + `src/assets/people/README.md`
   - [x] PI 별도 페이지: bio + Education + Research Experience + Honors + Selected Publications + Contact
   - [x] Selected Publications — Microscopy-based Materials Science (18) + AI Microscopy (6), `src/data/pi-publications.ts`로 분리
-  - [ ] **TODO(content)**: PI 사진 (현재 placeholder)
-  - [ ] **TODO(content)**: 각 논문 DOI URL 추가 (현재 doi 필드 비어있음)
+  - [x] **TODO(content)**: PI 사진 — People PI 카드에 실제 사진(YMK) 사용 중(2026-10-17 점검)
+  - [x] **TODO(content)**: 각 논문 DOI — `pi-publications.ts`는 Publications 번호 참조(pi-selected.json)로 바뀜. 선정 25편 모두 DOI 있음·라이브 PI 페이지 25/25 링크(2026-10-17 점검)
   - [ ] **TODO(content)**: 이전 사이트에 더 있던 항목 — talks / patents / service — 있으면 추가
-  - [ ] **TODO(check)**: 정호현이 MS course지만 이전 사이트가 "Ph.D. Candidates" 섹션에 둠. 분류 유지/이동 PI 확인
-- [ ] Research — 연구 주제 (group themes, projects) — next-session.md 참고
+  - [x] **TODO(check)**: 정호현 분류 — 현재 members 데이터 `section: master`(석사)로 정리됨(2026-10-17 점검)
+- [x] Research — 연구 주제 페이지 `/research`(research-themes 컬렉션) 라이브 200(2026-10-17 점검)
 - [x] People — PI / 연구원 / 졸업생 (= 위 People 섹션 L55–60에서 완료)
 - [x] Publications — Content Collection (= 위 Publications 섹션 L77–82 + Stage 5.1 마이그레이션)
 - [x] Gallery — Astro Image responsive grid (`gallery.astro` + `PhotoMosaic.astro`, lightbox)
 - [x] Facilities — 장비/시설 카탈로그 (`facilities.astro`, JEM-ARM300F + ARM200F)
 - [x] News — Content Collection (`news` collection, date sort, category filter)
   - [x] RSS feed (`/rss.xml` endpoint via `@astrojs/rss`, BaseLayout `<link rel="alternate">` 자동 노출)
-- [ ] ~~Join — 모집 공고 + apply flow~~ N/A (PRD §4 — Home recruiting 섹션 + footer 이메일로 통합, 별도 페이지 없음)
-- [ ] ~~Contact — 위치/지도/이메일~~ N/A (PRD §4 — 동일 이유)
+- [x] ~~Join — 모집 공고 + apply flow~~ N/A (PRD §4 — Home recruiting 섹션 + footer 이메일로 통합, 별도 페이지 없음)
+- [x] ~~Contact — 위치/지도/이메일~~ N/A (PRD §4 — 동일 이유)
 - [x] Pagefind UI 컴포넌트 (`/pagefind/pagefind-ui.js` 동적 로드) — `SearchDialog.astro` (Header 아이콘 + `<dialog>` 모달, Cmd/Ctrl+K · `/` 단축키, cream/coral 토큰 override)
 - [x] 404 페이지 (`src/pages/404.astro` — witty headline + 사이트 검색 모달 트리거 + Home 버튼, Cloudflare Pages가 dist/404.html을 자동 fallback)
 - [x] `robots.txt` + `sitemap.xml` 검증 — robots.txt(admin/oauth Disallow), `@astrojs/sitemap`이 sitemap-index.xml 생성, GSC 제출 완료 (PRD §11)
@@ -82,13 +82,13 @@
   - [x] Lead authorship coral 강조 + DOI 링크. 각 데이터 파일 상단에 신규 항목 추가 절차 주석
   - [x] Sub-page 탭 nav, year jump nav, 좌측 sticky year column, compact 2-3 line entry
   - [ ] **TODO(content)**: lead 휴리스틱(YK*)이 captured한 lead 분류를 PI가 검토 — 이전 사이트 청색 분류와 다른 항목은 데이터 파일에서 boolean 토글
-  - [ ] **TODO(content)**: 이전 사이트의 Presentations 페이지는 사용자 요청대로 마이그레이션 제외
+  - [x] **TODO(content)**: 이전 사이트의 Presentations 페이지는 사용자 요청대로 마이그레이션 제외(결정 완료)
 
 ## Stage 4 — Polish
 
 - [x] 다크 모드 결정 — 보류 (context-notes §9, 라이트 가정 사진/그림 다수)
 - [ ] 한국어/영어 i18n (Astro i18n routing) 필요 여부 확인
-- [ ] OG 이미지 자동 생성 (Satori 등)
+- [x] OG 이미지 자동 생성 — `scripts/generate-og.mjs`(Satori+sharp, 빌드 훅). 라이브 `og:image` = `/og/home.png` 200(2026-10-17 점검)
 - [x] Lighthouse / a11y 점검 — 10 페이지 모두 a11y 100 / best-practices 100 / SEO 100. 색 대비, label 일치, link-in-text-block, target-size 4종 위반 모두 해소. perf는 라이브 CDN 기준 측정 필요 (script: scripts/lighthouse-audit.mjs).
 - [x] 배포 타겟 확정 — Cloudflare Pages (skkustem.org)
 
