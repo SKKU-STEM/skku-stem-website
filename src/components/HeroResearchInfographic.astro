@@ -78,7 +78,8 @@
 
   .hero-icons__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* minmax(0, 1fr): 웹폰트가 오기 전 넓은 대체 글꼴에서도 칸이 화면 폭을 넘지 않게 */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.75rem;
     margin: 0;
     padding: 0;
@@ -117,6 +118,7 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     text-align: center;
+    overflow-wrap: anywhere;
     color: color-mix(in oklab, var(--color-ink) 68%, transparent);
   }
 
