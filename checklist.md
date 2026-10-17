@@ -42,16 +42,16 @@
 ## Stage 3 — Page content
 
 - [x] Home — split hero + 3 highlight cards + by-the-numbers stats + 한글 recruiting
-  - [ ] **TODO(content)**: hero 그룹 사진 (현재 cream-300 placeholder)
-  - [ ] **TODO(content)**: highlight 3편의 실제 논문 정보 + DOI
-  - [ ] **TODO(content)**: stat 4개 정확한 수치 확인 (60+ pubs / 3 N/S / 2 OSS / 8 members)
+  - [x] **TODO(content)**: hero 그룹 사진 — 섹션 6 히어로 슬라이드쇼(CMS)로 대체, 라이브 사진 4장(2026-10-17 점검)
+  - [x] **TODO(content)**: highlight 실제 논문 — 섹션 13 자동 게시(research-highlights 최신 2건)와 Recent papers 자동 추출로 대체(2026-10-17 점검)
+  - [x] ~~**TODO(content)**: stat 4개 정확한 수치 확인~~ 해당 없음 — 이후 개편으로 메인에서 수치 블록이 빠짐(2026-10-17 점검)
 - [x] Research — 이전 사이트 highlights 마이그레이션 (28 entries, 역연대기 timeline)
   - [x] `src/data/research-highlights.ts`로 데이터 분리 + 신규 항목 추가 절차 주석
   - [x] 연도별 그룹핑 + 좌측 sticky year column + 상단 year jump nav
   - [x] DOI / Code / mention 표기 (entry별 옵션 필드)
   - [x] entry별 4:3 figure 슬롯 (lg+ 텍스트 우측, 그 이하 텍스트 아래 stack)
   - [x] `src/components/FigureSlot.astro` (재사용 가능 — aspect/label 변경 가능) + `src/assets/research/README.md`
-  - [ ] **TODO(content)**: 28개 entry 각각의 대표 figure 업로드 (현재 모두 placeholder)
+  - [x] **TODO(content)**: 대표 figure — research-highlights 29건 모두 image 있음, 라이브 /research 그림 30장·자리표시 0(2026-10-17 점검)
 - [x] People — 이전 사이트 Members 페이지 마이그레이션 (`/people` index + `/people/pi`)
   - [x] PI feature 카드 + Postdocs(2) + Ph.D. Candidates(12) + Undergrad(1) + Alumni(15)
   - [x] 모든 멤버/alumni 카드에 portrait 슬롯 추가 — 우측 상단 3:4 (`w-24`), Astro Image + 점선 placeholder
