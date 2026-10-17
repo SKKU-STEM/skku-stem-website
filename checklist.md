@@ -87,7 +87,7 @@
 ## Stage 4 — Polish
 
 - [x] 다크 모드 결정 — 보류 (context-notes §9, 라이트 가정 사진/그림 다수)
-- [ ] 한국어/영어 i18n (Astro i18n routing) 필요 여부 확인
+- [x] ~~한국어/영어 i18n (Astro i18n routing)~~ 필요 없음(사용자 결정 2026-10-17) — 완결
 - [x] OG 이미지 자동 생성 — `scripts/generate-og.mjs`(Satori+sharp, 빌드 훅). 라이브 `og:image` = `/og/home.png` 200(2026-10-17 점검)
 - [x] Lighthouse / a11y 점검 — 10 페이지 모두 a11y 100 / best-practices 100 / SEO 100. 색 대비, label 일치, link-in-text-block, target-size 4종 위반 모두 해소. perf는 라이브 CDN 기준 측정 필요 (script: scripts/lighthouse-audit.mjs).
 - [x] 배포 타겟 확정 — Cloudflare Pages (skkustem.org)
