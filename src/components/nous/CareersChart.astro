@@ -8,9 +8,8 @@ const alumni = (await getCollection('members'))
   .filter((m) => m.section === 'alumni')
   .map((m) => ({ role: m.role, currentAffiliation: m.currentAffiliation }));
 
-const { total, degree, staff, bars, span } = tallyCareers(alumni);
+const { total, degree, staff, bars } = tallyCareers(alumni);
 const max = Math.max(...bars.map((b) => b.degree + b.staff), 1);
-const spanText = span ? (span.min === span.max ? `${span.min}` : `${span.min}–${span.max}`) : '';
 ---
 
 <figure class="cc-fig" lang="ko">
@@ -41,10 +40,6 @@ const spanText = span ? (span.min === span.max ? `${span.min}` : `${span.min}–
       </li>
     ))}
   </ul>
-
-  <figcaption class="cc-cap">
-    출처: People 페이지 Alumni 명단({spanText} 재학·재직), 자동 집계. 현재 소속 기준.
-  </figcaption>
 </figure>
 
 <style>
@@ -135,12 +130,6 @@ const spanText = span ? (span.min === span.max ? `${span.min}` : `${span.min}–
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     color: var(--color-ink);
-  }
-  .cc-cap {
-    margin-top: 0.85rem;
-    font-size: 0.6875rem;
-    line-height: 1.5;
-    color: color-mix(in oklab, var(--color-ink) 70%, transparent);
   }
 
   /* 좁은 폭: 라벨을 막대 위로 */

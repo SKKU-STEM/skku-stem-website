@@ -111,6 +111,10 @@ test('노스 학생 상담 메일 — 이름·학과는 선택', () => {
   const d = decodeURIComponent(h);
   assert.ok(d.includes('subject=[학생 상담]'));
   assert.ok(d.includes('적고 싶을 때만'));
+  // 운영 방식 고지: 노스(AI)가 읽고 답하며, 심각한 사항만 교수님께 전달, 상담 기록 보관
+  assert.ok(d.includes('노스(AI)가 읽고 답장합니다'));
+  assert.ok(d.includes('심각한 사항만 교수님께'));
+  assert.ok(d.includes('보관'));
   assert.equal(d.match(/@/g)?.length, 1); // 노스 메일 주소 하나만
 });
 
