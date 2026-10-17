@@ -104,13 +104,14 @@ test('mailto', () => {
   assert.ok(decodeURIComponent(h).includes('관심 과정(학부연구생 / 석박통합 / 석사 / 박사):'));
 });
 
-test('노스 학생 상담 메일 — 이름·학과는 선택', () => {
+test('노스 학생 상담 메일 — 신상정보 기재를 유도하지 않음', () => {
   assert.equal(NOUS_MAIL, 'nous.stem@gmail.com');
   const h = nousMailtoHref();
   assert.ok(h.startsWith('mailto:nous.stem@gmail.com?subject='));
   const d = decodeURIComponent(h);
   assert.ok(d.includes('subject=[학생 상담]'));
-  assert.ok(d.includes('적고 싶을 때만'));
+  // 학부생·대학원생 모두 받는 창구라 이름·학과·학년 칸이나 안내를 두지 않는다
+  for (const w of ['이름', '학과', '학년']) assert.ok(!d.includes(w), w);
   // 운영 방식 고지: 노스(AI)가 읽고 답하며, 심각한 사항만 교수님께 전달, 상담 기록 보관
   assert.ok(d.includes('노스(AI)가 읽고 답장합니다'));
   assert.ok(d.includes('심각한 사항만 교수님께'));
