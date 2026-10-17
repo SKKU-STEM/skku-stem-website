@@ -15,7 +15,10 @@ const DATA = [
 const max = Math.max(...DATA.map((d) => d.eok));
 const fmt = (n: number) => n.toLocaleString('ko-KR');
 // 값 라벨 위를 지나는 성장 곡선(0–100 좌표, 막대 영역 기준, 라벨 높이만큼 22 띄움)
-const curve = DATA.map((d, i) => `${((i + 0.5) / DATA.length) * 100},${100 - (d.eok / max) * 100 - 22}`).join(' ');
+const pts = DATA.map((d, i) => [((i + 0.5) / DATA.length) * 100, 100 - (d.eok / max) * 100 - 22] as const);
+const curve = pts.map(([x, y]) => `${x},${y}`).join(' ');
+// 곡선 끝 화살촉 — SVG가 가로로 늘어나므로(preserveAspectRatio=none) 마커 대신 같은 좌표의 HTML 요소로 그린다
+const [endX, endY] = pts[pts.length - 1];
 ---
 
 <figure class="mc-fig" lang="ko">
@@ -38,6 +41,7 @@ const curve = DATA.map((d, i) => `${((i + 0.5) / DATA.length) * 100},${100 - (d.
       <svg class="mc-curve" viewBox="0 0 100 100" preserveAspectRatio="none">
         <polyline points={curve} fill="none" vector-effect="non-scaling-stroke" />
       </svg>
+      <span class="mc-head" style={`left:${endX}%;top:calc(2.6rem + (100% - 2.6rem) * ${endY / 100})`} />
       <span class="mc-badge">연평균 +24.3%</span>
     </div>
     <div class="mc-axis">
@@ -142,6 +146,17 @@ const curve = DATA.map((d, i) => `${((i + 0.5) / DATA.length) * 100},${100 - (d.
     stroke-width: 1.4;
     stroke-dasharray: 4 3;
     opacity: 0.55;
+  }
+  /* 오른쪽을 가리키는 삼각형을 곡선 끝에 두고 마지막 구간 기울기(약 13°)만큼 올린다 */
+  .mc-head {
+    position: absolute;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: var(--color-ink);
+    opacity: 0.55;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    transform: translate(-50%, -50%) rotate(-13deg);
+    pointer-events: none;
   }
   .mc-badge {
     position: absolute;

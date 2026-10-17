@@ -387,7 +387,7 @@ const voice = VOICES[DEFAULT_LANG];
     position: relative; /* offsetTop 기준 */
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: 1.75rem 1.75rem 2rem;
+    padding: 1.75rem 3.6rem 2rem 1.75rem; /* 오른쪽은 닫기 버튼(2.5rem + 여백) 자리 */
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
@@ -809,11 +809,14 @@ const voice = VOICES[DEFAULT_LANG];
       glow.style.setProperty('--amp', '0');
     };
 
-    const showError = () => {
+    const LOAD_ERROR = '영상을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
+    const AUTOPLAY_BLOCKED = '브라우저가 자동 재생을 막았습니다. 재생 버튼을 눌러 주세요.';
+    // 같은 문구를 다시 띄워도 화면낭독기가 읽도록 비웠다가 채운다
+    const showError = (message: string = LOAD_ERROR) => {
       errorEl.hidden = false;
       errorEl.textContent = '';
       requestAnimationFrame(() => {
-        errorEl.textContent = '영상을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
+        errorEl.textContent = message;
       });
     };
 
@@ -826,6 +829,7 @@ const voice = VOICES[DEFAULT_LANG];
         // 자동재생 차단(NotAllowedError)은 버튼으로 다시 누르면 되지만, 파일 오류는 알린다.
         // WebKit은 preload="none"이어도 미리 불러와 error 이벤트가 모달을 열기 전에 지나가므로 여기서도 확인한다.
         if (e.name !== 'NotAllowedError' || media.error) showError();
+        else showError(AUTOPLAY_BLOCKED);
       });
     };
 
@@ -998,7 +1002,7 @@ const voice = VOICES[DEFAULT_LANG];
       }
       if (media.paused) update(now());
     });
-    media.addEventListener('error', showError);
+    media.addEventListener('error', () => showError());
 
     const seekTo = (t: number) => {
       const v = Math.min(Math.max(t, 0), duration);
