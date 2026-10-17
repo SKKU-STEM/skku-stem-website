@@ -310,6 +310,12 @@
 - [x] Higgsfield 공식 SDK(`@higgsfield/client`) + Seedance 2.5 예제 `npm run higgsfield:example` — 실행 결과 API 잔액 0으로 403 "Not enough credits"(인증은 통과). API 잔액은 웹 구독과 별도(최소 5달러 충전)
 - [x] 목소리 후보 3개(Taehyung·Taemin·Min-joon) 한·영 샘플 → **Taehyung** 확정
 - [x] 원고 v2 한국어 낭독판 작성, eleven_v4로 문단별 생성(한 92.2초, 영 84.1초, −18 LUFS)
-- [ ] (사용자) 낭독 음성 청취 확인 — 촉매·램리서치·세메스·이메일 발음
-- [ ] Higgsfield MCP(`claude mcp add` 완료) 로그인 → 크레딧·립싱크 비용 조회 → 사용자 승인 후 영상 생성
-- [ ] 화면: 사진 자리에 말하는 영상, 기본 한국어·EN 선택 시 영어(음성·자막·그래픽 시각 언어별)
+- [x] Higgsfield MCP 연결(claude.ai 커넥터) → 모델 시험: Wan 2.7(끝 프레임 고정) 입 안 움직임, Seedance 2.0 Mini 음성 무시·말 지어냄, Seedance 2.5는 Plus 이상 → **Wan 2.7(끝 프레임 없음)** 채택(립 상관 0.45, 소리 원본과 동일)
+- [x] 500크레딧 충전(사용자) → 한 8조각·영 8조각 생성(270크레딧), 이어 붙여 `public/nous/intro-{ko,en}.mp4`(480×640, 3.8/3.6MB, AI-generated 표시)
+- [x] 설계 `docs/superpowers/specs/2026-10-17-nous-talking-video-design.md` 승인, 계획 `docs/superpowers/plans/2026-10-17-nous-talking-video.md`
+- [x] 모달: 사진 → 영상, 한국어|English 버튼(같은 문단 이어 재생·멈춤 유지·열 때 한국어), 자막 순서, 문구 / 카드 문구 "Watch lab intro · 1:32", "연구실 소개 보기"
+- [x] 검증: 단위 17/17, check 0/0/0, build, Edge·WebKit 258/258(언어 전환 포함), 1차 리뷰 회귀 15/15
+- [x] 학생 상담 전용 노스 메일 nous.stem@gmail.com — 메인 카드 아래·People 카드(메일 클릭 시 모달 안 열림, 43/43)
+- [ ] (사용자) 영상 두 개 시청 확인 — 특히 촉매·램리서치·세메스·메일 주소 발음, 문단 2(ko02 조각) 입 맞춤
+- [ ] (사용자) 노스 메일 운영 원칙: 누가 읽고 답하는지(AI/교수님), 교수님께 전달 여부, 보관 기간 — 카드 안내 문구에 반영할지
+- [ ] (사용자) Higgsfield 키(채팅에 노출됨) 재발급, main 병합·push 여부
