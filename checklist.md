@@ -282,3 +282,41 @@
 - [x] config.yml 라벨 쉼표 잘림 8곳 따옴표 처리(`4f40f9e`) — js-yaml null 키 0건, CMS 경고 9→2, 폼 라벨 전체 표시 확인
 - [x] (배포) `4f40f9e` 라벨 수정 + checklist 커밋 push, 라이브 config null 키 0건·subsup 4필드 확인
 - [x] research-themes `relatedHighlights`의 무효 옵션 `add_to_top`/`collapsed` 제거 — 로컬 CMS 경고 0건
+
+## 17. 노스(Nous) AI 연구보조원 카드 (2026-10-16~)
+
+설계 `docs/superpowers/specs/2026-10-16-nous-member-card-design.md` · 계획 `docs/superpowers/plans/2026-10-16-nous-member-card.md` · 원고 v2 `docs/nous-script-v2.md`. 브랜치 `feature/nous-card`(push 보류 — 음성 v2 재생성 후 배포).
+
+- [x] Task 1 — 포트레이트(워터마크)·음성 가공(79.2s 컷, 앞 0.3s, −18.8 LUFS)·엔벌로프 생성기
+- [x] Task 2 — 노스·음성 데이터 모듈(`nous.ts`) + 단위 테스트
+- [x] Task 3 — 진로 분류·집계(`careers.ts`) + 단위 테스트
+- [x] Task 4 — 그래픽 3종(연구 지도·AI 반도체 시장 규모·진로)
+- [x] Task 5 — 모달(음성·영한 자막·그래픽·CTA)
+- [x] Task 6 — People "Lab Assistant" 카드
+- [x] Task 7 — 메인 모집 섹션 카드
+- [x] Task 8 — 전체 검증(테스트·check·build·Playwright·axe·Lighthouse)
+  - 단위 12/12, `check` 0/0/0, build 통과(pagefind 11페이지 그대로, 두 페이지 모달 1개씩·`data-pagefind-ignore`)
+  - Playwright Chromium·WebKit × 1280·390 × /·/people/ 198건 중 196건 통과. 실패 2건은 WebKit 390 메인 히어로 h1 가로 넘침(410/390) — **라이브에서도 재현되는 기존 문제**
+  - axe: 노스 카드·모달 요소 위반 0건(닫힘·0초·끝 세 상태). 기존 요소 대비 위반은 별도 기록
+  - Lighthouse(모바일): a11y 91·SEO 100 — 라이브와 같은 값·같은 실패 항목(color-contrast, target-size, 기존). perf 메인 90(라이브 92), People 93(라이브 85)
+- [x] 최종 리뷰(Opus) — Important 5 + 실제 폰 높이 1건 수정, 재현 검사 15건 RED→GREEN, 전체 198/198
+- [ ] (사소, 보류) 자동재생 거부 안내 문구 · 성장 곡선 화살촉 · 데스크톱 닫기 버튼 겹침 · 모달 사진 크로스페이드 · CTA inert
+- [ ] (범위 밖, 기존) WebKit 390 메인 히어로 가로 넘침, 기존 대비 미달(Recent papers 연도 `text-ink/55`, 헤더 현재 메뉴 코랄, Alumni 제목, 산학 칩)과 target-size
+- [ ] (사용자) 원고 v2로 노스에게 음성 재생성 요청 → 받으면 교체 후 배포
+- [ ] (사용자) AI 표시 기준(「AI 기본법」 제31조)·ElevenLabs/Higgsfield 약관 확인, 언급 졸업생 고지, 이름 표기(노스/누스) 확정
+
+### 17-B. 노스 말하는 영상 + 20대 목소리 + 한국어 기본/영어 선택 (2026-10-17~)
+- [x] ElevenLabs(Pro)·Higgsfield 키를 `.env.local`(Git 제외)에 저장 — `ELEVENLABS_API_KEY`, `HF_CREDENTIALS`
+- [x] Higgsfield 공식 SDK(`@higgsfield/client`) + Seedance 2.5 예제 `npm run higgsfield:example` — 실행 결과 API 잔액 0으로 403 "Not enough credits"(인증은 통과). API 잔액은 웹 구독과 별도(최소 5달러 충전)
+- [x] 목소리 후보 3개(Taehyung·Taemin·Min-joon) 한·영 샘플 → **Taehyung** 확정
+- [x] 원고 v2 한국어 낭독판 작성, eleven_v4로 문단별 생성(한 92.2초, 영 84.1초, −18 LUFS)
+- [x] Higgsfield MCP 연결(claude.ai 커넥터) → 모델 시험: Wan 2.7(끝 프레임 고정) 입 안 움직임, Seedance 2.0 Mini 음성 무시·말 지어냄, Seedance 2.5는 Plus 이상 → **Wan 2.7(끝 프레임 없음)** 채택(립 상관 0.45, 소리 원본과 동일)
+- [x] 500크레딧 충전(사용자) → 한 8조각·영 8조각 생성(270크레딧), 이어 붙여 `public/nous/intro-{ko,en}.mp4`(480×640, 3.8/3.6MB, AI-generated 표시)
+- [x] 설계 `docs/superpowers/specs/2026-10-17-nous-talking-video-design.md` 승인, 계획 `docs/superpowers/plans/2026-10-17-nous-talking-video.md`
+- [x] 모달: 사진 → 영상, 한국어|English 버튼(같은 문단 이어 재생·멈춤 유지·열 때 한국어), 자막 순서, 문구 / 카드 문구 "Watch lab intro · 1:32", "연구실 소개 보기"
+- [x] 검증: 단위 17/17, check 0/0/0, build, Edge·WebKit 258/258(언어 전환 포함), 1차 리뷰 회귀 15/15
+- [x] 학생 상담 전용 노스 메일 nous.stem@gmail.com — 메인 카드 아래·People 카드(메일 클릭 시 모달 안 열림, 43/43)
+- [x] (사용자) 영상 시청 — 영어 OK, 한국어 문단 3·4·5 앞 잡음 지적 → 무음 처리(영어 1곳 포함)
+- [ ] (사용자) 고친 한국어 영상 재확인
+- [ ] (사용자) 노스 메일 운영 원칙: 누가 읽고 답하는지(AI/교수님), 교수님께 전달 여부, 보관 기간 — 카드 안내 문구에 반영할지
+- [ ] (사용자) Higgsfield 키(채팅에 노출됨) 재발급, main 병합·push 여부

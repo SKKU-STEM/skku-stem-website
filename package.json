@@ -11,7 +11,8 @@
     "astro": "astro",
     "check": "astro check",
     "typecheck": "tsc --noEmit",
-    "logo:build": "node scripts/build-logo-assets.mjs"
+    "logo:build": "node scripts/build-logo-assets.mjs",
+    "higgsfield:example": "node --env-file=.env.local scripts/higgsfield/index.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@fontsource/inter": "^5.2.8",
     "@fontsource/newsreader": "^5.2.10",
+    "@higgsfield/client": "^0.2.6",
     "@types/node": "^22.0.0",
     "fontaine": "^0.8.0",
     "pagefind": "^1.2.0",

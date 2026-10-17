@@ -8,6 +8,8 @@ import HeroSlideshow from '@components/HeroSlideshow.astro';
 import HeroResearchInfographic from '@components/HeroResearchInfographic.astro';
 import ResearchHighlightCard from '@components/ResearchHighlightCard.astro';
 import RecruitingMedia from '@components/RecruitingMedia.astro';
+import NousHomeCard from '@components/nous/NousHomeCard.astro';
+import NousModal from '@components/nous/NousModal.astro';
 import heroData from '@content/home/hero.json';
 import recruitingMedia from '@content/home/recruiting.json';
 
@@ -347,19 +349,21 @@ const highlights = skkuEntries
           </div>
           </div>
 
-          {/* 우: 시각자료 박스 — 동영상은 자동재생·무한반복(음소거), YouTube는 박스 안에서 재생 */}
-          <div>
+          {/* 우: 위 = 시각자료 박스(동영상 자동재생·무한반복·음소거, YouTube는 박스 안 재생), 아래 = AI 연구보조원 노스 소개 카드 */}
+          <div class="flex flex-col gap-5">
             <RecruitingMedia
               video={recruitingMedia.video}
               image={recruitingMedia.image}
               youtube={recruitingMedia.youtube}
               alt={recruitingMedia.alt}
             />
+            <NousHomeCard />
           </div>
         </div>
       </div>
     </section>
   </div>
+  <NousModal />
 </BaseLayout>
 
 <style>

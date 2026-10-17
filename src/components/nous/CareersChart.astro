@@ -1,0 +1,153 @@
+---
+// 노스 모달 문단 4용 연구실 출신 진로 누적 막대 — People Alumni 컬렉션을 빌드 시 집계(학위 졸업 / 연구직 구분)
+import { getCollection } from 'astro:content';
+import { tallyCareers } from './careers';
+
+const alumni = (await getCollection('members'))
+  .map((e) => e.data)
+  .filter((m) => m.section === 'alumni')
+  .map((m) => ({ role: m.role, currentAffiliation: m.currentAffiliation }));
+
+const { total, degree, staff, bars, span } = tallyCareers(alumni);
+const max = Math.max(...bars.map((b) => b.degree + b.staff), 1);
+const spanText = span ? (span.min === span.max ? `${span.min}` : `${span.min}–${span.max}`) : '';
+---
+
+<figure class="cc-fig" lang="ko">
+  <h3 class="cc-title">연구실 출신 {total}명의 현재 소속</h3>
+  <p class="cc-legend" aria-hidden="true">
+    <span class="cc-key"><i class="cc-seg--degree" />학위 졸업 {degree}명</span>
+    <span class="cc-key"><i class="cc-seg--staff" />연구교수·박사후·연구원 {staff}명</span>
+  </p>
+  <p class="sr-only">
+    연구실 출신 {total}명(학위 졸업 {degree}명, 연구교수·박사후·연구원 {staff}명)의 현재 소속:
+    {bars.map((b) => `${b.label} ${b.degree + b.staff}명(학위 ${b.degree}, 연구직 ${b.staff})${b.examples ? ` — ${b.examples}` : ''}`).join('; ')}.
+  </p>
+
+  <ul class="cc-rows" aria-hidden="true">
+    {bars.map((b) => (
+      <li class="cc-row">
+        <span class="cc-label">
+          <span class="cc-name">{b.label}</span>
+          {b.examples && <span class="cc-ex">{b.examples}</span>}
+        </span>
+        <span class="cc-track">
+          <span class="cc-bar" style={`width:calc((100% - 2.6rem) * ${(b.degree + b.staff) / max})`}>
+            {b.degree > 0 && <span class="cc-seg cc-seg--degree" style={`flex:${b.degree}`} />}
+            {b.staff > 0 && <span class="cc-seg cc-seg--staff" style={`flex:${b.staff}`} />}
+          </span>
+          <span class="cc-count">{b.degree + b.staff}명</span>
+        </span>
+      </li>
+    ))}
+  </ul>
+
+  <figcaption class="cc-cap">
+    출처: People 페이지 Alumni 명단({spanText} 재학·재직), 자동 집계. 현재 소속 기준.
+  </figcaption>
+</figure>
+
+<style>
+  .cc-fig {
+    word-break: keep-all;
+    container-type: inline-size;
+    border: 1px solid var(--color-cream-300);
+    border-radius: var(--radius-lg);
+    background: var(--color-cream-50);
+    padding: 1rem 1rem 0.85rem;
+  }
+  .cc-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1.35;
+    color: var(--color-ink);
+  }
+  .cc-legend {
+    margin-top: 0.35rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1rem;
+    font-size: 0.6875rem;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+  .cc-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .cc-key i {
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 2px;
+  }
+  .cc-rows {
+    margin-top: 0.85rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+  .cc-row {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .cc-label {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .cc-name {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .cc-ex {
+    font-size: 0.6875rem;
+    color: color-mix(in oklab, var(--color-ink) 72%, transparent);
+  }
+  .cc-track {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+  .cc-bar {
+    display: flex;
+    height: 1.1rem;
+    border-radius: 3px;
+    overflow: hidden;
+    min-width: 0.6rem;
+  }
+  .cc-seg--degree {
+    background: var(--color-coral-700);
+  }
+  .cc-seg--staff {
+    background: repeating-linear-gradient(
+      135deg,
+      var(--color-coral) 0 5px,
+      color-mix(in oklab, var(--color-coral) 70%, var(--color-cream)) 5px 8px
+    );
+  }
+  .cc-count {
+    flex: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink);
+  }
+  .cc-cap {
+    margin-top: 0.85rem;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    color: color-mix(in oklab, var(--color-ink) 70%, transparent);
+  }
+
+  /* 좁은 폭: 라벨을 막대 위로 */
+  @container (max-width: 26rem) {
+    .cc-row {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>
