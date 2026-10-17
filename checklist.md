@@ -145,7 +145,7 @@
 - [x] `public/admin/config.yml` — `home` 컬렉션(`Home · Hero slides`, list min:1 max:3, image→/src/assets/hero) 추가
 - [x] `src/assets/hero/README.md` — 업로드/명명/해상도 가이드
 - [x] `npm run check` 0/0/0 / `npm run build` 통과 / 3장·1장 렌더 검증
-- [ ] (배포) git push → Cloudflare Pages 라이브 반영 — 사용자 승인 후
+- [x] (배포) 라이브 반영 확인(2026-10-17 점검: c8e0c8e가 origin/main에 있음, 라이브 메인 슬라이드 캐러셀 동작)
 
 ## 7. Home Research highlights + Recent papers 개편 (2026-05-28) — ⚠️ 아래 데이터 소스는 2026-07-14 개편으로 대체됨(섹션 13 참조)
 
@@ -197,8 +197,8 @@
 - [x] 히어로 'Explore research' 버튼 삭제 (= All research와 기능 중복) → 동적 인포그래픽으로 대체
 - [x] `src/components/HeroResearchInfographic.astro` — 처음엔 사실적 1장면(격자+스캔빔+EELS)으로 만들었으나, 사용자 요청으로 **은유적 아이콘 3개**로 재설계: Microscopy(초점 좁히는 조준 링)·Spectroscopy(살아있는 스펙트럼 막대)·Machine learning(펄스+신호흐름 뉴럴넷). SVG/CSS 애니, `prefers-reduced-motion` 정지
 - [x] `npm run check` 0/0/0 / `npm run build` 통과 (Explore research 제거·인포그래픽·animate-breathe 3개 확인)
-- [ ] (시각 확인) 로컬 `npm run dev`로 인포그래픽 애니메이션 확인
-- [ ] (배포) git push → Cloudflare Pages 라이브 반영 — 사용자 승인 후
+- [x] (시각 확인) 라이브에서 아이콘 3개·애니메이션 8개 요소 동작 확인(2026-10-17)
+- [x] (배포) 라이브 반영 확인(2026-10-17 점검: bb91feb가 origin/main에 있음). 히어로 'Explore research'는 이후 7d11051에서 All research 버튼 이름을 바꾼 것
 
 ## 11. PI CV Publications 동적 그래픽 (2026-05-31)
 
@@ -225,7 +225,7 @@
 - [x] reduced-motion 정지 / ProbeField는 IntersectionObserver+ResizeObserver 대응
 - [x] `npm run check` 0/0/0 / `npm run build` 통과
 - [x] (시각 확인) CDP 캡처 — 헤더 프로브(마우스 전/후)·4글리프 렌더 + 헤더 가독성 확인
-- [ ] (배포) 사용자 승인 후 push
+- [x] (배포) 라이브 반영 확인(2026-10-17 점검: 3c4c773이 origin/main에 있음, PI 페이지 글리프 4개·애니 15개 요소·프로브 캔버스 동작)
 
 ## 13. Home Research highlights 자동 게시 개편 (2026-07-14)
 
@@ -237,7 +237,7 @@
 - [x] CMS 정합화 — research-highlights image 위젯 media_folder `/public/research` → `/src/assets/research`(hero 패턴). research-themes 필드도 동일 정합화(단 테마 카드는 이미지 미렌더)
 - [x] `npm run check` 0/0/0 / `npm run build` 통과. dist에서 홈 2건(구리·은박막)+이미지, /research 구리 그림 확인
 - [x] main 병합(3816ecf). 스펙·계획: `docs/superpowers/specs|plans/2026-07-14-home-research-highlights-auto*`
-- [ ] (배포) 사용자 승인 후 push
+- [x] (배포) 라이브 반영 확인(2026-10-17 점검: 3816ecf가 origin/main에 있음, 메인 하이라이트 카드 2건·이미지 2장 표시)
 
 ## 14. 방문자 카운터 자체 호스팅 전환 (2026-08-26)
 
