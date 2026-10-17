@@ -1,8 +1,8 @@
 ---
-// 노스 소개 모달 — 진입점([data-nous-open]) 클릭 시 사진이 떠오르고 음성·영한 자막·문단별 그래픽·상담 안내를 보여 준다(페이지당 1개)
-import { Image } from 'astro:assets';
-import portrait from '@/assets/nous/portrait.jpg';
-import { NOUS, PARAGRAPHS, VOICE, GRAPHIC_AT, formatClock, formatSpoken, mailtoHref, type GraphicId } from './nous';
+// 노스 소개 모달 — 진입점([data-nous-open]) 클릭 시 사진이 떠올라 말하는 영상(기본 한국어, 영어 선택)·한영 자막·문단별 그래픽·상담 안내를 보여 준다(페이지당 1개)
+import { getImage } from 'astro:assets';
+import posterSrc from '@/assets/nous/video-poster.jpg';
+import { NOUS, PARAGRAPHS, VOICES, DEFAULT_LANG, GRAPHIC_AT, formatClock, formatSpoken, mailtoHref, type GraphicId } from './nous';
 import ResearchMap from './ResearchMap.astro';
 import MarketChart from './MarketChart.astro';
 import CareersChart from './CareersChart.astro';
@@ -11,6 +11,10 @@ import CareersChart from './CareersChart.astro';
 const graphicAfter = Object.fromEntries(
   (Object.entries(GRAPHIC_AT) as [GraphicId, number][]).map(([id, p]) => [p, id]),
 ) as Record<number, GraphicId | undefined>;
+
+// 영상 첫 프레임(사진과 같은 구도) — 재생 전·로딩 중에 보인다
+const poster = await getImage({ src: posterSrc, width: 480, format: 'webp' });
+const voice = VOICES[DEFAULT_LANG];
 ---
 
 <dialog
@@ -21,7 +25,7 @@ const graphicAfter = Object.fromEntries(
   aria-describedby="nous-disclosure"
   data-pagefind-ignore
 >
-  <div class="nd-shell">
+  <div class="nd-shell" data-lang={DEFAULT_LANG}>
     <button type="button" class="nd-close" data-nous-close aria-label="닫기">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
         <path d="M6 6l12 12M18 6L6 18" />
@@ -30,16 +34,17 @@ const graphicAfter = Object.fromEntries(
 
     <section class="nd-side">
       <div class="nd-photo-wrap" data-nous-glow>
-        <Image
-          src={portrait}
-          alt="AI로 생성한 가상 인물 이미지 – 노스"
-          widths={[240, 480]}
-          sizes="(max-width: 767px) 112px, 240px"
-          format="webp"
-          loading="lazy"
+        <video
           class="nd-photo"
+          data-nous-media
           data-nous-target
-        />
+          src={voice.src}
+          poster={poster.src}
+          preload="none"
+          playsinline
+          disablepictureinpicture
+          aria-label="AI로 만든 가상 인물 노스가 연구실을 소개하는 영상"
+        ></video>
         <span class="nd-ai-chip" aria-hidden="true">AI</span>
       </div>
 
@@ -50,45 +55,57 @@ const graphicAfter = Object.fromEntries(
         <p class="nd-role">{NOUS.roleKo} · <span lang="en">{NOUS.roleEn}</span></p>
 
         <div class="nd-controls">
-          <button type="button" class="nd-play" data-nous-play autofocus>
-            <svg class="nd-ico-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-            <svg class="nd-ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
-            <span data-nous-play-label>재생</span>
-          </button>
+          <div class="nd-ctl-row">
+            <button type="button" class="nd-play" data-nous-play autofocus>
+              <svg class="nd-ico-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+              <svg class="nd-ico-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+              <span class="nd-play-label" data-nous-play-label>재생</span>
+            </button>
+            <div class="nd-lang" role="group" aria-label="음성 언어">
+              <button type="button" data-nous-lang="ko" aria-pressed="true">한국어</button>
+              <button type="button" data-nous-lang="en" aria-pressed="false" lang="en">English</button>
+            </div>
+          </div>
           <div class="nd-seek-row">
             <input
               type="range"
               class="nd-seek"
               data-nous-seek
               min="0"
-              max={VOICE.duration}
+              max={voice.duration}
               step="1"
               value="0"
               aria-label="재생 위치"
-              aria-valuetext={`0분 0초 / ${VOICE.spokenKo}`}
+              aria-valuetext={`0분 0초 / ${voice.spoken}`}
             />
-            <span class="nd-time" aria-hidden="true" data-nous-time>0:00 / {VOICE.label}</span>
+            <span class="nd-time" aria-hidden="true" data-nous-time>0:00 / {voice.label}</span>
           </div>
         </div>
       </div>
 
       <p id="nous-disclosure" class="nd-disclosure">
-        노스는 실제 연구실 구성원이 아닌 AI 연구보조원입니다. 사진과 음성은 AI로 만들었습니다.
-        <span lang="en" class="nd-disclosure-en">Nous is an AI assistant, not a real person. Portrait and voice are AI-generated.</span>
+        노스는 실제 연구실 구성원이 아닌 AI 연구보조원입니다. 영상과 음성은 AI로 만들었습니다.
+        <span lang="en" class="nd-disclosure-en">Nous is an AI assistant, not a real person. Video and voice are AI-generated.</span>
       </p>
       <p class="nd-error" role="alert" data-nous-error hidden></p>
     </section>
 
     <div class="nd-scroller" data-nous-scroller tabindex="0" role="region" aria-label="원고와 그래픽">
-      <p class="nd-hint">영어 음성 · 한국어 번역 자막</p>
+      <p class="nd-hint" data-nous-hint>한국어 음성 · 영어 병기</p>
       {
         PARAGRAPHS.map((p, i) => {
           const g = graphicAfter[i];
           return (
             <Fragment>
               <div class="nd-para" data-p={i}>
-                <button type="button" class="nd-ts" data-seek={p.start} aria-label={`${formatSpoken(p.start)}부터 듣기`}>
-                  {formatClock(p.start)}
+                <button
+                  type="button"
+                  class="nd-ts"
+                  data-seek-ko={p.start.ko}
+                  data-seek-en={p.start.en}
+                  aria-label={`${formatSpoken(p.start[DEFAULT_LANG])}부터 듣기`}
+                >
+                  {formatClock(p.start[DEFAULT_LANG])}
                 </button>
                 <div class="nd-text">
                   <p class="nd-en" lang="en">{p.en}</p>
@@ -129,8 +146,6 @@ const graphicAfter = Object.fromEntries(
       <p class="sr-only" role="status" data-nous-status></p>
     </footer>
   </div>
-
-  <audio data-nous-media preload="none" src={VOICE.src}></audio>
 </dialog>
 
 <style>
@@ -262,6 +277,35 @@ const graphicAfter = Object.fromEntries(
     margin-top: 0.15rem;
     font-size: 0.8125rem;
     color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+  .nd-ctl-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nd-lang {
+    display: inline-flex;
+    padding: 0.15rem;
+    gap: 0.15rem;
+    border-radius: var(--radius-md);
+    background: var(--color-cream-200);
+  }
+  .nd-lang button {
+    min-height: 2rem;
+    padding: 0 0.75rem;
+    border-radius: calc(var(--radius-md) - 0.15rem);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+  .nd-lang button:hover {
+    color: var(--color-coral-700);
+  }
+  .nd-lang button[aria-pressed='true'] {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    box-shadow: 0 0 0 1px var(--color-cream-300);
   }
   .nd-controls {
     margin-top: 0.9rem;
@@ -395,6 +439,26 @@ const graphicAfter = Object.fromEntries(
   .nd-para[aria-current='true'] .nd-ko {
     color: color-mix(in oklab, var(--color-ink) 85%, transparent);
   }
+  /* 한국어로 말할 때는 한국어 자막이 위·본문 크기, 영어가 아래·작게 */
+  .nd-text {
+    display: flex;
+    flex-direction: column;
+  }
+  [data-lang='ko'] .nd-ko {
+    order: -1;
+    margin-top: 0;
+    font-size: 0.9375rem;
+  }
+  [data-lang='ko'] .nd-en {
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+  }
+  [data-lang='ko'] .nd-para[aria-current='true'] .nd-ko {
+    color: var(--color-ink);
+  }
+  [data-lang='ko'] .nd-para[aria-current='true'] .nd-en {
+    color: color-mix(in oklab, var(--color-ink) 85%, transparent);
+  }
   .nd-graphic {
     transition:
       opacity 0.5s ease,
@@ -510,6 +574,24 @@ const graphicAfter = Object.fromEntries(
     .nd-name {
       font-size: 1.25rem;
     }
+    /* 좁은 화면: 재생 버튼은 아이콘만(이름은 화면낭독기에 그대로), 언어 버튼과 한 줄 */
+    .nd-play {
+      min-height: 2.25rem;
+      padding: 0 0.6rem;
+    }
+    .nd-play-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    .nd-lang button {
+      min-height: 1.75rem;
+      padding: 0 0.6rem;
+      font-size: 0.75rem;
+    }
     .nd-controls {
       margin-top: 0.45rem;
       gap: 0.4rem;
@@ -583,8 +665,20 @@ const graphicAfter = Object.fromEntries(
 </style>
 
 <script>
-  import { PARAGRAPHS, VOICE, activeParagraph, ampAt, ctaExpanded, formatClock, formatSpoken, visibleGraphics } from './nous';
-  import { ENVELOPE } from './envelope';
+  import {
+    DEFAULT_LANG,
+    PARAGRAPHS,
+    VOICES,
+    activeParagraph,
+    ampAt,
+    ctaExpanded,
+    formatClock,
+    formatSpoken,
+    paragraphStart,
+    visibleGraphics,
+    type Lang,
+  } from './nous';
+  import { ENVELOPES } from './envelope';
 
   const dialog = document.getElementById('nous-dialog') as HTMLDialogElement | null;
 
@@ -598,7 +692,10 @@ const graphicAfter = Object.fromEntries(
     const timeText = q<HTMLElement>('[data-nous-time]');
     const scroller = q<HTMLElement>('[data-nous-scroller]');
     const glow = q<HTMLElement>('[data-nous-glow]');
-    const target = q<HTMLImageElement>('[data-nous-target]');
+    const target = q<HTMLVideoElement>('[data-nous-target]');
+    const hint = q<HTMLElement>('[data-nous-hint]');
+    const langBtns = [...dialog.querySelectorAll<HTMLButtonElement>('[data-nous-lang]')];
+    const tsBtns = [...dialog.querySelectorAll<HTMLButtonElement>('.nd-ts')];
     const cta = q<HTMLElement>('[data-nous-cta]');
     const statusEl = q<HTMLElement>('[data-nous-status]');
     const errorEl = q<HTMLElement>('[data-nous-error]');
@@ -616,7 +713,12 @@ const graphicAfter = Object.fromEntries(
     let scrubbing = false;
     let lastSec = -1;
     let userScrollUntil = 0;
-    let duration: number = VOICE.duration;
+    let lang: Lang = DEFAULT_LANG;
+    let duration: number = VOICES[lang].duration;
+    // 언어를 바꾼 직후 새 영상의 메타데이터가 오기 전까지 이어 들을 위치. 그동안 media.currentTime(0)은 쓰지 않는다.
+    let pendingSeek: number | null = null;
+    let seekTries = 0;
+    const now = () => pendingSeek ?? media.currentTime;
 
     const setPlayingUi = (playing: boolean) => {
       shell.classList.toggle('is-playing', playing);
@@ -642,8 +744,8 @@ const graphicAfter = Object.fromEntries(
       const span = graphic.offsetTop + graphic.offsetHeight - para.offsetTop;
       if (span <= view - 24) return { key: `p${p}`, top: para.offsetTop - Math.min(view / 5, view - span - 12) };
       // 안 들어가면(모바일) 문단 45% 지점부터 그래픽으로 넘어간다
-      const start = PARAGRAPHS[p].start;
-      const end = PARAGRAPHS[p + 1]?.start ?? duration;
+      const start = PARAGRAPHS[p].start[lang];
+      const end = PARAGRAPHS[p + 1]?.start[lang] ?? duration;
       return t >= start + (end - start) * GRAPHIC_FOCUS_AT
         ? { key: `g${p}`, top: graphic.offsetTop - 16 }
         : { key: `p${p}`, top: paraTop };
@@ -655,11 +757,11 @@ const graphicAfter = Object.fromEntries(
     };
 
     const update = (t: number) => {
-      for (const id of visibleGraphics(t)) {
+      for (const id of visibleGraphics(t, lang)) {
         const el = graphics.get(id);
         if (el?.classList.contains('is-hidden')) showGraphic(el);
       }
-      const p = activeParagraph(t);
+      const p = activeParagraph(t, lang);
       if (p !== curPara) {
         paras.forEach((el, i) => (i === p ? el.setAttribute('aria-current', 'true') : el.removeAttribute('aria-current')));
         curPara = p;
@@ -669,7 +771,7 @@ const graphicAfter = Object.fromEntries(
         focusKey = focus.key;
         scrollToTop(focus.top);
       }
-      if (ctaExpanded(t, ended)) cta.classList.add('is-open');
+      if (ctaExpanded(t, ended, lang)) cta.classList.add('is-open');
       if (!scrubbing) seek.value = String(t);
       const sec = Math.floor(t);
       if (sec !== lastSec) {
@@ -681,10 +783,11 @@ const graphicAfter = Object.fromEntries(
 
     // 재생 중 프레임마다: 자막·그래픽·CTA 판정 + 엔벌로프로 글로우 세기(빠른 attack, 느린 release)
     const tick = () => {
-      const t = media.currentTime;
+      const t = now();
       update(t);
       if (!reduced.matches) {
-        const goal = ampAt(ENVELOPE.levels, ENVELOPE.fps, t);
+        const env = ENVELOPES[lang];
+        const goal = ampAt(env.levels, env.fps, t);
         amp = goal > amp ? goal : Math.max(goal, amp * 0.82);
         glow.style.setProperty('--amp', amp.toFixed(3));
       }
@@ -701,7 +804,7 @@ const graphicAfter = Object.fromEntries(
       errorEl.hidden = false;
       errorEl.textContent = '';
       requestAnimationFrame(() => {
-        errorEl.textContent = '음성을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
+        errorEl.textContent = '영상을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.';
       });
     };
 
@@ -717,10 +820,43 @@ const graphicAfter = Object.fromEntries(
       });
     };
 
+    // 언어 표시(버튼·안내·문단 시각·길이)와 영상 소스를 바꾼다. 재생 위치는 호출한 쪽이 정한다.
+    const applyLang = (next: Lang) => {
+      lang = next;
+      shell.dataset.lang = next;
+      langBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.nousLang === next)));
+      hint.textContent = next === 'ko' ? '한국어 음성 · 영어 병기' : 'English voice · 한국어 자막';
+      tsBtns.forEach((b) => {
+        const t = Number(next === 'ko' ? b.dataset.seekKo : b.dataset.seekEn);
+        b.textContent = formatClock(t);
+        b.setAttribute('aria-label', `${formatSpoken(t)}부터 듣기`);
+      });
+      duration = VOICES[next].duration;
+      seek.max = String(duration);
+      lastSec = -1;
+      media.src = VOICES[next].src;
+    };
+
+    // 재생 중이든 멈춤이든 지금 문단의 시작에서 새 언어로 이어 간다(멈춤이면 멈춘 채로).
+    const switchLang = (next: Lang) => {
+      if (next === lang) return;
+      const p = activeParagraph(now(), lang);
+      const wasPlaying = !media.paused;
+      pendingSeek = paragraphStart(p, next);
+      ended = false;
+      errorEl.hidden = true;
+      applyLang(next);
+      focusKey = '';
+      update(pendingSeek);
+      if (wasPlaying) play();
+    };
+
     const reset = () => {
       stopTick();
       media.pause();
-      if (media.readyState > 0) media.currentTime = 0;
+      pendingSeek = null;
+      if (lang !== DEFAULT_LANG) applyLang(DEFAULT_LANG);
+      else if (media.readyState > 0) media.currentTime = 0;
       ended = false;
       curPara = -1;
       focusKey = '';
@@ -820,16 +956,22 @@ const graphicAfter = Object.fromEntries(
     media.addEventListener('pause', () => {
       setPlayingUi(false);
       stopTick();
-      update(media.currentTime);
+      update(now());
     });
     media.addEventListener('ended', () => {
       ended = true;
       setPlayingUi(false);
       stopTick();
-      update(media.currentTime);
+      update(now());
       statusEl.textContent = '재생이 끝났습니다. 아래에 상담 안내가 있습니다.';
     });
     media.addEventListener('loadedmetadata', () => {
+      // WebKit은 여기서 맞춘 위치를 seek 끝에 0으로 되돌리기도 해서, seeked에서 실제로 닿았는지 확인한 뒤에 놓는다.
+      if (pendingSeek !== null) {
+        seekTries = 0;
+        if (Math.abs(media.currentTime - pendingSeek) < 0.5) pendingSeek = null;
+        else media.currentTime = pendingSeek;
+      }
       if (Number.isFinite(media.duration)) {
         duration = media.duration;
         seek.max = String(duration);
@@ -838,13 +980,24 @@ const graphicAfter = Object.fromEntries(
       }
     });
     media.addEventListener('seeked', () => {
-      if (media.paused) update(media.currentTime);
+      if (pendingSeek !== null) {
+        if (Math.abs(media.currentTime - pendingSeek) < 0.5 || ++seekTries > 3) pendingSeek = null;
+        else {
+          media.currentTime = pendingSeek;
+          return;
+        }
+      }
+      if (media.paused) update(now());
     });
     media.addEventListener('error', showError);
 
     const seekTo = (t: number) => {
       const v = Math.min(Math.max(t, 0), duration);
-      media.currentTime = v;
+      if (media.readyState === 0) pendingSeek = v; // 아직 메타데이터 전 — 받으면 이 위치로
+      else {
+        pendingSeek = null;
+        media.currentTime = v;
+      }
       update(v);
     };
     seek.addEventListener('pointerdown', () => (scrubbing = true));
@@ -854,7 +1007,7 @@ const graphicAfter = Object.fromEntries(
     window.addEventListener('pointerup', () => (scrubbing = false));
     window.addEventListener('pointercancel', () => (scrubbing = false));
     seek.addEventListener('keydown', (e) => {
-      const t = media.currentTime;
+      const t = now();
       const to: Record<string, number> = {
         ArrowLeft: t - 5,
         ArrowDown: t - 5,
@@ -870,14 +1023,16 @@ const graphicAfter = Object.fromEntries(
       seekTo(to[e.key]);
     });
 
-    dialog.querySelectorAll<HTMLButtonElement>('[data-seek]').forEach((btn) => {
+    tsBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         userScrollUntil = 0;
         focusKey = '';
-        seekTo(Number(btn.dataset.seek));
+        seekTo(Number(lang === 'ko' ? btn.dataset.seekKo : btn.dataset.seekEn));
         if (media.paused) play();
       });
     });
+
+    langBtns.forEach((btn) => btn.addEventListener('click', () => switchLang(btn.dataset.nousLang as Lang)));
 
     // 사용자가 스크롤러를 직접 움직이면 5초간 자동 스크롤을 멈춘다.
     const holdAutoScroll = () => (userScrollUntil = Date.now() + 5000);

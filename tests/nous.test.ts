@@ -1,43 +1,73 @@
-// 노스 카드의 순수 로직(자막 시각 판정·시간 표기·엔벌로프·mailto·진로 집계) 단위 테스트 — npx tsx --test tests/nous.test.ts
+// 노스 카드의 순수 로직(언어별 자막 시각 판정·시간 표기·엔벌로프·mailto·진로 집계) 단위 테스트 — npx tsx --test tests/nous.test.ts
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  DEFAULT_LANG,
+  LANGS,
   PARAGRAPHS,
-  VOICE,
+  VOICES,
   activeParagraph,
   ampAt,
   ctaExpanded,
   formatClock,
   formatSpoken,
   mailtoHref,
+  paragraphStart,
   visibleGraphics,
 } from '../src/components/nous/nous.ts';
-import { ENVELOPE } from '../src/components/nous/envelope.ts';
+import { ENVELOPES } from '../src/components/nous/envelope.ts';
 import { classifyAffiliation, isStaffRole, tallyCareers } from '../src/components/nous/careers.ts';
 
-test('activeParagraph 경계(v1 +0.3s)', () => {
-  const cases = [
-    [0, 0], [6.69, 0], [6.7, 1], [34.8, 2], [51.99, 2],
-    [52, 3], [69.3, 4], [79.5, 4], [-1, 0], [Number.NaN, 0],
-  ] as const;
-  for (const [t, i] of cases) assert.equal(activeParagraph(t), i, `t=${t}`);
+test('기본 언어는 한국어', () => {
+  assert.equal(DEFAULT_LANG, 'ko');
+  assert.deepEqual([...LANGS], ['ko', 'en']);
 });
 
-test('그래픽은 문단 따라 누적, CTA는 문단5 또는 ended', () => {
-  assert.deepEqual(visibleGraphics(3), []);
-  assert.deepEqual(visibleGraphics(10), ['research']);
-  assert.deepEqual(visibleGraphics(40), ['research', 'market']);
-  assert.deepEqual(visibleGraphics(60), ['research', 'market', 'careers']);
-  assert.equal(ctaExpanded(60, false), false);
-  assert.equal(ctaExpanded(69.3, false), true);
-  assert.equal(ctaExpanded(5, true), true);
+test('activeParagraph 경계 — 한국어 낭독 트랙', () => {
+  const cases = [
+    [0, 0], [6.15, 0], [6.16, 1], [28.55, 1], [28.56, 2],
+    [56.64, 3], [76.87, 3], [76.88, 4], [92.2, 4], [-1, 0], [Number.NaN, 0],
+  ] as const;
+  for (const [t, i] of cases) assert.equal(activeParagraph(t, 'ko'), i, `ko t=${t}`);
+});
+
+test('activeParagraph 경계 — 영어 낭독 트랙', () => {
+  const cases = [[5.83, 0], [5.84, 1], [27.11, 1], [27.12, 2], [52.4, 3], [72.55, 3], [72.56, 4]] as const;
+  for (const [t, i] of cases) assert.equal(activeParagraph(t, 'en'), i, `en t=${t}`);
+});
+
+test('그래픽은 문단 따라 누적, CTA는 문단5 또는 ended — 언어별 시각', () => {
+  assert.deepEqual(visibleGraphics(3, 'ko'), []);
+  assert.deepEqual(visibleGraphics(10, 'ko'), ['research']);
+  assert.deepEqual(visibleGraphics(28, 'ko'), ['research']);
+  assert.deepEqual(visibleGraphics(28, 'en'), ['research', 'market']);
+  assert.deepEqual(visibleGraphics(60, 'ko'), ['research', 'market', 'careers']);
+  assert.equal(ctaExpanded(76, false, 'ko'), false);
+  assert.equal(ctaExpanded(76, false, 'en'), true);
+  assert.equal(ctaExpanded(76.88, false, 'ko'), true);
+  assert.equal(ctaExpanded(5, true, 'ko'), true);
+});
+
+test('언어 전환은 같은 문단의 시작으로', () => {
+  assert.equal(paragraphStart(activeParagraph(40, 'ko'), 'en'), 27.12);
+  assert.equal(paragraphStart(activeParagraph(80, 'en'), 'ko'), 76.88);
+  assert.equal(paragraphStart(0, 'en'), 0);
+});
+
+test('언어별 영상', () => {
+  assert.equal(VOICES.ko.src, '/nous/intro-ko.mp4');
+  assert.equal(VOICES.en.src, '/nous/intro-en.mp4');
+  assert.equal(VOICES.ko.label, formatClock(VOICES.ko.duration));
+  assert.equal(VOICES.en.label, formatClock(VOICES.en.duration));
+  // 마지막 문단 시작은 영상 길이 안
+  for (const l of LANGS) assert.ok(paragraphStart(4, l) < VOICES[l].duration, l);
 });
 
 test('시간 표기', () => {
-  assert.equal(formatClock(79.5), '1:19');
+  assert.equal(formatClock(92.24), '1:32');
   assert.equal(formatClock(35.9), '0:35');
   assert.equal(formatClock(5), '0:05');
-  assert.equal(formatSpoken(79.5), '1분 19초');
+  assert.equal(formatSpoken(92.24), '1분 32초');
   assert.equal(formatSpoken(0), '0분 0초');
 });
 
@@ -48,15 +78,22 @@ test('ampAt', () => {
   assert.equal(ampAt('09', 20, -1), 0);
 });
 
-test('엔벌로프 길이 = 음성 길이', () => {
-  assert.ok(Math.abs(ENVELOPE.levels.length - Math.ceil(VOICE.duration * ENVELOPE.fps)) <= 2);
-  assert.match(ENVELOPE.levels, /^[0-9]+$/);
+test('엔벌로프 길이 = 언어별 영상 길이', () => {
+  for (const l of LANGS) {
+    const e = ENVELOPES[l];
+    assert.ok(Math.abs(e.levels.length - Math.ceil(VOICES[l].duration * e.fps)) <= 2, l);
+    assert.match(e.levels, /^[0-9]+$/);
+  }
 });
 
-test('원고 데이터', () => {
+test('원고 데이터 — v2', () => {
   assert.equal(PARAGRAPHS.length, 5);
   assert.ok(PARAGRAPHS[0].en.startsWith("Hi, I'm Nous"));
+  assert.ok(PARAGRAPHS[1].en.startsWith("We don't make materials"));
+  assert.ok(PARAGRAPHS[4].ko.includes('youngmk@skku.edu'));
   assert.ok(PARAGRAPHS.every((p) => p.ko.length > 0 && !p.en.includes('\n')));
+  // 시각은 언어마다 오름차순
+  for (const l of LANGS) assert.ok(PARAGRAPHS.every((p, i) => i === 0 || p.start[l] > PARAGRAPHS[i - 1].start[l]), l);
 });
 
 test('mailto', () => {

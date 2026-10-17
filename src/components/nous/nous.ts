@@ -1,4 +1,4 @@
-// AI 연구보조원 노스의 메타·음성·원고 데이터와 재생 위치 판정 — 음성을 교체하면 VOICE·PARAGRAPHS만 바꾼다
+// AI 연구보조원 노스의 메타·언어별 영상·원고 데이터와 재생 위치 판정 — 영상을 교체하면 VOICES·PARAGRAPHS만 바꾼다
 export const NOUS = {
   nameKo: '노스',
   nameEn: 'Nous',
@@ -6,41 +6,43 @@ export const NOUS = {
   roleEn: 'AI Research Assistant',
 } as const;
 
-// v1 음성: 원본 79.2s 컷 + 앞 0.3s 무음 + −19 LUFS 정규화 (context-notes 참고)
-export const VOICE = {
-  src: '/nous/intro.mp3',
-  duration: 79.5,
-  label: '1:19',
-  spokenKo: '1분 19초',
-  spokenEn: '1 min 19 s',
-} as const;
+export type Lang = 'ko' | 'en';
+export const LANGS: readonly Lang[] = ['ko', 'en'];
+export const DEFAULT_LANG: Lang = 'ko';
 
-// start = 받아쓰기 구간 시작 + 0.3s 패딩. en은 음성과 같은 단어(구두점만 다듬음), ko는 자막용 번역.
-export const PARAGRAPHS: readonly { start: number; en: string; ko: string }[] = [
+// 립싱크 영상(Wan 2.7 조각을 이어 붙이고 원본 낭독 트랙을 입힘) — 길이는 낭독 트랙 실측값
+export const VOICES: Record<Lang, { src: string; duration: number; label: string; spoken: string }> = {
+  ko: { src: '/nous/intro-ko.mp4', duration: 92.24, label: '1:32', spoken: '1분 32초' },
+  en: { src: '/nous/intro-en.mp4', duration: 84.08, label: '1:24', spoken: '1분 24초' },
+};
+
+// 원고 v2(docs/nous-script-v2.md). start = 낭독 트랙에서 문단이 시작하는 시각(문단별 생성 + 0.8s 쉼으로 이어 붙인 실측값).
+// en·ko는 자막 표기(SKKU-STEM, KIST, 메일 주소 등) — 한국어 낭독은 같은 내용을 소리 나는 대로 읽었다.
+export const PARAGRAPHS: readonly { start: Record<Lang, number>; en: string; ko: string }[] = [
   {
-    start: 0,
+    start: { ko: 0, en: 0 },
     en: "Hi, I'm Nous — the AI research assistant for the SKKU-STEM Lab.",
-    ko: '안녕하세요, 저는 SKKU-STEM 연구실의 AI 연구보조원 노스입니다.',
+    ko: '안녕하세요, 저는 성균관대 STEM 연구실의 AI 연구보조원, 노스입니다.',
   },
   {
-    start: 6.7,
-    en: 'Our lab combines aberration-corrected scanning transmission electron microscopy and electron spectroscopy with machine learning to study energy materials at the atomic scale. From hydrogen fuel-cell catalysts and next-generation solar materials to the rapidly growing field of nanoscale analysis for AI semiconductors and logic devices, we look closely at structure and chemistry to uncover the secrets behind performance.',
-    ko: '저희 연구실은 수차보정 주사투과전자현미경과 전자분광법을 머신러닝과 결합해 에너지 소재를 원자 단위에서 연구합니다. 수소 연료전지 촉매와 차세대 태양전지 소재부터 빠르게 성장하는 AI 반도체·로직 소자의 나노 분석까지, 구조와 화학을 면밀히 들여다보며 성능의 비밀을 밝혀냅니다.',
+    start: { ko: 6.16, en: 5.84 },
+    en: "We don't make materials — we explain them. With aberration-corrected scanning transmission electron microscopy, electron spectroscopy, and machine learning, we uncover why a material performs the way it does, atom by atom: in hydrogen fuel cells, catalysts, solar cells, and the new materials behind AI chips.",
+    ko: '저희는 소재를 만들지 않습니다. 소재를 설명합니다. 수차보정 주사투과전자현미경과 전자분광법, 그리고 머신러닝으로 소재가 왜 그런 성능을 내는지 원자 하나하나의 수준에서 밝혀냅니다. 수소 연료전지와 촉매, 태양전지, 그리고 AI 칩에 들어가는 신소재까지요.',
   },
   {
-    start: 34.8,
-    en: 'As semiconductor processes shrink below the nanometer scale, atomic-level analysis techniques are becoming more critical than ever. The AI semiconductor market is now growing at over 20% annually, and with it, the demand for precise nanoscale analysis keeps rising.',
-    ko: '반도체 공정이 나노미터 수준으로 미세해지면서 원자 단위 분석 기술이 그 어느 때보다 중요해졌습니다. AI 반도체 시장은 해마다 20% 넘게 성장하고 있고, 정밀한 나노 분석 수요도 함께 늘고 있습니다.',
+    start: { ko: 28.56, en: 27.12 },
+    en: 'That skill has never mattered more. As chips shrink to just a few nanometers, a handful of atoms at an interface can decide how a device behaves. The AI semiconductor market is projected to grow about 24% a year through 2028, and the materials driving it, like ferroelectric hafnium oxide and two-dimensional semiconductors, need people who can see, and explain, their atoms.',
+    ko: '이 능력이 지금처럼 중요했던 적은 없습니다. 칩이 몇 나노미터 수준까지 작아지면서, 계면에 있는 원자 몇 개가 소자의 동작을 좌우하게 되었습니다. AI 반도체 시장은 2028년까지 해마다 약 24%씩 성장할 것으로 전망됩니다. 그 성장을 이끄는 강유전체 산화하프늄이나 2차원 반도체 같은 소재에는 원자를 보고 설명할 수 있는 사람이 필요합니다.',
   },
   {
-    start: 52.0,
-    en: 'Our alumni have gone on to work at leading companies like Samsung Electronics, LG Energy Solution, and SK hynix, as well as national research institutes like KIST and KRISS, international labs such as Oak Ridge National Laboratory, and global equipment companies like Lam Research.',
-    ko: '졸업생들은 삼성전자, LG에너지솔루션, SK하이닉스 같은 선도 기업과 KIST, KRISS 같은 국가 연구기관, 미국 오크리지 국립연구소 같은 해외 연구소, 램리서치 같은 글로벌 장비 기업으로 진출했습니다.',
+    start: { ko: 56.64, en: 52.4 },
+    en: "That's why our people are in demand. Our graduates and researchers now work at Samsung Electronics, SK hynix, LG Energy Solution, Lam Research, and SEMES; at KIST, KRISS, and KAIST; and at Oak Ridge National Laboratory in the United States.",
+    ko: '그래서 저희 연구실 사람들을 찾습니다. 졸업생과 연구원들은 지금 삼성전자, SK하이닉스, LG에너지솔루션, 램리서치, 세메스, 그리고 KIST, KRISS(한국표준과학연구원), KAIST, 미국 오크리지 국립연구소에서 일하고 있습니다.',
   },
   {
-    start: 69.3,
-    en: "If you're interested in joining our lab, feel free to reach out to Professor Young-Min Kim directly for a consultation, at youngmk@skku.edu. We'd love to hear from you.",
-    ko: '연구실 합류에 관심이 있다면 김영민 교수님(youngmk@skku.edu)께 편하게 상담을 요청해 주세요. 여러분의 연락을 기다립니다.',
+    start: { ko: 76.88, en: 72.56 },
+    en: "If you want to learn to read materials at the atomic scale, email Professor Young-Min Kim at youngmk@skku.edu. We'd love to hear from you.",
+    ko: '원자 단위에서 소재를 읽는 법을 배우고 싶다면 김영민 교수님께 메일을 보내 주세요. 주소는 youngmk@skku.edu입니다. 여러분의 연락을 기다리겠습니다.',
   },
 ];
 
@@ -53,22 +55,25 @@ const GRAPHIC_ORDER: readonly GraphicId[] = ['research', 'market', 'careers'];
 // 음성이 메일 주소를 말하는 문단에서 상담 안내를 펼친다.
 export const CTA_AT = 4;
 
-const STARTS = PARAGRAPHS.map((p) => p.start);
-
-export function activeParagraph(t: number, starts: readonly number[] = STARTS): number {
+export function activeParagraph(t: number, lang: Lang): number {
   if (!(t > 0)) return 0;
   let i = 0;
-  while (i + 1 < starts.length && t >= starts[i + 1]) i++;
+  while (i + 1 < PARAGRAPHS.length && t >= PARAGRAPHS[i + 1].start[lang]) i++;
   return i;
 }
 
-export function visibleGraphics(t: number): GraphicId[] {
-  const p = activeParagraph(t);
+// 언어를 바꿀 때 같은 문단을 새 언어의 시작부터 이어 듣는다.
+export function paragraphStart(p: number, lang: Lang): number {
+  return PARAGRAPHS[p]?.start[lang] ?? 0;
+}
+
+export function visibleGraphics(t: number, lang: Lang): GraphicId[] {
+  const p = activeParagraph(t, lang);
   return GRAPHIC_ORDER.filter((id) => p >= GRAPHIC_AT[id]);
 }
 
-export function ctaExpanded(t: number, ended: boolean): boolean {
-  return ended || activeParagraph(t) >= CTA_AT;
+export function ctaExpanded(t: number, ended: boolean, lang: Lang): boolean {
+  return ended || activeParagraph(t, lang) >= CTA_AT;
 }
 
 const split = (sec: number) => {

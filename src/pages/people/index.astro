@@ -14,7 +14,7 @@ import piPortrait from '@/assets/members/YMK.jpg';
 import piProfile from '@content/pi/profile.json';
 import { cohortTerm, nowInKst, yearsEnrolled } from '@/utils/academicTerm';
 import NousModal from '@components/nous/NousModal.astro';
-import { NOUS, VOICE } from '@components/nous/nous';
+import { NOUS, VOICES, DEFAULT_LANG } from '@components/nous/nous';
 import nousPortrait from '@/assets/nous/portrait.jpg';
 
 const allMembers = (await getCollection('members')).map((e) => e.data);
@@ -309,7 +309,7 @@ const alumni = allMembers
     </section>
 
     {/* ─────────────── Lab Assistant (AI) ───────────────
-        AI 연구보조원 노스 — 사람 멤버와 같은 골격이되 사진 위 AI 칩과 소개 듣기 버튼(카드 전체가 클릭 영역)으로 구분. */}
+        AI 연구보조원 노스 — 사람 멤버와 같은 골격이되 사진 위 AI 칩과 소개 보기 버튼(카드 전체가 클릭 영역)으로 구분. */}
     <section class="container-page">
       <h2
         class="font-mono text-2xl uppercase tracking-[0.16em] font-bold text-coral pb-4 border-b border-ink/15"
@@ -327,7 +327,7 @@ const alumni = allMembers
               <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.14em] text-coral-700">
                 {NOUS.roleEn}
               </p>
-              <p class="mt-1 text-xs text-ink/70">AI-generated portrait &amp; voice</p>
+              <p class="mt-1 text-xs text-ink/70">AI-generated video &amp; voice</p>
             </div>
             <div class="relative w-24 shrink-0">
               <Image
@@ -354,12 +354,12 @@ const alumni = allMembers
             class="nous-open mt-5 inline-flex items-center gap-2 min-h-11 px-4 bg-ink text-cream text-sm font-medium rounded-md hover:bg-ink-700 transition-colors"
           >
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M11 5L6 9H3v6h3l5 4V5z" />
-              <path d="M15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13" />
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="M10 9.5v5l4.5-2.5z" />
             </svg>
-            <span>Listen to lab intro</span>
-            <span aria-hidden="true" class="text-cream/80 tabular-nums">· {VOICE.label}</span>
-            <span class="sr-only">(English audio, {VOICE.spokenEn})</span>
+            <span>Watch lab intro</span>
+            <span aria-hidden="true" class="text-cream/80 tabular-nums">· {VOICES[DEFAULT_LANG].label}</span>
+            <span class="sr-only">(video in Korean, English available)</span>
           </button>
         </li>
       </ul>
@@ -902,7 +902,7 @@ const alumni = allMembers
     }
   }
 
-  /* 노스 카드 — 소개 듣기 버튼의 ::after가 카드 전체를 덮어 어디를 눌러도 열린다(탭 정지는 버튼 하나). */
+  /* 노스 카드 — 소개 보기 버튼의 ::after가 카드 전체를 덮어 어디를 눌러도 열린다(탭 정지는 버튼 하나). */
   .nous-open::after {
     content: '';
     position: absolute;
