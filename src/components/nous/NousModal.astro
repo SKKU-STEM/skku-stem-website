@@ -126,7 +126,7 @@ const voice = VOICES[DEFAULT_LANG];
     </div>
 
     <footer class="nd-foot">
-      <div class="nd-cta" data-nous-cta>
+      <div class="nd-cta" data-nous-cta inert>
         <div class="nd-cta-inner">
           <p class="nd-cta-title">연구실 합류에 관심이 있으신가요?</p>
           <p class="nd-cta-text">
@@ -780,7 +780,11 @@ const voice = VOICES[DEFAULT_LANG];
         focusKey = focus.key;
         scrollToTop(focus.top);
       }
-      if (ctaExpanded(t, ended, lang)) cta.classList.add('is-open');
+      // 접혀 있는 동안은 inert(화면낭독기·탭에서 숨김), 펼칠 때 해제
+      if (ctaExpanded(t, ended, lang) && !cta.classList.contains('is-open')) {
+        cta.classList.add('is-open');
+        cta.inert = false;
+      }
       if (!scrubbing) seek.value = String(t);
       const sec = Math.floor(t);
       if (sec !== lastSec) {
@@ -881,6 +885,7 @@ const voice = VOICES[DEFAULT_LANG];
         el.inert = true;
       });
       cta.classList.remove('is-open');
+      cta.inert = true;
       statusEl.textContent = '';
       errorEl.hidden = true;
       setPlayingUi(false);
