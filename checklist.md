@@ -60,7 +60,7 @@
   - [x] Selected Publications — Microscopy-based Materials Science (18) + AI Microscopy (6), `src/data/pi-publications.ts`로 분리
   - [x] **TODO(content)**: PI 사진 — People PI 카드에 실제 사진(YMK) 사용 중(2026-10-17 점검)
   - [x] **TODO(content)**: 각 논문 DOI — `pi-publications.ts`는 Publications 번호 참조(pi-selected.json)로 바뀜. 선정 25편 모두 DOI 있음·라이브 PI 페이지 25/25 링크(2026-10-17 점검)
-  - [ ] **TODO(content)**: 이전 사이트에 더 있던 항목 — talks / patents / service — 있으면 추가
+  - [x] ~~**TODO(content)**: 이전 사이트에 더 있던 항목 — talks / patents / service — 있으면 추가~~ 필요 없음(사용자 결정 2026-10-17) — 완결. 특허는 `/publications/non-sci-patents`에 이미 있음
   - [x] **TODO(check)**: 정호현 분류 — 현재 members 데이터 `section: master`(석사)로 정리됨(2026-10-17 점검)
 - [x] Research — 연구 주제 페이지 `/research`(research-themes 컬렉션) 라이브 200(2026-10-17 점검)
 - [x] People — PI / 연구원 / 졸업생 (= 위 People 섹션 L55–60에서 완료)
