@@ -1,6 +1,18 @@
 {
   "items": [
     {
+      "id": "239",
+      "number": 239,
+      "year": 2026,
+      "lead": false,
+      "authors": "Jongbum Won†, Jihoon Han†, Taeyoung Kim, Jihong Bae, Seokmin Park, Giyeok Lee, Taejoon Kim, Bokyeong Kim, Hong Choi, Gyu Won Kim, Sunggeun Jo, Dana Jin, Dohyun Kim, Seunghun Kang, Tae-Sung Bae, Yunseok Kim, Hong-Gyu Park, Young Jin Choi, Myung Joon Han, Heejun Yang, Jong-Young Kim, Young-Min Kim, Aloysius Soon, Wooyoung Shim*",
+      "title": "Reversible and non-volatile photoluminescence modulation through cation migration in layered protonated GaN",
+      "journal": "Nature Photonics",
+      "volumePages": "accepted",
+      "doi": "",
+      "themes": []
+    },
+    {
       "id": "238",
       "number": 238,
       "year": 2026,
