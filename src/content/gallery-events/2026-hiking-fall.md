@@ -1,7 +1,7 @@
 ---
 slug: 2026-hiking-fall
 date: 2026-10-23
-dateLabel: october
+dateLabel: october 23, 2026
 title: Fall hiking, Surisan
 titleEn: ''
 location: ''
