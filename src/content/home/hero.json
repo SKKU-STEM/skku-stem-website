@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "image": "/hero/photo_2026-10-23_16-34-47.jpg",
+      "alt": "SKKU-STEM Lab group photo, Fall hiking to Surisan",
+      "caption": "Fall hiking to Surisan, October 23 2026"
+    },
+    {
       "image": "/hero/photo_2026-05-29.jpg",
       "alt": "SKKU-STEM Lab group photo, KSM conference, May 2026",
       "caption": "KSM spring meeting · May 2026"
@@ -9,11 +14,6 @@
       "image": "/hero/2026group-spring.jpg",
       "alt": "SKKU-STEM Lab group photo, cherry blossoms, April 2026",
       "caption": "Cherry blossoms · April 2026"
-    },
-    {
-      "image": "/hero/44.jpg",
-      "alt": "SKKU-STEM Lab group photo, thesis competition, January 2026",
-      "caption": "Thesis competition · January 2026"
     }
   ]
 }
