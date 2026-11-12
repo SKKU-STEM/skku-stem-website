@@ -13,5 +13,5 @@ kri: ''
 coAdvisor: ''
 photoPath: /members/주현아 박사 Hyeon-Ah Ju, Ph.D..jpg
 role: Integrated course · 2019–2025
-currentAffiliation: KAIST (2025–2026); EcoPro BM (2026-present)
+currentAffiliation: EcoPro BM (2026-present); KAIST (2025–2026)
 ---
