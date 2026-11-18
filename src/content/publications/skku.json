@@ -1,6 +1,18 @@
 {
   "items": [
     {
+      "id": "240",
+      "number": 240,
+      "year": 2026,
+      "lead": false,
+      "authors": "Se-Young Jeong, Binod Regmi, Su Jae Kim, Nguyen Huu Lam, Hee-Chang Kyung, Hye-Won Ko, Yousil Lee, Young-Min Kim, Kyung-Jin Lee*, Seong-Gon Kim*, Ganbat Duvjir*, Jungdae Kim*",
+      "title": "Two-dimensional oxygen crystal with a kagome-derived honeycomb structure on a Cu(111) surface",
+      "journal": "Matter",
+      "volumePages": "accepted",
+      "doi": "",
+      "themes": []
+    },
+    {
       "id": "239",
       "number": 239,
       "year": 2026,
