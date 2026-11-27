@@ -6,7 +6,7 @@ title: MSAM 2026 (KSM & KoSSA 제1회 공동학술대회)
 titleEn: Microscopy & Surface Analysis Meeting 2026 — The 1st Joint Conference of KSM & KoSSA
 location: Haevichi Hotel & Resort Jeju
 participants: Yerin Jeon, Hang Sik Kim, Jooseong Yoon
-awards: 'Poster, Best Poster Award: 윤주성 (Ju-Sung Yoon)'
+awards: 'Poster, Best Poster Award: Jooseong Yoon'
 media:
   - image: /gallery-media/photo_2026-11-27_10-33-14.jpg
     youtube: ''
