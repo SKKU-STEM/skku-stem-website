@@ -14,7 +14,4 @@ media:
   - image: /gallery-media/photo_2026-10-26_09-33-52.jpg
     youtube: ''
     alt: ''
-  - image: /gallery-media/photo_2026-10-23_16-34-50.jpg
-    youtube: ''
-    alt: ''
 ---
