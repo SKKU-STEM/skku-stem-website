@@ -5,7 +5,7 @@ dateLabel: May 27-29, 2026
 title: 2026년 한국현미경학회 춘계학술대회
 titleEn: ''
 location: 대전컨벤션센터
-participants: 정민형 박사, 양대희 박사, 전예린, 김항식, 김태준, 이왕빈, 이하승, 윤주성, 박준상, 박진우, 노서정, 오윤기
+participants: Min-Hyoung Jung, Daehee Yang, Yerin Jeon, Hang Sik Kim, Tae Joon Kim, Wang Been Lee, Ha-Seung Lee, Jooseong Yoon, Jun-Sang Park, Jinwoo Park, Seojeong Ro, Yoonki Oh
 awards: ''
 media:
   - image: /gallery-media/photo_2026-05-29_16-50-44.jpg
